@@ -70,7 +70,7 @@ username: thebillkidy
 repo: thebillkidy.github.io
 branch: master
 relative_source: ../thebillkidy.github.io/
-destination: ../thebillkidy.github.io-pages/
+destination: ../build/
 production_url:  https://thebillkidy.github.io/
 source_url:  https://github.com/thebillkidy/thebillkidy.github.io/
 
