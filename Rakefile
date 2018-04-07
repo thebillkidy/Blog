@@ -22,8 +22,11 @@ namespace :site do
       sh "git config --global push.default simple"
     end
 
+    # Build everything
+    sh "bundle exec jekyll build"
+
     Dir.mktmpdir do |tmp|
-      cp_r '.', tmp
+      cp_r '_site/.', tmp
 
       cd tmp do
         sh "git init"
@@ -37,9 +40,6 @@ namespace :site do
         #else
         #  sh "git checkout -b #{TARGET_BRANCH}"
         #end
-
-        # Build everything
-        sh "bundle exec jekyll build"
 
         # Push the changes
         sh "git add ."

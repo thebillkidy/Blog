@@ -9,8 +9,8 @@ install:
   - bundle install
 
 script: 
-  #- bundle exec rake site:deploy --quiet #--trace
-  - bundle exec jekyll build
+  - bundle exec rake site:deploy --quiet #--trace
+  #- bundle exec jekyll build
 
 # Generate your secure token with the travis gem:
 # get Github token from your Travis CI profile page
@@ -20,7 +20,7 @@ script:
 env:
   global:
     - secure: "o71QD1296KMC3dM7xeYtKxfyDET0cpd21KYcuUOQ4CXk9w/3xRBesZru+c2v/STYDZVsQokBc4tHrUGpvzBCPM+LzNwLAu58MJbprCZPEhEwmo8O4PSIChQn2Xi0beYkug2ztpZg9md2+aSrK4uQ/azd5n+qw8KslL4xuwFChGUkW28iHt2zXiulY9IuSnKgY9nul9754fWI1PPr2IutjFGt3uiDt/4fg/G3oRvgYAQK9JiiJFDVdN5AK77bLDHEw4YqI44oANhoCNNMxQxJZKpYwoQPNcgrPS/tErDZlQDjHLBeJDLfB8ZGhhREPs+jM4uzWHoOe8xDlr+WChTt2FdmYsJZCSJZsjN6AL/gzIun9N/Mzf+xwAfQkGhWtT9JrJiO2BPoD/VuivrP2MMeXEK/jdQSICDsWgLgTLiRs7RjRVNRUTcOdxBHaB01DP/SXfuyVxVgXtM/36rob7NxX+RUN05tBoTT4HcW83yOWQgFvMoAKv9Llke/stKSO9YKWb4DNgpeWEcavBWig2H/mNSvU0eJzo0xWaYtA4FodxnGHUB7AUQqOUlwRVvm3R45DofqBrwu+ekwVMW23eHyTS7DdYozEVZw2ddVMmgInaJxy4QwmN98WL8/dLooPsJX4Zuv9gWG98Gl0UI1+myQj38YfpaqbsyPkxo5kZvxPOY="
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # Speeds up installation of html-proofer
 branches:
   only:
     - master
