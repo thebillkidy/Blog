@@ -46,7 +46,7 @@ namespace :site do
         sh "git commit -m '#{COMMIT_MSG}'"
         sh "git push origin master:refs/heads/#{TARGET_BRANCH} --force"
 
-        puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
+        puts "Pushed updated branch #{TARGET_BRANCH} to GitHub Pages"
       end
     end
   end
