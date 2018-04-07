@@ -69,12 +69,13 @@ namespace :site do
       repo_url = `git config --get remote.#{REMOTE_NAME}.url`.chomp
     end
 
-    # Set up the gh-pages branch
+    # Change to the build DIR
     cd BUILD_DIR do
       sh "git init"
       sh "git remote add #{REMOTE_NAME} #{repo_url}"
       sh "git fetch --depth 1 #{REMOTE_NAME}"
   
+      # Set up our gh-pages branch
       if `git branch -r` =~ /#{DESTINATION_BRANCH}/
         sh "git checkout #{DESTINATION_BRANCH}"
       else
@@ -84,23 +85,20 @@ namespace :site do
         sh "git commit -m \"initial gh-pages commit\""
         sh "git push #{REMOTE_NAME} #{DESTINATION_BRANCH}"
       end
-    end
 
-    #Dir.chdir(CONFIG["destination"]) { sh "git checkout #{DESTINATION_BRANCH}" }
+      # Generate the site
+      sh "bundle exec jekyll build"
 
-    # Generate the site
-    sh "bundle exec jekyll build"
+      # Get a SHA Hash for our release
+      sha = `git log`.match(/[a-z0-9]{40}/)[0]
 
-    # Commit and push to github
-    sha = `git log`.match(/[a-z0-9]{40}/)[0]
-    Dir.chdir(CONFIG["destination"]) do
       # check if there is anything to add and commit, and pushes it
       sh "if [ -n '$(git status)' ]; then
             git add --all .;
             git commit -m 'Updating to #{USERNAME}/#{REPO}@#{sha}.';
             git push --quiet origin #{DESTINATION_BRANCH};
          fi"
+
       puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
     end
-  end
 end
