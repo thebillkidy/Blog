@@ -23,7 +23,7 @@ namespace :site do
     end
 
     Dir.mktmpdir do |tmp|
-      cp_r './', tmp
+      cp_r '.', tmp
 
       cd tmp do
         sh "git init"
@@ -44,7 +44,7 @@ namespace :site do
         # Push the changes
         sh "git add ."
         sh "git commit -m '#{COMMIT_MSG}'"
-        sh "git push --quiet origin master:refs/heads/#{TARGET_BRANCH} --force"
+        sh "git push origin master:refs/heads/#{TARGET_BRANCH} --force"
 
         puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
       end
