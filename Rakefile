@@ -38,9 +38,6 @@ namespace :site do
           sh "git checkout -b #{TARGET_BRANCH}"
         end
 
-        # Pull changes from master in here
-        sh "git rebase master" 
-
         # Build everything
         sh "bundle exec jekyll build"
 
