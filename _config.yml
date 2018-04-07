@@ -36,7 +36,7 @@ google_analytics: UA-27398198-1 # replace with your GA tracking identifier
 # Permalinks
 permalink: /:title
 permalink: /author/:author
-permalink: /tag/:tag
+#permalink: /tag/:tag
 
 # Authors' info in `_data/authors.yml`
 # Tags' info in `_data/tags_info.yml`
