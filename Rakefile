@@ -15,8 +15,8 @@ REPO = CONFIG["repo"]
 SOURCE_BRANCH = CONFIG["branch"]
 DESTINATION_BRANCH = "gh-pages"
 REMOTE_NAME = "origin"
+PROJECT_ROOT = ENV.fetch("PROJECT_ROOT", `git rev-parse --show-toplevel`.chomp)
 BUILD_DIR = File.join(PROJECT_ROOT, "build")
-PROJECT_ROOT = `git rev-parse --show--toplevel`.chomp
 
 def check_destination
   unless Dir.exist? CONFIG["destination"]
@@ -60,26 +60,29 @@ namespace :site do
     # Make sure destination folder exists as git repo
     check_destination
 
+    # Create the build dir
+    sh "mkdir #{BUILD_DIR}"
+
     # Get repo url
     repo_url = nil
     cd PROJECT_ROOT do
-      repo_url = `git config --get remote.#{remote_name}.url`.chomp
+      repo_url = `git config --get remote.#{REMOTE_NAME}.url`.chomp
     end
 
-    # Build the site
+    # Set up the gh-pages branch
     cd BUILD_DIR do
       sh "git init"
-      sh "git remote add #{remote_name} #{repo_url}"
-      sh "git fetch --depth 1 #{remote_name}"
+      sh "git remote add #{REMOTE_NAME} #{repo_url}"
+      sh "git fetch --depth 1 #{REMOTE_NAME}"
   
-      if `git branch -r` =~ /#{branch_name}/
-        sh "git checkout #{branch_name}"
+      if `git branch -r` =~ /#{DESTINATION_BRANCH}/
+        sh "git checkout #{DESTINATION_BRANCH}"
       else
-        sh "git checkout --orphan #{branch_name}"
+        sh "git checkout --orphan #{DESTINATION_BRANCH}"
         FileUtils.touch("index.html")
         sh "git add ."
         sh "git commit -m \"initial gh-pages commit\""
-        sh "git push #{remote_name} #{branch_name}"
+        sh "git push #{REMOTE_NAME} #{DESTINATION_BRANCH}"
       end
     end
 
