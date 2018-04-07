@@ -44,7 +44,7 @@ namespace :site do
         # Push the changes
         sh "git add ."
         sh "git commit -m '#{COMMIT_MSG}'"
-        sh "git push --quiet origin #{TARGET_BRANCH}"
+        sh "git push --quiet origin master:refs/heads/#{TARGET_BRANCH} --force"
 
         puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
       end
