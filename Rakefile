@@ -24,13 +24,14 @@ namespace :site do
 
     Dir.mktmpdir do |tmp|
       cp_r './', tmp
-      Dir.chdir tmp
 
-      sh "git init"
-      sh "git add ."
-      sh "git commit -m '#{COMMIT_MSG}'"
-      sh "git remote add origin #{ORIGIN}"
-      sh "git push origin master:refs/heads/#{TARGET_BRANCH}"
+      cd tmp do
+        sh "git init"
+        sh "git add ."
+        sh "git commit -m '#{COMMIT_MSG}'"
+        sh "git remote add origin #{ORIGIN}"
+        sh "git push origin master:refs/heads/#{TARGET_BRANCH}"
+      end
     end
   end
 end
