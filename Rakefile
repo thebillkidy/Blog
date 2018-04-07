@@ -26,8 +26,8 @@ namespace :site do
       cp_r './', tmp
 
       cd tmp do
-        sh "git init"
-        sh "git remote add origin #{ORIGIN}"
+        #sh "git init"
+        #sh "git remote add origin #{ORIGIN}"
         sh "git fetch --depth 1 origin"
 
         # Set up our gh-pages branch
