@@ -1,0 +1,31 @@
+---
+layout: post
+current: post
+cover:  assets/images/design.jpg
+navigation: True
+title: How-To Fix slow internet speed on a Realtek adapter with Hyper-V machines
+date: 2018-01-12 20:13:00
+tags: howto, tutorials
+class: post-template
+subclass: 'post tag-howto tag-tutorials'
+author: Xavier
+---
+
+When working with the awesome Visual Studio Android Emulator, I encountered the following error:
+
+<strong>Issue:</strong> Internet speed gets divided by a factor of 10x when creating a Hyper-V machine that uses a vSwitch bound on the main Network Interface (nic).
+
+<strong>Solution:</strong>
+
+Open adapter settings -&gt; Right click towards properties -&gt; Configure your network adapter
+
+Now disable the following settings:
+<ul>
+ 	<li>IPv4 checksum offload</li>
+ 	<li>Large Send Offload (IPv4)</li>
+ 	<li>TDP Checksum Offload IPv4</li>
+ 	<li>UDP Checksum Offload IPv4</li>
+</ul>
+After disabling these settings my internet speed went back to its original speed :) hope this helped!
+
+<strong>Note:</strong> <strong>For</strong> people with a <strong>Broadcom</strong> adapter, I recommend looking after disabling VMQ (Virtual Machines Queue) which seems to be an issue as well
