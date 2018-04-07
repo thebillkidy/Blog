@@ -16,6 +16,7 @@ SOURCE_BRANCH = CONFIG["branch"]
 DESTINATION_BRANCH = "gh-pages"
 REMOTE_NAME = "origin"
 BUILD_DIR = File.join(PROJECT_ROOT, "build")
+PROJECT_ROOT = `git rev-parse --show--toplevel`.chomp
 
 def check_destination
   unless Dir.exist? CONFIG["destination"]
