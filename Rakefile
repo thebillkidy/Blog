@@ -27,8 +27,8 @@ namespace :site do
 
       cd tmp do
         sh "git init"
-        #sh "git remote set-url origin #{ORIGIN}"
-        sh "git remote add origin #{ORIGIN}"
+        sh "git remote set-url origin #{ORIGIN}"
+        #sh "git remote add origin #{ORIGIN}"
         #sh "git fetch --depth 1 origin"
 
         # Set up our gh-pages branch
@@ -44,7 +44,7 @@ namespace :site do
         # Push the changes
         sh "git add ."
         sh "git commit -m '#{COMMIT_MSG}'"
-        sh "git push origin #{TARGET_BRANCH}"
+        sh "git push --quiet origin #{TARGET_BRANCH}"
 
         puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
       end
