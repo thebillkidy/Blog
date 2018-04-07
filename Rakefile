@@ -35,11 +35,7 @@ namespace :site do
         if `git branch -r` =~ /#{TARGET_BRANCH}/
           sh "git checkout #{TARGET_BRANCH}"
         else
-          sh "git checkout --orphan #{TARGET_BRANCH}"
-          FileUtils.touch("index.html")
-          sh "git add ."
-          sh "git commit -m \"initial gh-pages commit\""
-          sh "git push origin #{TARGET_BRANCH}"
+          sh "git checkout -b #{TARGET_BRANCH}"
         end
 
         # Pull changes from master in here
@@ -51,7 +47,7 @@ namespace :site do
         # Push the changes
         sh "git add ."
         sh "git commit -m '#{COMMIT_MSG}'"
-        sh "git push origin #{TARGET_BRANCH} --force"
+        sh "git push origin #{TARGET_BRANCH}"
 
         puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
       end
