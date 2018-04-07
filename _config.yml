@@ -24,6 +24,7 @@ subscribers: True # you need to connect an external service for this to work,
 # by editing `_includes/subscribe-form.html`
 twitter: XavierGeerinck # replace by your username
 #facebook: ghost # replace by your username
+linkedin: xaviergeerinck # replace by your username
 
 # Disqus
 disqus: True
@@ -34,8 +35,8 @@ google_analytics: UA-27398198-1 # replace with your GA tracking identifier
 
 # Permalinks
 permalink: /:title
-# permalink: /author/:author
-# permalink: /tag/:tag
+permalink: /author/:author
+permalink: /tag/:tag
 
 # Authors' info in `_data/authors.yml`
 # Tags' info in `_data/tags_info.yml`
@@ -54,7 +55,7 @@ feed:
 # Disqus comments as a per-post basis
 # ...
 
-# Settings for builing master branch with travis-ci
+# Settings for building master branch with travis-ci
 # with jekyll-travis
 
 # Settings for deploy rake task
@@ -69,7 +70,7 @@ lsi: False
 username: thebillkidy
 repo: thebillkidy.github.io
 branch: master
-relative_source: ./
+relative_source:
 destination: ./build/
 production_url:  https://thebillkidy.github.io/
 source_url:  https://github.com/thebillkidy/thebillkidy.github.io/
