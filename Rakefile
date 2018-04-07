@@ -27,10 +27,29 @@ namespace :site do
 
       cd tmp do
         sh "git init"
+        sh "git remote add origin #{ORIGIN}"
+        sh "git fetch --depth 1 origin"
+
+        # Set up our gh-pages branch
+        if `git branch -r` =~ /#{TARGET_BRANCH}/
+          sh "git checkout #{TARGET_BRANCH}"
+        else
+          sh "git checkout --orphan #{TARGET_BRANCH}"
+          FileUtils.touch("index.html")
+          sh "git add ."
+          sh "git commit -m \"initial gh-pages commit\""
+          sh "git push origin #{TARGET_BRANCH}"
+        end
+
+        # Build everything
+        sh "bundle exec jekyll build"
+
+        # Push the changes
         sh "git add ."
         sh "git commit -m '#{COMMIT_MSG}'"
-        sh "git remote add origin #{ORIGIN}"
-        sh "git push origin master:refs/heads/#{TARGET_BRANCH}"
+        sh "git push origin #{TARGET_BRANCH}"
+
+        puts "Pushed updated branch #{DESTINATION_BRANCH} to GitHub Pages"
       end
     end
   end

@@ -9,9 +9,6 @@ install:
   - bundle install
 
 script: 
-  - bundle exec jekyll build
-
-after_success:
   - bundle exec rake site:deploy --quiet #--trace
 
 # Generate your secure token with the travis gem:
