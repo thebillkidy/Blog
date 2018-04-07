@@ -30,7 +30,6 @@ namespace :site do
         sh "git remote set-url origin #{ORIGIN}"
         #sh "git remote add origin #{ORIGIN}"
         sh "git fetch --depth 1 origin"
-        sh "git pull" # Pull changes
 
         # Set up our gh-pages branch
         if `git branch -r` =~ /#{TARGET_BRANCH}/
@@ -42,6 +41,8 @@ namespace :site do
           sh "git commit -m \"initial gh-pages commit\""
           sh "git push origin #{TARGET_BRANCH}"
         end
+
+        sh "git pull origin #{TARGET_BRANCH}" # Pull changes
 
         # Build everything
         sh "bundle exec jekyll build"
