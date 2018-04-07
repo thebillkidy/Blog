@@ -26,7 +26,7 @@ namespace :site do
     sh "bundle exec jekyll build"
 
     Dir.mktmpdir do |tmp|
-      cp_r '_site/.', tmp
+      cp_r 'build/.', tmp
 
       cd tmp do
         sh "git init"
