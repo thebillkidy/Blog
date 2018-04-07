@@ -30,6 +30,7 @@ namespace :site do
         sh "git remote set-url origin #{ORIGIN}"
         #sh "git remote add origin #{ORIGIN}"
         sh "git fetch --depth 1 origin"
+        sh "git pull" # Pull changes
 
         # Set up our gh-pages branch
         if `git branch -r` =~ /#{TARGET_BRANCH}/
