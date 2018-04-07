@@ -14,6 +14,8 @@ USERNAME = CONFIG["username"]
 REPO = CONFIG["repo"]
 SOURCE_BRANCH = CONFIG["branch"]
 DESTINATION_BRANCH = "gh-pages"
+REMOTE_NAME = "origin"
+BUILD_DIR = File.join(PROJECT_ROOT, "build")
 
 def check_destination
   unless Dir.exist? CONFIG["destination"]
@@ -57,7 +59,29 @@ namespace :site do
     # Make sure destination folder exists as git repo
     check_destination
 
-    sh "git checkout #{SOURCE_BRANCH}"
+    # Get repo url
+    repo_url = nil
+    cd PROJECT_ROOT do
+      repo_url = `git config --get remote.#{remote_name}.url`.chomp
+    end
+
+    # Build the site
+    cd BUILD_DIR do
+      sh "git init"
+      sh "git remote add #{remote_name} #{repo_url}"
+      sh "git fetch --depth 1 #{remote_name}"
+  
+      if `git branch -r` =~ /#{branch_name}/
+        sh "git checkout #{branch_name}"
+      else
+        sh "git checkout --orphan #{branch_name}"
+        FileUtils.touch("index.html")
+        sh "git add ."
+        sh "git commit -m \"initial gh-pages commit\""
+        sh "git push #{remote_name} #{branch_name}"
+      end
+    end
+
     Dir.chdir(CONFIG["destination"]) { sh "git checkout #{DESTINATION_BRANCH}" }
 
     # Generate the site
