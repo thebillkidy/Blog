@@ -42,7 +42,8 @@ namespace :site do
           sh "git push origin #{TARGET_BRANCH}"
         end
 
-        sh "git pull origin #{TARGET_BRANCH}" # Pull changes
+        # Pull changes from master in here
+        sh "git rebase master" 
 
         # Build everything
         sh "bundle exec jekyll build"
