@@ -29,17 +29,9 @@ namespace :site do
       cp_r 'build/.', tmp
 
       cd tmp do
+        # Init a new repo in the build folder, this one we will push to the TARGET_BRANCH
         sh "git init"
-        #sh "git remote set-url origin #{ORIGIN}"
         sh "git remote add origin #{ORIGIN}"
-        #sh "git fetch --depth 1 origin"
-
-        # Set up our gh-pages branch
-        #if `git branch -r` =~ /#{TARGET_BRANCH}/
-        #  sh "git checkout #{TARGET_BRANCH}"
-        #else
-        #  sh "git checkout -b #{TARGET_BRANCH}"
-        #end
 
         # Push the changes
         sh "git add ."
