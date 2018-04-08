@@ -5,7 +5,8 @@ paginate: 100 # it will paginate after this number
 language: 'en-us'
 
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
-baseurl: /
+# Note, disabled since Jekyll broke this - see: https://github.com/github/pages-gem/issues/460
+#baseurl: /
 
 # Website info
 title: Xavier Geerinck - Blog
@@ -70,7 +71,8 @@ lsi: False
 username: thebillkidy
 repo: thebillkidy.github.io
 branch: master
-relative_source: ./
+relative_source: /
+relative_url: /
 destination: ./build/
 production_url:  https://thebillkidy.github.io/
 source_url:  https://github.com/thebillkidy/thebillkidy.github.io/
