@@ -3,15 +3,31 @@ layout: page
 current: about
 title: About
 navigation: true
-logo: 'assets/images/ghost.png'
+logo: False
 class: page-template
 subclass: 'post page'
 ---
 
-Ghost is professional publishing platform designed for modern journalism. This is a demo site of a basic Ghost install to give you a general sense of what a new Ghost site looks like when set up for the first time.
+## What will you find here?
 
-> If you'd like to set up a site like this for yourself, head over to [Ghost.org](https://ghost.org/) and start a free 14 day trial to give Ghost a try!
+Welcome to my personal blog where I share my thoughts, experiences and tutorials to get you up to date with the latest trends in Computer Science. Here you will not only find mostly blog posts related with my personal interests such as Machine Learning, Reinforcement Learning, Web Technology, but also blog posts regarding criticisms that I have and things that I experienced.
 
-If you're a developer: Ghost is a completely open source (MIT) Node.js application built on a JSON API with an Ember.js admin client. It works with MySQL and SQLite, and is publicly available [on Github](https://github.com/TryGhost/ghost).
+## Who am I?
 
-If you need help with using Ghost, you'll find a ton of useful articles on [our knowledgebase](https://help.ghost.org/), as well as extensive [developer documentation](https://docs.ghost.org/).
+By working as a Cloud Solution Architect at Microsoft, I work on enabling everyone to construct products that make a life changing impact on world scale. 
+
+Even though I am still considered a young graduate, I achieved my first success at the age 16, by creating and selling my first startup called FusionCMS. Afterwards I took this knowledge to create and help more startups in different markets such as technology (Brewr.io, Everbit), social media (Feedient), philanthropy (KumulAid) and home care [Helpper](http://helpper.be/). While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.
+
+## My Experience
+
+<br />
+<img src="/assets/images/my-experience/microsoft.svg" alt="Microsoft" style="height: 120px;">
+<br />
+<div style="display: flex;">
+  <img src="/assets/images/my-experience/cisco.svg" alt="Cisco" style="height: 100px;">
+  <img src="/assets/images/my-experience/nokia.svg" alt="Nokia" style="height: 60px;">
+</div>
+<div style="display: flex;">
+  <img src="/assets/images/my-experience/helpper.png" alt="Helpper" style="height: 90px;">
+  <img src="/assets/images/my-experience/kumulaid_black.png" alt="KumulAid" style="height: 80px;">
+</div>

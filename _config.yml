@@ -5,13 +5,13 @@ paginate: 100 # it will paginate after this number
 language: 'en-us'
 
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
-baseurl: https://thebillkidy.github.io/
+baseurl: /
 
 # Website info
 title: Xavier Geerinck - Blog
 description: My thoughts, tutorials and learnings
-cover: assets/images/blog-cover.jpg
-logo: assets/images/blog-icon.png
+cover: assets/images/blog-cover.png
+logo: False
 logo_dark: assets/images/favicon.png
 favicon: assets/images/favicon.png
 production_url: https://thebillkidy.github.io/
