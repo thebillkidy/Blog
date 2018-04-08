@@ -1,0 +1,89 @@
+---
+layout: default
+current: project
+class: project-template
+navigation: True
+disqus: false
+---
+
+<!-- default -->
+<!-- The tag above means: insert everything in this file into the {body} of the default.hbs template -->
+
+<!-- 
+  date_started: 2017-01-12
+date_ended:  2016-01-09
+picture_cover: 'assets/images/projects/view_main.png' 
+picture_gallery_1: 'assets/images/projects/view_database.png' 
+picture_gallery_2: 'assets/images/projects/view_main.png' 
+picture_gallery_3: 'assets/images/projects/landings_page.png' 
+tags: automatic,database,infrastructure,migration,sql # , delimited
+text_description:
+text_my_role:
+text_outcome:
+background: \#5e3ab7 # Can be a color or a picture url
+logo: 'assets/images/projects/everbit_logo_white.png' # Can be a picture url or a name 
+-->
+
+<!-- < default}} -->
+<!-- The tag above means - insert everything in this file into the {body} of the default.hbs template -->
+<header class="site-header outer medium" style="background-color: #{{ page.background }};">
+  <div class="inner">
+      {% include site-nav.html %}
+  </div>
+    
+  <div class="layer content">
+    <div class="container">
+      <h1 style="margin-top: -60px;">
+        <img src="{{ "/" | relative_url }}{{ page.logo }}" style="max-width: 400px; width: 80%;" alt="Everbit">
+      </h1>
+    </div>
+  </div>
+</header>
+
+
+<section class="padding">
+  <a href="{{ "/" | relative_url }}{{ page.picture_cover }}" rel="lightbox" class="screenshot-overlay"
+    style="background-image: url({{ "/" | relative_url }}{{ page.picture_cover }});"></a>
+</section>
+
+<section class="padding border-top project-images">
+  <div class="row">
+    <div class="col-sm-4">
+      <a href="{{ "/" | relative_url }}{{ page.picture_gallery_1 }}" rel="lightbox" class="project-image">
+        <img src="{{ "/" | relative_url }}{{ page.picture_gallery_1 | img_url: '1000x600' }}" style="max-width: 100%;">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <a href="{{ "/" | relative_url }}{{ page.picture_gallery_2 }}" rel="lightbox" class="project-image">
+        <img src="{{ "/" | relative_url }}{{ page.picture_gallery_2 | img_url: '1000x600' }}" style="max-width: 100%;">
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <a href="{{ "/" | relative_url }}{{ page.picture_gallery_3 }}" rel="lightbox" class="project-image">
+        <img src="{{ "/" | relative_url }}{{ page.picture_gallery_3 | img_url: '1000x600' }}" style="max-width: 100%;">
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="padding half-padding center" style="background-color: #{{ page.background }};">
+  <ul class="tags">
+    {% assign tags = page.tags | split: "," %}
+    {% for tag in tags %} 
+      <li>{{ tag }}</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="half-padding">
+  <div class="container">
+    <article>
+      <div class="content">
+          {{ content }}
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+{% include floating-header.html %}

@@ -29,10 +29,16 @@ linkedin: xaviergeerinck # replace by your username
 
 # Disqus
 disqus: True
-disqus_shortname: thebillkidy # replace with your disqus username
+disqus_shortname: xaviergeerinck # replace with your disqus username
 
 # Google Analytics
 google_analytics: UA-27398198-1 # replace with your GA tracking identifier
+
+# Custom collections (looking into their _<collection> folder)
+collections:
+  projects:
+    output: True
+    permalink: /:collection/:name
 
 # Permalinks
 permalink: /:title
