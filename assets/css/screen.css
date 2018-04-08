@@ -90,11 +90,16 @@ body {
 
 @media (min-width: 900px) {
     .home-template .post-feed,
-    .tag-template .post-feed,
-    .author-template .post-feed {
+    .tag-template .post-feed {
         margin-top: -70px;
         padding-top: 0;
     }
+
+    .author-template .post-feed {
+        margin-top: 40px;
+        padding-top: 0;
+    }
+
     .home-template .site-nav {
         position: relative;
         top: -70px;
