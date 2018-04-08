@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover: 'assets/images/ghent.jpg'
+cover: 'assets/images/covers/ghent.jpg'
 navigation: True
 title: Bridge Year Experience - University Ghent
 date: 2015-09-23 09:12:00

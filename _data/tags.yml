@@ -1,7 +1,7 @@
 tutorials:
   name: tutorials
   description: False
-  cover: assets/images/tutorials.jpg
+  cover: assets/images/covers/tutorials.jpg
 howto:
   name: howto
   description: False
@@ -9,12 +9,12 @@ howto:
 reactjs:
   name: reactjs
   description: False
-  cover: assets/images/reactjs.png
+  cover: assets/images/covers/reactjs.png
 javascript:
   name: javascript
   description: False
-  cover: assets/images/coding.jpg
+  cover: assets/images/covers/coding.jpg
 experience:
   name: experience
   description: False
-  cover: assets/images/experience.jpg
+  cover: assets/images/covers/experience.jpg

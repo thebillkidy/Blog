@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover:  assets/images/waves.jpg
+cover:  assets/images/covers/waves.jpg
 navigation: True
 title: Visual Studio Android Emulator Debugging
 date: 2018-01-13 09:00:00

@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover:  assets/images/network.jpg
+cover:  assets/images/covers/network.jpg
 navigation: True
 title: How-To Fix slow internet speed on a Realtek adapter with Hyper-V machines
 date: 2018-01-12 20:13:00
