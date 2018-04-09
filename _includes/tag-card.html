@@ -1,0 +1,10 @@
+{% for tag in site.data.tags %}
+<article class="tag-card {{ tag[1].class }}">
+    {% if tag[1].cover %}
+    <a class="tag-card-image-link" href="{{ "/" | relative_url }}tag/{{tag[0]}}">
+        <div class="tag-card-background" style="background-image: url({{tag[1].cover}})"></div>
+        <div class="tag-card-name">{{ tag[1].name }}</div>
+    </a>
+    {% endif %}
+</article>
+{% endfor %}

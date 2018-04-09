@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding.jpg'
 navigation: True
 title: Solving a maze with Perl
 date: 2015-06-05 09:00:00
-tags: algorithms, perl
+tags: algorithms perl
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

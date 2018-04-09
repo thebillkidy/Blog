@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Inverting a binary tree in C++
 date: 2015-06-05 13:00:10
-tags: algorithms, cpp, c++
+tags: algorithms
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

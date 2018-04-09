@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Floyd Warshall Algorithm
 date: 2015-06-05 13:00:08
-tags: algorithms, cpp, c++
+tags: algorithms
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding4.jpg'
 navigation: True
 title: Creating a LinkedList with C++
 date: 2015-06-05 11:00:02
-tags: algorithms, cpp, c++
+tags: cpp
 class: post-template
 subclass: 'post tag-coding tag-cpp'
 author: xavier

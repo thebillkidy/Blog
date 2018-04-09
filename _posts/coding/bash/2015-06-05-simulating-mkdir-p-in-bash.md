@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding.jpg'
 navigation: True
 title: Simulating mkdir -p in bash
 date: 2015-06-05 18:41:00
-tags: algorithms, bash
+tags: bash
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

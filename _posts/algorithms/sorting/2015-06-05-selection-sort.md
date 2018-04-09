@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Sorting Algorithm - Selection Sort
 date: 2015-06-05 13:00:04
-tags: algorithms, cpp, c++
+tags: algorithms
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

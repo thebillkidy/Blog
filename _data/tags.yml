@@ -1,40 +1,33 @@
 tutorials:
-  name: tutorials
-  description: False
+  name: Tutorials
   cover: assets/images/covers/tutorials.jpg
 howto:
-  name: howto
-  description: False
-  cover: False
+  name: HowTo
+  cover: assets/images/covers/coding5.png
 reactjs:
-  name: reactjs
-  description: False
+  name: ReactJS
   cover: assets/images/covers/reactjs.png
 javascript:
-  name: javascript
-  description: False
+  name: Javascript
   cover: assets/images/covers/coding.jpg
 experience:
-  name: experience
-  description: False
+  name: Experience
   cover: assets/images/covers/experience.jpg
 algorithms:
-  name: experience
-  description: False
+  name: Algorithms
   cover: assets/images/covers/algorithms2.jpg
 cpp:
-  name: experience
-  description: False
-  cover: assets/images/covers/coding.jpg
+  name: C++
+  cover: assets/images/covers/coding4.jpg
 c:
-  name: experience
-  description: False
+  name: C
   cover: assets/images/covers/coding4.jpg
 sql:
-  name: experience
-  description: False
+  name: SQL
   cover: assets/images/covers/database.jpg
 discrete-math:
-  name: experience
-  description: False
+  name: Discrete Math
   cover: assets/images/covers/algorithms.jpg
+networking:
+  name: Networking
+  cover: assets/images/covers/network.jpg

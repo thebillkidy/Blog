@@ -5,7 +5,7 @@ cover: 'assets/images/covers/ghent.jpg'
 navigation: True
 title: Spending the summer at a Startup
 date: 2015-09-04 10:16:00
-tags: experience, startups
+tags: experience startups
 class: post-template
 subclass: 'post tag-experience tag-startups'
 author: xavier

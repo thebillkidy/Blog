@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Finding smallest and biggest number multithreaded in C++
 date: 2015-06-05 18:41:00
-tags: algorithms, cpp, c++
+tags: cpp
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

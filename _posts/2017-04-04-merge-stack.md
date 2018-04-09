@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding2.jpg'
 navigation: True
 title: The MERGE Stack
 date: 2017-04-04 15:33:00
-tags: tutorials, javascript
+tags: tutorials javascript
 class: post-template
 subclass: 'post tag-javascript'
 author: xavier
