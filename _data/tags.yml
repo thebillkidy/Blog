@@ -21,7 +21,7 @@ experience:
 algorithms:
   name: experience
   description: False
-  cover: assets/images/covers/algorithms.jpg
+  cover: assets/images/covers/algorithms2.jpg
 cpp:
   name: experience
   description: False
@@ -29,4 +29,12 @@ cpp:
 c:
   name: experience
   description: False
-  cover: assets/images/covers/coding2.jpg
+  cover: assets/images/covers/coding4.jpg
+sql:
+  name: experience
+  description: False
+  cover: assets/images/covers/database.jpg
+discrete-math:
+  name: experience
+  description: False
+  cover: assets/images/covers/algorithms.jpg
