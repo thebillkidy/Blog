@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/coding.jpg'
 navigation: True
 title: Solving a maze with Perl
-date: 2015-06-05 18:41:00
+date: 2015-06-05 09:00:00
 tags: algorithms, perl
 class: post-template
 subclass: 'post tag-algorithms'

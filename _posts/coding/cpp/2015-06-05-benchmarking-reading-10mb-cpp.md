@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/coding2.jpg'
 navigation: True
 title: How to benchmark Reading 10MB in C++
-date: 2015-06-05 18:41:00
+date: 2015-06-05 11:00:01
 tags: algorithms, cpp, c++
 class: post-template
 subclass: 'post tag-algorithms'

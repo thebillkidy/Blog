@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/algorithms.jpg'
 navigation: True
 title: Solving a Sudoku with Discrete Math
-date: 2015-06-05 18:41:00
+date: 2015-06-05 12:00:03
 tags: discrete-math
 class: post-template
 subclass: 'post tag-discrete-math'
