@@ -831,6 +831,7 @@ Usage (In Ghost editor):
 }
 .highlighter-rouge {
     min-width: 100%;
+    max-width: 150%;
 }
 
 .post-full-content .fluid-width-video-wrapper {
