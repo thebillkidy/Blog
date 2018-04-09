@@ -332,11 +332,17 @@ fi
 
 # Start Ghost
 chown -R ghost:ghost /data /ghost /ghost-override
-su ghost << EOF cd "$GHOST" NODE_ENV=${NODE_ENV:-production} npm start EOF [/shell] ### Booting Vagrant After you have created your Vagrantfile and the other files. (or used the one of the repository above) you can then start your vagrant machine which will create the VirtualMachine and start it. This can be done by navigating to the directory that holds the Vagrantfile and then entering the command: `vagrant up`. This will now show something as shown below: > *__Note:__ This will not work on Windows since NFS is not supported on Windows. We however heard of a workaround called `cygwin rsync` but have not specific details about this.*
+su ghost << EOF cd "$GHOST" NODE_ENV=${NODE_ENV:-production} npm start EOF 
+``` 
+
+### Booting Vagrant 
+After you have created your Vagrantfile and the other files. (or used the one of the repository above) you can then start your vagrant machine which will create the VirtualMachine and start it. This can be done by navigating to the directory that holds the Vagrantfile and then entering the command: `vagrant up`. This will now show something as shown below: 
+
+> *__Note:__ This will not work on Windows since NFS is not supported on Windows. We however heard of a workaround called `cygwin rsync` but have not specific details about this.*
 >
 > *__Note2:__ When you used the repository above you will have a different output then shown below. You also will not have the ghost blog installed automatically.*
 
-[shell]
+```bash
 $ vagrant up
 Bringing machine 'core-01' up with 'virtualbox' provider...
 ==> core-01: Box 'coreos-alpha' could not be found. Attempting to find and install...
@@ -427,4 +433,5 @@ core@core-01 ~ $
 You will also be able to go to your newly created Ghost blog by navigating too: `172.17.8.2:60000`
 
 ## Conclusion
+
 Setting up Vagrant, CoreOS and Docker is a lot of initial work that has to be done by the System Admin. However once it has been done you can store it on a central Git repository, allowing every other developer to set up it's development environment in less then 20 minutes.
