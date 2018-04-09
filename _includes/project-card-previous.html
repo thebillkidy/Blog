@@ -1,0 +1,28 @@
+<article class="project-card {{ page.previous.class }}{% unless page.previous.cover %} no-image{% endunless %}">
+    {% if page.previous.background %}
+    <a class="project-card-image-link" href="{{ "/" | relative_url }}{{ page.previous.url | remove_first: '/' }}">
+        <div class="project-card-background" style="background-color: #{{ page.previous.background }}"></div>
+        <div class="project-card-logo">
+            <span class="offset"></span>
+            <img src="{{ "/" | relative_url }}{{ page.previous.logo }}" alt="{{ page.previous.title }}">
+        </div>
+    </a>
+    {% endif %}
+
+    <div class="project-card-content">
+        <a class="project-card-content-link" href="{{ "/" | relative_url }}{{ page.previous.url | remove_first: '/' }}">
+            <header class="project-card-header">
+                {% if page.previous.tags.size > 0 %} {% for tag in page.previous.tags %} {% if forloop.index == page.previous.tags.size %}
+                <span class="project-card-tags">{{ tag | capitalize }}</span>
+                {% else %}
+                <span class="project-card-tags">{{ tag | capitalize }}</span>
+                {% endif %} {% endfor %} {% endif %}
+
+                <h2 class="project-card-title">{{ page.previous.title }}</h2>
+            </header>
+            <section class="project-card-excerpt">
+                <p>{{ page.previous.content | strip_html | truncatewords: 40, "" }}...</p>
+            </section>
+        </a>
+    </div>
+</article>

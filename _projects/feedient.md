@@ -7,7 +7,7 @@ picture_cover: 'assets/images/projects/feedient/feeds.jpg'
 picture_gallery_1: 'assets/images/projects/feedient/compose.jpg' 
 picture_gallery_2: 'assets/images/projects/feedient/frontpage.jpg' 
 picture_gallery_3: 'assets/images/projects/feedient/settings.jpg' 
-tags: branding,node.js,startup,web development # , delimited
+tags: branding node js startup web-development # , delimited
 text_description: 
 text_my_role:
 text_outcome:
@@ -15,9 +15,6 @@ background: 1ead91 # Can be a color or a picture url
 logo: 'assets/images/projects/feedient/logo-white.png' # Can be a picture url or a name
 class: project-template
 ---
-# Feedient
-
-## General
 
 Feedient was a social media aggregator which goal was to unify and gather all social feeds into one easy-to-use overview. The platform was developed as a clean and minimalistic modern web application with support for six content providers; Facebook, Twitter, Instagram, YouTube (subscription feed), Tumblr and RSS. The social feeds were presented side-by-side as an overview and utilized modern real-time streaming techniques for content updates.
 

@@ -1930,56 +1930,6 @@ Usage (In Ghost editor):
 
 /* 12. Projects
 /* ---------------------------------------------------------- */
-.project-template header.medium {
-    height: 500px;
-}
-
-.project-template header.medium .content {
-    margin-top: 30px;
-}
-
-.project-template header {
-    z-index: 100;
-    height: 700px;
-    position: relative;
-    background-color: #202935;
-}
-
-.project-template header .content {
-    z-index: 102;
-    padding-top: 190px;
-    color: #fff;
-    text-align: center;
-    letter-spacing: .5px;
-}
-
-.project-template header .layer {
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    position: absolute;
-}
-
-.project-template .container {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.project-template header.medium .content h1 {
-    font-size: 50px;
-}
-
-.project-template header .content h1 {
-    font-weight: bold;
-    font-size: 110px;
-    margin-bottom: 0;
-    color: #fff;
-    letter-spacing: .5px;
-}
-
 .project-template section.padding {
     padding: 60px;
 }
@@ -1992,12 +1942,8 @@ Usage (In Ghost editor):
     text-align: center;
 }
 
-.project-template section {
+.project-template section.white-background {
     background-color: #fff;
-}
-
-.project-template .site-footer-content section {
-    background: none;
 }
 
 .project-template section.border-top {
@@ -2017,12 +1963,28 @@ Usage (In Ghost editor):
     display: block;
     box-shadow: 0 7px 20px rgba(0,0,0,0.3);
     border-radius: 2px;
-    margin-top: -200px;
     height: 600px;
     background-size: cover;
     background-position: top center;
     z-index: 100;
     position: relative;
+}
+
+.project-template .logo {
+    text-align: center;
+    margin-top: -167px;
+    position: absolute;
+    width: 100%;
+}
+
+.project-template img {
+    font-size: 42px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.project-template .clear {
+    clear: both;
 }
 
 .project-template .project-image img {
@@ -2050,31 +2012,6 @@ Usage (In Ghost editor):
     text-transform: uppercase;
 }
 
-.project-template article {
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.5;
-    font-family: Georgia,Cambria,'Times New Roman',Times,serif;
-    color: rgba(0,0,0,0.8);
-    letter-spacing: .15px;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    color: #333;
-    overflow: hidden;
-    font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    word-wrap: break-word;
-}
-
-.project-template article h1 {
-    padding-bottom: .3em;
-    font-size: 2.25em;
-    line-height: 1.2;
-    border-bottom: 1px solid #eee;
-}
-
 /* 12. Grid System
 /* ---------------------------------------------------------- */
 
@@ -2096,4 +2033,114 @@ Usage (In Ghost editor):
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+/* 12. Project Cards
+/* ---------------------------------------------------------- */
+.project-card {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 20px 40px;
+    min-height: 300px;
+    background: #fff center center;
+    background-size: cover;
+    border-radius: 5px;
+    box-shadow: rgba(39,44,49,0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+    transition: all 0.5s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 0 1px rgba(39,44,49,0.10), 0 3px 16px rgba(39, 44, 49,0.07);
+    transition: all 0.3s ease;
+    transform: translate3D(0, -1px, 0);
+}
+
+.project-card-image-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+}
+
+.project-card-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.project-card-logo > span.offset {
+    display: inline-block; 
+    height: 100%; 
+    vertical-align: middle
+}
+
+.project-card-logo > img {
+    vertical-align: middle;
+    max-height: 90px;
+    max-width: 220px;
+}
+
+.project-card-background {
+    width: auto;
+    height: 200px;
+}
+
+.project-card-content-link {
+    position: relative;
+    display: block;
+    padding: 25px 25px 0;
+    color: var(--darkgrey);
+}
+
+.project-card-content-link:hover {
+    text-decoration: none;
+}
+
+.project-card-tags {
+    margin-bottom: 4px;
+    color: var(--midgrey);
+    font-size: 1.2rem;
+    line-height: 1.15em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.project-card-title {
+    margin-top: 0;
+}
+
+.project-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-card-excerpt {
+    font-family: Georgia, serif;
+}
+
+.project-card-meta {
+    padding: 0 25px 25px;
+}
+
+.project-card-author {
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Adjust some margins for smaller screens */
+@media (max-width: 650px) {
+    .project-card {
+        margin: 0 20px 5vw;
+    }
 }

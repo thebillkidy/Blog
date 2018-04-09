@@ -1,20 +1,17 @@
 ---
 layout: project
-title: Everbit
+title: FusionCMS
 date_started: 2009-01-01
 date_ended:  2008-01-01
 picture_cover: 'assets/images/projects/fusioncms/fusionhub.jpg' 
 picture_gallery_1: 'assets/images/projects/fusioncms/admin.jpg' 
 picture_gallery_2: 'assets/images/projects/fusioncms/dashboard.jpg' 
 picture_gallery_3: 'assets/images/projects/fusioncms/edit.jpg' 
-tags: branding,ui design,web development,php # , delimited
+tags: branding ui design web-development php # , delimited
 background: 0d5e95 # Can be a color or a picture url
 logo: 'assets/images/projects/fusioncms/fusion-logo.png' # Can be a picture url or a name
 class: project-template
 ---
-# FusionCMS
-
-## General
 
 FusionCMS was a Content Management system that I and a friend of mine (Jesper Lindström) created. It allowed our clients that bought it to host their own Content Management System for their game server. This way users for our clients were able to manage their in-game accounts on those servers with the use of our Content Management System.
 

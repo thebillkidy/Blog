@@ -1,0 +1,34 @@
+{% for project in site.projects %}
+<article class="project-card {{ project.class }}{% unless project.cover %} no-image{% endunless %}">
+    {% if project.background %}
+    <a class="project-card-image-link" href="{{ "/" | relative_url }}{{ project.url | remove_first: '/' }}">
+        <div class="project-card-background" style="background-color: #{{ project.background }}"></div>
+        <div class="project-card-logo">
+            <span class="offset"></span>
+            <img src="{{ "/" | relative_url }}{{ project.logo }}" alt="{{ project.title }}">
+        </div>
+    </a>
+    {% endif %}
+
+    <div class="project-card-content">
+        <a class="project-card-content-link" href="{{ "/" | relative_url }}{{ project.url | remove_first: '/' }}">
+            <header class="project-card-header">
+                {% if project.tags.size > 0 %} 
+                    {% for tag in project.tags %} 
+                        {% if forloop.index == project.tags.size %}
+                            <span class="project-card-tags">{{ tag | capitalize }}</span>
+                        {% else %}
+                            <span class="project-card-tags">{{ tag | capitalize }}</span>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <h2 class="project-card-title">{{ project.title }}</h2>
+            </header>
+            <section class="project-card-excerpt">
+                <p>{{ project.content | strip_html | truncatewords: 40, "" }}...</p>
+            </section>
+        </a>
+    </div>
+</article>
+{% endfor %}
