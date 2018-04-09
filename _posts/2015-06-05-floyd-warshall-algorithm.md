@@ -70,7 +70,9 @@ Here we just have to compute the values in the cells: (2, 3) and (4, 3)
 |**4**|*∞*|2|9|0|
 
 **Iteration:** 2
+
 Here we computer the cells in the column 3 (expect the copied over cell of course). These became 9, 0 (same as before, smallest number that we have) and 3 (3 < 9)
+
 |-|**1**|**2**|**3**|**4**|
 |:-:|:-:|:-:|:-:|:-:|
 |**1**|0|*8*|9|1|
@@ -79,6 +81,7 @@ Here we computer the cells in the column 3 (expect the copied over cell of cours
 |**4**|∞|*2*|3|0|
 
 **Iteration:** 3
+
 |-|**1**|**2**|**3**|**4**|
 |:-:|:-:|:-:|:-:|:-:|
 |**1**|0|8|*9*|1|
@@ -87,6 +90,7 @@ Here we computer the cells in the column 3 (expect the copied over cell of cours
 |**4**|7|2|*3*|0|
 
 **Iteration:** 4
+
 |-|**1**|**2**|**3**|**4**|
 |:-:|:-:|:-:|:-:|:-:|
 |**1**|0|3|4|*1*|
