@@ -18,3 +18,15 @@ experience:
   name: experience
   description: False
   cover: assets/images/covers/experience.jpg
+algorithms:
+  name: experience
+  description: False
+  cover: assets/images/covers/algorithms.jpg
+cpp:
+  name: experience
+  description: False
+  cover: assets/images/covers/coding.jpg
+c:
+  name: experience
+  description: False
+  cover: assets/images/covers/coding2.jpg
