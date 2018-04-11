@@ -31,3 +31,6 @@ discrete-math:
 networking:
   name: Networking
   cover: assets/images/covers/network.jpg
+business:
+  name: Networking
+  cover: assets/images/covers/network.jpg
