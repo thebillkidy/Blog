@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>My thoughts, tutorials and learnings</description>
+    <link>
+    </link>
+    
+      
+      <item>
+        <title>Visual Studio Android Emulator Debugging</title>
+        
+          <description>&lt;p&gt;So you decided to get into Mobile development? Well your best bet on windows currently is the &lt;strong&gt;Visual Studio Emulator for Android Apps&lt;/strong&gt; by Microsoft (https://www.visualstudio.com/vs/msft-android-emulator/). But you may run into some trouble when using it. This blog post consists out of the most commonly encountered problems with the Visual Studio Emulator for Android Apps, and how you could solve them.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 13 Jan 2018 09:00:00 +0000</pubDate>
+        <link>
+        /visual-studio-android-emulator-debugging</link>
+        <guid isPermaLink="true">/visual-studio-android-emulator-debugging</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How-To Fix slow internet speed on a Realtek adapter with Hyper-V machines</title>
+        
+          <description>&lt;p&gt;When working with the awesome Visual Studio Android Emulator, I encountered the following error:&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 12 Jan 2018 20:13:00 +0000</pubDate>
+        <link>
+        /fix-slow-internet-hyperv-realtek</link>
+        <guid isPermaLink="true">/fix-slow-internet-hyperv-realtek</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>The MERGE Stack</title>
+        
+          <description>&lt;p&gt;https://github.com/thebillkidy/MERGE-Stack&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 04 Apr 2017 15:33:00 +0000</pubDate>
+        <link>
+        /merge-stack</link>
+        <guid isPermaLink="true">/merge-stack</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Todo Application Tutorial React JS - Splitting it up (part 3)</title>
+        
+          <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:02 +0000</pubDate>
+        <link>
+        /react-part-3</link>
+        <guid isPermaLink="true">/react-part-3</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Todo Application Tutorial React JS - Splitting it up (part 2)</title>
+        
+          <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:01 +0000</pubDate>
+        <link>
+        /react-part-2</link>
+        <guid isPermaLink="true">/react-part-2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Todo Application Tutorial React JS - Splitting it up (part 1)</title>
+        
+          <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:00 +0000</pubDate>
+        <link>
+        /react-part-1</link>
+        <guid isPermaLink="true">/react-part-1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Bridge Year Experience - University Ghent</title>
+        
+          <description>&lt;p&gt;September last year was one of the most influential times of my life. Being a newly graduated student at the Karel De Grote College in Antwerp I had several choices. Start a company from the project that I had been building, continue my educations and go for the bridge year so that I could do the master year afterwards or start working. Seeing that I was 20 back then I chose for continuing my education and go for my master of science with a major in Computer Science at the University Of Ghent. I believed that this was key to evolving my theoretical thinking skills, and to be able to solve bigger problems than the ones we were taught in college. It would also provide me more opportunities with the ability to get promoted faster later on.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:00 +0000</pubDate>
+        <link>
+        /bridge-year-ugent</link>
+        <guid isPermaLink="true">/bridge-year-ugent</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Spending the summer at a Startup</title>
+        
+          <description>&lt;p&gt;This summer, just after finishing my exams for my bridge year, I decided to do something else this summer. After thinking about it for a long time, I thought, why not instead of working at an already established company, work for a startup instead? This is when I started looking out for startups that were in need of a developer to create their Minimum Viable Product (MVP).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 04 Sep 2015 10:16:00 +0000</pubDate>
+        <link>
+        /spending-the-summer-at-a-startup</link>
+        <guid isPermaLink="true">/spending-the-summer-at-a-startup</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Finding smallest and biggest number multithreaded in C++</title>
+        
+          <description>&lt;p&gt;The goal of this exercise is to create a program that generates a table with random elements in it. Once we created this table we have to start 2 threads. 1 thread will find the biggest number and the other will find the smallest number. We will then send this to a result and print these 2 numbers.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 18:41:00 +0000</pubDate>
+        <link>
+        /finding-smallest-biggest-in-c-multithreaded</link>
+        <guid isPermaLink="true">/finding-smallest-biggest-in-c-multithreaded</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Simulating mkdir -p in bash</title>
+        
+          <description>&lt;p&gt;When we are working with systems that do not support special cases then we need to simulate. That is why it is handy to create different simulations of already existing solutions.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 18:41:00 +0000</pubDate>
+        <link>
+        /simulating-mkdir-p-in-bash</link>
+        <guid isPermaLink="true">/simulating-mkdir-p-in-bash</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Feedients Development Environment</title>
+        
+          <description>&lt;h2 id=&quot;why-did-we-use-this-development-environment&quot;&gt;Why did we use this development environment?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 18:41:00 +0000</pubDate>
+        <link>
+        /feedients-development-environment</link>
+        <guid isPermaLink="true">/feedients-development-environment</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Solving permutations with Heap's Algorithm in Javascript</title>
+        
+          <description>&lt;p&gt;A friend of mine had just gotten the question to find every combination for a given array in [1, 2, 3].
+When analyzing this question I found out that this is actually a simple permutation that has to be generated with the use of Javascript. Lucky for me we had just had the course Discrete math in school so we saw some algorithms that could do this. The algorithm that I used for this is &lt;strong&gt;Heap’s algorithm&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:13 +0000</pubDate>
+        <link>
+        /solve-permutation-heaps</link>
+        <guid isPermaLink="true">/solve-permutation-heaps</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Radix Sort</title>
+        
+          <description>&lt;p&gt;Radix sort is a sorting algorithm that is different than the traditional algoritms that we encountered already. It sorts data based on the integers their individual digits instead of looking at the complete value.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:12 +0000</pubDate>
+        <link>
+        /radix-sort</link>
+        <guid isPermaLink="true">/radix-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Prim's Algorithm</title>
+        
+          <description>&lt;p&gt;Prim’s algorithm solves problems such as finding the Minimum Spanning Tree (MST) of a graph. With a MST we mean the solution set that connects every node of a graph together with the least weight.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:11 +0000</pubDate>
+        <link>
+        /prims</link>
+        <guid isPermaLink="true">/prims</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Inverting a binary tree in C++</title>
+        
+          <description>&lt;p&gt;So not so long ago (10th of June) &lt;a href=&quot;https://twitter.com/mxcl&quot;&gt;Max Howell&lt;/a&gt; tweeted a post stating:&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:10 +0000</pubDate>
+        <link>
+        /inverting-binary-tree-cpp</link>
+        <guid isPermaLink="true">/inverting-binary-tree-cpp</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Introduction to Algorithms</title>
+        
+          <description>&lt;p&gt;In the last semester of school we are learning about datastructures and algorithms. Because this is a very popular subject for companies, I have decided to write articles about it. They will be numbered from easy to hard so that you are able to learn the most critical sorting algorithms first. Also please note that all the code written here has been written by my (unless specified otherwise), because of this there might be some bugs, please contact me if you find any.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:09 +0000</pubDate>
+        <link>
+        /introduction</link>
+        <guid isPermaLink="true">/introduction</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Floyd Warshall Algorithm</title>
+        
+          <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:08 +0000</pubDate>
+        <link>
+        /floyd-warshall</link>
+        <guid isPermaLink="true">/floyd-warshall</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Depth First Search (DFS)</title>
+        
+          <description>&lt;p&gt;Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as &lt;a href=&quot;http://desple.com/post/118014845597/solving-a-maze-with-perl&quot;&gt;maze solving&lt;/a&gt;, maze generation, …&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:07 +0000</pubDate>
+        <link>
+        /depth-first-search-dfs</link>
+        <guid isPermaLink="true">/depth-first-search-dfs</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Breadth First Search (BFS)</title>
+        
+          <description>&lt;p&gt;Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as &lt;a href=&quot;http://desple.com/post/118014845597/solving-a-maze-with-perl&quot;&gt;maze solving&lt;/a&gt;, maze generation, …&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:06 +0000</pubDate>
+        <link>
+        /breadth-first-search-bfs</link>
+        <guid isPermaLink="true">/breadth-first-search-bfs</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Shell Sort</title>
+        
+          <description>&lt;p&gt;Shell Sort is a more refined version of insertion sort. This algorithm will change our array from completely random unsorted data to partially sorted data so that insertion sort may work faster.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:05 +0000</pubDate>
+        <link>
+        /shell-sort</link>
+        <guid isPermaLink="true">/shell-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Selection Sort</title>
+        
+          <description>&lt;h1 id=&quot;selection-sort&quot;&gt;Selection Sort&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:04 +0000</pubDate>
+        <link>
+        /selection-sort</link>
+        <guid isPermaLink="true">/selection-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Quick Sort</title>
+        
+          <description>&lt;p&gt;QuickSort is also a &lt;strong&gt;Divide And Conquer&lt;/strong&gt; algorithm with a performance of $O(n * log(n))$, however in the worst case this becomes $O(n^2)$.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:03 +0000</pubDate>
+        <link>
+        /quick-sort</link>
+        <guid isPermaLink="true">/quick-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Merge Sort</title>
+        
+          <description>&lt;p&gt;Merge Sort is a comparison algorithm that tries to sort the dataset by a &lt;strong&gt;Divide And Conquer&lt;/strong&gt; method. The performance of this algorithm is $O(n*log(n))$.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:02 +0000</pubDate>
+        <link>
+        /merge-sort</link>
+        <guid isPermaLink="true">/merge-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Insertion Sort</title>
+        
+          <description>&lt;p&gt;Insertion sort is the core algorithm to know, it is also the easiest to understand and implement. The disadvantages however are that it is horribly slow. The recommendation is to use this algorithm when you are sorting really small tables (&amp;lt; 10). Insertion Sort is also used as the base for more advanced algorithms (merge-sort, quick-sort).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:01 +0000</pubDate>
+        <link>
+        /insertion-sort</link>
+        <guid isPermaLink="true">/insertion-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Heap Sort</title>
+        
+          <description>&lt;h1 id=&quot;heap-sort&quot;&gt;Heap Sort&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:00 +0000</pubDate>
+        <link>
+        /heap-sort</link>
+        <guid isPermaLink="true">/heap-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Solving a Sudoku with Discrete Math</title>
+        
+          <description>&lt;p&gt;Solving a Sudoku is not an easy task, not for humans and even a computer can struggle with it if it has to go through each combination and try brute forcing the puzzle without any clue.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:03 +0000</pubDate>
+        <link>
+        /solving-a-sudoku</link>
+        <guid isPermaLink="true">/solving-a-sudoku</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Fields - Prime Fields</title>
+        
+          <description>&lt;p&gt;This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:02 +0000</pubDate>
+        <link>
+        /prime-fields</link>
+        <guid isPermaLink="true">/prime-fields</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Fields - Galois Fields</title>
+        
+          <description>&lt;h1 id=&quot;1-galois-fields&quot;&gt;1 Galois Fields&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:01 +0000</pubDate>
+        <link>
+        /galois-fields</link>
+        <guid isPermaLink="true">/galois-fields</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Fields - Elliptical Curves Over Finite Fields</title>
+        
+          <description>&lt;h2 id=&quot;11-weierstrass-equations&quot;&gt;1.1 Weierstrass Equations&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:00 +0000</pubDate>
+        <link>
+        /elliptical-curves-over-finite-fields</link>
+        <guid isPermaLink="true">/elliptical-curves-over-finite-fields</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Max number with pipes in C++ and Unix</title>
+        
+          <description>&lt;p&gt;Let’s say we have x children, these x children all generate a number and give this to the parent. The parent now finds the highest number and sends the children the process id of the winning child. If the winning child recognises itself then it prints that it is the winner, else they print the winning process id.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:03 +0000</pubDate>
+        <link>
+        /max-number-with-pipes-cpp-unix</link>
+        <guid isPermaLink="true">/max-number-with-pipes-cpp-unix</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating a LinkedList with C++</title>
+        
+          <description>&lt;p&gt;Linked Lists are one of the fundamental data structures. The main usage of a Linked List is when constant insertion and deletion time is required, or when a dynamic list that can grow and shrink over time is needed.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:02 +0000</pubDate>
+        <link>
+        /creating-a-linkedlist</link>
+        <guid isPermaLink="true">/creating-a-linkedlist</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How to benchmark Reading 10MB in C++</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;This article is based on a vagrant Ubuntu system with an SSD so you might encounter different results.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:01 +0000</pubDate>
+        <link>
+        /benchmarking-reading-10mb-cpp</link>
+        <guid isPermaLink="true">/benchmarking-reading-10mb-cpp</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Basic OOP with C++</title>
+        
+          <description>&lt;p&gt;This article is going to explain 1 example of an Object Oriented Program for C++.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:00 +0000</pubDate>
+        <link>
+        /basic-oop</link>
+        <guid isPermaLink="true">/basic-oop</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Recursion</title>
+        
+          <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:05 +0000</pubDate>
+        <link>
+        /sql-recursion</link>
+        <guid isPermaLink="true">/sql-recursion</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Common Table Expression (CTE) - Part 5</title>
+        
+          <description>&lt;p&gt;CTE’s (Common Table Expressions) are mostly used when creating recursive queries, creating temporary views (instead of subqueries).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:04 +0000</pubDate>
+        <link>
+        /sql-ctes-part-5</link>
+        <guid isPermaLink="true">/sql-ctes-part-5</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Common Table Expression (CTE) - Part 4</title>
+        
+          <description>&lt;p&gt;When creating JOIN queries in SQL we have to realize that we are going to combine every result from the result set with the result set itself. This means that we are going to create a new result set that is the size of the power of 2 of our original result set. (So if we have 1468 records, and we join it with itself, then we will get 2155024 records = 1468^2)&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:03 +0000</pubDate>
+        <link>
+        /sql-ctes-part-4</link>
+        <guid isPermaLink="true">/sql-ctes-part-4</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Common Table Expression (CTE) - Part 3</title>
+        
+          <description>&lt;h2 id=&quot;analytical-functions&quot;&gt;Analytical Functions&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:02 +0000</pubDate>
+        <link>
+        /sql-ctes-part-3</link>
+        <guid isPermaLink="true">/sql-ctes-part-3</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Common Table Expression (CTE) - Part 2</title>
+        
+          <description>&lt;h2 id=&quot;aggregate-functions&quot;&gt;Aggregate Functions&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:01 +0000</pubDate>
+        <link>
+        /sql-ctes-part-2</link>
+        <guid isPermaLink="true">/sql-ctes-part-2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Common Table Expression (CTE) - Part 1</title>
+        
+          <description>&lt;p&gt;While I was studying the course Databases at the University of Ghent, we encountered some special queries that we were not being thaught in the Professional Bachelor course. This is why I tried to summarise those queries here for everyone to learn from.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:00 +0000</pubDate>
+        <link>
+        /sql-ctes-part-1</link>
+        <guid isPermaLink="true">/sql-ctes-part-1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Solving a maze with Perl</title>
+        
+          <description>&lt;p&gt;Mazes are really famous puzzles where the goal is to find the exit starting from an entrance. We can see these kind of puzzles as a labyrinth. When we found the solution we then draw over them to mark the path that we have to find.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 09:00:00 +0000</pubDate>
+        <link>
+        /perl-solving-a-maze</link>
+        <guid isPermaLink="true">/perl-solving-a-maze</guid>
+      </item>
+      
+    
+  </channel>
+</rss>

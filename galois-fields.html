@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Fields - Galois Fields</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/galois-fields" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fields - Galois Fields" />
+    <meta property="og:description" content="1 Galois Fields 1.1 Construction of Galois Fields A Galois field has a finite amount of numbers and is written as GF(q) or Fq. Where q = pn. When knowing all this we can now construct a Galois Field with n dimensions and p elements. Example: When we want to" />
+    <meta property="og:url" content="/galois-fields" />
+    <meta property="og:image" content="/assets/images/covers/algorithms.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2015-06-05T12:00:01+00:00" />
+    <meta property="article:modified_time" content="2015-06-05T12:00:01+00:00" />
+    <meta property="article:tag" content="Discrete-math" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fields - Galois Fields" />
+    <meta name="twitter:description" content="1 Galois Fields 1.1 Construction of Galois Fields A Galois field has a finite amount of numbers and is written as GF(q) or Fq. Where q = pn. When knowing all this we can now construct a Galois Field with n dimensions and p elements. Example: When we want to" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/algorithms.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Discrete-math" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/galois-fields",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/algorithms.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/galois-fields"
+    },
+    "description": "1 Galois Fields 1.1 Construction of Galois Fields A Galois field has a finite amount of numbers and is written as GF(q) or Fq. Where q = pn. When knowing all this we can now construct a Galois Field with n dimensions and p elements. Example: When we want to"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Fields - Galois Fields" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="">Xavier Geerinck - Blog</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects.html">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories.html">Categories</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-discrete-math ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/discrete-math/'>DISCRETE-MATH</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/algorithms.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Fields - Galois Fields</h1>
+                    <h1 id="1-galois-fields">1 Galois Fields</h1>
+
+<h2 id="11-construction-of-galois-fields">1.1 Construction of Galois Fields</h2>
+
+<p>A Galois field has a finite amount of numbers and is written as GF(q) or F<sub>q</sub>. Where q = p<sup>n</sup>.</p>
+
+<p>When knowing all this we can now construct a Galois Field with n dimensions and p elements.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>When we want to construct the galois field of F<sub>49</sub> then we know that p = 7 and n = 2. Which means that we have 2 dimensions and 7 elements (elements ranging from 0 to 6). So to construct this we will need a grid the exists out of p<sup>n</sup> elements. Like this:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{matrix}
+(0,0) &amp; (1,0) &amp; (2,0) &amp; (3,0) &amp; (4,0) &amp; (5,0) &amp; (6,0) \newline
+(0,1) &amp; (1,1) &amp; (2,1) &amp; (3,1) &amp; (4,1) &amp; (5,1) &amp; (6,1) \newline
+(0,2) &amp; (1,2) &amp; (2,2) &amp; (3,2) &amp; (4,2) &amp; (5,2) &amp; (6,2) \newline
+(0,3) &amp; (1,3) &amp; (2,3) &amp; (3,3) &amp; (4,3) &amp; (5,3) &amp; (6,3) \newline
+(0,4) &amp; (1,4) &amp; (2,4) &amp; (3,4) &amp; (4,4) &amp; (5,4) &amp; (6,4) \newline
+(0,5) &amp; (1,5) &amp; (2,5) &amp; (3,5) &amp; (4,5) &amp; (5,5) &amp; (6,5) \newline
+(0,6) &amp; (1,6) &amp; (2,6) &amp; (3,6) &amp; (4,6) &amp; (5,6) &amp; (6,6) \newline
+\end{matrix} %]]></script>
+
+<p>Of course, when n &gt; 2 then we are not able to write this as a grid, but we do now the elements that are in our field.</p>
+
+<p>Now because our field construction is defined as (F<sub>q</sub>, ⊕, ⊗) we need to have an additive interaction and a multiplicative interaction.</p>
+
+<p>Our additive interaction is being done by executing the additive operations <strong>mod p</strong> for every dimension.</p>
+
+<p>The multiplicative interaction needs to have a polynomial at every grid point with grade &lt; n</p>
+
+<p>If we apply this on our field that we calculated then we get:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{matrix}
+0 &amp; x &amp; 2x &amp; 3x &amp; 4x &amp; 5x &amp; 6x \newline
+1 &amp; x+1 &amp; 2x+1 &amp; 3x+1 &amp; 4x+1 &amp; 5x+1 &amp; 6x+1 \newline
+2 &amp; x+2 &amp; 2x+2 &amp; 3x+2 &amp; 4x+2 &amp; 5x+2 &amp; 6x+2 \newline
+3 &amp; x+3 &amp; 2x+3 &amp; 3x+3 &amp; 4x+3 &amp; 5x+3 &amp; 6x+3 \newline
+4 &amp; x+4 &amp; 2x+4 &amp; 3x+4 &amp; 4x+4 &amp; 5x+4 &amp; 6x+4 \newline
+5 &amp; x+5 &amp; 2x+5 &amp; 3x+5 &amp; 4x+5 &amp; 5x+5 &amp; 6x+5 \newline
+6 &amp; x+6 &amp; 2x+6 &amp; 3x+6 &amp; 4x+6 &amp; 5x+6 &amp; 6x+6
+\end{matrix} %]]></script>
+
+<h2 id="12-calculating-with-polynomials">1.2 Calculating with polynomials</h2>
+
+<h3 id="121-multiplying-polynomials">1.2.1 Multiplying Polynomials</h3>
+
+<p>The multiplication is written as: polynomial 1 ⊗ polynomial 2. To perform this multiplication, we do the same as we would do with for example: (2x + 2) * (4x + 3). But this time, we do modulo our prime on the end!</p>
+
+<p><strong>Example:</strong> 123x<sup>4</sup>+76x<sup>2</sup>+7x+4 ⊗ 196x<sup>4</sup>+12x<sup>3</sup>+225x<sup>2</sup>+4x+76 %251 for prime = 251</p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPbkdTWHF2M0luT0U" alt="multiplying_polynomials" /></p>
+
+<p>Here we can see that the result:
+<script type="math/tex">12x^2+221x^7+152x^6+15x^5+208x^4+170x^3+178x^2+46x+53</script></p>
+
+<h3 id="122-dividing-polynomials">1.2.2 Dividing Polynomials</h3>
+
+<p>Dividing polynomials is also easy, but we have to pay attention. If the coefficient of the divisor it’s head grade = 1 then we can do a normal division like we saw when we were 12 years old (we just use some bigger numbers now).</p>
+
+<h4 id="1221-head-grade-divisor-is-1">1.2.2.1 Head grade divisor is 1</h4>
+
+<p><strong>Example:</strong> 12x<sup>8</sup>+221x<sup>7</sup>+152x<sup>6</sup>+25x<sup>5</sup>+208x<sup>4</sup>+117x<sup>3</sup>+150x<sup>2</sup>+30x+53 / x<sup>5</sup>+x<sup>4</sup>+12x<sup>3</sup>+9x<sup>2</sup>+7</p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPT0Q5Z1VCT3dLOTQ" alt="dividing_polynomials" /></p>
+
+<p>This results into:
+<script type="math/tex">12x^3+209x^2+50x+120 \otimes x^5+x^4+12x^3+9x^2+7 \oplus 117x^4+151x^3+117x^2+182x+217 \text{ mod 251}</script></p>
+
+<p>which is just the result multiplied by the divisor and the remainder added to it.</p>
+
+<h4 id="1222-head-grade-divisor--1">1.2.2.2 Head grade divisor &gt; 1</h4>
+
+<p>If the head grade &gt; 1, then we have to multiply both the divisor and the polynomal by (head grade) ^ -1 mod p</p>
+
+<p>So this means if we got this division:
+<script type="math/tex">12x^8+221x^7+152x^6+25x^5+208x^4+117x^3+150x^2+30x+53 / 3x^5+x^4+12x^3+9x^2+7</script></p>
+
+<p>becomes</p>
+
+<script type="math/tex; mode=display">4x^8+241x^7+218x^6+92x^5+153x^4+39x^3+50x^2+10x+185 / x^5+84x^4+4x^3+3x^2+86</script>
+
+<p>On the end we just have to remultiply the remainder by the head coeficient of the divisor, and then we got our result</p>
+
+<p>Steps executed:
+<img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPa2k3UThHR19VcUE" alt="dividing_polynomials_2" /></p>
+
+<h3 id="123-the-euclidean-algorithm-for-polynomials">1.2.3 The Euclidean Algorithm For Polynomials</h3>
+
+<p>The euclidean algorithm was already explained in the first post for discrete math <a href="http://desple.com/post/104343618742/discrete-math-fields-prime-fields-part-1">http://desple.com/post/104343618742/discrete-math-fields-prime-fields-part-1</a> and we are now able to do this with polynomials too.</p>
+
+<h2 id="13-group-tables">1.3 Group Tables</h2>
+
+<p>We got 2 different group tables, the additive group table and the multiplicative. We will first start by constructing the additive group table since this is the easiest one. To construct this we follow these steps:</p>
+
+<ol>
+  <li>Find the elements belonging to the GF being given (Write only the coefficients, easier to calculate with)</li>
+  <li>When we found the elements, create a table with the X and Y values being the elements from the GF</li>
+  <li>Now we calculate the sum of the X and Y values and fill in our table</li>
+</ol>
+
+<p>&gt; <strong>Note:</strong> When filling in the table, don’t forget that we are working <strong>mod p</strong></p>
+
+<p><strong>Example:</strong> We will create the additive table for GF(27)</p>
+
+<p><strong>Basics of the GF:</strong>
+GF(27), p = 3, n = 3, q = 27</p>
+
+<p><strong>1) Elements</strong></p>
+
+<p>Complete List:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{matrix}
+0 &amp; 1 &amp; 2 &amp; x &amp; x+1 &amp; x+2 &amp; 2x &amp; 2x+1 &amp; 2x+2 \newline
+x^2 &amp; x^2+1 &amp; x^2+2 &amp; x^2+x &amp; x^2+x+1 &amp; x^2+x+2 &amp; x^2+2x &amp; x^2+2x+1 &amp; x^2+2x+2 \newline
+2x^2 &amp; 2x^2+1 &amp; 2x^2+2 &amp; 2x^2+x &amp; 2x^2+x+1 &amp; 2x^2+x+2 &amp; 2x^2+2x &amp; 2x^2+2x+1 &amp; 2x^2+2x+2
+\end{matrix} %]]></script>
+
+<p>Just the coefficients:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{matrix}
+0 &amp; 1 &amp; 2 &amp; 10 &amp; 11 &amp; 12 &amp; 20 &amp; 21 &amp; 22 \newline
+100 &amp; 101 &amp; 102 &amp; 110 &amp; 111 &amp; 112 &amp; 120 &amp; 121 &amp; 122 \newline
+200 &amp; 201 &amp; 202 &amp; 210 &amp; 211 &amp; 212 &amp; 220 &amp; 221 &amp; 222
+\end{matrix} %]]></script>
+
+<p><strong>2) &amp; 3) Create table with X and Y as the elements, and calculate MOD P</strong></p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPOEEwZDN4YVN4aW8" alt="galois_field_27" /></p>
+
+<p>If we now want to calculate the multiplicative field, then we just need to add a 0 column and a 0 row in the beginning and then we have our multiplicative result:</p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPZmdzNVB3dU1lV0E" alt="galois_field27_multiplicative" /></p>
+
+<h2 id="14-irreducible-polynomials">1.4 irreducible Polynomials</h2>
+
+<h3 id="141-number-of-irreducible-polynomials">1.4.1 Number of irreducible Polynomials</h3>
+
+<p>We know that there are p<sup>n</sup> amount of monic polynomials. By using the Mobius Inversion, we can calculate how many there are irreducible.</p>
+
+<script type="math/tex; mode=display">\frac{1}{n} \sum_{d|n} \mu() * p^{\frac{n}{d}}</script>
+
+<p><strong>Example:</strong> How many polynomials are irreducible for (F<sub>6<sup>6</sup></sub>, ⊕, ⊗)</p>
+
+<script type="math/tex; mode=display">\frac{6^6 - 6^3 - 6^2 + 6}{6} = 7735</script>
+
+<p>Which means that there are 7735 of the 46656 polynomials that are irreducible for the prime 6 with grade 6</p>
+
+<h3 id="142-checking-if-a-polynomial-is-irreducible">1.4.2 Checking if a Polynomial is irreducible</h3>
+
+<p>To check if a Polynomial is irreducible, we have to check if it has not common factors mod p with the polynomials of x<sup>p<sup>i</sup></sup> - x, for every i &lt;=n / 2</p>
+
+<p>Some examples for checking:</p>
+
+<ul>
+  <li><strong>F<sub>p<sup>2</sup></sub></strong>: check x<sup>p</sup> - x</li>
+  <li><strong>F<sub>p<sup>3</sup></sub></strong>: check x<sup>p</sup> - x</li>
+  <li><strong>F<sub>p<sup>4</sup></sub></strong>: check x<sup>p</sup> - x and x<sup>p<sup>2</sup></sup></li>
+  <li><strong>F<sub>p<sup>5</sup></sub></strong>: check x<sup>p</sup> - x and x<sup>p<sup>2</sup></sup></li>
+  <li><strong>F<sub>p<sup>6</sup></sub></strong>: check x<sup>p</sup> - x , x<sup>p<sup>2</sup></sup> and x<sup>p<sup>3</sup></sup></li>
+  <li><strong>F<sub>p<sup>7</sup></sub></strong>: check x<sup>p</sup> - x , x<sup>p<sup>2</sup></sup> and x<sup>p<sup>3</sup></sup></li>
+</ul>
+
+<p>&gt; <strong>Note:</strong> We wrote - everywhere, this is correct since we still have to do <strong>mod p</strong> afterwards. So this could become + if we would do this for for p = 2 (since -1 mod 2 = +1)!</p>
+
+<p><strong>Example:</strong> Find an irreducible polynomial with n = 7 for F<sub>128</sub></p>
+
+<p>128 ==&gt; p = 2, n = 7</p>
+
+<p>Since n = 7, we know that we have to check for x<sup>2</sup> + 1, x<sup>4</sup> + 1 and x<sup>8</sup> + 1</p>
+
+<p>Now we pick a polynomial that could be irreducibel and is monic. For example: x<sup>7</sup> + x<sup>2</sup> + 1</p>
+
+<p>To check if this is irreducibel, we need to be sure this polynomial can not be divided by the 3 checks that we have placed. We check this by using the Euclidean algorithm and the dividing of Polynomials.</p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPV1lkTlJXRDR5bGM" alt="check_irreducible" /></p>
+
+<p>&gt; A lot of irreducible polynomials have been found, we can find those in the FIPS 186 standard (<a href="http://csrc.nist.gov/publications/fips/fips1861.pdf">FIPS186-1</a>, <a href="http://csrc.nist.gov/publications/fips/archive/fips186-2/fips186-2.pdf">FIPS186-2</a>, <a href="http://csrc.nist.gov/publications/fips/fips186-3/fips_186-3.pdf">FIPS186-3</a>, <a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">FIPS186-4</a>)</p>
+
+<h2 id="15-primitive-elements">1.5 Primitive Elements</h2>
+
+<p>If we found an Irreducible Polynomial, then we have to find a primitive element ω of the multiplicative group. We can do this by using the method that I explained in my first blog post about Discrete math <a href="http://desple.com/post/104343618742/discrete-math-fields-prime-fields-part-1">http://desple.com/post/104343618742/discrete-math-fields-prime-fields-part-1</a></p>
+
+<p>I also refer to this post for finding the discrete logarithm for an index of a primitive root using the baby-step giant-step method.</p>
+
+<h2 id="16-inverse-elements">1.6 Inverse Elements</h2>
+
+<p>We can calculate the inverse of an element using the Euclidean Algorithm.</p>
+
+<p><strong>Example:</strong> (x<sup>4</sup>+x<sup>3</sup>+x<sup>2</sup>)<sup>-1</sup></p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPSXhwa25wbGdWX3M" alt="inverse_elements" /></p>
+
+<p>Following the solution above, we can see that the inverse is equal to: x<sup>6</sup> + x<sup>3</sup> + x<sup>2</sup></p>
+
+<h2 id="17-calculating-with-indices">1.7 Calculating with indices</h2>
+
+<h3 id="171-method">1.7.1 Method</h3>
+
+<p>To perform caslculations in Finite fields we have to choose between 2 methods</p>
+
+<ul>
+  <li>We identify the coordinates in a n-dimensional grid for the polynomial with grade &lt; n</li>
+  <li><strong>Advantage:</strong> Additive Calculation are just additions mod p</li>
+  <li><strong>Disadvantage:</strong> Multiplicative Calculations require inverse elements and are therefor harder</li>
+  <li>We identify the elements by comparing it’s index to a primitive element ω (ω is randomly chosen)</li>
+  <li><strong>Advantage:</strong> We simplify multiplicative calculations to 1 additive calculations modulo(q - 1)</li>
+  <li><strong>Disadvantage:</strong> Additive Calculations are harder, but we can still perform them if we have a list of all it’s elements en their indices and we have an additive group table where the elements are identified by it’s indices)</li>
+</ul>
+
+<h3 id="172-constructing-the-needed-additive-group-table">1.7.2 Constructing the needed additive group table</h3>
+
+<ol>
+  <li>Calculate 1 row by using the list of all the elements and their indices. (Easiest on row index = 0)</li>
+  <li>Calculate the following rows by doing the previous cel +1 mod (q-1) and shift 1 position</li>
+</ol>
+
+<p><strong>Example:</strong> Calculate the group table for F<sub>4</sub>, μ=x2+x+1 and ω=x</p>
+
+<p><strong>1)</strong> Calculate the elements in this group (see 1.1)
+F<sub>4 = 2<sup>2</sup></sub>, so 4 elements. These elements are:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{matrix}
+0 &amp; 1 \newline
+1 &amp; x + 1
+\end{matrix} %]]></script>
+
+<p><strong>2)</strong> Assign indices to every element and put them as the x and y value for the table (or more dimensions if n &gt; 2) (<strong>Note:</strong> if element is 0, then indice is ∞! (This is because an element with itsself will return 0 after modulo))</p>
+
+<p>I wrote the x and y indices in bold.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">⊕</th>
+      <th style="text-align: center"><strong>0</strong></th>
+      <th style="text-align: center"><strong>1</strong></th>
+      <th style="text-align: center"><strong>2</strong></th>
+      <th style="text-align: center"><strong>∞</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center"><strong>0</strong></td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x</td>
+      <td style="text-align: center"><strong>1</strong></td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x+1</td>
+      <td style="text-align: center"><strong>2</strong></td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center"><strong>∞</strong></td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>3)</strong> Once we found the indices, we can just do the addition for the elements</p>
+
+<p>For the first row this becomes:</p>
+
+<ul>
+  <li>indice 0 and 0 = ∞, same indices is ∞)</li>
+  <li>indice 1 and indice 0 = 1 + x = x + 1 = indice 2</li>
+  <li>indice 2 and indice 0 = x + 1 + 1 = x + 2 = x (since modulo 2) = indice 1</li>
+  <li>indice ∞ and indice 0 = 0 + 1 = 1 = indice 0</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">⊕</th>
+      <th style="text-align: center"><strong>0</strong></th>
+      <th style="text-align: center"><strong>1</strong></th>
+      <th style="text-align: center"><strong>2</strong></th>
+      <th style="text-align: center"><strong>∞</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center"><strong>0</strong></td>
+      <td style="text-align: center">∞</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x</td>
+      <td style="text-align: center"><strong>1</strong></td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">∞</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x+1</td>
+      <td style="text-align: center"><strong>2</strong></td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">∞</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center"><strong>∞</strong></td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">∞</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="173-constructing-the-needed-multiplicative-table">1.7.3 Constructing the needed multiplicative table</h3>
+
+<p>We do the same steps as the method for constructing the additive group, only this time we will do a multiplicative operation instead of an additive</p>
+
+<p><strong>Example:</strong> Multiplicative table for F&gt;sub&gt;4, μ=x2+x+1 and ω=x</p>
+
+<p><strong>1)</strong> Calculate the elements in this group (see 1.1)
+F<sub>4 = 2<sup>2</sup></sub>, so 4 elements. These elements are:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{matrix}
+0 &amp; 1 \newline
+1 &amp; x + 1
+\end{matrix} %]]></script>
+
+<p><strong>2)</strong> Once we found the indices (See step 2 for the additive group table in 1.7.2), we can just do the multiplication for the elements</p>
+
+<p>For the first row this becomes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">⊕</th>
+      <th style="text-align: center"><strong>0</strong></th>
+      <th style="text-align: center"><strong>1</strong></th>
+      <th style="text-align: center"><strong>2</strong></th>
+      <th style="text-align: center"><strong>∞</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center"><strong>0</strong></td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">∞</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x</td>
+      <td style="text-align: center"><strong>1</strong></td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">∞</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">x+1</td>
+      <td style="text-align: center"><strong>2</strong></td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">∞</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center"><strong>∞</strong></td>
+      <td style="text-align: center">∞</td>
+      <td style="text-align: center">∞</td>
+      <td style="text-align: center">∞</td>
+      <td style="text-align: center">∞</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>&gt; We can clearly see that we got more 0’s in this table. This is because when we multiply the indices together, and we get a value that is not in our table. Then we write ∞</p>
+
+<h2 id="concluding">Concluding</h2>
+
+<p>There is only a field with order q if q is the power of a prime number!</p>
+
+<p>But how can we find finite cyclical groups where we can write the number of elements as p<sup>n</sup> - 1?</p>
+
+<p>This solution will be provided in part 3</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to Xavier Geerinck - Blog</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>By working as a Cloud Solution Architect at Microsoft, Xavier works on enabling everyone to construct products that make a life changing impact on world scale. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = '/';
+                            this.page.identifier = 'Xavier Geerinck - Blog';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/discrete-math/">Discrete-math</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/solving-a-sudoku">Solving a Sudoku with Discrete Math</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/prime-fields">Fields - Prime Fields</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/elliptical-curves-over-finite-fields">Fields - Elliptical Curves Over Finite Fields</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/discrete-math/">
+                                
+                                    See all 3 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/elliptical-curves-over-finite-fields">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/elliptical-curves-over-finite-fields">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Discrete-math</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Fields - Elliptical Curves Over Finite Fields</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>1.1 Weierstrass Equations 1.1.1 Introduction A weierstrass equation is an elliptical curve with a collection of points (x, y) (xεF and yεF) and is of the third grade with the form: and ∞</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/prime-fields">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/prime-fields">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Discrete-math</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Fields - Prime Fields</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT). In this program we</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Fields - Galois Fields</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Fields+-+Galois+Fields&amp;url=https://thebillkidy.github.io/galois-fields"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/galois-fields"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/galois-fields&title=Fields+-+Galois+Fields&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2018</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to Xavier Geerinck - Blog</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

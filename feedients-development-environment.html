@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Feedients Development Environment</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/feedients-development-environment" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Feedients Development Environment" />
+    <meta property="og:description" content="Why did we use this development environment? One of the tasks when hiring a new developer is to get this developer completely set-up on his new development environment. Most of the time this task takes a lot of time resulting in a lost workday for the newly hired employee. That" />
+    <meta property="og:url" content="/feedients-development-environment" />
+    <meta property="og:image" content="/assets/images/covers/experience.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2015-06-05T18:41:00+00:00" />
+    <meta property="article:modified_time" content="2015-06-05T18:41:00+00:00" />
+    <meta property="article:tag" content="Experience" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Feedients Development Environment" />
+    <meta name="twitter:description" content="Why did we use this development environment? One of the tasks when hiring a new developer is to get this developer completely set-up on his new development environment. Most of the time this task takes a lot of time resulting in a lost workday for the newly hired employee. That" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/experience.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Experience" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/feedients-development-environment",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/experience.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/feedients-development-environment"
+    },
+    "description": "Why did we use this development environment? One of the tasks when hiring a new developer is to get this developer completely set-up on his new development environment. Most of the time this task takes a lot of time resulting in a lost workday for the newly hired employee. That"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Feedients Development Environment" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="">Xavier Geerinck - Blog</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects.html">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories.html">Categories</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-experience tag-startups ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/experience/'>EXPERIENCE</a>,
+                            
+                        
+                            
+                               <a href='/tag/startups/'>STARTUPS</a>,
+                            
+                        
+                            
+                               <a href='/tag/feedient/'>FEEDIENT</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/experience.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Feedients Development Environment</h1>
+                    <h2 id="why-did-we-use-this-development-environment">Why did we use this development environment?</h2>
+
+<p><img src="https://lh3.googleusercontent.com/rqhNZ3cSvwBui8n7mCnhuK8vWcFo-D2vrWqRJ-7JFgw=s600" alt="Feedient setup" title="docker-17-36-51-1.jpg" />
+One of the tasks when hiring a new developer is to get this developer completely set-up on his new development environment. Most of the time this task takes a lot of time resulting in a lost workday for the newly hired employee.</p>
+
+<p>That is why we at Feedient are using a development environment that consists out of the following:</p>
+
+<ul>
+  <li><a href="https://coreos.com">CoreOS</a> (A stripped Linux distribution that has the unneeded software removed that other Linux distributions have)</li>
+  <li><a href="https://www.docker.com">Docker</a> (Container management tool that uses Linux LVM)</li>
+  <li><a href="https://www.vagrantup.com/">Vagrant</a> (Virtual Machine manager, mostly used for development environments).</li>
+</ul>
+
+<blockquote>
+  <p><em>Other alternatives too this setup are possible by switching out the Linux distribution for a more popular one such as Ubuntu, CentOS, … And changing the container management tool for a provisioner such as Chef, Puppet, Ansible, …</em></p>
+</blockquote>
+
+<p>The advantages of using this development environment are</p>
+
+<ul>
+  <li>Small initial setup time allowing the newly hired development too start developing within 10 minutes.</li>
+  <li>Almost an exact clone of the production environment, this allows the developer too test changes that are not dependent on the OS.</li>
+  <li>Docker has the advantage over Chef / Puppet / Ansible / … that it is way faster and smaller.</li>
+  <li>Separation of concerns, we keep the complete development environment on a VM so that the developer does not need to install unneeded software on their own machine.</li>
+  <li>CoreOS ships Docker by default, which is one package less to install.</li>
+</ul>
+
+<h2 id="setting-up-the-environment">Setting up the environment</h2>
+
+<h3 id="installing-the-prerequisites-for-the-developer">Installing the prerequisites for the developer</h3>
+
+<p>Every environment has prerequisites that have to be installed, we can not avoid this but we can keep it to a minimum. This is why a new developer only has to install the following when they come in:</p>
+
+<ul>
+  <li><a href="https://www.virtualbox.org/">VirtualBox</a> (Virtualization Software)</li>
+  <li><a href="https://www.vagrantup.com/">Vagrant</a></li>
+  <li><a href="http://git-scm.com/">Git</a> (Version Control System)</li>
+</ul>
+
+<p>A way to remove these initial prerequisites is by pre-installing the software on the computer of the developer before they receive it.</p>
+
+<h3 id="preparing-vagrant-to-boot-for-the-first-time">Preparing Vagrant to boot for the first time</h3>
+
+<p>As soon as we have downloaded the prerequisites we have to start vagrant. Vagrant uses a <code class="highlighter-rouge">Vagrantfile</code> which contains the specification of the Virtual Machine that is going to be created when we enter <code class="highlighter-rouge">vagrant up</code>.</p>
+
+<p>We have created our own repository that a new developer has to clone with the use of git and then they can instantly start their vagrant machine which does the rest of the configuration.</p>
+
+<p>For a basic Vagrantfile that will install CoreOS you can clone this repository: <a href="https://github.com/coreos/coreos-vagrant">https://github.com/coreos/coreos-vagrant</a>. We however used our own Folder structure described below.</p>
+
+<h3 id="our-vagrant-folder-structure">Our Vagrant Folder structure</h3>
+
+<p>We have created our own directory structure that will allow us to reuse most of the files that were used during installation.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Vagrant_CoreOS_Docker
+│ README.md
+│ Vagrantfile
+│ install.sh
+│
+└───docker
+├───ghost_demo
+│ │ Dockerfile
+│ │ start.bash
+</code></pre></div></div>
+
+<p>This folder structure shows that we hold the Vagrantfile and install.sh in our root directory. This Vagrantfile will be used when we enter <code class="highlighter-rouge">vagrant up</code> and will then setup the Virtual Machine with CoreOS. After this is done it will then run install.sh which in turn is going to install the ghost_demo Dockerfile.</p>
+
+<p>The reason we chose for this setup is because this allows a couple of things:</p>
+
+<ul>
+  <li>We can add more projects under the docker folder</li>
+  <li>install.sh accepts 2 parameters <strong>DockerfilePath</strong> and <strong>ImageName</strong> allowing us to change the Dockerfile that is being installed.</li>
+</ul>
+
+<h4 id="vagrantfile">Vagrantfile</h4>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># # vi: set ft=ruby :</span>
+
+<span class="nb">require</span> <span class="s1">'fileutils'</span>
+
+<span class="no">Vagrant</span><span class="p">.</span><span class="nf">require_version</span> <span class="s2">"&gt;= 1.6.0"</span>
+
+<span class="no">CLOUD_CONFIG_PATH</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s2">"user-data"</span><span class="p">)</span>
+<span class="no">CONFIG</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s2">"config.rb"</span><span class="p">)</span>
+
+<span class="vg">$update_channel</span> <span class="o">=</span> <span class="s2">"alpha"</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'ghostdemo'</span><span class="p">,</span>
+    <span class="ss">:config</span> <span class="o">=&gt;</span> <span class="s1">'ghostdemo'</span><span class="p">,</span>
+    <span class="ss">:ip</span> <span class="o">=&gt;</span> <span class="s1">'172.17.8.2'</span><span class="p">,</span>
+    <span class="ss">:box</span> <span class="o">=&gt;</span> <span class="s2">"coreos-%s"</span> <span class="o">%</span> <span class="vg">$update_channel</span><span class="p">,</span>
+    <span class="ss">:url</span> <span class="o">=&gt;</span> <span class="s2">"http://%s.release.core-os.net/amd64-usr/current/coreos_production_vagrant.json"</span> <span class="o">%</span> <span class="vg">$update_channel</span><span class="p">,</span>
+    <span class="ss">:version</span> <span class="o">=&gt;</span> <span class="s2">"&gt;= 308.0.1"</span><span class="p">,</span>
+    <span class="ss">:ram</span> <span class="o">=&gt;</span> <span class="mi">1024</span><span class="p">,</span>
+    <span class="ss">:cpus</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">:gui</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="defaults-for-config-options-defined-in-config">Defaults for config options defined in CONFIG</h1>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="vg">$update_channel</span> <span class="o">=</span> <span class="s2">"alpha"</span>
+<span class="vg">$enable_serial_logging</span> <span class="o">=</span> <span class="kp">false</span>
+
+<span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">nodes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">node</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">define</span> <span class="n">node</span><span class="p">[</span><span class="ss">:name</span><span class="p">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">node_config</span><span class="o">|</span>
+      <span class="n">nfs_setting</span> <span class="o">=</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/darwin/</span> <span class="o">||</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/linux/</span>
+
+      <span class="c1"># IF NO NFS: node_config.vm.synced_folder "www", "/var/www"</span>
+      <span class="c1">#node_config.vm.synced_folder "www", "/var/www", :nfs =&gt; true, :mount_options =&gt; ['nolock,vers=3,udp']</span>
+      <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">synced_folder</span> <span class="s2">"."</span><span class="p">,</span> <span class="s2">"/home/core/share"</span><span class="p">,</span> <span class="ss">id: </span><span class="s2">"core"</span><span class="p">,</span> <span class="ss">:nfs</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:mount_options</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'nolock,vers=3,udp'</span><span class="p">]</span>
+
+      <span class="c1"># Configure Machine details</span>
+      <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="ss">:box</span><span class="p">]</span>
+      <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box_url</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="ss">:url</span><span class="p">]</span>
+      <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box_version</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="ss">:version</span><span class="p">]</span>
+      <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">hostname</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="ss">:name</span><span class="p">]</span>
+
+      <span class="c1"># Private network</span>
+      <span class="n">config</span><span class="p">.</span><span class="nf">ssh</span><span class="p">.</span><span class="nf">forward_agent</span> <span class="o">=</span> <span class="kp">true</span>
+      <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">network</span> <span class="ss">:private_network</span><span class="p">,</span> <span class="ss">ip: </span><span class="n">node</span><span class="p">[</span><span class="ss">:ip</span><span class="p">]</span>
+
+      <span class="c1"># Forwards ports 60000 - 60010</span>
+      <span class="p">(</span><span class="mi">60000</span><span class="o">..</span><span class="mi">6010</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">port</span><span class="o">|</span>
+        <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">network</span> <span class="ss">:forwarded_port</span><span class="p">,</span> <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">port</span><span class="p">,</span> <span class="ss">:guest</span> <span class="o">=&gt;</span> <span class="n">port</span>
+      <span class="k">end</span>
+
+      <span class="c1"># User data</span>
+      <span class="k">if</span> <span class="no">File</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="no">CLOUD_CONFIG_PATH</span><span class="p">)</span>
+        <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provision</span> <span class="ss">:file</span><span class="p">,</span> <span class="ss">:source</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">#{</span><span class="no">CLOUD_CONFIG_PATH</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="ss">:destination</span> <span class="o">=&gt;</span> <span class="s2">"/tmp/vagrantfile-user-data"</span>
+        <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="s2">"mv /tmp/vagrantfile-user-data /var/lib/coreos-vagrant/"</span><span class="p">,</span> <span class="ss">:privileged</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+      <span class="k">end</span>
+
+      <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="ss">:virtualbox</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+        <span class="c1"># On VirtualBox, we don't have guest additions or a functional vboxsf</span>
+        <span class="c1"># in CoreOS, so tell Vagrant that so it can be smarter.</span>
+        <span class="n">v</span><span class="p">.</span><span class="nf">check_guest_additions</span> <span class="o">=</span> <span class="kp">false</span>
+        <span class="n">v</span><span class="p">.</span><span class="nf">functional_vboxsf</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="k">end</span>
+
+      <span class="c1"># plugin conflict</span>
+      <span class="k">if</span> <span class="no">Vagrant</span><span class="p">.</span><span class="nf">has_plugin?</span><span class="p">(</span><span class="s2">"vagrant-vbguest"</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">config</span><span class="p">.</span><span class="nf">vbguest</span><span class="p">.</span><span class="nf">auto_update</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="k">end</span>
+
+      <span class="c1"># Serial logging</span>
+      <span class="k">if</span> <span class="vg">$enable_serial_logging</span>
+        <span class="n">logdir</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">File</span><span class="p">.</span><span class="nf">dirname</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="s2">"log"</span><span class="p">)</span>
+        <span class="no">FileUtils</span><span class="p">.</span><span class="nf">mkdir_p</span><span class="p">(</span><span class="n">logdir</span><span class="p">)</span>
+
+        <span class="n">serialFile</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">logdir</span><span class="p">,</span> <span class="s2">"%s-serial.txt"</span> <span class="o">%</span> <span class="n">vm_name</span><span class="p">)</span>
+        <span class="no">FileUtils</span><span class="p">.</span><span class="nf">touch</span><span class="p">(</span><span class="n">serialFile</span><span class="p">)</span>
+
+        <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="ss">:vmware_fusion</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="p">,</span> <span class="n">override</span><span class="o">|</span>
+        <span class="n">v</span><span class="p">.</span><span class="nf">vmx</span><span class="p">[</span><span class="s2">"serial0.present"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"TRUE"</span>
+        <span class="n">v</span><span class="p">.</span><span class="nf">vmx</span><span class="p">[</span><span class="s2">"serial0.fileType"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"file"</span>
+        <span class="n">v</span><span class="p">.</span><span class="nf">vmx</span><span class="p">[</span><span class="s2">"serial0.fileName"</span><span class="p">]</span> <span class="o">=</span> <span class="n">serialFile</span>
+        <span class="n">v</span><span class="p">.</span><span class="nf">vmx</span><span class="p">[</span><span class="s2">"serial0.tryNoRxLoss"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"FALSE"</span>
+      <span class="k">end</span>
+
+      <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="ss">:virtualbox</span> <span class="k">do</span> <span class="o">|</span><span class="n">vb</span><span class="p">,</span> <span class="n">override</span><span class="o">|</span>
+        <span class="n">vb</span><span class="p">.</span><span class="nf">customize</span> <span class="p">[</span><span class="s2">"modifyvm"</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">"--uart1"</span><span class="p">,</span> <span class="s2">"0x3F8"</span><span class="p">,</span> <span class="s2">"4"</span><span class="p">]</span>
+        <span class="n">vb</span><span class="p">.</span><span class="nf">customize</span> <span class="p">[</span><span class="s2">"modifyvm"</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">"--uartmode1"</span><span class="p">,</span> <span class="n">serialFile</span><span class="p">]</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="c1"># Forward docker tcp</span>
+    <span class="k">if</span> <span class="vg">$expose_docker_tcp</span>
+      <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">network</span> <span class="s2">"forwarded_port"</span><span class="p">,</span> <span class="ss">guest: </span><span class="mi">2375</span><span class="p">,</span> <span class="ss">host: </span><span class="p">(</span><span class="vg">$expose_docker_tcp</span> <span class="o">+</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="ss">auto_correct: </span><span class="kp">true</span>
+    <span class="k">end</span>
+
+    <span class="c1"># Run our ghost container and mount it on port 4000 + sync folders.</span>
+    <span class="n">node_config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provision</span> <span class="ss">:shell</span><span class="p">,</span> <span class="ss">:inline</span> <span class="o">=&gt;</span> <span class="s2">"sh /vagrant/install.sh docker/ghost_demo/ ghost_demo 60000:2368"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h4 id="installsh">install.sh</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c">#============================================================</span>
+<span class="c"># FILE: install.sh</span>
+<span class="c"># USAGE: ./install.sh sitename</span>
+<span class="c"># DESCRIPTION: This script will install the site with the given configuration</span>
+<span class="c">#</span>
+<span class="c"># OPTIONS: $1 The path to the Dockerfile (Using this project as root)</span>
+<span class="c"># OPTIONS: $2 The Imagename for the installed DockerContainer</span>
+<span class="c"># OPTIONS: $3 The Ports to be forwarded afterwards</span>
+<span class="c"># REQUIREMENTS: /</span>
+<span class="c"># AUTHOR: Xavier Geerinck (thebillkidy@gmail.com)</span>
+<span class="c"># COMPANY: Feedient</span>
+<span class="c"># VERSION: 1.1.0</span>
+<span class="c"># CREATED: 18/08/13 20:12:38 CET</span>
+<span class="c"># REVISION: ---</span>
+<span class="c">#============================================================</span>
+<span class="c"># Config parameters</span>
+<span class="nv">docker_binary</span><span class="o">=</span>/usr/bin/docker
+
+<span class="c"># Check parameters (We need the dockerpath too install + name for the image)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="nt">-o</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="nt">-o</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$3</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span><span class="s2"> "</span>
+  <span class="nb">echo</span> <span class="s2">"Example: </span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span><span class="s2"> docker/ghost_demo/ ghost_demo"</span>
+  <span class="nb">echo</span> <span class="s2">"Info: The DockerfilePath is the path from this as root to the directory where the Dockerfile is located"</span>
+
+  <span class="nb">exit </span>0
+<span class="k">fi</span>
+
+<span class="c"># If chef is not installed then install it</span>
+<span class="nb">echo</span> <span class="s2">"Checking if Docker is installed..."</span>
+<span class="k">if</span> <span class="o">!</span> <span class="nb">test</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$docker_binary</span><span class="s2">"</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"Downloading and installing docker"</span>
+
+  <span class="c"># Update binaries</span>
+  <span class="nb">sudo </span>apt-get update
+
+  <span class="c"># Install wget &amp; ca-certificates</span>
+  <span class="nb">sudo </span>apt-get install <span class="nt">-y</span> wget ca-certificates docker.io
+
+  <span class="c"># Link and fix paths</span>
+  ln <span class="nt">-sf</span> /usr/bin/docker.io /usr/local/bin/docker
+  sed <span class="nt">-i</span> <span class="s1">'$acomplete -F _docker docker'</span> /etc/bash_completion.d/docker.io
+
+  <span class="c"># Start Docker on server boot</span>
+  update-rc.d docker.io defaults
+<span class="k">else
+  </span><span class="nb">echo</span> <span class="s2">"Docker is already installed"</span>
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"Running docker"</span>
+<span class="nb">cd</span> /home/core/share/<span class="nv">$1</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">echo</span> <span class="s2">"Building the docker image from the dockerfile located at: /home/core/share/"</span><span class="nv">$1</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+docker build <span class="nt">-t</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="nb">.</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">echo</span> <span class="s2">"Starting up the docker container: </span><span class="nv">$2</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+docker run <span class="nt">-d</span> <span class="nt">-p</span> <span class="nv">$3</span> <span class="s2">"ghost_demo"</span>
+
+<span class="nb">echo</span> <span class="s2">"Done"</span>
+<span class="nb">exit </span>0
+</code></pre></div></div>
+
+<h4 id="dockerfile">Dockerfile</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#</span>
+<span class="c"># Ghost Dockerfile</span>
+<span class="c">#</span>
+<span class="c"># https://github.com/dockerfile/ghost</span>
+<span class="c">#</span>
+
+<span class="c"># Pull base image.</span>
+FROM dockerfile/nodejs
+
+<span class="c"># Install Ghost</span>
+RUN <span class="se">\</span>
+<span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> <span class="se">\</span>
+wget https://ghost.org/zip/ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="se">\</span>
+unzip ghost-latest.zip <span class="nt">-d</span> /ghost <span class="o">&amp;&amp;</span> <span class="se">\</span>
+rm <span class="nt">-f</span> ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">cd</span> /ghost <span class="o">&amp;&amp;</span> <span class="se">\</span>
+npm install <span class="nt">--production</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+sed <span class="s1">'s/127.0.0.1/0.0.0.0/'</span> /ghost/config.example.js <span class="o">&gt;</span> /ghost/config.js <span class="o">&amp;&amp;</span> <span class="se">\</span>
+useradd ghost <span class="nt">--home</span> /ghost
+
+<span class="c"># Add files.</span>
+ADD start.bash /ghost-start
+
+<span class="c"># Set environment variables.</span>
+ENV NODE_ENV production
+
+<span class="c"># Define mountable directories.</span>
+VOLUME <span class="o">[</span><span class="s2">"/data"</span>, <span class="s2">"/ghost-override"</span><span class="o">]</span>
+
+<span class="c"># Define working directory.</span>
+WORKDIR /ghost
+
+<span class="c"># Define default command.</span>
+CMD <span class="o">[</span><span class="s2">"bash"</span>, <span class="s2">"/ghost-start"</span><span class="o">]</span>
+
+<span class="c"># Expose ports.</span>
+EXPOSE 2368
+</code></pre></div></div>
+
+<h4 id="startbash">start.bash</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">GHOST</span><span class="o">=</span><span class="s2">"/ghost"</span>
+<span class="nv">OVERRIDE</span><span class="o">=</span><span class="s2">"/ghost-override"</span>
+
+<span class="nv">CONFIG</span><span class="o">=</span><span class="s2">"config.js"</span>
+<span class="nv">DATA</span><span class="o">=</span><span class="s2">"content/data"</span>
+<span class="nv">IMAGES</span><span class="o">=</span><span class="s2">"content/images"</span>
+<span class="nv">THEMES</span><span class="o">=</span><span class="s2">"content/themes"</span>
+
+<span class="nb">cd</span> <span class="s2">"</span><span class="nv">$GHOST</span><span class="s2">"</span>
+
+<span class="c"># Symlink data directory.</span>
+mkdir <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$DATA</span><span class="s2">"</span>
+rm <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$DATA</span><span class="s2">"</span>
+ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$DATA</span><span class="s2">"</span> <span class="s2">"content"</span>
+
+<span class="c"># Symlink images directory</span>
+mkdir <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$IMAGES</span><span class="s2">"</span>
+rm <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$IMAGES</span><span class="s2">"</span>
+ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$IMAGES</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$IMAGES</span><span class="s2">"</span>
+
+<span class="c"># Symlink config file.</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$CONFIG</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span>rm <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$CONFIG</span><span class="s2">"</span>
+  ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$CONFIG</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$CONFIG</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="c"># Symlink themes.</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  for </span>theme <span class="k">in</span> <span class="k">$(</span>find <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">"</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-exec</span> basename <span class="o">{}</span> <span class="se">\;</span><span class="k">)</span>
+  <span class="k">do
+    </span>rm <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span>
+    ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span>
+  <span class="k">done
+fi</span>
+
+<span class="c"># Start Ghost</span>
+chown <span class="nt">-R</span> ghost:ghost /data /ghost /ghost-override
+su ghost <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh"> cd "</span><span class="nv">$GHOST</span><span class="sh">" NODE_ENV=</span><span class="k">${</span><span class="nv">NODE_ENV</span><span class="k">:-</span><span class="nv">production</span><span class="k">}</span><span class="sh"> npm start EOF 
+</span></code></pre></div></div>
+
+<h3 id="booting-vagrant">Booting Vagrant</h3>
+<p>After you have created your Vagrantfile and the other files. (or used the one of the repository above) you can then start your vagrant machine which will create the VirtualMachine and start it. This can be done by navigating to the directory that holds the Vagrantfile and then entering the command: <code class="highlighter-rouge">vagrant up</code>. This will now show something as shown below:</p>
+
+<blockquote>
+  <p><em><strong>Note:</strong> This will not work on Windows since NFS is not supported on Windows. We however heard of a workaround called <code class="highlighter-rouge">cygwin rsync</code> but have not specific details about this.</em></p>
+
+  <p><em><strong>Note2:</strong> When you used the repository above you will have a different output then shown below. You also will not have the ghost blog installed automatically.</em></p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vagrant up
+Bringing machine <span class="s1">'core-01'</span> up with <span class="s1">'virtualbox'</span> provider...
+<span class="o">==&gt;</span> core-01: Box <span class="s1">'coreos-alpha'</span> could not be found. Attempting to find and install...
+core-01: Box Provider: virtualbox
+core-01: Box Version: <span class="o">&gt;=</span> 308.0.1
+<span class="o">==&gt;</span> core-01: Loading metadata <span class="k">for </span>box <span class="s1">'http://alpha.release.core-os.net/amd64-usr/current/coreos_production_vagrant.json'</span>
+core-01: URL: http://alpha.release.core-os.net/amd64-usr/current/coreos_production_vagrant.json
+<span class="o">==&gt;</span> core-01: Adding box <span class="s1">'coreos-alpha'</span> <span class="o">(</span>v431.0.0<span class="o">)</span> <span class="k">for </span>provider: virtualbox
+core-01: Downloading: http://alpha.release.core-os.net/amd64-usr/431.0.0/coreos_production_vagrant.box
+core-01: Calculating and comparing box checksum...
+<span class="o">==&gt;</span> core-01: Successfully added box <span class="s1">'coreos-alpha'</span> <span class="o">(</span>v431.0.0<span class="o">)</span> <span class="k">for</span> <span class="s1">'virtualbox'</span><span class="o">!</span>
+<span class="o">==&gt;</span> ghostdemo: Importing base box <span class="s1">'coreos-alpha'</span>...
+<span class="o">==&gt;</span> ghostdemo: Matching MAC address <span class="k">for </span>NAT networking...
+<span class="o">==&gt;</span> ghostdemo: Checking <span class="k">if </span>box <span class="s1">'coreos-alpha'</span> is up to date...
+<span class="o">==&gt;</span> ghostdemo: Setting the name of the VM: Vagrant_CoreOS_Docker_ghostdemo_1410250017479_38606
+<span class="o">==&gt;</span> ghostdemo: Clearing any previously <span class="nb">set </span>network interfaces...
+<span class="o">==&gt;</span> ghostdemo: Preparing network interfaces based on configuration...
+ghostdemo: Adapter 1: nat
+ghostdemo: Adapter 2: hostonly
+<span class="o">==&gt;</span> ghostdemo: Forwarding ports...
+ghostdemo: 22 <span class="o">=&gt;</span> 2222 <span class="o">(</span>adapter 1<span class="o">)</span>
+<span class="o">==&gt;</span> ghostdemo: Running <span class="s1">'pre-boot'</span> VM customizations...
+<span class="o">==&gt;</span> ghostdemo: Booting VM...
+<span class="o">==&gt;</span> ghostdemo: Waiting <span class="k">for </span>machine to boot. This may take a few minutes...
+ghostdemo: SSH address: 127.0.0.1:2222
+ghostdemo: SSH username: core
+ghostdemo: SSH auth method: private key
+ghostdemo: Warning: Connection timeout. Retrying...
+<span class="o">==&gt;</span> ghostdemo: Machine booted and ready!
+<span class="o">==&gt;</span> ghostdemo: Setting hostname...
+<span class="o">==&gt;</span> ghostdemo: Configuring and enabling network interfaces...
+<span class="o">==&gt;</span> ghostdemo: Exporting NFS shared folders...
+<span class="o">==&gt;</span> ghostdemo: Preparing to edit /etc/exports. Administrator privileges will be required...
+<span class="o">==&gt;</span> ghostdemo: Mounting NFS shared folders...
+<span class="o">==&gt;</span> ghostdemo: Running provisioner: shell...
+ghostdemo: Running: inline script
+<span class="o">==&gt;</span> ghostdemo: Checking <span class="k">if </span>Docker is installed...
+<span class="o">==&gt;</span> ghostdemo: Docker is already installed
+<span class="o">==&gt;</span> ghostdemo: Running docker
+<span class="o">==&gt;</span> ghostdemo: Building the docker image from the dockerfile located at: /home/core/share/docker/ghost_demo/
+<span class="o">==&gt;</span> ghostdemo: Sending build context to Docker daemon 4.608 kB
+<span class="o">==&gt;</span> ghostdemo: Sending build context to Docker daemon
+<span class="o">==&gt;</span> ghostdemo: Step 0 : FROM dockerfile/nodejs
+<span class="o">==&gt;</span> ghostdemo: Pulling repository dockerfile/nodejs
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> 42558db32e73
+<span class="o">==&gt;</span> ghostdemo: Step 1 : RUN <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget https://ghost.org/zip/ghost-latest.zip <span class="o">&amp;&amp;</span> unzip ghost-latest.zip <span class="nt">-d</span> /ghost <span class="o">&amp;&amp;</span> rm <span class="nt">-f</span> ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /ghost <span class="o">&amp;&amp;</span> npm install <span class="nt">--production</span> <span class="o">&amp;&amp;</span> sed <span class="s1">'s/127.0.0.1/0.0.0.0/'</span> /ghost/config.example.js <span class="o">&gt;</span> /ghost/config.js <span class="o">&amp;&amp;</span> useradd ghost <span class="nt">--home</span> /ghost
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>8dc4b656ac97
+<span class="k">********************************</span> OUTPUT STRIPPED <span class="k">********************************</span>
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container 8dc4b656ac97
+<span class="o">==&gt;</span> ghostdemo: Step 2 : ADD start.bash /ghost-start
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> dd80e21aeb25
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container ffc3f4127ca7
+<span class="o">==&gt;</span> ghostdemo: Step 3 : ENV NODE_ENV production
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>785e2484b64f
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> 85043cda1ff3
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container 785e2484b64f
+<span class="o">==&gt;</span> ghostdemo: Step 4 : VOLUME <span class="o">[</span><span class="s2">"/data"</span>, <span class="s2">"/ghost-override"</span><span class="o">]</span>
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>64cfe35fda23
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> fda26d5e7d2c
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container 64cfe35fda23
+<span class="o">==&gt;</span> ghostdemo: Step 5 : WORKDIR /ghost
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>588c6a347797
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> 105882ff6ed5
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container 588c6a347797
+<span class="o">==&gt;</span> ghostdemo: Step 6 : CMD <span class="o">[</span><span class="s2">"bash"</span>, <span class="s2">"/ghost-start"</span><span class="o">]</span>
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>31b4e4d77f43
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> 48cdcfec4b71
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container 31b4e4d77f43
+<span class="o">==&gt;</span> ghostdemo: Step 7 : EXPOSE 2368
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>b0bd604e832f
+<span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> fd0825542e80
+<span class="o">==&gt;</span> ghostdemo: Removing intermediate container b0bd604e832f
+<span class="o">==&gt;</span> ghostdemo: Successfully built fd0825542e80
+<span class="o">==&gt;</span> ghostdemo: Starting up the docker container: ghost_demo
+<span class="o">==&gt;</span> ghostdemo: 6cfa46c230d4ffe2c9edf0aa6b21e1cb151e505fea6e5eab279cbbf9d3d0a6b9
+<span class="o">==&gt;</span> ghostdemo: Done
+</code></pre></div></div>
+
+<p>After it echoed ‘done’ you will be able to ssh to the machine by entering the command: <code class="highlighter-rouge">vagrant ssh</code>. Which will greet you with the home directory and the nice welcoming message.</p>
+
+<blockquote>
+  <p><em><strong>Note:</strong> If you have multiple vagrant machines running you need to enter the command <code class="highlighter-rouge">vagrant ssh </code>. You can view the machines running by entering <code class="highlighter-rouge">vagrant status</code>.</em></p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CoreOS <span class="o">(</span>alpha<span class="o">)</span>
+core@core-01 ~ <span class="err">$</span>
+</code></pre></div></div>
+
+<p>You will also be able to go to your newly created Ghost blog by navigating too: <code class="highlighter-rouge">172.17.8.2:60000</code></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Setting up Vagrant, CoreOS and Docker is a lot of initial work that has to be done by the System Admin. However once it has been done you can store it on a central Git repository, allowing every other developer to set up it’s development environment in less then 20 minutes.</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to Xavier Geerinck - Blog</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>By working as a Cloud Solution Architect at Microsoft, Xavier works on enabling everyone to construct products that make a life changing impact on world scale. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = '/';
+                            this.page.identifier = 'Xavier Geerinck - Blog';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/experience/">Experience</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/bridge-year-ugent">Bridge Year Experience - University Ghent</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/spending-the-summer-at-a-startup">Spending the summer at a Startup</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/experience/">
+                                
+                                    See all 2 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/solve-permutation-heaps">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/solve-permutation-heaps">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Algorithms</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Solving permutations with Heap's Algorithm in Javascript</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>A friend of mine had just gotten the question to find every combination for a given array in [1, 2, 3]. When analyzing this question I found out that this is actually a</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/simulating-mkdir-p-in-bash">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/simulating-mkdir-p-in-bash">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Bash</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Simulating mkdir -p in bash</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>When we are working with systems that do not support special cases then we need to simulate. That is why it is handy to create different simulations of already existing solutions. In this</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Feedients Development Environment</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Feedients+Development+Environment&amp;url=https://thebillkidy.github.io/feedients-development-environment"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/feedients-development-environment"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/feedients-development-environment&title=Feedients+Development+Environment&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2018</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to Xavier Geerinck - Blog</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

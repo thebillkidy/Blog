@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Todo Application Tutorial React JS - Splitting it up (part 3)</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/react-part-3" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Todo Application Tutorial React JS - Splitting it up (part 3)" />
+    <meta property="og:description" content="1. Introduction So in part 1 of this tutorial series we learned how the components work and how we can port our design over to this component based design. In part 2 we then went ahead and created our initial bootstrap for our application so that we are able to" />
+    <meta property="og:url" content="/react-part-3" />
+    <meta property="og:image" content="/assets/images/covers/coding.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2015-09-23T09:12:02+00:00" />
+    <meta property="article:modified_time" content="2015-09-23T09:12:02+00:00" />
+    <meta property="article:tag" content="Tutorials" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Todo Application Tutorial React JS - Splitting it up (part 3)" />
+    <meta name="twitter:description" content="1. Introduction So in part 1 of this tutorial series we learned how the components work and how we can port our design over to this component based design. In part 2 we then went ahead and created our initial bootstrap for our application so that we are able to" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/coding.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Tutorials" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/react-part-3",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/coding.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/react-part-3"
+    },
+    "description": "1. Introduction So in part 1 of this tutorial series we learned how the components work and how we can port our design over to this component based design. In part 2 we then went ahead and created our initial bootstrap for our application so that we are able to"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Todo Application Tutorial React JS - Splitting it up (part 3)" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="">Xavier Geerinck - Blog</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects.html">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories.html">Categories</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-reactjs tag-tutorials ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="23 September 2015">23 September 2015</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/tutorials/'>TUTORIALS</a>,
+                            
+                        
+                            
+                               <a href='/tag/reactjs/'>REACTJS</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/coding.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Todo Application Tutorial React JS - Splitting it up (part 3)</h1>
+                    <h2 id="1-introduction">1. Introduction</h2>
+
+<p>So in part 1 of this tutorial series we learned how the components work and how we can port our design over to this component based design. In part 2 we then went ahead and created our initial bootstrap for our application so that we are able to start working. Part 3 will be about creating our TODOList app as it is shown in the design. We will completely convert the design to the components and will be able to perform the actions such as checking items.</p>
+
+<p>Please note that all the actions will be statically in this part and we will not be able to save it to a database yet. This part will be handled in part 4 (creating the API) and 5 (Creating the React.JS actions).</p>
+
+<h1 id="2-the-components">2. The components</h1>
+
+<p>As explained before we have the following components that we will have to create:</p>
+
+<ul>
+  <li><strong>TodoList Page:</strong> This is our page where we will put in the todolist component.</li>
+  <li><strong>TodoList Component:</strong> This is the component that we will be able to integrate into our page.</li>
+  <li><strong>TodoListAdd:</strong> The input box to add new todo items</li>
+  <li><strong>TodoList:</strong> The list of items</li>
+  <li><strong>TodoListItem:</strong> An item itself</li>
+</ul>
+
+<p>We have already wrote the initial files for the TodoListPage component, which is why we will continue with the others before completing this one. This is because this component relies on the other components to be completed.</p>
+
+<h2 id="3-todolist-component">3. TodoList Component</h2>
+
+<p>Let’s now start on the TodoList Component, for this create a folder in the <code class="highlighter-rouge">src/components/elements</code> folder called <strong>TodoList</strong>. This folder will then have the same bootstrap files as the TodoListPage folder: <code class="highlighter-rouge">TodoList.js</code>, <code class="highlighter-rouge">TodoList.css</code>, <code class="highlighter-rouge">package.json</code>. But we will also create extra files to accommodate the other features. Now also add <code class="highlighter-rouge">TodoListAdd.js</code>, <code class="highlighter-rouge">TodoListItems.js</code> and <code class="highlighter-rouge">TodoListItem.js</code>.</p>
+
+<p>The TodoList folder will now look like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- src/components/elements/TodoList/
+  - TodoList.css
+  - TodoList.js
+  - TodoListAdd.js
+  - TodoListItems.js
+  - TodoListItem.js
+  - package.json
+</code></pre></div></div>
+
+<h3 id="31-writing-the-todolistjs-part">3.1. Writing the TodoList.js part</h3>
+
+<p>We are finally at the part of writing a component, it has been a long way but now the real work starts. Writing the component. Let us first start by defining the structure of the TodoList.js part. It will exist out of the Add box and the Overview box. So, add 2 elements <code class="highlighter-rouge">&lt;TodoListAdd /&gt;</code> and <code class="highlighter-rouge">&lt;TodoListItems /&gt;</code> which will show our items. Your class will look like this then:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoList</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="32-back-to-our-todolistpage">3.2. Back to our TodoListPage</h3>
+
+<p>Now create the bootstrap files for the <code class="highlighter-rouge">TodoListAdd.js</code> and the <code class="highlighter-rouge">TodoListItems.js</code> files. This will allow us to add the TodoList component to our TodoListPage file. When you did this, add the TodoList Component to your Page by adding <code class="highlighter-rouge">&lt;TodoList /&gt;</code> in it’s render function. (Do not forget to include it.)</p>
+
+<p>If you did everything right, when you reload the page it will show a blank page and no errors have happened in the console. If you encounter an error here, go back and see if you did not forget anything. Else check the repository.</p>
+
+<h2 id="33-finishing-the-todolistadd-part">3.3. Finishing the TodoListAdd part</h2>
+
+<p>The add function will allow us to insert a TodoItem by entering it’s info into a textbox and clicking on the add button. We will also do this, so add a <code class="highlighter-rouge">&lt;input type="text" ref="input_todo" /&gt;</code> and a <code class="highlighter-rouge">&lt;input type="submit" /&gt;</code> element in the render function of the TodoListAdd part.</p>
+
+<p>You will get this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListAdd"</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleOnSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">"input_todo"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"submit"</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Note that I have already went ahead and created the event handler, it will call a local function <code class="highlighter-rouge">_handleOnSubmit</code> when a user submits the form. This function is here:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">_handleOnSubmit</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">input_todo</span><span class="p">.</span><span class="nx">getDOMNode</span><span class="p">().</span><span class="nx">value</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>for now it will just output our value that we have entered in the console.</p>
+
+<blockquote>
+  <p>We are able to get the value of the textbox by placing a <strong>ref</strong> attribute on the HTML input element. Because of this we can now check <code class="highlighter-rouge">this.refs.input_todo</code> which contains this element. By calling <code class="highlighter-rouge">getDOMNode()</code> we can then ask react to get the raw HTML element and then get the value of it.</p>
+</blockquote>
+
+<p>We are still not finished, the last part that we have to do is to give back this value to the parent component, this is needed since we do not allow TodoListAdd to have a state. The state of this TodoListComponent is managed through the root component, which is TodoList.</p>
+
+<p>Therefor we will pass a function which will act as a sort of callback function to the root component. Adding this is really easy, we can add a property (which we will call handleOnSubmit) and call <code class="highlighter-rouge">this.props.handleOnSubmit</code> instead of the console.log.</p>
+
+<p>To make sure that we allow this, we can add a <MODULE>.propTypes = { } and define our just explained function.</MODULE></p>
+
+<p>The resulting class looks like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoListAdd</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleOnSubmit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">input_todo</span><span class="p">.</span><span class="nx">getDOMNode</span><span class="p">().</span><span class="nx">value</span><span class="p">;</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">handleOnSubmit</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListAdd"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleOnSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">"input_todo"</span> <span class="o">/&gt;</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"submit"</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListAdd</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">handleOnSubmit</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="kd">function</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListAdd</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">handleOnSubmit</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListAdd</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The code for adding the item is done, we will now go on to displaying the items. Do not worry about the items being inserted into our TodoList component state yet, this will happen on the end.</p>
+
+<h3 id="34-finishing-the-todolistitems-part">3.4. Finishing the TodoListItems part</h3>
+
+<p>Showing the TodoListItems is easy, we just check the items that were passed through an attribute and render those. The rendered items are then in turn TodoListItem components which will call the render function in the TodoListItem.js file.</p>
+
+<h4 id="todolistitemsjs">TodoListItems.js</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItem</span> <span class="k">from</span> <span class="s1">'./TodoListItem'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoListItems</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItems"</span><span class="o">&gt;</span>
+        <span class="p">{</span>
+          <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">&lt;</span><span class="nx">TodoListItem</span> <span class="nx">item</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">})</span>
+        <span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItems</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">items</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItems</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">items</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListItems</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="todolistitemjs">TodoListItem.js</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoListItem</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">item</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItem"</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">item</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItem</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">item</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItem</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">item</span><span class="p">:</span> <span class="s2">""</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListItem</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="35-quickly-testing-what-we-have">3.5. Quickly testing what we have</h3>
+
+<p>For a quick test of what we have now works, just change the content of your <code class="highlighter-rouge">TodoList.js</code> file to this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleAddSubmit</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Received item: '</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">"test1"</span><span class="p">,</span> <span class="s2">"test2"</span><span class="p">,</span> <span class="s2">"test3"</span><span class="p">,</span> <span class="s2">"test4"</span> <span class="p">];</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="nx">handleOnSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleAddSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="nx">items</span><span class="o">=</span><span class="p">{</span><span class="nx">items</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoList</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>When we load the page now, we will see our items being added and when we add an item there will happen a console.log showing the added item it’s value.</p>
+
+<p>Of course this is not yet how we want it! We still need to define a state which will hold our items so we can perform actions on it such as adding and removing items for this component.</p>
+
+<h3 id="36-finishing-the-todolist-component">3.6. Finishing the TodoList Component</h3>
+
+<p>Let us finish this adding now. For that to happen, we will first have to convert our TodoList to work with states. So replace the content with this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">update</span> <span class="k">from</span> <span class="s1">'react/lib/update'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">items</span><span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleAddSubmit</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+    <span class="nb">self</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">items</span><span class="p">:</span> <span class="nx">update</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">items</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">$push</span><span class="p">:</span> <span class="p">[</span> <span class="nx">value</span> <span class="p">]</span>
+      <span class="p">})</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="nx">handleOnSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleAddSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="nx">items</span><span class="o">=</span><span class="p">{</span><span class="nx">items</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoList</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>As you can see we changed the constructor. This one now has a state and will be able to hold our items. We also changed our render method to use the state variable and render the items from it. The last thing that we changed is the handler for the item submission, here we will set the state but we will use the update library of react to be able to use $push, which allows us to add items to an existing array.</p>
+
+<p>Let’s now change the rendering of the TodoItem part so that we are able to remove them and set them marked one by one.</p>
+
+<h3 id="37-finishing-the-todoitem">3.7. Finishing the TodoItem</h3>
+
+<p>What we will do for the TodoItem, is add a checkbox and a removal button and bind 2 handlers. These handlers will then be pushed towards the parent component (TodoItems) which in it’s turn will push a change event towards it’s parent (the TodoList). We will also change the way items work by creating objects with { isChecked, value } as the keys. This way we can check the items that have been checked.</p>
+
+<p>Now our <strong>TodoItem.js</strong> files becomes this:</p>
+
+<h4 id="todoitemjs">TodoItem.js</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoListItem</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleCheckItem</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onCheckItem</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">item</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleRemoveItem</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onRemoveItem</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">item</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">item</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItem"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItem-Check"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"checkbox"</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">"is_checked"</span> <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleCheckItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleRemoveItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"fa fa-remove"</span><span class="o">&gt;&lt;</span><span class="sr">/i&gt;&lt;/</span><span class="nx">button</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItem</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">item</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
+  <span class="na">onRemoveItem</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="kd">function</span><span class="p">,</span>
+  <span class="na">onCheckItem</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="kd">function</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItem</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">item</span><span class="p">:</span> <span class="s2">""</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListItem</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="todolistitemsjs-1">TodoListItems.js</h4>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItem</span> <span class="k">from</span> <span class="s1">'./TodoListItem'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoListItems</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">onRemoveItem</span><span class="p">,</span> <span class="nx">onCheckItem</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItems"</span><span class="o">&gt;</span>
+        <span class="p">{</span>
+          <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">&lt;</span><span class="nx">TodoListItem</span> <span class="nx">item</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">.</span><span class="nx">key</span><span class="p">}</span> <span class="nx">onRemoveItem</span><span class="o">=</span><span class="p">{</span><span class="nx">onRemoveItem</span><span class="p">}</span> <span class="nx">onCheckItem</span><span class="o">=</span><span class="p">{</span><span class="nx">onCheckItem</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">})</span>
+        <span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItems</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">items</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span><span class="p">,</span>
+  <span class="na">onRemoveItem</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="kd">function</span><span class="p">,</span>
+  <span class="na">onCheckItem</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="kd">function</span>
+<span class="p">}</span>
+
+<span class="nx">TodoListItems</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">items</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListItems</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>and <strong>TodoList.js</strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">update</span> <span class="k">from</span> <span class="s1">'react/lib/update'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">'./TodoList.css'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">items</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="na">id_counter</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">_handleAddSubmit</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+    <span class="nb">self</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">items</span><span class="p">:</span> <span class="nx">update</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">items</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">$push</span><span class="p">:</span> <span class="p">[{</span>
+          <span class="na">id</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">id_counter</span><span class="p">,</span>
+          <span class="na">isChecked</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="na">value</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
+
+          <span class="c1">// Set initial key based on the id and the check state</span>
+          <span class="na">key</span><span class="p">:</span> <span class="s2">"key_"</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">id_counter</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="kc">false</span>
+        <span class="p">}]</span>
+      <span class="p">}),</span>
+      <span class="na">id_counter</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">id_counter</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">_onRemoveItem</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+    <span class="nb">self</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">items</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">i</span><span class="p">.</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span>
+      <span class="p">})</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">_onCheckItem</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">items</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">i</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">i</span><span class="p">.</span><span class="nx">isChecked</span> <span class="o">=</span> <span class="o">!</span><span class="nx">item</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">;</span>
+
+          <span class="c1">// Change key since it has been checked!</span>
+          <span class="nx">i</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="s2">"key_"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">i</span><span class="p">;</span>
+      <span class="p">})</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="nx">handleOnSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleAddSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="nx">items</span><span class="o">=</span><span class="p">{</span><span class="nx">items</span><span class="p">}</span> <span class="nx">onRemoveItem</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_onRemoveItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span> <span class="nx">onCheckItem</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_onCheckItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">TodoList</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Note the key property? This is really important in react, react will update the components based on if the key has been changed or not. So to trigger an update to this key object we have to provide a different key. The key is created based on the id of the item and the checkstate here.</p>
+</blockquote>
+
+<h2 id="4-adding-some-css">4. Adding some CSS</h2>
+
+<p>So we are completely finished with the interaction part, now all that is left to do is to add some css code to make it better on the eye</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.TODOList</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TODOList</span> <span class="nt">h1</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListAdd</span> <span class="p">{</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#d9d9d9</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListAdd</span> <span class="nt">input</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#f5f5f5</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="n">calc</span><span class="p">(</span><span class="m">100%</span> <span class="n">-</span> <span class="m">40px</span><span class="p">);</span>
+  <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListAdd</span> <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">'submit'</span><span class="o">]</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+  <span class="nl">border-left</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#d9d9d9</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListAdd</span> <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">'text'</span><span class="o">]</span> <span class="p">{</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">7px</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListItems</span> <span class="p">{</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListItem</span> <span class="p">{</span>
+  <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#f5f5f5</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#d9d9d9</span><span class="p">;</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListItem</span><span class="nd">:last-child</span> <span class="p">{</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#d9d9d9</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListItem</span> <span class="nt">button</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+  <span class="nl">border-left</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#d9d9d9</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListItem</span> <span class="nt">span</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">12px</span><span class="p">;</span>
+  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">6px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.TodoListItem</span> <span class="nc">.TodoListItem-Check</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">border-right</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#d9d9d9</span><span class="p">;</span>
+  <span class="nl">margin-left</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">margin-right</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clear</span> <span class="p">{</span>
+  <span class="nl">clear</span><span class="p">:</span> <span class="nb">both</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="5-finalize">5. Finalize</h2>
+
+<p>The application is now complete and we are able to use the module, however in a real world application we need to save the state to a database when we perform an action. This will be covered in parts 4 and 5 where we will write the backend and add interaction with the backend to the react.js application.</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to Xavier Geerinck - Blog</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>By working as a Cloud Solution Architect at Microsoft, Xavier works on enabling everyone to construct products that make a life changing impact on world scale. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = '/';
+                            this.page.identifier = 'Xavier Geerinck - Blog';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/tutorials/">Tutorials</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/visual-studio-android-emulator-debugging">Visual Studio Android Emulator Debugging</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/fix-slow-internet-hyperv-realtek">How-To Fix slow internet speed on a Realtek adapter with Hyper-V machines</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/merge-stack">The MERGE Stack</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/tutorials/">
+                                
+                                    See all 5 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/react-part-2">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/react-part-2">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Tutorials</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Reactjs</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Todo Application Tutorial React JS - Splitting it up (part 2)</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>1. Introduction So in part 1 of this tutorial series we explained why you should use React.JS and how it works, in this part we will set up the development environment and start</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/merge-stack">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding2.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/merge-stack">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Tutorials</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Javascript</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">The MERGE Stack</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>https://github.com/thebillkidy/MERGE-Stack Since the rise of new client-side frameworks such as Angular, React and many others. A lot of code gets written and executed on the client-side. Resulting in a decreased performance, bad SEO,</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Todo Application Tutorial React JS - Splitting it up (part 3)</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Todo+Application+Tutorial+React+JS+-+Splitting+it+up+%28part+3%29&amp;url=https://thebillkidy.github.io/react-part-3"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/react-part-3"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/react-part-3&title=Todo+Application+Tutorial+React+JS+-+Splitting+it+up+%28part+3%29&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2018</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to Xavier Geerinck - Blog</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Sorting Algorithm - Quick Sort</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/quick-sort" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sorting Algorithm - Quick Sort" />
+    <meta property="og:description" content="QuickSort is also a Divide And Conquer algorithm with a performance of $O(n * log(n))$, however in the worst case this becomes $O(n^2)$. How We start by picking an element which is called the pivot, then we will rearrange the array so that every element smaller than the pivot will" />
+    <meta property="og:url" content="/quick-sort" />
+    <meta property="og:image" content="/assets/images/covers/algorithms2.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2015-06-05T13:00:03+00:00" />
+    <meta property="article:modified_time" content="2015-06-05T13:00:03+00:00" />
+    <meta property="article:tag" content="Algorithms" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sorting Algorithm - Quick Sort" />
+    <meta name="twitter:description" content="QuickSort is also a Divide And Conquer algorithm with a performance of $O(n * log(n))$, however in the worst case this becomes $O(n^2)$. How We start by picking an element which is called the pivot, then we will rearrange the array so that every element smaller than the pivot will" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/algorithms2.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Algorithms" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/quick-sort",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/algorithms2.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/quick-sort"
+    },
+    "description": "QuickSort is also a Divide And Conquer algorithm with a performance of $O(n * log(n))$, however in the worst case this becomes $O(n^2)$. How We start by picking an element which is called the pivot, then we will rearrange the array so that every element smaller than the pivot will"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Sorting Algorithm - Quick Sort" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="">Xavier Geerinck - Blog</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects.html">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories.html">Categories</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-algorithms ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/algorithms/'>ALGORITHMS</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Sorting Algorithm - Quick Sort</h1>
+                    <p>QuickSort is also a <strong>Divide And Conquer</strong> algorithm with a performance of $O(n * log(n))$, however in the worst case this becomes $O(n^2)$.</p>
+
+<h2 id="how">How</h2>
+
+<p>We start by picking an element which is called the <strong>pivot</strong>, then we will rearrange the array so that every element smaller than the pivot will be on the left of the pivot and all elements larger than the pivot will be on the right. this operation is called the <strong>partitioning</strong>.</p>
+
+<p>Now we just recursively apply the above steps to the sub array of elements.</p>
+
+<p><img src="https://lh4.googleusercontent.com/-YOOXyghASUo/VQWuKwYPQlI/AAAAAAAAKjs/MQWXdyPO6FQ/s0/Screen+Shot+2015-03-15+at+17.05.54.png" alt="Quicksort" title="Quick Sort" /></p>
+
+<p>Take the following array:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9 0 8 3 5 4 2 1 6 7
+</code></pre></div></div>
+
+<p>We pick our pivot (the middle element, don’t forget the rounding of course), the brackets show the index points.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[9] 0 8 3 (5) 4 2 1 6 [7]
+</code></pre></div></div>
+
+<p>We start from index 0 and index arraySize - 1, we compare the values and swap if needed.</p>
+
+<p>So here we have 9 and 7, <strong>9 &gt; 5 &lt; 7</strong> so we increase the index by 1 for the right side, because 7 is in it’s correct spot.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[9] 0 8 3 (5) 4 2 1 [6] 7 
+</code></pre></div></div>
+
+<p>Again <strong>9 &gt; 5 &lt; 6</strong>, so we increment the right side index</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[9] 0 8 3 (5) 4 2 [1] 6 7
+</code></pre></div></div>
+
+<p>We now see that <strong>9 &gt; 5 &gt; 1</strong>, which means we should swap 1 and 9. We can also increment the left and the right index.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 [0] 8 3 (5) 4 [2] 9 6 7
+</code></pre></div></div>
+
+<p><strong>0 &lt; 5 &gt; 2</strong>, increment left side.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 0 [8] 3 (5) 4 [2] 9 6 7
+</code></pre></div></div>
+
+<p><strong>8 &gt; 5 &lt; 2</strong>, swap</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 0 2 [3] (5) [4] 8 9 6 7
+</code></pre></div></div>
+
+<p><strong>3 &lt; 5 &gt; 4</strong>, increment the left index. This will now become our pivot! so this is the last step.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 0 2 3 [(5)] [4] 8 9 6 7
+</code></pre></div></div>
+
+<p><strong>5 &gt; 4</strong>, swap</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 0 2 3 4 (5) 8 9 6 7
+</code></pre></div></div>
+
+<p>We now have 2 sub arrays, a left one and a right one, run this method recursively on these 2 sub arrays.</p>
+
+<p>On the end we will have our sorted array:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 1 2 3 4 5 6 7 8 9
+</code></pre></div></div>
+
+<h2 id="advantages-and-disadvantages">Advantages and Disadvantages</h2>
+
+<h3 id="advantages">Advantages</h3>
+
+<ul>
+  <li>Fast overall</li>
+</ul>
+
+<h3 id="disadvantages">Disadvantages</h3>
+
+<ul>
+  <li>Not stable</li>
+  <li>$O(lg(n))$ extra space</li>
+  <li>$\Theta(n^2))$ performance in the worst case</li>
+  <li>Not adaptive</li>
+</ul>
+
+<h2 id="performance">Performance</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Worst Case</th>
+      <th>Average Case</th>
+      <th>Best Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>O(n2</td>
+      <td>O(n log n)</td>
+      <td>O(n log n)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that the performance goes towards $O(n)$ using a three-way partition and equal keys.</p>
+
+<h3 id="best-case">Best Case</h3>
+
+<ul>
+  <li>Both parts are the same size</li>
+</ul>
+
+<p>$T(n) = cn + 2T(\frac{n}{2})$</p>
+
+<p>which translates into:</p>
+
+<p>$T(n) = O(n*lg(n))$</p>
+
+<h3 id="average-case">Average Case</h3>
+
+<ul>
+  <li>Happens when pivot is in the middle of the elements</li>
+</ul>
+
+<p>The average case is something that is really tricky for quick sort. If we take the previous point about the pivot being in the middle of the elements into consideration, then we get that the execution time becomes:</p>
+
+<script type="math/tex; mode=display">T(n) = cn + \frac{1}{n}\sum^n_{i = 1}(T(i - 1) + T(n - i))</script>
+
+<p>Because the most terms appear twice we get:</p>
+
+<script type="math/tex; mode=display">T(n) = cn + \frac{2}{n}\sum^{n - 1}_{i = 0}T(i)</script>
+
+<p>Hard sum, but by using full history recurrence we are able to remove it by subtracting it with the same formula off $T(n - 1)$. And multiplying it with n.</p>
+
+<script type="math/tex; mode=display">nT(n) - (n - 1)T(n - 1) = c(2n - 1) + 2T(n - 1)</script>
+
+<p>Remove the c:</p>
+
+<script type="math/tex; mode=display">nT(n) = (n + 1)T(n - 1) + 2cn</script>
+
+<p>Now we perform the classic technique telescoping after we divided both terms by $n(n + 1)$:</p>
+
+<script type="math/tex; mode=display">\frac{T(n)}{n + 1} = \frac{T(n - 1)}{n} + \frac{2c}{n + 1}</script>
+
+<script type="math/tex; mode=display">\frac{T(n - 1)}{n} = \frac{T(n - 2)}{n - 1} + \frac{2c}{n}</script>
+
+<script type="math/tex; mode=display">\frac{T(2)}{3} = \frac{T(1)}{2} + \frac{2c}{3}</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\frac{T(n)}{n + 1} = \frac{T(1)}{2} + 2c\sum^n_{i = 2}\frac{1}{i + 1} < 2c\sum^n_{i = 1} = 2cH_n %]]></script>
+
+<p>The last number is the harmonic number, this has the value $ln(n) + O(1)$. This results in $O(n*lg(n))$.</p>
+
+<h3 id="worst-case">Worst Case</h3>
+
+<ul>
+  <li>One of the 2 parts is just one element</li>
+</ul>
+
+<p><script type="math/tex">T(n) = cn + T(1) + T(n - 1)</script>
+<script type="math/tex">T(n - 1) = c(n - 1) + T(1) + T(n - 2)</script>
+<script type="math/tex">T(n - 2) = c(n - 2) + T(1) + T(n - 3)</script>
+<script type="math/tex">T(2) = c(2) + T(1) + T(1)</script></p>
+
+<p>Count everything together:
+<script type="math/tex">T(n) = c(n + (n - 1) + ... + 3 + 2) + nT(1)</script></p>
+
+<p>This results into our performance becoming $O(n^2)$ which is just as bad as insertion sort. We can evade this problem if our pivot has been placed correctly.</p>
+
+<h2 id="implementation">Implementation</h2>
+<p>Quick Sort has 2 main steps, the partition step and the recursion step.</p>
+
+<p>In the partition step we will put every element smaller than the pivot at the left, and every element larger than the pivot at the right.</p>
+
+<p>Then we will recursively call our Quick Sort method till we got a sorted array.</p>
+
+<h3 id="c-code">C++ Code</h3>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">leftIdx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rightIdx</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+  <span class="c1">// Set indexes that we can move
+</span>  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">leftIdx</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">rightIdx</span><span class="p">;</span>
+
+  <span class="c1">// Find pivot
+</span>  <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">v</span><span class="p">[(</span><span class="n">leftIdx</span> <span class="o">+</span> <span class="n">rightIdx</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
+
+  <span class="c1">// Swap container
+</span>  <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+
+  <span class="c1">// PARTITION
+</span>  <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Move indexes till we got a swap point.
+</span>    <span class="k">while</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span> <span class="k">while</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">)</span>
+      <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+
+    <span class="c1">// Swap
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+      <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+
+      <span class="c1">// We swapped so move the indexes
+</span>      <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+      <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// RECURSION as long as we are not at the end
+</span>  <span class="k">if</span> <span class="p">(</span><span class="n">leftIdx</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">leftIdx</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span> <span class="k">if</span> <span class="p">(</span><span class="n">rightIdx</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">quick_sort</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">rightIdx</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="benchmark">Benchmark</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>100</th>
+      <th>1.000</th>
+      <th>10.000</th>
+      <th>100.000</th>
+      <th>1.000.000</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Random Elements</td>
+      <td>8e-06</td>
+      <td>0.000105</td>
+      <td>0.001301</td>
+      <td>0.015583</td>
+      <td>0.179599</td>
+    </tr>
+    <tr>
+      <td>Ascending Elements</td>
+      <td>3e-06</td>
+      <td>2.6e-05</td>
+      <td>0.000329</td>
+      <td>0.004379</td>
+      <td>0.043418</td>
+    </tr>
+    <tr>
+      <td>Descending Elements</td>
+      <td>3e-06</td>
+      <td>2.7e-05</td>
+      <td>0.000354</td>
+      <td>0.004304</td>
+      <td>0.046504</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>QuickSort is fun to implement and is really fast when we do not hit the worst case scenario, because we are able to prevent hitting this scenario this is a commonly used sorting algorithm. It is so common that the STL library has implemented this as <code class="highlighter-rouge">qsort</code>.</p>
+
+<p>There is also a very famous variant on QuickSort called Three Way Pivot QuickSort, this algorithm is faster since 2009 and is also implemented in Java 7.</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe to Xavier Geerinck - Blog</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>By working as a Cloud Solution Architect at Microsoft, Xavier works on enabling everyone to construct products that make a life changing impact on world scale. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = '/';
+                            this.page.identifier = 'Xavier Geerinck - Blog';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/algorithms/">Algorithms</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/solve-permutation-heaps">Solving permutations with Heap's Algorithm in Javascript</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/radix-sort">Radix Sort</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/prims">Prim's Algorithm</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/algorithms/">
+                                
+                                    See all 14 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/merge-sort">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/merge-sort">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Algorithms</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Sorting Algorithm - Merge Sort</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Merge Sort is a comparison algorithm that tries to sort the dataset by a Divide And Conquer method. The performance of this algorithm is $O(n*log(n))$. How We start by splitting the array up</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/selection-sort">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/selection-sort">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Algorithms</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Sorting Algorithm - Selection Sort</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p># Selection Sort Selection Sort is a really easy to implement sorting algorithm, due to being inefficient on large datasets this algorithm is mostly used when memory is limited. ## How Selection sort</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Sorting Algorithm - Quick Sort</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Sorting+Algorithm+-+Quick+Sort&amp;url=https://thebillkidy.github.io/quick-sort"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/quick-sort"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/quick-sort&title=Sorting+Algorithm+-+Quick+Sort&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2018</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe to Xavier Geerinck - Blog</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
