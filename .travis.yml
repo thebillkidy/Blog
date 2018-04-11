@@ -23,4 +23,4 @@ env:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # Speeds up installation of html-proofer
 branches:
   only:
-    - master
+    - development
