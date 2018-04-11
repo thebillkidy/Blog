@@ -2,7 +2,7 @@ require 'rake'
 require 'tmpdir'
 
 REPO_SLUG = ENV['TRAVIS_REPO_SLUG']
-TARGET_BRANCH = "gh-pages"
+TARGET_BRANCH = "master" # We push the build site to master on a user website
 COMMIT_MSG = "Travis-CI: Updated site via #{ENV['TRAVIS_COMMIT']}"
 ORIGIN = "https://$GIT_NAME:$GH_TOKEN@github.com/#{REPO_SLUG}.git".freeze
 
