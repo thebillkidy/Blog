@@ -41,19 +41,19 @@
 			<aside class="left">
 				<div id="controlz">
 					<ul>
-						<li>Happy</li>
+						<li id="listHappy">Happy</li>
 						<li class="c">
 							<input id="happy" type="range" min="0" max="1.0" step="0.01" />
 						</li>
-						<li>Angry</li>
+						<li id="listAngry">Angry</li>
 						<li class="c">
 							<input id="angry" type="range" min="0" max="1.0" step="0.01" />
 						</li>
-						<li>Worried</li>
+						<li id="listWorried">Worried</li>
 						<li class="c">
 							<input id="worried" type="range" min="0" max="1.0" step="0.01" />
 						</li>
-						<li>Mouth</li>
+						<li id="listMouthOpen">Mouth</li>
 						<li class="c">
 							<input id="mouthopen" type="range" min="0" max="1.0" step="0.01" />
 						</li>
@@ -84,15 +84,14 @@
 
 			<div id="container"></div>
 
-			<div>
-				
+			<div id="controls">
 				<video autoplay="true" id="webcam"></video>
 				<img id="tempImg" />
-				<button id="btnStart">Start</button>
-				<button id="btnStop">Stop</button>
+				<button id="btnStart">Start Webcam</button>
+				<button id="btnSample">Capture Mimic</button>
+				<button id="btnStop">Stop Webcam</button>
+				<p>Disclaimer: Pictures will NOT be saved, and a sample will be taken once you press "Capture Mimic"</p>
 			</div>
-
-			<div class="clear"></div>
 		</section>
 	</div>
 

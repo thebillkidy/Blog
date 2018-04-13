@@ -22,6 +22,11 @@ function setEmotions(emotions) {
   var worried = document.getElementById("worried");
   var mouthopen = document.getElementById("mouthopen");
 
+  document.getElementById('listHappy').innerHTML = "Happy = " + emotions.happiness;
+  document.getElementById('listAngry').innerHTML = "Angry = " + emotions.anger;
+  document.getElementById('listWorried').innerHTML = "Worried = " + emotions.fear;
+  document.getElementById('listMouthOpen').innerHTML = "MouthOpen = " + emotions.surprise;
+
   happy.value = window.happy;
   angry.value = window.angry;
   worried.value = window.worried;

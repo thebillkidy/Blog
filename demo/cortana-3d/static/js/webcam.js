@@ -8,14 +8,15 @@ startBtn.onclick = () => {
     if (navigator.getUserMedia) {       
         navigator.getUserMedia({video: true}, handleVideo, videoError);
     }
+}
 
-    window.pictureInterval = setInterval(() => {
-        document.getElementById('tempImg').src = window.getScreenshot(document.getElementById("webcam")).src;
-        
-        window.getScreenshotBlob(document.getElementById("webcam"), (blob) => {
-            window.callApi(blob);
-        })
-    }, 1000);
+var sampleBtn = document.getElementById('btnSample');
+sampleBtn.onclick = () => {
+    document.getElementById('tempImg').src = window.getScreenshot(document.getElementById("webcam")).src;
+    
+    window.getScreenshotBlob(document.getElementById("webcam"), (blob) => {
+        window.callApi(blob);
+    });
 }
 
 var stopBtn = document.getElementById('btnStop');

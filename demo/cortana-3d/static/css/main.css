@@ -416,6 +416,7 @@ header #title h1 {
 }
 #main {
 	display: flex;
+	justify-content: space-between;
 }
 #webcam {
 	width: 250px;
@@ -494,4 +495,17 @@ header #title h1 {
 }
 #controlz input[type=range]:focus::-ms-fill-upper {
 	background:#369;
+}
+
+#controls {
+	width: 250px;
+}
+
+#controls > img, #controls > video {
+	margin-bottom: 10px;
+}
+
+#controls > button {
+	display: block;
+	margin: 0 auto;
 }
