@@ -278,10 +278,10 @@ if ((ulo) && (ulo.morphTargetInfluences)) ulo.morphTargetInfluences[3] = this.va
 
 optn1.addEventListener('click', function(e) {
 if ((ulo) && (ulo.morphTargetInfluences)) {
-  // ulo.morphTargetInfluences[0] = (window.happy || happy.value) = Math.random();
-  // ulo.morphTargetInfluences[1] = (window.angry || angry.value) = Math.random();
-  // ulo.morphTargetInfluences[2] = (window.worried || worried.value) = Math.random();
-  // ulo.morphTargetInfluences[3] = (window.mouthopen || mouthopen.value) = Math.random();
+  ulo.morphTargetInfluences[0] = happy.value = Math.random();
+  ulo.morphTargetInfluences[1] = angry.value = Math.random();
+  ulo.morphTargetInfluences[2] = worried.value = Math.random();
+  ulo.morphTargetInfluences[3] = mouthopen.value = Math.random();
 }
 e.preventDefault();
 });
