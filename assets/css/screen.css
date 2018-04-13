@@ -2231,3 +2231,94 @@ Usage (In Ghost editor):
         margin: 0 20px 5vw;
     }
 }
+
+
+/* 15. Demo Cards
+/* ---------------------------------------------------------- */
+.demo-card {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 20px 40px;
+    background: #fff center center;
+    background-size: cover;
+    border-radius: 5px;
+    box-shadow: rgba(39,44,49,0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+    transition: all 0.5s ease;
+}
+
+.demo-card:hover {
+    box-shadow: 0 0 1px rgba(39,44,49,0.10), 0 3px 16px rgba(39, 44, 49,0.07);
+    transition: all 0.3s ease;
+    transform: translate3D(0, -1px, 0);
+}
+
+.demo-card-image-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+}
+
+.demo-card-image-link:hover {
+    text-decoration: none;
+}
+
+.demo-card-content {
+    padding: 25px;
+    font-family: Georgia,serif;
+}
+
+.demo-card-title {
+    font-size: 2rem;
+    line-height: 1.15;
+    font-weight: 700;
+    text-rendering: optimizeLegibility;
+    color: #15171a;
+    margin: 1.5em 0 .5em;
+}
+
+.demo-card-description {
+    color: #15171a;
+    font-family: Georgia,serif;
+}
+
+.demo-card-background {
+    width: auto;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.demo-card-content-link {
+    position: relative;
+    display: block;
+    padding: 25px 25px 0;
+    color: var(--darkgrey);
+}
+
+.demo-card-content-link:hover {
+    text-decoration: none;
+}
+
+.demo-card-tags {
+    margin-bottom: 4px;
+    color: var(--midgrey);
+    font-size: 1.2rem;
+    line-height: 1.15em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.demo-card-title {
+    margin-top: 0;
+}
+
+/* Adjust some margins for smaller screens */
+@media (max-width: 650px) {
+    .demo-card {
+        margin: 0 20px 5vw;
+    }
+}

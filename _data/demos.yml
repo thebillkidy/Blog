@@ -1,0 +1,4 @@
+cortana-3d:
+  title: Cortana Emotions 3D
+  description: A 3D face that will change based on the emotions that you express through a webcam. Based on Azure Cognitive Services
+  cover: 'assets/images/covers/bot.jpg'

@@ -27,7 +27,6 @@ namespace :site do
 
     Dir.mktmpdir do |tmp|
       cp_r 'build/.', tmp
-      cp_r 'demos/.', tmp # Copy our demos over
 
       cd tmp do
         # Init a new repo in the build folder, this one we will push to the TARGET_BRANCH

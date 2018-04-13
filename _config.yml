@@ -99,3 +99,4 @@ exclude:
   - changelog.md
   - "*.Rmd"
   - .git*
+  - demos/ # We do this one manually

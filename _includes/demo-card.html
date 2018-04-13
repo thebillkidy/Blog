@@ -1,0 +1,14 @@
+{% for demo in site.data.demos %}
+<article class="demo-card {{ demo[1].class }}">
+    {% if demo[1].cover %}
+    <a class="demo-card-image-link" href="{{ "/" | relative_url }}demo/{{demo[0]}}">
+        <div class="demo-card-background" style="background-image: url({{demo[1].cover}})"></div>
+
+        <div class="demo-card-content">
+            <div class="demo-card-title">{{ demo[1].title }}</div>
+            <div class="demo-card-description">{{ demo[1].description }}</div>
+        </div>
+    </a>
+    {% endif %}
+</article>
+{% endfor %}
