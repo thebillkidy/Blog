@@ -32,5 +32,5 @@ networking:
   name: Networking
   cover: assets/images/covers/network.jpg
 business:
-  name: Networking
-  cover: assets/images/covers/network.jpg
+  name: Business
+  cover: assets/images/covers/business3.jpg
