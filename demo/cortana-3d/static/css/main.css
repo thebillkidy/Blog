@@ -505,6 +505,18 @@ header #title h1 {
 	width: 250px;
 }
 
+
+#controls > #buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+#controls > button {
+		width: 150px;
+		height: 50px;
+		margin: 10px auto;
+}
+
 #controls > img, #controls > video {
 	margin-bottom: 10px;
 }
@@ -576,6 +588,18 @@ header #title h1 {
 
 	#controls {
 		margin: 0 auto;
+		width: auto;
+	}
+
+	#controls > #buttons {
+		display: flex;
+		flex-direction: row;
+	}
+
+	button {
+			width: 150px;
+			height: 50px;
+			margin: 10px auto;
 	}
 
 	#preview {
