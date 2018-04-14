@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/business.jpg'
 navigation: True
 title: Creating a culture of growth and ambition, Part 1 - Leadership
-date: 2018-11-04 22:52:00
+date: 2018-04-11 22:52:00
 tags: experience business
 class: post-template
 subclass: 'post tag-experience tag-business'
