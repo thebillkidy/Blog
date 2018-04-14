@@ -47,7 +47,7 @@ People tend to take things for granted, true leaders go against this and try to 
 
 ### E: Exploration
 
-Are you one of the persons that likes to stick with what works? Well then you fall back out of the category of Influential Leaders. A leader is someone who constantly challenge himself/herself. You need to stay ahead of the competition, and what other way to this then to keep on changing?
+Are you one of the persons that likes to stick with what works? Well, then you fall back out of the category of Influential Leaders. A leader is someone who constantly challenges himself/herself. You need to stay ahead of the competition, and what other way to do this then to keep on changing?
 
 ### L: Listener
 
