@@ -3,10 +3,10 @@ layout: project
 title: Helpper
 date_started: 2017-01-04
 date_ended:  2017-01-06
-picture_cover: 'assets/images/projects/helpper/homepage.jpg' 
-picture_gallery_1: 'assets/images/projects/helpper/faq.jpg' 
-picture_gallery_2: 'assets/images/projects/helpper/become_helpper.jpg' 
-picture_gallery_3: 'assets/images/projects/helpper/register.jpg' 
+picture_cover: 'assets/images/projects/helpper/homepage.png' 
+picture_gallery_1: 'assets/images/projects/helpper/faq.png' 
+picture_gallery_2: 'assets/images/projects/helpper/become_helpper.png' 
+picture_gallery_3: 'assets/images/projects/helpper/register.png' 
 tags: branding ui web-development php # , delimited
 background: 3fa298 # Can be a color or a picture url
 logo: 'assets/images/projects/helpper/logo.png' # Can be a picture url or a name
