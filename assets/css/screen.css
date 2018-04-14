@@ -1646,6 +1646,11 @@ Usage (In Ghost editor):
     .author-stats {
         display: none;
     }
+
+    .author-card .post-full-footer {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
 }
 
 
