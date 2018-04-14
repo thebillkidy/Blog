@@ -7,7 +7,7 @@ picture_cover: 'assets/images/projects/helpper/homepage.png'
 picture_gallery_1: 'assets/images/projects/helpper/faq.png' 
 picture_gallery_2: 'assets/images/projects/helpper/become_helpper.png' 
 picture_gallery_3: 'assets/images/projects/helpper/register.png' 
-tags: branding ui web-development php # , delimited
+tags: CTO web-development NodeJS Startup # , delimited
 background: 3fa298 # Can be a color or a picture url
 logo: 'assets/images/projects/helpper/logo.png' # Can be a picture url or a name
 class: project-template
