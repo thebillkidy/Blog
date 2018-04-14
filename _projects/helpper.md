@@ -16,7 +16,9 @@ class: project-template
 I got the chance to be at the front wheel development drive of Helpper.be, a social homecare project that wants to help people in need through the sharing economy in Belgium. I joined this statup as the first employee acting as their CTO.
 
 ## My Role
+
 As a CTO, I decided and helped create the first iteration of the web platform - primarily focused on backend. Next to that, I oversaw 2 freelance teams, one focused on UX and one focused on creating the frontend.
 
 ## Outcome
+
 After being offered a position at Microsoft as a new grad, I decided to pursue my career in technology rather than the healthcare sector.
