@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover: 'assets/images/covers/waves.jpg'
+cover: 'assets/images/covers/summit.jpg'
 navigation: True
 title: Creating a culture of growth and ambition, Part 2 - Motivation
 date: 2018-04-13 17:52:00

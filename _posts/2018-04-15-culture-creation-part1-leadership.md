@@ -19,7 +19,7 @@ In this series of blog posts, I will be explaining different elements, that I th
 
 ## Chapter #1: Influential Leadership
 
-In the first step of creating a growth culture, it is crucial that you understand what makes good leaders. You want to be a leader that inspires people, someone who is able to say something that makes people admire you. You however do NOT want to be the kind of leader that people fear, the kind of leader that destroys a culture.
+In the first step of creating a growth culture, it is crucial that you understand what makes good leaders. You want to be a leader that inspires people, someone who is able to say something that makes people admire you. You however, do NOT want to be the kind of leader that people fear, the kind of leader that destroys a culture.
 
 So before we go in detail, lets summarize what makes up a good leader (as an acronym: FICEL):
 
