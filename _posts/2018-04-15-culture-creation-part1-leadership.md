@@ -51,6 +51,6 @@ Are you one of the persons that likes to stick with what works? Well, then you f
 
 ### L: Listener
 
-The last one is the most important one, influencing people is all about sharing interests and understanding what they want well - this is why it is important that you learn how to listen. People like to express themselves through gossip, criticism, etc, so instead of challenging these expressions, it's important to listen to them.
+Last but not least, listen to people! How else do you think to influence people if you do not know what they are thinking about? People like to express themselves through gossip, criticism, etc, so instead of challenging these expressions, it's important to listen to them.
 
 By listening, you will be able to tackle core problems, that you would never have discovered otherwise.
