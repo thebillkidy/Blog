@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/waves.jpg'
 navigation: True
 title: Creating a culture of growth and ambition, Part 2 - Motivation
-date: 2018-04-16 17:52:00
+date: 2018-04-13 17:52:00
 tags: experience business
 class: post-template
 subclass: 'post tag-experience tag-business'
