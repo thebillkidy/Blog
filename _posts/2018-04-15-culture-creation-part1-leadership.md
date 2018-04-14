@@ -11,7 +11,7 @@ subclass: 'post tag-experience tag-business'
 author: xavier
 ---
 
-Did you ever lay awake in your bed, wondering what to do with your life? wondering on how you can make an impact in the society of today? wondering on how you can make people follow you? Well, if you are thinking about this, you belong to a group of people often called "Influential Leaders".
+Did you ever lay awake in your bed, wondering what to do with your life? Wondering how you can make an impact in the society of today? Wondering how you can make people follow you? Well, if you are thinking about this, you belong to a group of people often called "Influential Leaders".
 
 Just think about famous people such as Martin Luther King (I have a dream), Che Guevara (Che) or yes, even Donald Trump (Make America Great Again), they all figured out on how to influence people and make them follow them.
 
@@ -37,11 +37,11 @@ Once you know your focus group, you can tune your messages to them, or even brus
 
 ### I: Inclusion
 
-I can not express how important this one is. People tend to follow a group when they feel that they belong. Just think about the different religions: christianity, islam, buddhism, ... or even the kind of sports teams people follow. When they think they belong, they are more likely to stick to it, and we all know how hard it is to change someone's mind.
+I can not express how important this one is. People tend to follow a group when they feel that they belong. Just think about the different religions: christianity, islam, buddhism, etc, or even the kind of sports teams people follow. When they think they belong, they are more likely to stick to it, and we all know how hard it is to change someone's mind.
 
 ### C: Commitment
 
-But how do you really change someone's life? It is not by standing at the sidelines and watching something happen. No, it's by participating in it. When you see something happening that goes against your beliefs, take action! When you see something that could be improved, take action! That is if you belief in it yourself!
+But how do you really change someone's life? It is not by standing at the sidelines and watching something happen. No, it's by participating in it. When you see something happening that goes against your beliefs, take action! When you see something that could be improved, take action! That is if you believe in it yourself!
 
 People tend to take things for granted, true leaders go against this and try to change the status quo.
 
@@ -51,6 +51,6 @@ Are you one of the persons that likes to stick with what works? Well then you fa
 
 ### L: Listener
 
-The last one is the most important one, influencing people is all about sharing interests and understanding what they want well - this is why it is important that you learn how to listen. People like to express themselves through gossip, criticism, ... so instead of challenging these expressions, it's important to listen to them.
+The last one is the most important one, influencing people is all about sharing interests and understanding what they want well - this is why it is important that you learn how to listen. People like to express themselves through gossip, criticism, etc, so instead of challenging these expressions, it's important to listen to them.
 
 By listening, you will be able to tackle core problems, that you would never have discovered otherwise.
