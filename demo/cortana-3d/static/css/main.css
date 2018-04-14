@@ -615,3 +615,9 @@ header #title h1 {
 		margin: 0 auto;
 	}
 }
+
+@media (max-width: 500px) {
+	#controls > #buttons {
+		flex-direction: column;
+	}
+}
