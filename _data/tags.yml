@@ -1,21 +1,27 @@
+business:
+  name: Business
+  cover: assets/images/covers/business3.jpg
+experience:
+  name: Experience
+  cover: assets/images/covers/experience.jpg
 tutorials:
   name: Tutorials
   cover: assets/images/covers/tutorials.jpg
 howto:
   name: HowTo
   cover: assets/images/covers/coding5.png
-reactjs:
-  name: ReactJS
-  cover: assets/images/covers/reactjs.png
-javascript:
-  name: Javascript
-  cover: assets/images/covers/coding.jpg
-experience:
-  name: Experience
-  cover: assets/images/covers/experience.jpg
 algorithms:
   name: Algorithms
   cover: assets/images/covers/algorithms2.jpg
+discrete-math:
+  name: Discrete Math
+  cover: assets/images/covers/algorithms.jpg
+networking:
+  name: Networking
+  cover: assets/images/covers/network.jpg
+javascript:
+  name: Javascript
+  cover: assets/images/covers/coding.jpg
 cpp:
   name: C++
   cover: assets/images/covers/coding4.jpg
@@ -25,12 +31,9 @@ c:
 sql:
   name: SQL
   cover: assets/images/covers/database.jpg
-discrete-math:
-  name: Discrete Math
-  cover: assets/images/covers/algorithms.jpg
-networking:
-  name: Networking
-  cover: assets/images/covers/network.jpg
-business:
-  name: Business
-  cover: assets/images/covers/business3.jpg
+reactjs:
+  name: ReactJS
+  cover: assets/images/covers/reactjs.png
+kubernetes:
+  name: Kubernetes
+  cover: assets/images/covers/kubernetes.jpg
