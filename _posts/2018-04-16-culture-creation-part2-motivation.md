@@ -11,7 +11,7 @@ subclass: 'post tag-experience tag-business'
 author: xavier
 ---
 
-So we learned all about starting our culture, and the base values that a influential leader should have (see FICEL, talked about in [Part 1](../)). But once we are this leader, how do we create a growth culture? Well this is all about **Motivation**.
+So we learned all about starting our culture, and the base values that a influential leader should have (see FICEL, talked about in [Part 1](../culture-creation-part1-leadership)). But once we are this leader, how do we create a growth culture? Well this is all about **Motivation**.
 
 Now how do we create this motivation? Put yourself in the shoes of a leader (or manager in this case), how do you make your people thrive?
 
