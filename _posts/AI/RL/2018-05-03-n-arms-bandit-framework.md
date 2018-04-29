@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/posts/multi-armed-bandits.jpg'
 navigation: True
 title: Multi-armed bandit framework
-date: 2018-04-27 13:00:00
+date: 2018-05-03 09:00:00
 tags: reinforcement-learning machine-learning artificial-intelligence
 class: post-template
 subclass: 'post'
