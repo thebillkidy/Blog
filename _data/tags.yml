@@ -4,6 +4,15 @@ business:
 experience:
   name: Experience
   cover: assets/images/covers/experience.jpg
+reinforcement-learning:
+  name: Reinforcement Learning (RL)
+  cover: assets/images/covers/rl2.jpg
+machine-learning:
+  name: Machine Learning (ML)
+  cover: assets/images/covers/ai3.jpg
+artificial-intelligence:
+  name: Artificial Intelligence (AI)
+  cover: assets/images/covers/ai.jpg
 tutorials:
   name: Tutorials
   cover: assets/images/covers/tutorials.jpg
