@@ -68,7 +68,7 @@ kubectl config use-context minikube
   * Note: If you do not have access use `az login` to login to your account
 2. Set your subscription with `az account set --subscription <name_or_id>`
 3. Create an AKS with `az aks create -g <resource_group> -n <name_of_aks_cluster> --node-vm-size Standard_B1ms --location westeurope --node-count 5 --ssh-key-value <path_to_ssh_pub>`
-4. Configure your kubectl to connect to the kubernetes cluster
+4. Configure your kubectl to connect to the kubernetes cluster by using `az aks get-credentials --resource-group <RESOURCE_GROUP> --name <NAME>`
 
 ### Getting the right VM Size
 
