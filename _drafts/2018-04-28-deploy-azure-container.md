@@ -1,0 +1,1 @@
+So you got this Container Service, which is an awesome service. But how do you actually deploy something on it? Well start by installing docker on your local pc.
