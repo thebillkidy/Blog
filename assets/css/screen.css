@@ -1634,7 +1634,7 @@ Usage (In Ghost editor):
     padding-left: 4px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
     .site-header-content .author-bio {
         font-size: 1.8rem;
         line-height: 1.15em;
