@@ -40,7 +40,7 @@ I also wanted to access my `docker` daemon, this we can do through these command
 
 ```bash
 export DOCKER_TLS_VERIFY="1"
-export DOCKER_HOST="tcp://<your_ip>:2376"
+export DOCKER_HOST="tcp://<your_ip>:2375"
 export DOCKER_CERT_PATH="/mnt/c/Users/<user>/.minikube/certs"
 export DOCKER_API_VERSION="1.23"
 ```
