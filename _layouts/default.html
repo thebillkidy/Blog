@@ -95,10 +95,25 @@
             var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
 
             var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
             codeBlocks.forEach((i) => {
                 var text = i.innerText;
                 var highlightedText = hljs.highlight(language, text);
                 i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
             });
         });
     </script>
