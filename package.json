@@ -6,6 +6,9 @@
     "author": {
         "name": "Xavier Geerinck"
     },
+    "scripts": {
+        "dev": "bundle exec jekyll serve"
+    },
     "devDependencies": {
         "autoprefixer": "6.3.6",
         "cssnano": "3.7.1",
