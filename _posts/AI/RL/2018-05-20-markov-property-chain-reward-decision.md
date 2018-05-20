@@ -88,7 +88,7 @@ This however results in a couple of problems:
 
 Which is why we added a new factor called the *discount factor*. This factor will decrease the reward we get of taking the same action over time. Adding this to our original formula results in: 
 
-$$G_t = R_{t+1} + γR_{t+2} + ... + γ^2R_n = \sum^{\infty}_{k=0}γ^kR_{t + k + 1}$$
+$$G_t = R_{t+1} + γR_{t+2} + ... + γ^nR_n = \sum^{\infty}_{k=0}γ^kR_{t + k + 1}$$
 
 ### Markov Decision Process (MDP)
 
