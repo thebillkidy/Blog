@@ -38,11 +38,19 @@ A Markov Process is a tuple <$S$, $P$> where:
 * $S$ is a (finite) set of states
 * $P$ is a state transition probability matrix, $P_{ss'} = P[S_{t+1} = s' \mid S_t = s]$.
 
-With our $P$ matrix being written as: $P = \begin{bmatrix}P_{11} & ... & P_{1n} \\ \vdots & ... & \vdots \\P_{n1} & ... & P_{nn} \\ \end{bmatrix}$ where each row of the matrix sums to 1.
+With our $P$ matrix being written as: 
+
+$$P = \begin{bmatrix}P_{11} & ... & P_{1n} \\ \vdots & ... & \vdots \\ P_{n1} & ... & P_{nn} \\ \end{bmatrix}$$ 
+
+where each row of the matrix sums to 1.
 
 Let's illustrate this with an example. Let's say that we want to represent weather conditions. How can we predict the weather on the following days?
 
-When we have this transition matrix: $P = \begin{bmatrix}0.9 & 0.1 \\ 0.5 & 0.5\end{bmatrix}$, then we can see that we will have a 90% chance of a sunny day following on a current sunny day and a 50% chance of a rainy day when we currently have a rainy day.
+When we have this transition matrix: 
+
+$$P = \begin{bmatrix}0.9 & 0.1 \\ 0.5 & 0.5\end{bmatrix}$$
+
+Then we can see that we will have a 90% chance of a sunny day following on a current sunny day and a 50% chance of a rainy day when we currently have a rainy day.
 
 Representing this as a graph results in:
 
