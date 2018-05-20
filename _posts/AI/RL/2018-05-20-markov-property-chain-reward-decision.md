@@ -11,7 +11,7 @@ subclass: 'post'
 author: xavier
 ---
 
-As seen in the previous article, we now know the general concept of Reinforcement Learning. But how do we actually get towards **solving our 3th challenge: "Temporal Credit Assignment"**?
+As seen in the previous article, we now know the general concept of Reinforcement Learning. But how do we actually get towards **solving our third challenge: "Temporal Credit Assignment"**?
 
 To solve this, we first need to introduce a generalization of our reinforcement models. When we look at these models, we can see that we are modeling decision-making situations where the outcomes of these situations are partly random and partly under the control of the decision maker. This is what we call the **Markov Decision Process** or **MDP** - we say that it satisfies the **Markov Property**. But let's go a bit deeper in this.
 
