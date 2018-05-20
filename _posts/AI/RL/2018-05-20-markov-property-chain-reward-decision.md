@@ -27,7 +27,7 @@ Or in more general terms:
 
 *<center><span style="font-size: 24px;">"The future is independent of the past given the present"</span></center>*
 
-We say that we can go from one Markov State $s$ to the successor state $s'$ by defining the state transition probability, which is defined by $P_{ss'} = P[S_{t+1} = s' | S_t = s]$.
+We say that we can go from one Markov State $s$ to the successor state $s'$ by defining the state transition probability, which is defined by $P_{ss'} = P[S_{t+1} = s' \mid S_t = s]$.
 
 ### Markov Process or Markov Chain
 
@@ -36,7 +36,7 @@ A Markov Process is a memoryless random process where we take a sequence of rand
 A Markov Process is a tuple <$S$, $P$> where:
 
 * $S$ is a (finite) set of states
-* $P$ is a state transition probability matrix, $P_{ss'} = P[S_{t+1} = s' | S_t = s]$.
+* $P$ is a state transition probability matrix, $P_{ss'} = P[S_{t+1} = s' \mid S_t = s]$.
 
 With our $P$ matrix being written as: $P = \begin{bmatrix}P_{11} & ... & P_{1n} \\ \vdots & ... & \vdots \\P_{n1} & ... & P_{nn} \\ \end{bmatrix}$ where each row of the matrix sums to 1.
 
@@ -57,8 +57,8 @@ The Markov Reward Process is an extension on the original Markov Process, but wi
 A Markov Reward Process is a tuple <$S$, $P$, $R$, $γ$> where:
 
 * $S$ is a (finite) set of states
-* $P$ is a state transition probability matrix, $P_{ss'} = P[S_{t+1} = s' | S_t = s]$.
-* **$R$ is a reward function, $R_s = E[r_{t+1} | S_t = s]$**
+* $P$ is a state transition probability matrix, $P_{ss'} = P[S_{t+1} = s' \mid S_t = s]$.
+* **$R$ is a reward function, $R_s = E[r_{t+1} \mid S_t = s]$**
 * **$γ$ is a discount factor, $γ \in [0,1]$**
 
 Which means that we will add a reward of going to certain states. When we map this on our earlier example:
@@ -92,8 +92,8 @@ A Markov Decision Process is a tuple <$S$, $A$, $P$, $R$, $γ$> where:
 
 * $S$ is a (finite) set of states
 * **$A$ is a finite set of actions**
-* $P$ is a state transition probability matrix, $P_{ss'}^a = P[S_{t+1} = s' | S_t = s, A_t = a]$.
-* $R$ is a reward function, $R_s^a = E[r_{t+1} | S_t = s, A_t = a]$
+* $P$ is a state transition probability matrix, $P_{ss'}^a = P[S_{t+1} = s' \mid S_t = s, A_t = a]$.
+* $R$ is a reward function, $R_s^a = E[r_{t+1} \mid S_t = s, A_t = a]$
 * $γ$ is a discount factor, $γ \in [0,1]$
 
 ![assets/images/posts/markov-decision-process.png](assets/images/posts/markov-decision-process.png)
