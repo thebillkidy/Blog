@@ -21,17 +21,25 @@ But how do we find this optimal policy? This is what we will tackle in this arti
 
 ## Bellman Equations
 
-**Definition:** Dynamic Programming is a method for solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions.
+### Introduction
 
-Richard E. bellman defined an equation that is able to write the value of a decision problem at a certain point in time, in terms of the payoff from some initial choices and the value of the remaining decision problem that results from those initial choices. Allowing us to break down a dynamic programming problem into a sequence of simpler subproblems as prescribed in Bellman's "Principle of Optimality".
+As written in the book by Sutton and Barto, the Bellman equation is an approach towards **solving the term of "optimal control"**. Which is done through the creation of a **functional equation that describes the problem of designing a controller to minimize a measure of a dynamical system's behavior over time.**. This approach of Bellman utilizes the concepts of a state and a value function as we saw before.
 
-> **Principle of Optimality:** An optimal policy has the property that whatever the initial state and initial decision are, the remaining decision must constitute an optimal policy with regard to the state resulting from the fist decision. 
+> **Note:** A value function we could also write as the "*optimal return function*"
+
+Afterwards, this class of methods for solving these optimal control problems came to be known as dynamic programming.
+
+> **Dynamic Programming:** is a method for solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions.
+
+To know if we can solve a problem through the use of Dynamic Programming, we can take a look at the *Principle of Optimality* which was also created by Richard E. Bellman.
+
+> **Principle of Optimality:** An optimal policy has the property that whatever the initial state and initial decision are, the remaining decision must constitute an optimal policy with regard to the state resulting from the fist decision.
 
 ### Bellman Equation - State-Value Function $V^\pi(s)$
 
-As previously defined in our introduction, the State-Value function is the Value of state $s$, when following policy $\pi$ or $V^{\pi}(s) = E_{\pi}[R_t|s_t = s]$
+Looking back at our introduction, we could see that the State-Value function is described as the Value of state $s$, when following policy $\pi$ or $V^{\pi}(s) = E_{\pi}[R_t|s_t = s]$
 
-This comes from the fact that:
+Which in its turn comes from the fact that:
 
 $$
 R_t = r_{t + 1} + \gamma r_{t + 2} + \gamma^2 r_{t + 3} + \gamma^3 r_{t + 4} ...
@@ -45,14 +53,13 @@ $$
 R_t = r_{t + 1} + \gamma R_{t + 1}
 $$
 
-Which makes it so we can write our State-Value function as: 
+Making it so that we can write our State-Value function as: 
 
 $$V^{\pi}(s) = E_{\pi}[r_{t + 1} + \gamma V^{\pi}(s_{t + 1}) | s_t = s]$$
 
 Removing the expectation operator:
 
 $$V^{\pi}(s) = \sum_{s'}P^{\pi(s)}_{ss'}[R^{\pi(s)}_{ss'} + \gamma V^{\pi}(s')]$$
-
 
 
 ### Bellman Equation - Action-Value Function $Q^\pi(s,a)$
