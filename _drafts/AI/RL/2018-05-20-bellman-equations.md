@@ -3,7 +3,7 @@ layout: post
 current: post
 cover: 'assets/images/covers/rl3.png'
 navigation: True
-title: Markov Decision Process & Bellman Equations
+title: Bellman Equations
 date: 2018-05-20 09:00:00
 tags: reinforcement-learning machine-learning artificial-intelligence
 class: post-template
@@ -24,7 +24,7 @@ Initially we defined our basic concepts:
 Whereafter we introduced a concept of *reward* in our MRP
 
 * **Immediate Reward $R_t$:** We want to steer our agent towards the action with the highest reward. Example: We want it to go forward on a cliff, and not fall off. This is given through the sum of our future rewards: $R_t = r_{t + 1} + r_{t + 2} + ... + r_T$
-* **Discounted Reward $G_t$** To prevent us from constantly following the same path and reward, we add a discount factor that will reduce the reward over time. Written as: $G_t = R_{t + 1} + \gamma R_{t + 2} + \gamma^2R_{t + 3} + ... = \sum^{\infty}_{k=0}\gamma^kR_{t+k+1}$
+* **Discounted Reward $G_t$** To prevent us from constantly following the same path and reward, we add a discount factor that will reduce the reward over time. Written as: $G_t = R_{t + 1} + γ R_{t + 2} + γ^2R_{t + 3} + ... = \sum^{\infty}_{k=0}γ^k R\_{t+k+1}$
 
 To this we also added probabilities due to the fact of it being described as an MDP and that nothing is certain.
 
@@ -33,8 +33,8 @@ To this we also added probabilities due to the fact of it being described as an 
 
 So that we were finally able to write 2 new functions that allow us to interpret our expected value of a certain state.
 
-* **State-Value Function:** Value when we follow policy $\pi$ forever starting from our state $s$ given by $V^{\pi}(s) = \mathbb{E}_{\pi}[G_t|s_t = s] = \mathbb{E}_{\pi}[\sum^{\infty}_{k=0}\gamma^kr_{t+k+1}|s_t=s]$
-* **Action-Value Function:** Value when we follow policy $\pi$ after taking action $a$ on our state $s$ given by $Q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t|s_t = s, a_t = a] = \mathbb{E}_{\pi}[\sum^{\infty}_{k=0}\gamma^kr_{t+k+1}|s_t=s,a_t=a]$
+* **State-Value Function:** Value when we follow policy $\pi$ forever starting from our state $s$ given by $V^{\pi}(s) = \mathbb{E}\_{\pi}[G\_t \mid s\_t = s] = \mathbb{E}\_{\pi}[\sum^{\infty}\_{k=0}γ^kr\_{t+k+1} \mid s\_t=s]$
+* **Action-Value Function:** Value when we follow policy $\pi$ after taking action $a$ on our state $s$ given by $Q_{\pi}(s, a) = \mathbb{E}\_{\pi}[G_t \mid s\_t = s, a\_t = a] = \mathbb{E}\_{\pi}[\sum^{\infty}\_{k=0}γ^kr_{t+k+1} \mid s\_t=s,a\_t=a]$
 
 Now we know that, how are we able to create some kind of algorithm that allows us to find a path through our states, taking specific actions, that will eventually lead to the highest return. Knowing that our states do not depend on each other? (See MDP). Or in math terms, **how can we find our optimal policy $\pi^*$ which maximizes the return in every state?**.
 
@@ -58,57 +58,37 @@ To know if we can solve a problem through the use of Dynamic Programming, we can
 
 ### Bellman Equation - State-Value Function $V^\pi(s)$
 
-Our original State-Value Function was? 
+So what the Bellman function will actually does, is that it will allow us to write an equation that will **represent our State-Value Function $V^\pi(s)$ as a recursive relationship between the value of a state and the value of its successor states**.
 
-$$V^\pi(s) = \mathbb{E}_{\pi}[\sum^{\infty}_{k=0}\gamma^kr_{t+k+1}|s_t=s]$$
+$$\begin{equation}
+\begin{split}
+V^\pi(s) =& \mathbb{E}_{\pi}[G_t | S_t = s] \\
+         =& \mathbb{E}_{\pi}[r_{t+1} + \gamma G_{T+1} | S_t = s] \\
+         =& \sum_{a} \pi(a | s) \sum_{s', r} P(s' , r | s, a)[ r + \gamma \mathbb{E}_{\pi}[G_{t + 1} | S_{t + 1} = s] ] \\
+         =& \sum_{a} \pi(a | s) \sum_{s', r} P(s' , r | s, a)[ r + \gamma v_{\pi}(s') ], \forall s \in S
+\end{split}
+\end{equation}$$
 
-# TODO: Clearify this step!
-So what is the expected return going to be if we go from state $s$ to state $s'$? Well this can be done by following our policy $\pi$ on state $s$. Our as we can also write it, by getting the sum of all possible actions and all possible returns:
+> **Note:** We do not go into detail here on how it works or to derive it, for more details about that, feel free to read the paper.
 
-$$\mathbb{E}_{\pi}[R_{t+1}|s_t=s] = \sum_a\pi(s,a)\sum_{s'}P_{ss'}^aR_{ss'}^a$$
-
-Resulting in:
-
-$$V^{\pi}(s) = \sum_a\pi(s,a)\sum_{s'}P_{ss'}^a[R_{ss'}^a + \gamma V^{\pi}(s')]$$
-
-Looking back at our introduction, we could see that the State-Value function is described as the Value of state $s$, when following policy $\pi$ or $V^{\pi}(s) = \mathbb{E}_{\pi}[R_t|s_t = s]$
-
-Which in its turn comes from the fact that:
-
-$$
-R_t = r_{t + 1} + \gamma r_{t + 2} + \gamma^2 r_{t + 3} + \gamma^3 r_{t + 4} ...
-$$
-
-$$
-R_t = r_{t + 1} + \gamma(r_{t + 2} + \gamma r_{t + 3} + \gamma^2 r_{t + 4} ...)
-$$
-
-$$
-R_t = r_{t + 1} + \gamma R_{t + 1}
-$$
-
-Making it so that we can write our State-Value function as: 
-
-$$V^{\pi}(s) = \mathbb{E}_{\pi}[r_{t + 1} + \gamma V^{\pi}(s_{t + 1}) | s_t = s]$$
-
-Removing the expectation operator:
-
-$$V^{\pi}(s) = \sum_{s'}P^{\pi(s)}_{ss'}[R^{\pi(s)}_{ss'} + \gamma V^{\pi}(s')]$$
-
+If we now want to find the best value function $V^\*$, then that means that we need to find: $V^\*(s) = max_{\pi}V^{\pi}(s)$ or in terms of our last equation: $V^\*(s) = max_{a} \sum_{s', r} P(s' , r \| s, a)[ r + \gamma V^{\*}(s') ]$ which is our **Bellman Optimality Equation**
 
 ### Bellman Equation - Action-Value Function $Q^\pi(s,a)$
 
-Value of state $s$, taking action $a$, and thereafter following policy $\pi$ or $Q_{\pi}(s, a) = \mathbb{E}_{\pi}[R_t|s_t = s, a_t = a]$
+For the Action-Value Function we follow the same intuition as in the State-Value one, but here including the action. Eventually leading us to this equation:
 
+$$\begin{equation}
+\begin{split}
+Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
+            =& \sum_{a} \pi(a | s) \sum_{s', r} P(s' , r | s, a)[ r + \gamma v_{\pi}(s') ]
+\end{split}
+\end{equation}$$
 
+Which leads to our **Bellman Optimality Equation**: $Q^\*(s, a) =\sum_{s', r} P(s' , r \| s, a)[ r + \gamma  max_{a'} Q^{\*}(s', a') ]$
 
+## Solving
 
-Finding this optimal policy
-
-
-One of the key elements in here were the [Policy and Value Function](/rl-intro), which defines the policy $\pi$ to find the actions that we should take to go to a certain state, and the value function which tells us the value of taking a certain action in some state when following this policy $\pi$.
-
-To come to a solution 
+In the next article, we will talk about some algorithms that will allow us to solve something called a "GridWorld" later on.
 
 ## References
 * [https://www.scss.tcd.ie/~luzs/t/cs7032/solvemdps.pdf](https://www.scss.tcd.ie/~luzs/t/cs7032/solvemdps.pdf)

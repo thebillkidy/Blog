@@ -7,7 +7,7 @@
         "name": "Xavier Geerinck"
     },
     "scripts": {
-        "dev": "bundle exec jekyll serve"
+        "dev": "bundle exec jekyll serve --drafts"
     },
     "devDependencies": {
         "autoprefixer": "6.3.6",
