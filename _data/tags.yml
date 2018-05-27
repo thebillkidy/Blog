@@ -40,6 +40,9 @@ cpp:
 c:
   name: C
   cover: assets/images/covers/coding4.jpg
+dotnet:
+  name: dotnet
+  cover: assets/images/covers/coding2.jpg
 sql:
   name: SQL
   cover: assets/images/covers/database.jpg
