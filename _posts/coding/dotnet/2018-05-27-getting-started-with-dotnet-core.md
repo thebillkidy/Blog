@@ -74,6 +74,8 @@ Whereafter we can now see the following output:
 Hello World!
 ```
 
+If you followed everything correctly, you should have something like this in your terminal:
+
 ![./assets/images/posts/dotnetcore-helloworld.png](./assets/images/posts/dotnetcore-helloworld.png)
 
 ## FAQ
