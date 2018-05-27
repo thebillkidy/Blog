@@ -11,7 +11,7 @@ subclass: 'post tag-coding'
 author: xavier
 ---
 
-I wanted to get started with Machine Learning, but rather than using Tensorflow, I wanted to take a different approach and use [ML.NET](https://github.com/dotnet/machinelearning). Now you might ask yourself: "Why use .NET if you have something such as Tensorflow?". Well to be very blunt, I am a programmer by heart and I just detest Python :D. (I know, I know, very biased, but sorry it's just the truth ;) even though I could learn Python and transfer all my conceptual knowledge to it, I rather want to try something else and go the .NET way).
+I wanted to get started with Machine Learning, but rather than using Tensorflow, I wanted to take a different approach and use [ML.NET](https://github.com/dotnet/machinelearning). Now you might ask yourself: "Why use .NET if you have something such as Tensorflow in Python?". Well, my preference goes towards languages containing brackets (C#, JS, ...), rather than having pure identations (Python), making me want to try .NET Core for this.
 
 To summarize my setup that I am working on for this article, it looks something like this:
 
