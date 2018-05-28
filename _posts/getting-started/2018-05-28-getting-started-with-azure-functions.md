@@ -35,7 +35,7 @@ Now you can upload all your files through the "View files" tab and clicking the 
 
 > **Note:** You can create folders by adding the suffix "/". Example: `<myFolder>/`
 
-Once you did that and added your `package.json` file, we now have to install our dependencies. To do this, we need to open our **Kudu Dashboard** by going to [https://<your_function_app_name>.scm.azurewebsites.net](https://<your_function_app_name>.scm.azurewebsites.net).
+Once you did that and added your `package.json` file, we now have to install our dependencies. To do this, we need to open our **Kudu Dashboard** by going to [https://\<your_function_app_name\>.scm.azurewebsites.net](https://\<your_function_app_name\>.scm.azurewebsites.net).
 
 ![/assets/images/posts/getting-started-functions-5.png](/assets/images/posts/getting-started-functions-5.png)
 
