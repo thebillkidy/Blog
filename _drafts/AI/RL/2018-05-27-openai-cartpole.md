@@ -3,7 +3,7 @@ layout: post
 current: post
 cover: 'assets/images/covers/rl3.png'
 navigation: True
-title: Solving OpenAI Gym Problems - CartPole example
+title: Solving OpenAI Gym Problems - Getting to know OpenAI through the CartPole example
 date: 2018-05-27 09:00:00
 tags: reinforcement-learning machine-learning artificial-intelligence
 class: post-template
@@ -57,6 +57,36 @@ To be able to make everything dynamic and create a true self-learning algorithm,
 * Starting and closing the monitoring process: `await client.envMonitorStart(instanceId, outDir, true);`, `await client.envMonitorClose(instanceId);`
 * Upload the results to view it online: `await client.upload(outDir)`
 
+## Solving the CartPole problem
+
+So in our CartPole example, let's take a look at one of our state observations:
+
+```json
+{
+  done: false,
+  info: {},
+  observation: [
+    0.10040040129814863,
+    0.5559659866710018,
+    -0.17649755837025902,
+    -1.1301794535568273
+  ],
+  reward: 1
+}
+```
+
+Basically, these are 4 random continuous numbers that we do not know what they do in our algorithm... (though we can make an interpretation of them with our human brains and say that they represent **position $x$**, **velocity $v$**, **angle $\theta$** and **angular velocity $\alpha$**).
+
+Next to these 4 random numbers, we also know by observing the action space that we can take 2 specific discrete actions (again by using our human brain we can classify this as moving the cart to the left or moving it to the right).
+
+Applying what we learned in the previous article of [RL Intro][/rl-intro], we know that we need to create a policy that shows us which actions we can take and optimise this using our [Bellman Equations](/bellman-equations) to result in the best value.
+
+
+
+
+
+--> exploration stuff
+Well remember what we discussed in the [Multi-armed bandit framework](/n-arms-bandit-framework) article? There we learned that we need to choose actions, while still exploring other actions. 
 
 ## Files
 
@@ -95,7 +125,7 @@ class Experiment {
     this.observationSpaceInfo = await client.envObservationSpaceInfo(this.environment.instance_id);
 
     // Set our learning agent
-    this.agent = new RandomDiscreteAgent(this.actionSpaceInfo.info["n"]);
+    this.agent = new RandomDiscreteAgent(this.actionSpaceInfo.info["n"], this.observationSpaceInfo.info.shape[0]);
   }
 
   async run() {
@@ -129,7 +159,7 @@ class Experiment {
         state = await client.envStep(this.environment.instance_id, action, true);
       }
 
-      console.log(`Episode ${episode} ended after ${t} timesteps with done == ${state.done}`);
+      console.log(`Episode ${episode} ended after ${t} timesteps with done == ${state.done}, received reward: ${state.reward}`);
     }
 
     // Stop Monitoring
@@ -146,8 +176,9 @@ experiment.run();
 
 // Our Agent in charge of learning based on the observation and reward
 class RandomDiscreteAgent {
-  constructor(numberOfActions) {
+  constructor(numberOfActions, numberOfObservations) {
     this.numberOfActions = numberOfActions;
+    this.numberOfObservations = numberOfObservations;
   }
 
   act(observation, reward) {
@@ -155,3 +186,13 @@ class RandomDiscreteAgent {
   }
 }
 ```
+
+## References
+
+While creating this solution, I had a lot of help by reading the following articles. 
+
+> Please note that these are not directly copied over since the theory results from earlier blog post and that these are written in Python while this solution is in Javascript.
+
+* [https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947](https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947)
+* [https://ferdinand-muetsch.de/cartpole-with-qlearning-first-experiences-with-openai-gym.html](https://ferdinand-muetsch.de/cartpole-with-qlearning-first-experiences-with-openai-gym.html)
+* [https://threads-iiith.quora.com/Deep-Q-Learning-with-Neural-Networks-on-Cart-Pole](https://threads-iiith.quora.com/Deep-Q-Learning-with-Neural-Networks-on-Cart-Pole)
