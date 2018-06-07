@@ -196,3 +196,7 @@ While creating this solution, I had a lot of help by reading the following artic
 * [https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947](https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947)
 * [https://ferdinand-muetsch.de/cartpole-with-qlearning-first-experiences-with-openai-gym.html](https://ferdinand-muetsch.de/cartpole-with-qlearning-first-experiences-with-openai-gym.html)
 * [https://threads-iiith.quora.com/Deep-Q-Learning-with-Neural-Networks-on-Cart-Pole](https://threads-iiith.quora.com/Deep-Q-Learning-with-Neural-Networks-on-Cart-Pole)
+* [https://gist.github.com/n1try/af0b8476ae4106ec098fea1dfe57f578](https://gist.github.com/n1try/af0b8476ae4106ec098fea1dfe57f578) 
+* [https://gist.github.com/n1try/2a6722407117e4d668921fce53845432#file-dqn_cartpole-py](https://gist.github.com/n1try/2a6722407117e4d668921fce53845432#file-dqn_cartpole-py)
+
+> note to self: last one is best
