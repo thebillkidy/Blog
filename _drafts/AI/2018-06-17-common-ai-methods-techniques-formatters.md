@@ -72,6 +72,7 @@ The purpose of this post is to give you a go to summary of some of the important
 
 ![/assets/images/posts/ai-rl-concepts/max-pooling.png](/assets/images/posts/ai-rl-concepts/max-pooling.png)
 
+
 ## Measuring Methods
 
 ### Accuracy

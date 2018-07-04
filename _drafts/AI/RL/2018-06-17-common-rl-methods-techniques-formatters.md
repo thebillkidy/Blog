@@ -29,19 +29,49 @@ Example: There are infinite values that fit in the range ]-3, 3[, if we put thes
 * Uses a table of states and actions showing values of how good an action is in which state
 * We iterate and update based on the reward we get from taking a certain action
 
+**Formula:** $Q'(s, a) = Q(s, a) + \alpha[R(s, a) + \gamma max(Q'(s', a')) - Q(s, a)]$
+
 ### Deep Q-Learning Neural Network
 
 * Use a Neural Network to approximate the action to take based on the state
+
+We want to update Neural Network Weights to reduce the error.
 
 ### Monte Carlo Tree Search
 
 ### Experience Replay
 
-* Solves 2 things, Forgetting previous experiences and Reducing the correlation between experiences
-* Avoid Forgetting previous experiences
-  * Create a "replay buffer"
-* Reduce correlations between experiences
-  * 
+* Allows the network to train itself using stored memories from it's experience
+  * Done by storing our experience tuples $<s, a, r, s'>$ in a collection and feeding them back to our neural network (replay buffer)
+  * However since we take actions after each other, these are highly correlated to each other
+    * Therefore we *sample from the replay buffer at random*
+
+**Formula:** $\Delta{w} = \alpha[(R + \gamma max_a \hat{Q}(s', a, w)) - \hat{Q}(s,a,w)] \nabla_w \hat{Q}(s,a,w)$
+
+**Meanings**
+
+* $(R + \gamma max_a \hat{Q}(s', a, w))$: Maximum Possible Q-Value for the NextState $Q'$
+* $\hat{Q}(s,a,w)$: Current predicted Q-Value
+* $(R + \gamma max_a \hat{Q}(s', a, w)) - \hat{Q}(s,a,w)$: TD Error
+* $\nabla_w \hat{Q}(s,a,w)$: Gradient of current predicted Q-Value
+
+**Algorithm**
+
+* Initialize Environment $E$
+* Initialize Replay Memory $M$ with capacity $N$ (= finite capacity)
+* Initialize DQN weights $w$
+* for episode in maxEpisode
+  * $s$ = Environment State
+  * for steps in maxSteps
+    * // Pick action and execute it to land in new state
+    * choose action $a$ from state $s$ using $\epsilon$-greedy (or linUCB)
+    * take action $a$ $\rightarrow$ get reward $r$ and nextState $s'$
+    * store experience tuple $<s, a, r, s'>$ in $M$
+    * $s = s'$
+    * // Replay our previous experience
+    * set $Q'$ = $r(s,a) + \gamma max(Q(s'))$
+    * update $w = \alpha(Q'(s,a,w) - Q(s,a,w)) * \hat{Q}(s,a,w)$
+
 
 ### Hindsight Experience Replay
 
