@@ -13,7 +13,7 @@ author: xavier
 
 ## Introduction
 
-These days it's all about the privacy of users, mainly started because of one large company (we all know who ;)) who provided access to user data, which made it possible to influence the elections. Because of this API access to all platforms is being limited and locked down, so that developers are not able to abuse this anymore.
+These days it's all about the privacy of users, API access to all platforms is being limited and locked down, so that developers are not able to abuse this anymore.
 
 This of course works well, but there is still one thing I think they overlooked: Crawlers! Just think about it, what is an API? An API stands for "Application Programming Interface" and allows a program to easily communicate with the data that it has based on an interface. But what does a Crawler do? Well the definition of a crawler is: "Web search engines and some other sites use Web crawling or spidering software to update their web content or indices of others sites' web content. Web crawlers copy pages for processing by a search engine **which indexes the downloaded pages so users can search more efficiently.**". Did you notice the part in bold? We can also refer to this as putting a layer on top of our data to make it easy to search through it - sounds closely related to an API right?
 
