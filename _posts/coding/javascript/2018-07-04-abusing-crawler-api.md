@@ -256,9 +256,6 @@ const extractNameRoleCompanyFromTitle = (companyName, webpageTitle) => {
   let title;
   let role;
 
-  // Extracts name and role from results as in: 
-  // Jose Arbelaez - Enterprise Architect - Bridgestone | LinkedIn 
-  // Jordan Peters - Senior Financial Analyst - Bridgestone ...
   const titleRegex = new RegExp(`^(.*) - (.*) - ${companyName} \\| LinkedIn$`, 'i'); // [1] gives name, [2] gives role
 
   if (titleRegex.test(webpageTitle)) {
@@ -268,8 +265,6 @@ const extractNameRoleCompanyFromTitle = (companyName, webpageTitle) => {
     return { name, role };
   }
 
-  // Extracts name and role from results as in: 
-  // Izabela Ciesla – Lean Specialist – Bridgestone | LinkedIn
   // NOTE: – is a special character!
   const titleRegex2 = new RegExp(`^(.*) – (.*) – ${companyName} \\| LinkedIn$`, 'i'); // [1] gives name, [2] gives role
 
