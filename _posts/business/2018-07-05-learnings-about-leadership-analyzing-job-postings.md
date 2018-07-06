@@ -15,7 +15,7 @@ While working at Microsoft as a Cloud Solution Architect in Data Platform, one o
 
 In previous articles, I already defined the core values ([see them here](https://xaviergeerinck.com/tag/business/)) that I think a leader should express (Focus, Inclusion, Commitment, Exploration and Listening). But what are the skills that others have that we still need to learn? This is what I will tackle in the following few lines.
 
-> Do you want to instantly see the results of this article? [Skip to the summary](/#summarizing)
+> Do you want to instantly see the results of this article? [Skip to the summary](#summarizing)
 
 ## Discovery
 
