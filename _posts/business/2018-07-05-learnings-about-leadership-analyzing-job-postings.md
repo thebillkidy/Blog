@@ -29,7 +29,7 @@ I started by discovering what the current leaders of today are doing and focusin
 * It takes ~9 months to know what you're doing in the role before being able to contribute
   * Make yourself vulnerable and meet with as many people as you can meet with in "sponge-mode"
   * Don't throw your opinion around before you are well informed
-* Reponsibilities
+* Responsibilities
   * Integrating all the products into one coherent whole
   * Make good products that customers want and that are reliable, fast and meet their expectations of functionality
   * Expressing the technology strategy (which things do we need to be building?, how should we build them?, ...)
@@ -56,7 +56,7 @@ I started by discovering what the current leaders of today are doing and focusin
 
 ##### Summary
 
-* 2 market (supply & demand) problem solved by thightly managing the community till there is enough supply and demand for the hockey-stick.
+* 2 market (supply & demand) problem solved by tightly managing the community till there is enough supply and demand for the hockey-stick.
 * Engineers are now "business process owners" who want a problem and be in charge of solving it.
 
 ##### Career Path
