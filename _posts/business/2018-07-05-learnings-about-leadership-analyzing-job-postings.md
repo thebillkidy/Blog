@@ -101,7 +101,7 @@ I started by discovering what the current leaders of today are doing and focusin
   * Business Leadership – Lead consumer and services business
   * Engineering leadership – Manage engineering pool (hire, grow, manage) and be a role model for technical excellence and customer quality
   * Drive – Passion to turn vision into detailed plans and execute against complex plans
-  * Collaborate – Partner with Microsoft product teams to manage dependencies, jointly deliver updates, and continuously improve our engineering capabilities
+  * Collaborate – Partner with product teams to manage dependencies, jointly deliver updates, and continuously improve our engineering capabilities
   * Communications & planning – Clearly communicate engineering roadmap, backlog, and team updates across the organization
   * Culture – Contribute to a team culture that embraces diversity and inclusion and makes your team awesome place to work
 
