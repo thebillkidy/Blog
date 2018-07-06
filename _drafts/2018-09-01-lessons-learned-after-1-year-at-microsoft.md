@@ -8,5 +8,5 @@
 * If you spot a problem, automate it!
   * Automatic Twitter discovery for uses @ certain company
   * Following people on Twitter through Lists in Tweetdeck
-
+* Don't move one big rock, move several smaller rocks at the same time
   
