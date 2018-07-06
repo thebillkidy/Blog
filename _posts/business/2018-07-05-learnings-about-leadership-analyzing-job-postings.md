@@ -3,7 +3,7 @@ layout: post
 current: post
 cover: 'assets/images/covers/leadership.jpg'
 navigation: True
-title: Lessons Learned from analyzing leaders in the technology sector
+title: So you want to become a leader? Review my lessons learned from the top leaders and roles in technology
 date: 2018-07-06 09:00:00
 tags: business technology
 class: post-template
