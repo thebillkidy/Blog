@@ -15,6 +15,8 @@ While working at Microsoft as a Cloud Solution Architect in Data Platform, one o
 
 In previous articles, I already defined the core values ([see them here](https://xaviergeerinck.com/tag/business/)) that I think a leader should express (Focus, Inclusion, Commitment, Exploration and Listening). But what are the skills that others have that we still need to learn? This is what I will tackle in the following few lines.
 
+> Do you want to instantly see the results of this article? [Skip to the summary](/#summarizing)
+
 ## Discovery
 
 I started by discovering what the current leaders of today are doing and focusing on, as well as some job descriptions that fit with the profiles of leaders. In here I will list up some leaders and job descriptions that fit my interest for finding skills regarding "technical leaders" rather than the normal "business leaders" in a summary kind of style.
@@ -23,7 +25,7 @@ I started by discovering what the current leaders of today are doing and focusin
 
 #### Kevin Scott - CTO Microsoft
 
-##### Summary
+**Summary**
 
 * Keep on creating prototypes with your own products
 * It takes ~9 months to know what you're doing in the role before being able to contribute
@@ -35,47 +37,50 @@ I started by discovering what the current leaders of today are doing and focusin
   * Expressing the technology strategy (which things do we need to be building?, how should we build them?, ...)
     * Through memos, talking to developers, reviewing projects
 
-##### Career Path
+**Career Path**
 
-* [2003 - 2005][Google] Engineer - Shopping & Advertising
-* [2005 - 2007][Google] Sr Engineer - Created 25+ search engineering team
-* [2007 - 2010][AdMob] VP Engineering - Grew product & serving systems 30x to >1B requests
-  * Got acquired by Google  
-* [2010 - 2011][Google] Sr. Engineering Directory - Integrated AdMob and double its traffic
-* [2011 - 2012][LinkedIn] VP Engineering - Responsible for engineering for all LinkedIn products, infrastructure, tools and QA
-* [2012 - 2013][LinkedIn] Sr. VP Engineering - Responsible for engineering for all LinkedIn products, infrastructure, tools and QA
-* [2013 - Now][LinkedIn] Sr. VP Engineering & Operations - Responsible for engineering for all LinkedIn products, infrastructure, tools and QA
-* [2017 - Now][Microsoft] CTO
+| Date | Company | Description |
+| - | - | - |
+| 2003 - 2005 | Google | Engineer <br /> Shopping & Advertising |
+| 2005 - 2007 | Google | Sr Engineer <br /> Created 25+ search engineering team |
+| 2007 - 2010 | AdMob | VP Engineering <br /> Grew product & serving systems 30x to >1B requests -> got acquired by Google  
+| 2010 - 2011 | Google | Sr. Engineering Directory <br /> Integrated AdMob and double its traffic
+| 2011 - 2012 | LinkedIn | VP Engineering <br /> Responsible for engineering for all LinkedIn products, infrastructure, tools and QA
+| 2012 - 2013 | LinkedIn | Sr. VP Engineering <br /> Responsible for engineering for all LinkedIn products, infrastructure, tools and QA
+| 2013 - Now | LinkedIn | Sr. VP Engineering & Operations <br /> Responsible for engineering for all LinkedIn products, infrastructure, tools and QA
+| 2017 - Now | Microsoft | CTO |
 
-##### References
+**References**
 
-* https://www.linkedin.com/in/jkevinscott/
-* https://www.codenewbie.org/podcast/what-s-it-like-to-be-the-cto-of-microsoft
+* [https://www.linkedin.com/in/jkevinscott/](https://www.linkedin.com/in/jkevinscott/)
+* [https://www.codenewbie.org/podcast/what-s-it-like-to-be-the-cto-of-microsoft](https://www.codenewbie.org/podcast/what-s-it-like-to-be-the-cto-of-microsoft)
 
 #### Michael Curtis - VP Engineering @ Airbnb
 
-##### Summary
+**Summary**
 
 * 2 market (supply & demand) problem solved by tightly managing the community till there is enough supply and demand for the hockey-stick.
 * Engineers are now "business process owners" who want a problem and be in charge of solving it.
 
-##### Career Path
+**Career Path**
 
-* [1997 - 1999][iAtlas Corporation] Software Engineer (acquired by Altavista)
-* [1999 - 2002][Altavista] Software Engineer
-* [2002 - 2003][America Online] Software Engineer
-* [2003 - 2004][Paradigm Healthcare] Director of Engineering
-* [2004 - 2007][Yahoo] Engineer through Director on Yahoo Mail Infrastructure
-* [2007 - 2008][Yahoo] Sr Director for Yahoo Social Platform
-* [2008 - 2009][Yahoo] Sr Director for Yahoo Mail
-* [2009 - 2011][Yahoo] VP Engineering Mail and Messenger
-* [2011 - 2013][Facebook] Director Engineering
-* [2013 - Now][Airbnb] VP Engineering - Scaled Airbnb engineering from 40 to 1000+
+| Date | Company | Description |
+| - | - | - |
+| 1997 - 1999 | iAtlas Corporation | Software Engineer <br /> acquired by Altavista |
+| 1999 - 2002 | Altavista | Software Engineer |
+| 2002 - 2003 | America Online | Software Engineer |
+| 2003 - 2004 | Paradigm Healthcare | Director of Engineering |
+| 2004 - 2007 | Yahoo | Engineer through Director on Yahoo Mail Infrastructure |
+| 2007 - 2008 | Yahoo | Sr Director for Yahoo Social Platform |
+| 2008 - 2009 | Yahoo | Sr Director for Yahoo Mail |
+| 2009 - 2011 | Yahoo | VP Engineering Mail and Messenger |
+| 2011 - 2013 | Facebook | Director Engineering |
+| 2013 - Now | Airbnb | VP Engineering <br /> Scaled Airbnb engineering from 40 to 1000+ |
 
-##### References 
+**References**
 
-* https://www.linkedin.com/in/curtismike
-* https://www.techinasia.com/airbnb-mike-curtis-engineer
+* [https://www.linkedin.com/in/curtismike](https://www.linkedin.com/in/curtismike)
+* [https://www.techinasia.com/airbnb-mike-curtis-engineer](https://www.techinasia.com/airbnb-mike-curtis-engineer)
 
 ### Job Postings
 
