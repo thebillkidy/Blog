@@ -13,6 +13,9 @@ machine-learning:
 artificial-intelligence:
   name: Artificial Intelligence (AI)
   cover: assets/images/covers/ai.jpg
+big-data:
+  name: Big Data
+  cover: assets/images/cover/bigdata.jpg
 tutorials:
   name: Tutorials
   cover: assets/images/covers/tutorials.jpg
