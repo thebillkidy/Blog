@@ -3,7 +3,7 @@ layout: post
 current: post
 cover: 'assets/images/covers/dotnet.jpg'
 navigation: True
-title: Howto write a C# SDK in .NET Core
+title: How-To write a C# SDK in .NET Core
 date: 2018-08-10 09:00:00
 tags: dotnet howto
 class: post-template
@@ -79,7 +79,7 @@ namespace OpenAI.SDK
 }
 ```
 
-That we are then able to use in other class like this:\
+That we are then able to use in other class like this:
 
 ```csharp
 // Imports 
