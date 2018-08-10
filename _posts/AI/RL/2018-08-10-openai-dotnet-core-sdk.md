@@ -11,7 +11,7 @@ subclass: 'post'
 author: xavier
 ---
 
-When we take a look at the OpenAI Gym on Github ([https://github.com/openai/gym-http-api](https://github.com/openai/gym-http-api)), we see that it does not have bindings available for C#. Now since I am a firm believer of .NET Core and what it brings to developer ecosystem, I decided to write one myself. Using what I learned in my previous blog post [How to write a SDK in dotnet Core](/howto-write-a-sdk-in-dotnet-core) I created one that looks like this for the main method:
+When we take a look at the OpenAI Gym on Github ([https://github.com/openai/gym-http-api](https://github.com/openai/gym-http-api)), we see that it does not have bindings available for C#. Now since I am a firm believer of .NET Core and what it brings to developer ecosystem, I decided to write one myself ([https://github.com/thebillkidy/dotnetcore-sdk-openai](https://github.com/thebillkidy/dotnetcore-sdk-openai)). Using what I learned in my previous blog post [How to write a SDK in dotnet Core](/howto-write-a-sdk-in-dotnet-core) I created one that looks like this for the main method:
 
 > Note: You can test it using the `Test()` method in this class
 
