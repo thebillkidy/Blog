@@ -13,7 +13,7 @@ author: xavier
 
 For a new fun Project, I wanted to create an Artificial Intelligence model that will allow me to predict the comments and likes of new pictures that a user can post on Instagram based on their own historical data.
 
-Luckily thanks to ** [ML.NET](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet)** which was released during build 2018, we are able to do this easily through a simple to create *pipeline*.
+Luckily thanks to **[ML.NET](https://www.microsoft.com/net/learn/apps/machine-learning-and-ai/ml-dotnet)** which was released during build 2018, we are able to do this easily through a simple to create *pipeline*.
 
 What will we be creating? Something like this architecture:
 
