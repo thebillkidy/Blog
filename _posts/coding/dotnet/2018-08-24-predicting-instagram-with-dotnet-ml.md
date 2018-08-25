@@ -17,7 +17,7 @@ Luckily thanks to **[ML.NET](https://www.microsoft.com/net/learn/apps/machine-le
 
 What will we be creating? Something like this architecture:
 
-![/assets/images/posts/predicting-instagram-with-dotnet-ml.png](/assets/images/posts/predicting-instagram-with-dotnet-ml.png)
+![/assets/images/posts/predicting-instagram-with-dotnet-ml/architecture.png](/assets/images/posts/predicting-instagram-with-dotnet-ml/architecture.png)
 
 As in every Machine Learning projects, we have to do a few simple steps to go from data towards our eventual prediction:
 
