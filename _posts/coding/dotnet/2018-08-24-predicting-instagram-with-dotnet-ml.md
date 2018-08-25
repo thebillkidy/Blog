@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover: 'assets/images/covers/ai5.jpg'
+cover: 'assets/images/covers/gif/brain.gif'
 navigation: True
 title: Predicting Instagram Pictures Likes and Comments with .NET Core and ML.NET 
 date: 2018-08-24 09:00:00
