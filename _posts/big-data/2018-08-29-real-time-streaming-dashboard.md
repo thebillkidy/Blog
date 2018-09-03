@@ -19,7 +19,7 @@ When you work with the Internet of Things (IoT) or other real-time data sources,
 
 Let's start by discussing what we will be creating and why we are creating it like this. The eventual architecture will be something that looks like this:
 
-TODO: <Insert Architecture>
+![/assets/images/posts/real-time-streaming-dashboard/architecture.png](/assets/images/posts/real-time-streaming-dashboard/architecture.png)
 
 We can identify several components in here:
 
@@ -286,3 +286,51 @@ Once all of this is done, we can view our completed dashboard and have a result 
 ![/assets/images/posts/real-time-streaming-dashboard/grafana-setup-6-dashboard.png](/assets/images/posts/real-time-streaming-dashboard/grafana-setup-6-dashboard.png)
 
 ![/assets/images/posts/real-time-streaming-dashboard/chronograf-setup-5-dashboard.png](/assets/images/posts/real-time-streaming-dashboard/chronograf-setup-5-dashboard.png)
+
+## EventHub Sender Script
+
+As a last point, I would like to include the script that I used to send mock data towards my EventHub:
+
+```javascript
+const eventHubClient = require('azure-event-hubs').Client;
+const config = require('./config.js');
+
+// Init Client
+const client = eventHubClient.fromConnectionString(config.getConnectionString(), config.eventHub);
+
+// Create a sender
+client.createSender()
+.then((tx) => {
+  setInterval(() => {
+    const val = {
+      temperature_sensor: {
+        id: `sensor_${Math.floor((Math.random() * 10) + 1)}`,
+        value: ((Math.random() * 41) - 10).toFixed(2),
+        createdAt: new Date()
+      },
+      temp_value: ((Math.random() * 41) - 10).toFixed(2), 
+    };
+
+    tx.send(val);
+    console.log(`Sent: ${JSON.stringify(val)}`);
+  }, 1000);
+})
+```
+
+with the config containing
+
+```javascript
+const config = {
+  eventHubUrl: "<your_url>", // no protocol included
+  eventHubSharedAccessKeyName: "RootManageSharedAccessKey",
+  eventHubSharedAccessKey: "<your_key>",
+  // This is the EventHub name (go to eventhub -> Event Hubs -> <Names>)
+  eventHub: "<your_eh>",
+  eventHubPath: "<your_eh_namespace>",
+};
+
+module.exports = {
+  ...config,
+  getConnectionString: () => `Endpoint=sb://${config.eventHubUrl}/;SharedAccessKeyName=${config.eventHubSharedAccessKeyName};SharedAccessKey=${config.eventHubSharedAccessKey}`
+}
+```
