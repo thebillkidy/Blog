@@ -122,16 +122,16 @@ import org.apache.spark.eventhubs.{ ConnectionStringBuilder, EventHubsConf, Even
 // Connect to EventHub
 val connectionString = ConnectionStringBuilder("Endpoint=<your_connection_string>")
   .setEventHubName("<your_eh_name>")
-  .build
+  .build();
 
 val eventHubsConf = EventHubsConf(connectionString)
-  .setStartingPosition(EventPosition.fromEndOfStream)
+  .setStartingPosition(EventPosition.fromEndOfStream);
 
 // eventHubs is a org.apache.spark.sql.DataFrame object
 val eventHubs = spark.readStream
   .format("eventhubs")
   .options(eventHubsConf.toMap)
-  .load()
+  .load();
 ```
 
 If we now run this cell, we will see our variables initialized.
