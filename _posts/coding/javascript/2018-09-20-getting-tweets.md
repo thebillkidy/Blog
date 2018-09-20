@@ -3,7 +3,7 @@ layout: post
 current: post
 cover: 'assets/images/covers/twitter.png'
 navigation: True
-title: Gettting Tweets of multiple people on Twitter
+title: Getting Tweets of multiple people on Twitter
 date: 2018-09-20 09:00:00
 tags: tutorials javascript
 class: post-template
