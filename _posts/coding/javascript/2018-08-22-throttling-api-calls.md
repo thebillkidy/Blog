@@ -130,7 +130,7 @@ class Throttler {
         this.rateLimitCount = rateLimitCount;
     }
 
-    async execute(callResult = () => {}) {
+    async execute() {
         // Go over them in a throttled way
         while (this.calls.length > 0) {
             console.log(`[${Math.abs(this.calls.length - this.callsCount)}/${this.callsCount}] Performing`);
