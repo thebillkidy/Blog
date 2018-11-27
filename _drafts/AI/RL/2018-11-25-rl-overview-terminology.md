@@ -2,7 +2,7 @@ Tags:     Machine LearningReinforcement LearningQ LearningArtificial Intelligenc
 
 # Reinforcement Learning - An Overview of Today 
 
-Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith in their 360 degree videos) but what are the algorithms powering all of these systems? That's what I want to explain in this article. Consider this article as a abstract overview of the algorithms and the main difference between them, do not consider this as an in-depth article on every single algorithm out there.
+Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith in their 360 degree videos) but what are the algorithms powering all of these systems? That's what I want to explain in this article. Consider this article as a abstract overview of the algorithms and the main difference between them, do not consider this as an in-depth article on every single algorithm out there but rather use this as a to-go resource for finding the correct links and terminology.
 
 > This is not an introduction into Reinforcement Learning, for the introduction feel free to check: https://xaviergeerinck.com/rl-intro
 
@@ -44,7 +44,6 @@ With 2 different kind of learning methods:
 
 This formula thus depicts how good an action is compared to the average action.
 How good is an action compared to the average action?
-
 
 ## Algorithms Overview
 
@@ -102,11 +101,17 @@ We can also do an incremental update per episode, then we for each state $s$ wit
 
 #### Q-Learning
 
+**Paper:** [http://www.cs.rhul.ac.uk/~chrisw/new_thesis.pdf](http://www.cs.rhul.ac.uk/~chrisw/new_thesis.pdf)
+
 Based on a lookup table, choose the action with the best Q-Value for the given state. This Q-Value is updated based on the reward received for taking an action.
 
 ![/assets/images/posts/rl-algorithms/q-learning.png](/assets/images/posts/rl-algorithms/q-learning.png)
 
-### DQN (Deep Q-Network) with Experience Replay
+### Deep Q-Network (DQN) with Experience Replay
+
+**Paper:** [https://arxiv.org/abs/1312.5602](https://arxiv.org/abs/1312.5602)
+
+**Patent:** [https://patentimages.storage.googleapis.com/71/91/4a/c5cf4ffa56f705/US20150100530A1.pdf](https://patentimages.storage.googleapis.com/71/91/4a/c5cf4ffa56f705/US20150100530A1.pdf)
 
 A big disadvantage with Q-Learning is that as soon as the state space becomes too big, that it will be hard to keep everything into memory. That's why Deep Q-Networks were invented. With the biggest difference being that we will use a Neural Network to approximate the Q-Value for a given state (returning a vector with all Q-Values for all different actions possible). The weights of the Neural Network are updated by including them in our earlier Bellman Equation.
 
@@ -118,11 +123,15 @@ We also utilize something called **Experience Replay** which will store our Tupl
 
 ### SARSA
 
+**Paper:** [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.17.2539&rep=rep1&type=pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.17.2539&rep=rep1&type=pdf)
+
 SARSA is just as Q-Learning, expect it being an on-policy algorithm, learning the Q-Value based on action taken by the current Behaviour Policy rather than the Target Policy. 
 
 ![/assets/images/posts/rl-algorithms/sarsa.png](/assets/images/posts/rl-algorithms/sarsa.png)
 
-### DDPG (Deep Deterministic Policy Gradient)
+### Deep Deterministic Policy Gradient (DDPG)
+
+**Paper:** [https://arxiv.org/abs/1509.02971](https://arxiv.org/abs/1509.02971)
 
 DQN already solved the problem of large State Spaces, but it didn't solve the problem of large Action Spaces. 
 
@@ -148,7 +157,9 @@ DDPG uses 2 neural networks (one for the critic and one for the actor). These 2 
 
 ### Asynchronous Advantage Actor-Critic (A3C)
 
-A3C stands for [Asynchronous Actor Critic](https://arxiv.org/pdf/1602.01783.pdf) designed by DeepMind, where the words were chosen carefully for what the algorithm actually does:
+**Paper:** [https://arxiv.org/pdf/1602.01783.pdf](https://arxiv.org/pdf/1602.01783.pdf)
+
+A3C stands for Asynchronous Actor Critic designed by DeepMind, where the words were chosen carefully for what the algorithm actually does:
 
 * **Asynchronous:** It involves executing environments in parallel to increase diversity of the training data
 * **Advantage:** Policy Gradient updates are done using the advantage function (deepmind used n-step returns)
@@ -158,13 +169,36 @@ A3C stands for [Asynchronous Actor Critic](https://arxiv.org/pdf/1602.01783.pdf)
 
 ![/assets/images/posts/rl-algorithms/a3c.png](/assets/images/posts/rl-algorithms/a3c.png)
 
-### TRPO (Trust-Region Policy Optimization)
+### Policy Optimization Algorithms
 
-### PPO (Proximal Policy Optimization)
+#### The Fundamental Problem
+
+Policy Gradient algorithms are responsible for solving previously unsolvable games and learning robots to walk and being resilient to it. The problem however with such algorithms is that they are very sensitive to the stepsize, resulting in a slow convergence rate or a bad decision being taken. This is due to the use of Gradient Ascent which will find the path to follow for the steepest increase in rewards, but it is hard to choose the right stepsize here.
+
+#### Trust-Region Policy Optimization (TRPO)
+
+**Paper:** [https://arxiv.org/abs/1502.05477](https://arxiv.org/abs/1502.05477)
+
+TRPO Utilizes 2 methods to optimize this: Line Search and Trust Region
+* Line Search: Determine the function of descending and step towards it (think of Gradient Descent)
+* Trust Region: Determine the maximum step size to explore and locate the optimal point within this trust region
+
+![/assets/images/posts/rl-algorithms/trpo.png](/assets/images/posts/rl-algorithms/trpo.png)
+
+#### PPO (Proximal Policy Optimization)
+
+**Paper:** [https://arxiv.org/abs/1707.06347](https://arxiv.org/abs/1707.06347)
+
+Just as TRPO, Proximal Policy Optimization will try to optimize the step size used to converge our Policy Gradient method faster. The main challenge that existed in TRPO however was that it wasn't compatible with algorithms that share parameters between a policy and value function.
+
+Proximal Policy Optimization allows us to easily implement the cost function, run gradient descent and receive excellent results.
 
 ![/assets/images/posts/rl-algorithms/ppo.png](/assets/images/posts/rl-algorithms/ppo.png)
 
 ## Resources
+
+This article would never have been possible without the many resources utilized for creating it. Feel free to check them if you require more in-depth details about many of the algorithms shown above.
+
 https://www4.stat.ncsu.edu/~gross/BIO560%20webpage/slides/Jan102013.pdf
 https://ai.stackexchange.com/questions/4456/whats-the-difference-between-model-free-and-model-based-reinforcement-learning 
 https://artint.info/html/ArtInt_268.html 
@@ -172,3 +206,7 @@ https://en.wikipedia.org/wiki/Reinforcement_learning
 https://towardsdatascience.com/introduction-to-various-reinforcement-learning-algorithms-i-q-learning-sarsa-dqn-ddpg-72a5e0cb6287
 https://pemami4911.github.io/blog/2016/08/21/ddpg-rl.html
 https://danieltakeshi.github.io/2018/06/28/a2c-a3c/
+https://medium.com/@jonathan_hui/rl-trust-region-policy-optimization-trpo-explained-a6ee04eeeee9
+https://towardsdatascience.com/introduction-to-various-reinforcement-learning-algorithms-part-ii-trpo-ppo-87f2c5919bb9
+https://blog.openai.com/openai-baselines-ppo/
+https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12
