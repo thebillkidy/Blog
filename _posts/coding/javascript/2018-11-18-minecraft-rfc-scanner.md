@@ -47,7 +47,7 @@ After a quick shopping spree on our favorite Webshop together with a quick trip 
 ![/assets/images/posts/minecraft-nfc/lego-purchase-2.jpg](/assets/images/posts/minecraft-nfc/lego-purchase-2.jpg)
 ![/assets/images/posts/minecraft-nfc/lego-purchase-3.jpg](/assets/images/posts/minecraft-nfc/lego-purchase-3.jpg)
 
-### Assembing our Lego Stand
+### Assembling our Lego Stand
 
 Now we have our Lego, let's get started with building our stands for our Minecraft dolls. Here you can find the different steps that I used towards building those stands:
 
