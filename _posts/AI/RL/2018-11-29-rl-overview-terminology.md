@@ -11,6 +11,9 @@ subclass: 'post'
 author: xavier
 ---
 
+
+Tags:     Machine LearningReinforcement LearningQ LearningArtificial IntelligenceMonte Carlo
+
 # Reinforcement Learning - An Overview of Today 
 
 Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith in their 360 degree videos) but what does all the terminology mean? This is what I want to explain in the article below.
@@ -43,7 +46,7 @@ A policy defines the "strategy" of an agent in a given environment. Or more spec
 
 With 2 different kind of learning methods:
 
-* **On-Policy:** It learns the value of the policy being carried out by the agent, including the exploration steps. (Behaviour Policy == Target Policy)
+* **On-Policy:** It learns the value of the policy being carried out by the agent, including the exploration steps. (Behaviour Policy == Target Policy). We thus use the latest version of our policy to make decisions in real-time.
 * **Off-Policy:** It learns the value of the Optimal Target Policy independently on the agent's actions based on the Behaviour Policy. (Behaviour Policy != Target Policy)
 
 ### **Space:** Discrete vs Continuous
