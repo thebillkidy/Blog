@@ -49,6 +49,8 @@ conda config --add channels pytorch
 
 ## Installing Horizon
 
+> For a deeper dive on how you can install Horizon, check out the Git repo: [https://github.com/facebookresearch/Horizon/blob/master/docs/installation.md](https://github.com/facebookresearch/Horizon/blob/master/docs/installation.md)
+
 ```bash
 git clone https://github.com/facebookresearch/Horizon.git
 cd Horizon/
@@ -79,9 +81,27 @@ pip install -e . # we use "-e" for "ephemral package" which will instantly refle
 
 ## Horizon (Global Overview)
 
-Horizon is a Step by Step platform that allows us to work with our data, preprocess it and run our Reinforcement Learning algorithm on top of it to generate correct results at the end.
+### Introduction
 
-The steps for an end to end example as shown in the Usage document (https://github.com/facebookresearch/Horizon/blob/master/docs/usage.md) are:
+Horizon is an End-To-End platform which *"includes workflows for simulated environments as well as a distributed platform for preprocessing, training, and exporting models in production."* - [(Source)](https://code.fb.com/ml-applications/horizon/)
+
+From reading the [paper](https://research.fb.com/wp-content/uploads/2018/10/Horizon-Facebooks-Open-Source-Applied-Reinforcement-Learning-Platform.pdf) we can read that this platform was created with the following in mind:
+
+* Ability to Handle Large Datasets Efficiently
+* Ability to Preprocess Data Automatically & Efficiently
+* Competitive Algorithimic Performance
+* Algorithm Performance Estimates before Launch
+* Flexible Model Serving in Production
+* Platform Reliability
+
+Which sounds awesome to me, so let's get started by how we are able to utilize this platform, whereafter we can do a more deep-dive in how it works. 
+
+> For some of the terminilogy used in Reinforcement Learning, feel free to check my [previous blog post](/rl-overview-terminology) about it.
+
+
+### Getting Started
+
+Getting started with Horizon is as easy as checking the [usage](https://github.com/facebookresearch/Horizon/blob/master/docs/usage.md) documentation written by them. This includes the steps
 
 1. Creating training data
 2. Converting the data to the timeline format
@@ -95,9 +115,13 @@ So before we actually go more in depth on these steps, let's first see what the 
 * `gym_evaluator.py`
 * `gym_predictor.py`
 
-### run_gym.py
+#### run_gym.py
 
-When we open up the Usage documentation at https://github.com/facebookresearch/Horizon/blob/master/docs/usage.md we can see a detailed explanation on how you can run your On-Policy RL Training (`python ml/rl/test/gym/run_gym.py -p ml/rl/test/gym/discrete_dqn_cartpole_v0.json`). But what does it actually do? Well if we open up the `ml/rl/test/gym/run_gym.py` file we can see the following code part:
+##### main()
+
+**Location:** my/rl/test/gym/run_gym.py
+
+Let's look straight at our `main` method:
 
 ```python
 def main(args):
@@ -107,7 +131,7 @@ def main(args):
     parser.add_argument("-p", "--parameters", help="Path to JSON parameters file.")
 ```
 
-So by runing `python ml/rl/test/gym/run_gym.py` we can see the usage of our script which results in:
+Which shows us that when running the command `python ml/rl/test/gym/run_gym.py` that we are able to see the usage of our script in the console:
 
 ```bash
 Traceback (most recent call last):
@@ -116,9 +140,37 @@ Traceback (most recent call last):
 Exception: Usage: python run_gym.py -p <parameters_file> [-s <score_bar>] [-g <gpu_id>] [-l <log_level>] [-f <filename>]
 ```
 
-This explains us that if we give the parameter file defined by our `-p` parameter that it will train a RL net to play in an OpenAI Gym environment.
+Explaining us that if we give the parameter file defined by our `-p` parameter it wil load this JSON file and load it into a variable called `params`:
 
-Opening up our Parameter file through `cat ml/rl/test/gym/discrete_dqn_cartpole_v0_100_eps.json` shows us:
+```python
+with open(args.parameters, "r") as f:
+    params = json.load(f)
+```
+
+The main method will now continue doing a couple of things:
+* Initialize a dataset variable of type `RLDataset` if the `file_path` parameter is set
+  * `file_path`: If set, save all collected samples as an RLDataset to this file.
+* Call the method `run_gym` with the parameters and arguments provided
+* Save the results to a csv if the `results_file_path` parameter is set
+* Return the reward history
+
+```python
+dataset = RLDataset(args.file_path) if args.file_path else None
+reward_history, timestep_history, trainer, predictor = run_gym(
+    params, args.score_bar, args.gpu_id, dataset, args.start_saving_from_episode
+)
+
+if dataset:
+    dataset.save()
+if args.results_file_path:
+    write_lists_to_csv(args.results_file_path, reward_history, timestep_history)
+
+return reward_history
+```
+
+##### run_gym()
+
+The `run_gym` method appears to be using the parameters that we loaded from our JSON file to initialize the OpenAI Gym Environment. So let's see how one of these JSON files look like by opening one, running a quick `cat ml/rl/test/gym/discrete_dqn_cartpole_v0_100_eps.json` shows us:
 
 ```json
 {
@@ -170,12 +222,46 @@ Opening up our Parameter file through `cat ml/rl/test/gym/discrete_dqn_cartpole_
 }
 ```
 
-Which are parameters being defined that configure the OpenAI gym environment and how we are going to train. We are thus using a Deep Q-Network with specific parameters (see gamma (=discount factor), epsilon (=exploration factor), ...) and how our Neural Network layers are configured.
+Which shows that the Environment, Epsilon, Softmax Policy and Gamma parameters are all used to boot op the OpenAIGymEnvironment. Next to that the `run_gym` method will also initialize a replay_buffer, create the trainer and create predictor. Whereafter it will run the `train_sgd` method.
 
-### gym_evaluator.py
+> Additional comments were added to the code for more clearity
+
+```python
+env_type = params["env"]
+
+# Initialize the OpenAI Gym Environment
+env = OpenAIGymEnvironment(
+    env_type,
+    rl_parameters.epsilon,
+    rl_parameters.softmax_policy,
+    rl_parameters.gamma,
+)
+replay_buffer = OpenAIGymMemoryPool(params["max_replay_memory_size"])
+model_type = params["model_type"]
+
+use_gpu = gpu_id != USE_CPU
+
+# Use the "training" {} parameters and "model_type": "<MODEL>" model_type
+# to create a trainer as the ones listed in /ml/rl/training/*_trainer.py
+# The model_type is defined in /ml/rl/test/gym/open_ai_gym_environment.py
+trainer = create_trainer(params["model_type"], params, rl_parameters, use_gpu, env)
+
+# Create a GymDQNPredictor based on the ModelType and Trainer above
+# This is located in /ml/rl/test/gym/gym_predictor.py
+predictor = create_predictor(trainer, model_type, use_gpu)
+
+c2_device = core.DeviceOption(
+    caffe2_pb2.CUDA if use_gpu else caffe2_pb2.CPU, int(gpu_id)
+)
+```
+
+##### train_sgd()
+TODO https://github.com/facebookresearch/Horizon/blob/master/ml/rl/test/gym/run_gym.py#L81
+
+#### gym_evaluator.py
 TODO
 
-### gym_predictor.py
+#### gym_predictor.py
 TODO
 
 ## Horizon (Running the End-To-End example)
