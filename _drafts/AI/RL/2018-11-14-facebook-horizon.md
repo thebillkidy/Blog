@@ -11,9 +11,10 @@ subclass: 'post'
 author: xavier
 ---
 
-Facebook decided to open-source the platform that they created to solve end-to-end Reinforcement Learning problems at the scale they are working on. So of course I just had to try this ;) Let's go this together on how they installed it and what you should do to get this working yourself.
+Facebook decided to open-source the platform that they created to solve end-to-end Reinforcement Learning problems at the scale they are working on. So of course I just had to try this ;) Let's go through this together on how they installed it and what you should do to get this working yourself.
 
-> I stared by creating a brand new installation of Ubuntu 18.10
+> I started by creating a brand new installation of Ubuntu 18.10
+> Also tested and verified working on Windows Subsystem for Linux
 
 ## Installing Anaconda
 
@@ -31,7 +32,7 @@ Then follow the steps of the installer to install Anaconda
 Once you did this, add the conda installation to your `PATH` variable through:
 
 ```bash
-echo 'export PATH="$PATH":/home/ubuntu/anaconda3/bin' >> ~/.bashrc
+echo 'export PATH="$PATH":/home/<YOUR_USER>/anaconda3/bin' >> ~/.bashrc
 . ~/.bashrc
 ```
 
