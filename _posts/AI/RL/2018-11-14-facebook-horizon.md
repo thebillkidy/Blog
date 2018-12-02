@@ -89,14 +89,14 @@ From reading the [paper](https://research.fb.com/wp-content/uploads/2018/10/Hori
 
 * Ability to Handle Large Datasets Efficiently
 * Ability to Preprocess Data Automatically & Efficiently
-* Competitive Algorithimic Performance
+* Competitive Algorithmic Performance
 * Algorithm Performance Estimates before Launch
 * Flexible Model Serving in Production
 * Platform Reliability
 
 Which sounds awesome to me, so let's get started by how we are able to utilize this platform, whereafter we can do a more deep-dive in how it works. 
 
-> For some of the terminilogy used in Reinforcement Learning, feel free to check my [previous blog post](/rl-overview-terminology) about it.
+> For some of the terminology used in Reinforcement Learning, feel free to check my [previous blog post](/rl-overview-terminology) about it.
 
 ### Getting Started
 
@@ -143,7 +143,7 @@ Traceback (most recent call last):
 Exception: Usage: python run_gym.py -p <parameters_file> [-s <score_bar>] [-g <gpu_id>] [-l <log_level>] [-f <filename>]
 ```
 
-Explaining us that if we give the parameter file defined by our `-p` parameter it wil load this JSON file and load it into a variable called `params`, while if we add the `-f` parameter, we will be able to save the collected samples as an RLDataSet to the provided file.
+Explaining us that if we give the parameter file defined by our `-p` parameter it will load this JSON file and load it into a variable called `params`, while if we add the `-f` parameter, we will be able to save the collected samples as an RLDataSet to the provided file.
 
 #### main() Method
 
@@ -454,7 +454,7 @@ After execution we can now watch the created file by running: `head -n1 training
 }
 ```
 
-> Interesting here is that the Spark engine will allow us to utilze a distributed cluster running completely with CPU operations. The GPU operations will come in a later stage. Allowing us to completely utilize one cluster on HDFS and one cluster purely for the GPU calculations.
+> Interesting here is that the Spark engine will allow us to utilize a distributed cluster running completely with CPU operations. The GPU operations will come in a later stage. Allowing us to completely utilize one cluster on HDFS and one cluster purely for the GPU calculations.
 
 
 ### 3. Normalization
