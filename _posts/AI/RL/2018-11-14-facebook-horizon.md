@@ -18,7 +18,7 @@ Facebook decided to open-source the platform that they created to solve end-to-e
 
 ## Installing Anaconda
 
-Let's start by installing Anaconda, this is easily done by navigating to the documentation located at https://conda.io/docs/user-guide/install/index.html whereafter we can find the link to the Linux Installer https://www.anaconda.com/download/#linux which will give us the installer script: https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh.
+Let's start by installing Anaconda, this is easily done by navigating to the documentation located at [https://conda.io/docs/user-guide/install/index.html](https://conda.io/docs/user-guide/install/index.html) whereafter we can find the link to the Linux Installer [https://www.anaconda.com/download/#linux](https://www.anaconda.com/download/#linux) which will give us the installer script: [https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh](https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh).
 
 We can download and run this by running:
 
