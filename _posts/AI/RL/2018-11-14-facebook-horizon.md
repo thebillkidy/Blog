@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover: 'assets/images/covers/horizon.jpg'
+cover: 'assets/images/covers/horizon.png'
 navigation: True
 title: Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive
 date: 2018-12-02 09:00:00
