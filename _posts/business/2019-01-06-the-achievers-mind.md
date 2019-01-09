@@ -5,9 +5,9 @@ cover: 'assets/images/covers/experience6.jpg'
 navigation: True
 title: The Achievers Mindset
 date: 2019-01-04 09:00:00
-tags: experience startups
+tags: experience startups business
 class: post-template
-subclass: 'post tag-experience tag-startups'
+subclass: 'post tag-experience tag-startups tag-business'
 author: xavier
 ---
 
