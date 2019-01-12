@@ -1,0 +1,159 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "location": {
+        "type": "string",
+        "defaultValue": "WestEurope",
+        "metadata": {
+          "description": "Location of the resources (e.g. westus, eastus, westeurope)."
+        }
+      }
+    },
+    "resources": [
+      {
+        "apiVersion": "2018-09-01-preview",
+        "name": "SparkClusterNet",
+        "type": "Microsoft.ServiceFabricMesh/networks",
+        "location": "[parameters('location')]",
+        "dependsOn": [],
+        "properties": {
+          "kind": "Local",
+          "description": "Azure Service Fabric Mesh SparkCluster Network.",
+          "networkAddressPrefix": "10.0.0.0/24"
+        }
+      },
+      {
+        "apiVersion": "2018-09-01-preview",
+        "name": "SparkClusterApp",
+        "type": "Microsoft.ServiceFabricMesh/applications",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+          "Microsoft.ServiceFabricMesh/networks/SparkClusterNet"
+        ],
+        "properties": {
+          "description": "Service Fabric Mesh Spark Cluster Application!",
+          "services": [
+            {
+              "type": "Microsoft.ServiceFabricMesh/services",
+              "location": "[parameters('location')]",
+              "name": "SparkClusterSvc",
+  
+              "properties": {
+                "description": "Service Fabric Mesh Spark Cluster Service.",
+                "osType": "linux",
+                "codePackages": [
+                  {
+                    "name": "code",
+                    "image": "thebillkidy/spark:v0.0.1",
+                    "volumes": [
+                      {
+                        "name": "sfvol",
+                        "creationParameters": {
+                          "kind": "ServiceFabricVolumeDisk",
+                          "sizeDisk": "Medium"
+                        },
+                        "destinationPath": "/mnt/data"
+                      }
+                    ],
+                    "endpoints": [
+                      {
+                        "name": "sparkMasterUIListener",
+                        "port": "8080"
+                      },
+                      {
+                        "name": "sparkWorkerUIListener",
+                        "port": "8081"
+                      },
+                      {
+                        "name": "sparkMasterServiceListener",
+                        "port": "7077"
+                      }
+                    ],
+                    "environmentVariables": [
+                    ],
+                    "resources": {
+                      "requests": {
+                        "cpu": "4",
+                        "memoryInGB": "14"
+                      }
+                    }
+                  }
+                ],
+                "replicaCount": "1",
+                "networkRefs": [
+                  {
+                    "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'SparkClusterNet')]",
+                    "endpointRefs": [
+                      {
+                        "name": "sparkMasterUIListener"
+                      },
+                      {
+                        "name": "sparkWorkerUIListener"
+                      },
+                      {
+                        "name": "sparkMasterServiceListener"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "apiVersion": "2018-09-01-preview",
+        "name": "SparkClusterGateway",
+        "type": "Microsoft.ServiceFabricMesh/gateways",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+          "Microsoft.ServiceFabricMesh/networks/SparkClusterNet"
+        ],
+        "properties": {
+          "description": "Service Fabric Mesh Gateway for Spark Cluster.",
+          "sourceNetwork": {
+            "name": "Open"
+          },
+          "destinationNetwork": {
+            "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'SparkClusterNet')]"
+          },
+          "tcp": [
+            {
+              "name": "Public",
+              "port": 8080,
+              "destination": {
+                "applicationName": "SparkClusterApp",
+                "serviceName": "SparkClusterSvc",
+                "endpointName": "sparkMasterUIListener"
+              }
+            },
+            {
+              "name": "Public",
+              "port": 8081,
+              "destination": {
+                "applicationName": "SparkClusterApp",
+                "serviceName": "SparkClusterSvc",
+                "endpointName": "sparkWorkerUIListener"
+              }
+            },
+            {
+              "name": "Public",
+              "port": 7077,
+              "destination": {
+                "applicationName": "SparkClusterApp",
+                "serviceName": "SparkClusterSvc",
+                "endpointName": "sparkMasterServiceListener"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "outputs": {
+      "publicIPAddress": {
+        "value": "[reference('SparkClusterGateway').ipAddress]",
+        "type": "string"
+      }
+    }
+  }
