@@ -168,7 +168,7 @@ kubectl get service service-security-lb -n <CLUSTER_NAME> -o=custom-columns=""IP
 
 # Cluster Admin Portal
 # e.g. kubectl get svc service-proxy-lb -n sql-server-cluster -o=custom-columns=""IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port""
-kubectl get service service-proxy-lb -o=custom-columns=""IP:status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port"" -n "+CLUSTER_NAME
+kubectl get service service-proxy-lb -n <CLUSTER_NAME> -o=custom-columns=""IP:status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port""
 ```
 
 We can now open our Azure Data Studio and login on our clusters:
