@@ -85,13 +85,16 @@ $$
 
 ## Complex Numbers
 
-Complex numbers are written by $i$, they solve the fundamental problem of $\sqrt{-1}$. We can visualize complex numbers by using a circle of unit length 1:
+Complex numbers are written by $i$, they solve the fundamental problem of $\sqrt{-1}$ which is impossible to solve, stating it as a new symbol $i$. 
+
+We can visualize complex numbers by using a circle of unit length 1, generating an Imaginary axis and a Real axis.
 
 ![/assets/images/posts/quantum/linear-algebra/complex-numbers2.png](/assets/images/posts/quantum/linear-algebra/complex-numbers2.png)
 
 Where we can find the following statements:
 
-* $z = x + y*i$
-* $|z| = \sqrt{x^2 + y^2}$
-* $z = e^{j\theta}
+* $z = x + y*i$ 
+* $z= e^{j\theta}$ 
+* $z = \mid z \mid * (cos(\theta) + i*sin(\theta))$
+* $\mid z \mid = \sqrt{x^2 + y^2}$
 * $\theta = tg^{-1}(\frac{y}{x})$

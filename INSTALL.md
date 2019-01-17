@@ -6,6 +6,8 @@
 sudo apt-get install ruby
 sudo apt-get install ruby2.5-dev
 sudo gem install jekyll bundler
+rm Gemfile.lock
+bundle install
 ```
 
 > Serve drafts with: `jekyll serve --drafts`
