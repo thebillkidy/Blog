@@ -27,7 +27,7 @@ As written in the excellent publication by [Richard P. Feynman - Simulating Phys
 * Machine Learning
 * Searching
 
-To solve these kind of problems, we need to fundamentally change computers as they work now, transforming from classical `bits` towards `qubits`. However before we get started, I recommend you to take a refresher of [Linear Algebra](/linear-algebra-quantum) to have the fundamentals needed to continue :) 
+To solve these kind of problems, we need to fundamentally change computers as they work now, transforming from classical `bits` towards `qubits`. However before we get started, I recommend you to take a refresher of [Linear Algebra](/quantum-linear-algebra) to have the fundamentals needed to continue :) 
 
 ## Qubits?
 
