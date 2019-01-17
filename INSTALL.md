@@ -1,3 +1,16 @@
+# INSTALLATION
+
+## Jekyll
+
+```bash
+sudo apt-get install ruby
+sudo apt-get install ruby2.5-dev
+sudo gem install jekyll bundler
+```
+
+> Serve drafts with: `jekyll serve --drafts`
+
+## Site
 1. Adapt the `_config.yml` file
 2. Adapt the `.travis.yml` file 
     * Get a Github secret at https://github.com/settings/tokens
