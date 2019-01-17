@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/quantum.jpeg'
 navigation: True
 title: Quantum Computing - An Introduction
-date: 2019-01-16 09:00:00
+date: 2019-01-16 10:00:00
 tags: quantum
 class: post-template
 subclass: 'post'
