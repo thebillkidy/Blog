@@ -70,7 +70,7 @@ pip3 install --index-url https://private-repo.microsoft.com/python/ctp-2.2 mssql
 
 Deploy an AKS instance quickly:
 
-> **Note:** We can get the node sizes easily through the command: `az vm list-sizes -l  <YOUR_LOCATION> --query "[?numberOfCores<=&grave;16&grave;  && numberOfCores>=&grave;8&grave;  && memoryInMb>=&grave;16384&grave;]" -o table` --> see [http://jmespath.org/examples.html](http://jmespath.org/examples.html)
+> **Note:** We can get the node sizes easily through the command: ``az vm list-sizes -l  <YOUR_LOCATION> --query "[?numberOfCores<=`16`  && numberOfCores>=`8`  && memoryInMb>=`16384`]" -o table`` --> see [http://jmespath.org/examples.html](http://jmespath.org/examples.html)
 
 > **Note 2:** We can get our Kubernetes versions through `az aks get-versions -l <YOUR_LOCATION> --query "orchestrators[].orchestratorVersion"`
 
