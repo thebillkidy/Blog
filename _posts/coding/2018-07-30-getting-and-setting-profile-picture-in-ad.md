@@ -5,7 +5,7 @@ cover: 'assets/images/covers/active-directory.jpg'
 navigation: True
 title: How to get and update your profile picture in Active Directory (AD)
 date: 2018-07-30 09:00:00
-tags: systems windows
+tags: coding
 class: post-template
 subclass: 'post tag-systems tag-windows'
 author: xavier

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/leadership.jpg'
 navigation: True
 title: So you want to become a leader? Review my lessons learned from the top leaders and roles in technology
 date: 2018-07-06 09:00:00
-tags: business technology
+tags: experience business
 class: post-template
 subclass: 'post'
 author: xavier

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/bigdata2.jpeg'
 navigation: True
 title: Creating a Big Data cluster with SQL Server 2019
 date: 2019-01-16 09:00:00
-tags: dotnet
+tags: big-data infrastructure coding-sql
 class: post-template
 subclass: 'post tag-coding'
 author: xavier

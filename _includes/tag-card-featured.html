@@ -1,0 +1,20 @@
+{% for tag in site.data.tags %}
+{% if tag[1].featured == true %}
+<article class="tag-card {{ tag[1].class }}">
+    {% if tag[1].cover %}
+    <a class="tag-card-image-link" href="{{ "/" | relative_url }}tag/{{tag[0]}}">
+        <div class="tag-card-background" style="background-image: url({{tag[1].cover}})"></div>
+        <div class="tag-card-name">{{ tag[1].name }}</div>
+    </a>
+    {% endif %}
+</article>
+{% endif %}
+{% endfor %}
+
+<!-- All Tags -->
+<article class="tag-card">
+    <a class="tag-card-image-link" href="/categories">
+        <div class="tag-card-background" style="background-color: #1C2022"></div>
+        <div class="tag-card-name">View All Tags ></div>
+    </a>
+</article>

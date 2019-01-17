@@ -5,7 +5,7 @@ cover: 'assets/images/covers/rl3.png'
 navigation: True
 title: Bellman Equations
 date: 2018-05-24 23:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier

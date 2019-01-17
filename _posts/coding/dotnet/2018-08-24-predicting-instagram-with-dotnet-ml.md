@@ -5,7 +5,7 @@ cover: 'assets/images/covers/gif/brain.gif'
 navigation: True
 title: Predicting Instagram Pictures Likes and Comments with .NET Core and ML.NET 
 date: 2018-08-24 09:00:00
-tags: dotnet
+tags: coding coding-dotnet
 class: post-template
 subclass: 'post tag-coding'
 author: xavier

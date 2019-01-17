@@ -1,57 +1,74 @@
-business:
-  name: Business
-  cover: assets/images/covers/business3.jpg
-experience:
-  name: Experience
-  cover: assets/images/covers/experience.jpg
-reinforcement-learning:
-  name: Reinforcement Learning (RL)
-  cover: assets/images/covers/rl2.jpg
-machine-learning:
-  name: Machine Learning (ML)
-  cover: assets/images/covers/ai3.jpg
-artificial-intelligence:
+ai:
   name: Artificial Intelligence (AI)
   cover: assets/images/covers/ai.jpg
-big-data:
-  name: Big Data
-  cover: assets/images/cover/bigdata.jpg
-tutorials:
-  name: Tutorials
-  cover: assets/images/covers/tutorials.jpg
-howto:
-  name: HowTo
-  cover: assets/images/covers/coding5.png
+  featured: true
+ai-rl:
+  name: Reinforcement Learning (RL)
+  cover: assets/images/covers/rl2.jpg
+  featured: true
+ai-ml:
+  name: Machine Learning (ML)
+  cover: assets/images/covers/ai3.jpg
 algorithms:
   name: Algorithms
   cover: assets/images/covers/algorithms2.jpg
+azure:
+  name: Azure
+  cover: assets/images/covers/coding.jpg
+big-data:
+  name: Big Data
+  cover: assets/images/covers/blog-cover.png
+  featured: true
+business:
+  name: Business
+  cover: assets/images/covers/business3.jpg
+  featured: true
+coding:
+  name: Coding
+  cover: assets/images/covers/coding.jpg
+coding-bash:
+  name: Bash
+  cover: assets/images/covers/coding.jpg
+coding-c:
+  name: C
+  cover: assets/images/covers/coding4.jpg
+coding-cpp:
+  name: C++
+  cover: assets/images/covers/coding4.jpg
+coding-dotnet:
+  name: dotnet
+  cover: assets/images/covers/coding2.jpg
+coding-javascript:
+  name: Javascript
+  cover: assets/images/covers/coding.jpg
+coding-perl:
+  name: Perl
+  cover: assets/images/covers/coding.jpg
+coding-sql:
+  name: SQL
+  cover: assets/images/covers/database.jpg
+coding-scale:
+  name: Scala
+  cover: assets/images/covers/coding.jpg
+databricks:
+  name: Databricks
+  cover: assets/images/covers/databricks.png
 discrete-math:
   name: Discrete Math
   cover: assets/images/covers/algorithms.jpg
-networking:
-  name: Networking
-  cover: assets/images/covers/network.jpg
 infrastructure:
   name: Infrastructure
   cover: assets/images/covers/infrastructure.jpg
-javascript:
-  name: Javascript
-  cover: assets/images/covers/coding.jpg
-cpp:
-  name: C++
-  cover: assets/images/covers/coding4.jpg
-c:
-  name: C
-  cover: assets/images/covers/coding4.jpg
-dotnet:
-  name: dotnet
-  cover: assets/images/covers/coding2.jpg
-sql:
-  name: SQL
-  cover: assets/images/covers/database.jpg
-reactjs:
-  name: ReactJS
-  cover: assets/images/covers/reactjs.png
+networking:
+  name: Networking
+  cover: assets/images/covers/network.jpg
+quantum:
+  name: Quantum Computing
+  cover: assets/images/covers/quantum.jpeg
+  featured: true
+experience:
+  name: Experience
+  cover: assets/images/covers/experience.jpg
 kubernetes:
   name: Kubernetes
   cover: assets/images/covers/kubernetes.jpg

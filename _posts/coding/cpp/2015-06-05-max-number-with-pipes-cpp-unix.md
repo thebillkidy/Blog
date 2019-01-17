@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Max number with pipes in C++ and Unix
 date: 2015-06-05 11:00:03
-tags: cpp unix
+tags: coding coding-cpp
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

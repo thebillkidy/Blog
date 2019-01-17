@@ -10,18 +10,27 @@ navigation: True
 into the {body} of the default.hbs template -->
 
 <!-- The big featured header, it uses blog cover image as a BG if available -->
-<header class="site-header outer {% if page.cover or site.cover %}" style="background-image:  url({{ "/" | relative_url }}{% if page.cover %}{{ page.cover }}{% elsif site.cover %}{{ site.cover }}{% endif %}) {% else %}no-cover{% endif %}">
-    <div class="inner">
+<!-- <header class="site-header outer {% if page.cover or site.cover %}" style="background-image:  url({{ "/" | relative_url }}{% if page.cover %}{{ page.cover }}{% elsif site.cover %}{{ site.cover }}{% endif %}) {% else %}no-cover{% endif %}"> -->
+<header class="site-header outer">
+    <div class="inner header-flex">   
         <div class="site-header-content">
-            <h1 class="site-title">
+            {% if page.current != 'home' %}
                 {% if site.logo %}
-                    <img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/>
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
                 {% else %}
-                    {{ site.title }}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
                 {% endif %}
-            </h1>
-            <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
+            {% else %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
+                {% endif %}
+
+                <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
+            {% endif %}
         </div>
+
         {% include site-nav.html %}
     </div>
 </header>
@@ -29,6 +38,9 @@ into the {body} of the default.hbs template -->
 <!-- The main content area -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
+        <div class="tag-feed">
+            {%  include tag-card-featured.html %}
+        </div>
 
         <div class="post-feed">
             <!-- The tag below includes the markup for each post - partials/post-card.hbs -->

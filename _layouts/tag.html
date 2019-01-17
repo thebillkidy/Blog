@@ -14,19 +14,27 @@ logo: 'assets/images/covers/experience.jpg'
 <!-- The big featured header, it uses blog cover image as a BG if available -->
 <!-- #tag -->
 {% include dynamic_tag_info.html %}
-<header class="site-header outer {% if cover or page.cover %}" style="background-image: url({{ "/" | relative_url }}{% if cover %}{{ cover }}{% else %}{{ page.cover }}{% endif%}) {% else %}no-cover{% endif %}">
-    <div class="inner">
-        {% include site-nav.html %}
+<header class="site-header outer">
+    <div class="inner header-flex">   
         <div class="site-header-content">
-            <h1 class="site-title">{{ page.tag | capitalizeall }}</h1>
-            <h2 class="site-description">
-                {% if tag_description %}
-                    {{ tag_description }}
-                {% elsif page.tag %}
-    			    A collection of {{ paginator.total_posts }} posts
+            {% if page.current != 'home' %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
                 {% endif %}
-            </h2>
+            {% else %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
+                {% endif %}
+
+                <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
+            {% endif %}
         </div>
+
+        {% include site-nav.html %}
     </div>
 </header>
 <!-- tag -->

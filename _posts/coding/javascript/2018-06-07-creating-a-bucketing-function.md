@@ -5,7 +5,7 @@ cover: 'assets/images/covers/buckets.png'
 navigation: True
 title: Dividing numbers into equal buckets or bins through Bucketization
 date: 2018-06-07 09:00:00
-tags: tutorials javascript reinforcement-learning
+tags: coding coding-javascript ai-rl
 class: post-template
 subclass: 'post tag-tutorials'
 author: xavier

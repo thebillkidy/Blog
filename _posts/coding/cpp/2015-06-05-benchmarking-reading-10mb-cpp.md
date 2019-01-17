@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding2.jpg'
 navigation: True
 title: How to benchmark Reading 10MB in C++
 date: 2015-06-05 11:00:01
-tags: cpp
+tags: coding coding-cpp
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

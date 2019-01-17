@@ -5,7 +5,7 @@ cover: 'assets/images/covers/minecraft.jpg'
 navigation: True
 title: Building a Minecraft Puppet Scanner with Event Hub, a NFC 522 Reader and a Raspberry PI
 date: 2018-11-25 09:00:00
-tags: iot data javascript
+tags: coding coding-javascript big-data
 class: post-template
 subclass: 'post tag-coding'
 author: xavier

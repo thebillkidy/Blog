@@ -5,7 +5,7 @@ cover: 'assets/images/covers/grafana.png'
 navigation: True
 title: How-To Visualize Metrics with Grafana and Chronograf by using InfluxDB
 date: 2018-09-03 09:00:00
-tags: visualizing big-data
+tags: big-data
 class: post-template
 subclass: 'post'
 author: xavier

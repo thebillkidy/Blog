@@ -5,7 +5,7 @@ cover: 'assets/images/covers/dotnet.png'
 navigation: True
 title: How To Bind C++ Code with Dotnet Core
 date: 2018-08-17 09:00:00
-tags: dotnet
+tags: coding coding-dotnet
 class: post-template
 subclass: 'post tag-coding'
 author: xavier

@@ -9,20 +9,28 @@ navigation: True
 <!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template -->
 <!-- The big featured header, it uses blog cover image as a BG if available -->
-<header class="site-header outer {% if page.cover or site.cover %}" style="background-image:  url({{ "/" | relative_url }}{% if page.cover %}{{ page.cover }}{% elsif site.cover %}{{ site.cover }}{% endif %}) {% else %}no-cover{% endif %}">
-  <div class="inner">
-      <div class="site-header-content">
-          <h1 class="site-title">
-              {% if site.logo %}
-                  <img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/>
-              {% else %}
-                  {{ site.title }}
-              {% endif %}
-          </h1>
-          <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
-      </div>
-      {% include site-nav.html %}
-  </div>
+<header class="site-header outer">
+    <div class="inner header-flex">   
+        <div class="site-header-content">
+            {% if page.current != 'home' %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
+                {% endif %}
+            {% else %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
+                {% endif %}
+
+                <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
+            {% endif %}
+        </div>
+
+        {% include site-nav.html %}
+    </div>
 </header>
 
 

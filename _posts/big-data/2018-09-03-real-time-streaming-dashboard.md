@@ -5,7 +5,7 @@ cover: 'assets/images/covers/databricks.png'
 navigation: True
 title: Building a real-time streaming dashboard with Spark, Grafana, Chronograf and InfluxDB
 date: 2018-09-03 09:00:00
-tags: big-data spark
+tags: big-data
 class: post-template
 subclass: 'post tag-coding'
 author: xavier

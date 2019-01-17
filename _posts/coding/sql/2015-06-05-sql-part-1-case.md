@@ -3,9 +3,9 @@ layout: post
 current: post
 cover: 'assets/images/covers/database.jpg'
 navigation: True
-title: Common Table Expression (CTE) - Part 1
+title: SQL - Part 1 - Advanced CASE Selecting
 date: 2015-06-05 10:00:00
-tags: sql
+tags: coding coding-sql
 class: post-template
 subclass: 'post tag-sql'
 author: xavier

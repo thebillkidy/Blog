@@ -5,7 +5,7 @@ cover:  assets/images/covers/waves.jpg
 navigation: True
 title: Visual Studio Android Emulator Debugging
 date: 2018-01-13 09:00:00
-tags: howto tutorials
+tags: coding
 class: post-template
 subclass: 'post tag-howto tag-tutorials'
 author: xavier

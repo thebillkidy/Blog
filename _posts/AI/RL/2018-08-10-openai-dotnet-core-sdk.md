@@ -5,7 +5,7 @@ cover: 'assets/images/covers/openai.jpg'
 navigation: True
 title: Writing a C# SDK for the OpenAI Gym using .NET Core
 date: 2018-08-10 10:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence dotnet
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier
