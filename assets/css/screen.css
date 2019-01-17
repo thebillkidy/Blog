@@ -387,6 +387,18 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
     }
 }
 
+@media (max-width: 850px) {
+    .header-flex {
+        flex-direction: column;
+    }
+    .header-flex .site-header-content .site-description {
+        text-align: center;
+    }
+    .header-flex .site-header-content .site-title {
+        text-align: center;
+    }
+}
+
 
 /* 6. Post Feed
 /* ---------------------------------------------------------- */
