@@ -34,41 +34,41 @@ coding-c:
   cover: assets/images/covers/coding4.jpg
 coding-cpp:
   name: C++
-  cover: assets/images/covers/coding4.jpg
+  cover: /assets/images/covers/coding4.jpg
 coding-dotnet:
   name: dotnet
-  cover: assets/images/covers/coding2.jpg
+  cover: /assets/images/covers/coding2.jpg
 coding-javascript:
   name: Javascript
-  cover: assets/images/covers/coding.jpg
+  cover: /assets/images/covers/coding.jpg
 coding-perl:
   name: Perl
-  cover: assets/images/covers/coding.jpg
+  cover: /assets/images/covers/coding.jpg
 coding-sql:
   name: SQL
-  cover: assets/images/covers/database.jpg
+  cover: /assets/images/covers/database.jpg
 coding-scale:
   name: Scala
-  cover: assets/images/covers/coding.jpg
+  cover: /assets/images/covers/coding.jpg
 databricks:
   name: Databricks
-  cover: assets/images/covers/databricks.png
+  cover: /assets/images/covers/databricks.png
 discrete-math:
   name: Discrete Math
-  cover: assets/images/covers/algorithms.jpg
+  cover: /assets/images/covers/algorithms.jpg
 infrastructure:
   name: Infrastructure
-  cover: assets/images/covers/infrastructure.jpg
+  cover: /assets/images/covers/infrastructure.jpg
 networking:
   name: Networking
-  cover: assets/images/covers/network.jpg
+  cover: /assets/images/covers/network.jpg
 quantum:
   name: Quantum Computing
-  cover: assets/images/covers/quantum.jpeg
+  cover: /assets/images/covers/quantum.jpeg
   featured: true
 experience:
   name: Experience
-  cover: assets/images/covers/experience.jpg
+  cover: /assets/images/covers/experience.jpg
 kubernetes:
   name: Kubernetes
-  cover: assets/images/covers/kubernetes.jpg
+  cover: /assets/images/covers/kubernetes.jpg
