@@ -38,7 +38,6 @@
               "type": "Microsoft.ServiceFabricMesh/services",
               "location": "[parameters('location')]",
               "name": "SparkClusterSvc",
-  
               "properties": {
                 "description": "Service Fabric Mesh Spark Cluster Service.",
                 "osType": "linux",
@@ -58,16 +57,12 @@
                     ],
                     "endpoints": [
                       {
-                        "name": "sparkMasterUIListener",
-                        "port": "8080"
+                        "name": "sparkClusterHistoryServerListener",
+                        "port": "18080"
                       },
                       {
-                        "name": "sparkWorkerUIListener",
-                        "port": "8081"
-                      },
-                      {
-                        "name": "sparkMasterServiceListener",
-                        "port": "7077"
+                        "name": "sparkClusterContextListener",
+                        "port": "4040"
                       }
                     ],
                     "environmentVariables": [
@@ -86,13 +81,60 @@
                     "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'SparkClusterNet')]",
                     "endpointRefs": [
                       {
-                        "name": "sparkMasterUIListener"
+                        "name": "sparkClusterHistoryServerListener"
                       },
                       {
-                        "name": "sparkWorkerUIListener"
-                      },
+                        "name": "sparkClusterContextListener"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.ServiceFabricMesh/services",
+              "location": "[parameters('location')]",
+              "name": "SparkClusterJupyterSvc",
+              "properties": {
+                "description": "Service Fabric Mesh Spark Cluster Service.",
+                "osType": "linux",
+                "codePackages": [
+                  {
+                    "name": "code",
+                    "image": "thebillkidy/jupyter:v0.0.1",
+                    "volumes": [
                       {
-                        "name": "sparkMasterServiceListener"
+                        "name": "sfvol",
+                        "creationParameters": {
+                          "kind": "ServiceFabricVolumeDisk",
+                          "sizeDisk": "Small"
+                        },
+                        "destinationPath": "/mnt/data"
+                      }
+                    ],
+                    "endpoints": [
+                      {
+                        "name": "sparkClusterJupyterListener",
+                        "port": "8888"
+                      }
+                    ],
+                    "environmentVariables": [
+                    ],
+                    "resources": {
+                      "requests": {
+                        "cpu": "1",
+                        "memoryInGB": "2"
+                      }
+                    }
+                  }
+                ],
+                "replicaCount": "1",
+                "networkRefs": [
+                  {
+                    "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'SparkClusterNet')]",
+                    "endpointRefs": [
+                      {
+                        "name": "sparkClusterJupyterListener"
                       }
                     ]
                   }
@@ -121,29 +163,29 @@
           "tcp": [
             {
               "name": "Public",
-              "port": 8080,
+              "port": 18080,
               "destination": {
                 "applicationName": "SparkClusterApp",
                 "serviceName": "SparkClusterSvc",
-                "endpointName": "sparkMasterUIListener"
+                "endpointName": "sparkClusterHistoryServerListener"
               }
             },
             {
               "name": "Public",
-              "port": 8081,
+              "port": 4040,
               "destination": {
                 "applicationName": "SparkClusterApp",
                 "serviceName": "SparkClusterSvc",
-                "endpointName": "sparkWorkerUIListener"
+                "endpointName": "sparkClusterContextListener"
               }
             },
             {
               "name": "Public",
-              "port": 7077,
+              "port": 8888,
               "destination": {
                 "applicationName": "SparkClusterApp",
-                "serviceName": "SparkClusterSvc",
-                "endpointName": "sparkMasterServiceListener"
+                "serviceName": "SparkClusterJupyterSvc",
+                "endpointName": "sparkClusterJupyterListener"
               }
             }
           ]
