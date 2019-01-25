@@ -5,7 +5,7 @@ cover: 'assets/images/covers/azure-functions.png'
 navigation: True
 title: Getting started with Azure Functions
 date: 2018-05-28 09:00:00
-tags: tutorials howto javascript
+tags: azure coding-javascript
 class: post-template
 subclass: 'post'
 author: xavier

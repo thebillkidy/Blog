@@ -5,7 +5,7 @@ cover: 'assets/images/covers/twitter.png'
 navigation: True
 title: Getting Tweets of multiple people on Twitter
 date: 2018-09-20 09:00:00
-tags: tutorials javascript
+tags: coding coding-javascript
 class: post-template
 subclass: 'post tag-tutorials'
 author: xavier

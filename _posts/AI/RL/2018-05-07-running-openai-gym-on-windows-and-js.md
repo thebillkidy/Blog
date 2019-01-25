@@ -5,7 +5,7 @@ cover: 'assets/images/covers/openai.jpg'
 navigation: True
 title: How to run OpenAI Gym on Windows and with Javascript
 date: 2018-05-07 09:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier

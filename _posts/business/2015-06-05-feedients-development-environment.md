@@ -5,7 +5,7 @@ cover: 'assets/images/covers/experience.jpg'
 navigation: True
 title: Feedients Development Environment
 date: 2015-06-05 18:41:00
-tags: experience startups feedient
+tags: experience business
 class: post-template
 subclass: 'post tag-experience tag-startups'
 author: xavier

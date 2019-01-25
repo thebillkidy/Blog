@@ -5,7 +5,7 @@ cover: 'assets/images/covers/microsoft.png'
 navigation: True
 title: Lessons learned after being at Microsoft for 1 year
 date: 2018-08-30 09:00:00
-tags: business leadership experience
+tags: experience business
 class: post-template
 subclass: 'post tag-business'
 author: xavier

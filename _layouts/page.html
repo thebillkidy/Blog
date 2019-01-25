@@ -11,11 +11,28 @@ into the {body} of the default.hbs template -->
 
 <!-- The big featured header, it uses blog cover image as a BG if available -->
 <header class="site-header outer">
-    <div class="inner">
+    <div class="inner header-flex">   
+        <div class="site-header-content">
+            {% if page.current != 'home' %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
+                {% endif %}
+            {% else %}
+                {% if site.logo %}
+                    <a href="/"><img class="site-logo" src="{{ "/" | relative_url }}{{ site.logo }}" alt="{{ site.title }}"/></a>
+                {% else %}
+                    <h1 class="site-title"><a href="/">{{ site.title }}</a></h1>
+                {% endif %}
+
+                <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
+            {% endif %}
+        </div>
+
         {% include site-nav.html %}
     </div>
 </header>
-
 <!-- Everything inside the #post tags pulls data from the post -->
 <!-- #post -->
 

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/webcrawler.jpg'
 navigation: True
 title: Abusing the Bing Search API to get access to Data and Visualize it
 date: 2018-07-04 09:00:00
-tags: tutorials javascript react.js next.js redis
+tags: coding coding-javascript
 class: post-template
 subclass: 'post tag-tutorials'
 author: xavier

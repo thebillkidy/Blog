@@ -3,9 +3,9 @@ layout: post
 current: post
 cover: 'assets/images/covers/database.jpg'
 navigation: True
-title: Common Table Expression (CTE) - Part 5
+title: SQL - Part 5 - Common Table Expressions
 date: 2015-06-05 10:00:04
-tags: sql
+tags: coding coding-sql
 class: post-template
 subclass: 'post tag-sql'
 author: xavier

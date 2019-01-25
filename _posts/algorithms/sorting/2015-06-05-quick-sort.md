@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Sorting Algorithm - Quick Sort
 date: 2015-06-05 13:00:03
-tags: algorithms
+tags: algorithms coding-cpp
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

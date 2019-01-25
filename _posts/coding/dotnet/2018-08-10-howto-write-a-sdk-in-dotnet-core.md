@@ -5,7 +5,7 @@ cover: 'assets/images/covers/dotnet.jpg'
 navigation: True
 title: How-To write a C# SDK in .NET Core
 date: 2018-08-10 09:00:00
-tags: dotnet howto
+tags: coding coding-dotnet
 class: post-template
 subclass: 'post'
 author: xavier

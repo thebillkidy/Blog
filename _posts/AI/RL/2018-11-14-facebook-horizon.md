@@ -5,7 +5,7 @@ cover: 'assets/images/covers/horizon.png'
 navigation: True
 title: Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive
 date: 2018-12-02 09:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence dotnet
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier

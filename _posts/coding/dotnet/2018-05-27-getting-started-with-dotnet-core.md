@@ -5,7 +5,7 @@ cover: 'assets/images/covers/dotnet.jpg'
 navigation: True
 title: Getting started with DotNet Core
 date: 2018-05-27 09:00:00
-tags: dotnet
+tags: coding coding-dotnet
 class: post-template
 subclass: 'post tag-coding'
 author: xavier

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/rl.jpg'
 navigation: True
 title: Reinforcement Learning - Terminology
 date: 2018-11-29 09:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier

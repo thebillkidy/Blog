@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding.jpg'
 navigation: True
 title: Getting AMQP to work in your browser
 date: 2018-05-08 09:00:00
-tags: tutorials javascript
+tags: coding coding-javascript
 class: post-template
 subclass: 'post tag-tutorials'
 author: xavier

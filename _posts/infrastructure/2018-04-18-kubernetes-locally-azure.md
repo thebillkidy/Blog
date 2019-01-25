@@ -5,7 +5,7 @@ cover:  assets/images/covers/kubernetes.jpg
 navigation: True
 title: Create a local kubernetes development cluster and scale it with the cloud
 date: 2018-04-18 14:11:00
-tags: howto tutorials
+tags: infrastructure kubernetes
 class: post-template
 subclass: 'post tag-howto tag-kubernetes'
 author: xavier

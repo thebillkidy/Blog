@@ -5,7 +5,7 @@ cover: 'assets/images/covers/decision.png'
 navigation: True
 title: The Markov Property, Chain, Reward Process and Decision Process
 date: 2018-05-20 09:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier

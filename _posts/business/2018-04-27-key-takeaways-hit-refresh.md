@@ -5,7 +5,7 @@ cover: 'assets/images/covers/book-satya-hit-refresh.jpg'
 navigation: True
 title: My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”
 date: 2018-04-27 12:40:00
-tags: experience
+tags: experience business
 class: post-template
 subclass: 'post tag-experience'
 author: xavier

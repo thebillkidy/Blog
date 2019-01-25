@@ -5,7 +5,7 @@ cover: 'assets/images/covers/openai.jpg'
 navigation: True
 title: OpenAI Gym Problems - Solving the CartPole Gym
 date: 2018-06-10 09:00:00
-tags: reinforcement-learning machine-learning artificial-intelligence
+tags: ai ai-ml ai-rl
 class: post-template
 subclass: 'post'
 author: xavier

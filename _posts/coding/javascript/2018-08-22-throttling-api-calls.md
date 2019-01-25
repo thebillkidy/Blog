@@ -5,7 +5,7 @@ cover: 'assets/images/covers/coding.jpg'
 navigation: True
 title: Creating a throttled REST API Consumer
 date: 2018-08-22 09:00:00
-tags: tutorials javascript
+tags: coding coding-javascript
 class: post-template
 subclass: 'post tag-tutorials'
 author: xavier

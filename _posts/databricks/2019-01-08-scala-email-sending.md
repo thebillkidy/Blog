@@ -5,7 +5,7 @@ cover: 'assets/images/covers/databricks.png'
 navigation: True
 title: Sending emails in Databricks by using Scala
 date: 2019-01-10 09:00:00
-tags: databricks scala
+tags: databricks coding-scala
 class: post-template
 subclass: 'post'
 author: xavier

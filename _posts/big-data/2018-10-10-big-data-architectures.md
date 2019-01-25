@@ -5,7 +5,7 @@ cover: 'assets/images/covers/bigdata2.jpeg'
 navigation: True
 title: Big Data, the why, how and what - A thought Process and Architecture
 date: 2018-10-10 09:00:00
-tags: visualizing big-data
+tags: big-data
 class: post-template
 subclass: 'post'
 author: xavier

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/algorithms2.jpg'
 navigation: True
 title: Solving permutations with Heap's Algorithm in Javascript
 date: 2015-06-05 13:00:13
-tags: algorithms
+tags: algorithms coding-javascript
 class: post-template
 subclass: 'post tag-algorithms'
 author: xavier

@@ -5,7 +5,7 @@ cover: 'assets/images/covers/dotnet.jpg'
 navigation: True
 title: Getting started with Xamarin Forms v3.0
 date: 2018-06-16 09:00:00
-tags: dotnet
+tags: coding coding-dotnet
 class: post-template
 subclass: 'post tag-coding'
 author: xavier
