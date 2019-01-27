@@ -26,7 +26,7 @@ steps:
 # This way we will be able to push everything without the need for an authentication token as e.g. https://thebillkidy:$GH_TOKEN@github.com/#{REPO_SLUG}.git
 - script: >
     cd $(Build.ArtifactStagingDirectory);
-    cp -R $(Build.Repository.LocalPath)/.git $(Build.ArtifactStagingDirectory)
+    cp -R $(Build.Repository.LocalPath)/.git $(Build.ArtifactStagingDirectory);
     git config --global user.email "xavier.geerinck@gmail.com";
     git config --global user.name "Xavier Geerinck";
     git add --all;
