@@ -38,8 +38,7 @@ steps:
     git config --global user.name "Xavier Geerinck";
   displayName: 'Configure Git User'
 
-- script: >
-    cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath);
+- script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)'
   displayName: 'Copy Artifact Files to Cleaned Build Branch'
 
 - script: >
@@ -49,13 +48,17 @@ steps:
   displayName: 'Create our Commit'
 
 - script: >
+    cd $(Build.Repository.LocalPath);
     git checkout master;
     git merge azure-pipelines-build;
     git branch -d azure-pipelines-build;
   displayName: 'Merge azure-pipelines-build into master'
 
 - script: >
-    git push;
+    cd $(Build.Repository.LocalPath);
+    ls -la;
+    git diff;
+    git push
   displayName: 'Push changes to remote'
 
 # The below will generate a .zip for us that we can download
