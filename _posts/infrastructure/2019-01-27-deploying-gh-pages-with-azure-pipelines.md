@@ -4,7 +4,7 @@ current: post
 cover:  assets/images/covers/experience.jpg
 navigation: True
 title: Continuous Integration for Github Pages with Jekyll in the same repository
-date: 2019-01-27 09:00:00
+date: 2019-01-27 07:00:00
 tags: infrastructure devops
 class: post-template
 subclass: 'post'
