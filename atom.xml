@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Continuous Integration for Github Pages with Jekyll in the same repository</title>
+        
+          <description>&lt;p&gt;So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 27 Jan 2019 09:00:00 +0000</pubDate>
+        <link>
+        /deploying-gh-pages-with-azure-pipelines</link>
+        <guid isPermaLink="true">/deploying-gh-pages-with-azure-pipelines</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Quantum Computing - An Introduction</title>
         
           <description>&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;

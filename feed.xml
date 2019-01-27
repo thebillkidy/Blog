@@ -1,4 +1,195 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-27T15:08:35+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Quantum Computing - An Introduction</title><link href="/quantum-an-introduction" rel="alternate" type="text/html" title="Quantum Computing - An Introduction" /><published>2019-01-16T10:00:00+00:00</published><updated>2019-01-16T10:00:00+00:00</updated><id>/quantum-an-introduction</id><content type="html" xml:base="/quantum-an-introduction">&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-27T15:14:56+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Continuous Integration for Github Pages with Jekyll in the same repository</title><link href="/deploying-gh-pages-with-azure-pipelines" rel="alternate" type="text/html" title="Continuous Integration for Github Pages with Jekyll in the same repository" /><published>2019-01-27T09:00:00+00:00</published><updated>2019-01-27T09:00:00+00:00</updated><id>/deploying-gh-pages-with-azure-pipelines</id><content type="html" xml:base="/deploying-gh-pages-with-azure-pipelines">&lt;p&gt;So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!&lt;/p&gt;
+
+&lt;p&gt;What do we want to achieve? Well we want to achieve a continuous flow of development, where when we develop a piece of code, the following steps are followed (as illustrated below):&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;SCM:&lt;/strong&gt; Use our SCM protocol to push our code&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;PULL CODE:&lt;/strong&gt; Our source control repository, triggers an event&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;BUILD:&lt;/strong&gt; This trigger gets detected by our Pipeline process which builds our code&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TEST:&lt;/strong&gt; The Build gets tested&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;FAIL/SUCCESS:&lt;/strong&gt; This results in a failure or success&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;RELEASE:&lt;/strong&gt; On success we release our code to the world&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/CI/ci-pipeline.png&quot; alt=&quot;/assets/images/posts/CI/ci-pipeline.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-our-pipeline&quot;&gt;Setting up our Pipeline&lt;/h2&gt;
+
+&lt;p&gt;Just as in Travis, we are able to generate a &lt;code class=&quot;highlighter-rouge&quot;&gt;YAML&lt;/code&gt; file in our code repository, that will be picked up by &lt;code class=&quot;highlighter-rouge&quot;&gt;Azure Devops&lt;/code&gt;. So get started by creating a &lt;code class=&quot;highlighter-rouge&quot;&gt;azure-pipelines.yml&lt;/code&gt; file in your root folder.&lt;/p&gt;
+
+&lt;p&gt;For our &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Pages&lt;/code&gt; we want to achieve that whenever we push to &lt;code class=&quot;highlighter-rouge&quot;&gt;development&lt;/code&gt; that everything is build and the built source is pushed to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. This is a quite anti-pattern kind of process, seeing that most of the time we would build to an &lt;code class=&quot;highlighter-rouge&quot;&gt;artifact&lt;/code&gt; and release this artifact to the world. For easiness we however want to do this, to keep our set of tools as minimal as possible.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This build is an anti-pattern because of described above!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To achieve this, we can use the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;On push to &lt;code class=&quot;highlighter-rouge&quot;&gt;development&lt;/code&gt; branch, trigger the process&lt;/li&gt;
+  &lt;li&gt;Pull our code (&lt;code class=&quot;highlighter-rouge&quot;&gt;git clone&lt;/code&gt;) from the development branch&lt;/li&gt;
+  &lt;li&gt;Build our Jekyll site to a destination folder (&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll build -d &amp;lt;DESTINATION&amp;gt;&lt;/code&gt;). We can see this as our artifact if we zip it!&lt;/li&gt;
+  &lt;li&gt;Create a branch based of &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; (important!) which contained our previous build site&lt;/li&gt;
+  &lt;li&gt;Clean the master branch from all files and copy over our artifact files&lt;/li&gt;
+  &lt;li&gt;Add our changes and commit&lt;/li&gt;
+  &lt;li&gt;Push to remote&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In Azure Pipelines this can be achieved through &lt;code class=&quot;highlighter-rouge&quot;&gt;steps&lt;/code&gt; which describes our steps above in a &lt;code class=&quot;highlighter-rouge&quot;&gt;YAML&lt;/code&gt; kind of structure. So let’s get started by creating our different steps.&lt;/p&gt;
+
+&lt;h3 id=&quot;step-1trigger-on-push-to-development-branch&quot;&gt;Step 1:Trigger on-push to Development Branch&lt;/h3&gt;
+
+&lt;p&gt;Describing to trigger on push is just 2 lines of code:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;development&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;step-2-pull-our-code&quot;&gt;Step 2: Pull our Code&lt;/h3&gt;
+
+&lt;p&gt;Luckily our code pulling is done automatically, due to the integration with GitHub. We however do have to add our credentials again, since they are removed by default. This way we can push! To do this, add the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;amp;tabs=schema#checkout&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;self&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;persistCredentials&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# set to 'true' to leave the OAuth token in the Git config after the initial fetch&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;step-3-build-our-jekyll-website&quot;&gt;Step 3: Build our Jekyll Website&lt;/h3&gt;
+
+&lt;p&gt;Let’s start by writing our steps that we want to execute when we have our code. For this, we need to know that everything we do is described as a &lt;code class=&quot;highlighter-rouge&quot;&gt;task&lt;/code&gt; under &lt;code class=&quot;highlighter-rouge&quot;&gt;steps&lt;/code&gt;. Looking like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Doing this now for our Jekyll build, we will configure it to use ruby, install our dependencies and build our Jekyll website!&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UseRubyVersion@0&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Use&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Ruby&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2.5'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;gem&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;install&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundler'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Install&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Bundler'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;install'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Install&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Dependencies'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jekyll&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.ArtifactStagingDirectory)'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Static&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Site'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;step-4---7-push-our-build-website-to-the-master-branch&quot;&gt;Step 4 - 7: Push our build website to the master branch&lt;/h3&gt;
+
+&lt;p&gt;Building our website is the most complex part, for steps 4 - 7 we get:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.Repository.LocalPath);&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;master;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-b&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;azure-pipelines-build'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Create&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Branch&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;based&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Master'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git rm -rf .; git clean -fxd;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Clean&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Branch'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git config --global user.email &quot;xavier.geerinck@gmail.com&quot;;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git config --global user.name &quot;Xavier Geerinck&quot;;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Configure&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Git&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;User'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cp&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-a&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.ArtifactStagingDirectory)/.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.Repository.LocalPath)'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Copy&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Artifact&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Files&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Cleaned&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Branch'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git add --all;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git commit -m&quot;Pipelines-Bot: Updated site via $(Build.SourceVersion)&quot;;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Create&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;our&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Commit'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git checkout master;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git merge azure-pipelines-build;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git branch -d azure-pipelines-build;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Merge&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;azure-pipelines-build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;into&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;master'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git push origin master;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Push&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;changes&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;remote'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;final-review-of-our-yaml-file&quot;&gt;Final Review of our YAML file&lt;/h3&gt;
+
+&lt;p&gt;If we correctly followed everything described above, we get the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;development&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;pool&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;vmImage&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Ubuntu-16.04'&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;amp;tabs=schema#checkout&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;self&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;persistCredentials&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# set to 'true' to leave the OAuth token in the Git config after the initial fetch&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UseRubyVersion@0&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Use&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Ruby&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2.5'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;gem&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;install&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundler'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Install&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Bundler'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;install'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Install&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Dependencies'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bundle&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jekyll&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.ArtifactStagingDirectory)'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Static&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Site'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.Repository.LocalPath);&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;master;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;checkout&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-b&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;azure-pipelines-build'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Create&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Branch&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;based&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Master'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git rm -rf .; git clean -fxd;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Clean&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Branch'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git config --global user.email &quot;xavier.geerinck@gmail.com&quot;;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git config --global user.name &quot;Xavier Geerinck&quot;;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Configure&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Git&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;User'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cp&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-a&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.ArtifactStagingDirectory)/.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$(Build.Repository.LocalPath)'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Copy&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Artifact&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Files&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Cleaned&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Branch'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git add --all;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git commit -m&quot;Pipelines-Bot: Updated site via $(Build.SourceVersion)&quot;;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Create&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;our&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Commit'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git checkout master;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git merge azure-pipelines-build;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git branch -d azure-pipelines-build;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Merge&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;azure-pipelines-build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;into&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;master'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;cd $(Build.Repository.LocalPath);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;git push origin master;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Push&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;changes&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;remote'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# The below will generate a .zip for us that we can download&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# - task: PublishBuildArtifacts@1&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#   displayName: 'Publish Artifact: _site'&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#   inputs:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#     ArtifactName: _site&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market.&lt;/p&gt;
+
+&lt;p&gt;Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="infrastructure" /><category term="devops" /><summary type="html">So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!</summary></entry><entry><title type="html">Quantum Computing - An Introduction</title><link href="/quantum-an-introduction" rel="alternate" type="text/html" title="Quantum Computing - An Introduction" /><published>2019-01-16T10:00:00+00:00</published><updated>2019-01-16T10:00:00+00:00</updated><id>/quantum-an-introduction</id><content type="html" xml:base="/quantum-an-introduction">&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
 
 &lt;h2 id=&quot;quantum-computing&quot;&gt;Quantum Computing?&lt;/h2&gt;
 
@@ -1764,69 +1955,4 @@ https://spinningup.openai.com/en/latest/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Allowing the children to play around with the tags to match the different dolls to these tags.&lt;/p&gt;
 
-&lt;p&gt;If you want to replicate this, feel free to check out the code at: &lt;a href=&quot;https://github.com/thebillkidy/PublicProjects&quot;&gt;https://github.com/thebillkidy/PublicProjects&lt;/a&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="coding" /><category term="coding-javascript" /><category term="big-data" /><summary type="html">In Belgium we every year celebrate the coming of “Sinterklaas” on the 6th of December, a celebration for children where this mythologic figure delivers presents for all the children that behaved well that year. (see: https://en.wikipedia.org/wiki/Sinterklaas for more information). To follow this tradition, many companies hold internal events where children of the employees are invited to participate in all kinds of events. I was asked to participate in one of these events and come up with a workshop for children of all ranges - being divided in 2 groups (the very young ones, and the somewhat older ones).</summary></entry><entry><title type="html">Big Data, the why, how and what - A thought Process and Architecture</title><link href="/big-data-architectures" rel="alternate" type="text/html" title="Big Data, the why, how and what - A thought Process and Architecture" /><published>2018-10-10T09:00:00+00:00</published><updated>2018-10-10T09:00:00+00:00</updated><id>/big-data-architectures</id><content type="html" xml:base="/big-data-architectures">&lt;p&gt;One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it, to extract insights that will allow them to stay relevant in the ever faster evolving world of today.&lt;/p&gt;
-
-&lt;p&gt;To tackle this issue, I always first start by asking them what their understanding “Big Data” is, because one customer is not the other. One might think that Big Data is just the way they are able to process all their different excel files, while another might think that it is the holy grail for all their projects and intelligence. Well in this article, I want to explain you what Big Data means to me and provide you a thought process that can help you in defining your Big Data strategy for your organization.&lt;/p&gt;
-
-&lt;p&gt;Now what is Big Data? Gartner explains it through different V’s: “Volume”, “Variety”, “Velocity”, “Veracity”, where if you have 2 of the first 3, then you are speaking about Big Data. To quote it in their own words:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;em&gt;Big data is high-volume, high-velocity and/or high-variety information assets that demand cost-effective, innovative forms of information processing that enable enhanced insight, decision making, and process automation.&lt;/em&gt; - https://www.gartner.com/it-glossary/big-data&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;For me Big Data is however so much more. It is one thing to be able to speak about it and recognise when you are using, but it’s another to implement it in such a way that your whole organisation is able to benefit from it.&lt;/p&gt;
-
-&lt;p&gt;Let’s tackle 3 of the most common pain points that I see while working with customers:&lt;/p&gt;
-
-&lt;h2 id=&quot;1-creating-a-centralized-data-lake&quot;&gt;1. Creating a Centralized Data Lake&lt;/h2&gt;
-
-&lt;p&gt;When talking with my customers, every time the same question comes up when wanting to start utilizing Big Data. The question of “Where are we going to store it?”. But everytime this answer is quite simple: “As centralized as possible”. Storing your data in a centralized place will allow you to maintain better control over it. This way you will be able to have a knowledge about your in flows, processing flows as well as your outgoing flows, giving you the power to draw complex analytics from all of this data.&lt;/p&gt;
-
-&lt;p&gt;But why can people overlook this then? Well because in the real world it is not as simple as it sounds. Many of the enterprises out there are tens of years old, having processes and structures in place that sometimes date back to these times. Just think about all the enterprises out there that still work in a vertical structure, where teams work in silos and where data belonging to these teams does not cross over to different teams. Resulting in a fragmented data landscape.&lt;/p&gt;
-
-&lt;p&gt;Due to this when setting up your centralized data repository, the first part is to perform change management on the organization. Can you go from a vertical structure, to a more horizontal structure where teams work together with each other, and consume the same data repository? More about this in point 3.&lt;/p&gt;
-
-&lt;p&gt;While the second part is, how do you correctly store the data coming in from all these different systems in all these different formats and data types. This is what we will look at in point 2.&lt;/p&gt;
-
-&lt;p&gt;If you would visualize this thought process, you might end up with something that looks like the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/big-data/vision.png&quot; alt=&quot;/assets/images/posts/big-data/vision.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;2-utilizing-your-data-lake-through-landing-zones&quot;&gt;2. Utilizing your Data Lake through Landing Zones&lt;/h2&gt;
-
-&lt;p&gt;So we have all this data coming in, in all their different formats and data types. At first sight, this might look like a bad thing; but actually it isn’t. A Data Lake is created for just that, to store data in any kind of format - making it the perfect tool for all your historic needs.&lt;/p&gt;
-
-&lt;p&gt;But how do we structure this data? Well, A good practice is to store the data coming in, in different “landing zones”. Which are used to not only store your original raw data coming in from your BI systems, videos, … but also to store your processed data - that is processed in such a way that every format and data type is normalized to the same standards that you are used to. Just think about normalizing data so it uses the same date format everywhere. These zones we often call the “raw” and “staging” zones.&lt;/p&gt;
-
-&lt;p&gt;Linking these two zones together is just a matter of connecting the correct ETL processes, that pull the data from the “raw” zone, modify it in the way you want, and then puts it in your “staging” zone, ready for consumption by your reporting tools or data warehouses.&lt;/p&gt;
-
-&lt;p&gt;An interesting question you may now have is: “But aren’t we losing performance if we are going from our original structured data sources towards a data lake, to then go back to a data warehouse”? This is indeed a interesting question that we can only answer by going back to the purpose of a data lake. A Data Lake it’s goal is to have a &lt;em&gt;centralized data store&lt;/em&gt;, where all our data is collected so that our &lt;em&gt;data scientists&lt;/em&gt; are able to perform their jobs on the purest form of source data. But secondly, where our &lt;em&gt;ETL jobs&lt;/em&gt; are running, constantly copying the data from the processed “staging” zone towards the target systems. Looking back at these different purposes, we are able to say that even though we might hit a small performance hit, it will be an easy system to control everything happening on our data, resulting in an improved analytics, reporting and even governance process.&lt;/p&gt;
-
-&lt;h2 id=&quot;3-correct-internal-governance&quot;&gt;3. Correct Internal Governance&lt;/h2&gt;
-
-&lt;p&gt;As in all good things, there is still a hard thing for everything; this is no exception. The hardest part for creating a centralized data lake is the governance. Now you have have everything in place to pull your data from your different systems towards your data lake and you are able to process this data so that it is available for consumption. But how do you actually work with this across your different teams?&lt;/p&gt;
-
-&lt;p&gt;Different teams will work on the data in a data lake, making it necessary to have the correct access control roles in place that will define which users have access to which part of the data lake. Just think about different scenarios, such as a BI specialist who does not need access to the data lake, but rather needs access to aggregated views that we provide them. Or you want to work across regions that allow you to provide row level security on your data, so that the people in the different regions only see the data meant for them. These are all things you will have to think about when creating your Big Data architecture.&lt;/p&gt;
-
-&lt;p&gt;Often we see the following roles and how they are configured for these organizations:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Data Engineer:&lt;/strong&gt; Your data engineer is in charge of setting up ETL jobs to process data from one landing zone to the other, requiring full access to the data lake.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Data Scientist:&lt;/strong&gt; This role has access to the data lake in its purest form through the “raw” landing zone. By providing access to this, data scientists will be able to draw conclusions from your data and build AI models on top of these that could greatly benefit your organization.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;BI Specialist:&lt;/strong&gt; These people often do not require access to the data itself, but rather to views. It could thus be beneficial to provide access to views created through a system such as &lt;em&gt;Hive&lt;/em&gt; that allows your specialist to run simple SQL queries on top of your data, while still providing Row Level Security and everything else that you are used to in terms of security. (Note: Row Level Security is something that needs to be configured correctly, it might sound easy, but it can take a while to configure correctly on unstructured data)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In case you wish extra security and nobody accessing the data lake, you could for example create a subset of your data lake through a simple ETL copy where the different roles are able to play and do everything they wish. With this subset being recreated every night.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;example-architectures&quot;&gt;Example Architectures&lt;/h2&gt;
-
-&lt;p&gt;So we defined 3 topics that we need to think about when designing a Big Data architecture, but how does one look in practice now? For this I created 2 architectures that I want to share with you.&lt;/p&gt;
-
-&lt;p&gt;The first one is a standard Big Data architecture, allowing you to see how we ingest data from our source systems into a data lake and start serving this. This kind of architecture is what I call a more “slower” architecture, because you might rely on polling systems that will poll every “x” seconds or minutes to see if new data is available. This will happen on the most left part where you get the data from your source systems, as well as on the most right part where data will be pushed towards the consumption layer. However for most use cases this could be fine, it all depends on the question: “How fast do I want data to be available in my consumption layer?”.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/big-data/architecture.png&quot; alt=&quot;/assets/images/posts/big-data/architecture.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If you however want your data to be accessible almost as soon as it is being put in the systems, then you need to look at more “event-driven” kind of systems. These will work with events that are triggered every time data is made available, rather than having to poll every few seconds or minutes.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/big-data/architecture-pubsub.png&quot; alt=&quot;/assets/images/posts/big-data/architecture-pubsub.png&quot; /&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="big-data" /><summary type="html">One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it, to extract insights that will allow them to stay relevant in the ever faster evolving world of today.</summary></entry></feed>
+&lt;p&gt;If you want to replicate this, feel free to check out the code at: &lt;a href=&quot;https://github.com/thebillkidy/PublicProjects&quot;&gt;https://github.com/thebillkidy/PublicProjects&lt;/a&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="coding" /><category term="coding-javascript" /><category term="big-data" /><summary type="html">In Belgium we every year celebrate the coming of “Sinterklaas” on the 6th of December, a celebration for children where this mythologic figure delivers presents for all the children that behaved well that year. (see: https://en.wikipedia.org/wiki/Sinterklaas for more information). To follow this tradition, many companies hold internal events where children of the employees are invited to participate in all kinds of events. I was asked to participate in one of these events and come up with a workshop for children of all ranges - being divided in 2 groups (the very young ones, and the somewhat older ones).</summary></entry></feed>

@@ -1,8 +1,3 @@
-# Jekyll site
-# Package your Jekyll site using the jekyll/builder Docker container image.
-# Add steps that build, test, save build artifacts, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - development
 
@@ -26,9 +21,6 @@ steps:
 - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)'
   displayName: 'Build Jekyll Static Site'
 
-# Azure Devops will run git config and get -c http.extraheader="AUTHORIZATION: basic ***" for Authentication to our repo
-# This way we will be able to push everything without the need for an authentication token as e.g. https://thebillkidy:$GH_TOKEN@github.com/#{REPO_SLUG}.git
-# We will now configure git in our ArtifactStagingDirectory (this way we don't have to clean )
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
   displayName: 'Create Build Branch based on Master'
 

@@ -10,7 +10,7 @@
 
 
 
-    <title>Bellman Equations</title>
+    <title>Continuous Integration for Github Pages with Jekyll in the same repository</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -24,30 +24,30 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="My thoughts, tutorials and learnings" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/bellman-equations" />
+    <link rel="canonical" href="/deploying-gh-pages-with-azure-pipelines" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Bellman Equations" />
-    <meta property="og:description" content="Summary So what did we learn up until now in our Introduction and Markov Property, Chain, Reward Process and Decision Process posts? Initially we defined our basic concepts: State: What does our current environment look like? Action: What action are we taking? Policy: When taking action $a$ in state $s$," />
-    <meta property="og:url" content="/bellman-equations" />
-    <meta property="og:image" content="/assets/images/covers/rl3.png" />
+    <meta property="og:title" content="Continuous Integration for Github Pages with Jekyll in the same repository" />
+    <meta property="og:description" content="So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to" />
+    <meta property="og:url" content="/deploying-gh-pages-with-azure-pipelines" />
+    <meta property="og:image" content="/assets/images/covers/experience.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2018-05-24T23:00:00+00:00" />
-    <meta property="article:modified_time" content="2018-05-24T23:00:00+00:00" />
-    <meta property="article:tag" content="Ai" />
+    <meta property="article:published_time" content="2019-01-27T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2019-01-27T09:00:00+00:00" />
+    <meta property="article:tag" content="Infrastructure" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Bellman Equations" />
-    <meta name="twitter:description" content="Summary So what did we learn up until now in our Introduction and Markov Property, Chain, Reward Process and Decision Process posts? Initially we defined our basic concepts: State: What does our current environment look like? Action: What action are we taking? Policy: When taking action $a$ in state $s$," />
+    <meta name="twitter:title" content="Continuous Integration for Github Pages with Jekyll in the same repository" />
+    <meta name="twitter:description" content="So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to" />
     <meta name="twitter:url" content="/" />
-    <meta name="twitter:image" content="/assets/images/covers/rl3.png" />
+    <meta name="twitter:image" content="/assets/images/covers/experience.jpg" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
     <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="Ai" />
+    <meta name="twitter:data2" content="Infrastructure" />
     <meta name="twitter:site" content="@XavierGeerinck" />
     <meta name="twitter:creator" content="@XavierGeerinck" />
     <meta property="og:image:width" content="1400" />
@@ -62,23 +62,23 @@
         "name": "Xavier Geerinck - Blog",
         "logo": "/false"
     },
-    "url": "/bellman-equations",
+    "url": "/deploying-gh-pages-with-azure-pipelines",
     "image": {
         "@type": "ImageObject",
-        "url": "/assets/images/covers/rl3.png",
+        "url": "/assets/images/covers/experience.jpg",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/bellman-equations"
+        "@id": "/deploying-gh-pages-with-azure-pipelines"
     },
-    "description": "Summary So what did we learn up until now in our Introduction and Markov Property, Chain, Reward Process and Decision Process posts? Initially we defined our basic concepts: State: What does our current environment look like? Action: What action are we taking? Policy: When taking action $a$ in state $s$,"
+    "description": "So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to"
 }
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Bellman Equations" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Continuous Integration for Github Pages with Jekyll in the same repository" href="/feed.xml" />
 
 
 
@@ -144,20 +144,16 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="24 May 2018">24 May 2018</time>
+                    <time class="post-full-meta-date" datetime="27 January 2019">27 January 2019</time>
                     
                         <span class="date-divider">/</span>
                         
                             
-                               <a href='/tag/ai/'>AI</a>,
+                               <a href='/tag/infrastructure/'>INFRASTRUCTURE</a>,
                             
                         
                             
-                               <a href='/tag/ai-ml/'>AI-ML</a>,
-                            
-                        
-                            
-                               <a href='/tag/ai-rl/'>AI-RL</a>
+                               <a href='/tag/devops/'>DEVOPS</a>
                             
                         
                     
@@ -165,120 +161,205 @@ into the {body} of the default.hbs template -->
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/covers/rl3.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/experience.jpg)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">Bellman Equations</h1>
-                    <h2 id="summary">Summary</h2>
+                        <h1 class="post-full-title">Continuous Integration for Github Pages with Jekyll in the same repository</h1>
+                    <p>So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!</p>
 
-<p>So what did we learn up until now in our <a href="/rl-intro">Introduction</a> and <a href="/markov-property-chain-reward-decision">Markov Property, Chain, Reward Process and Decision Process</a> posts?</p>
+<p>What do we want to achieve? Well we want to achieve a continuous flow of development, where when we develop a piece of code, the following steps are followed (as illustrated below):</p>
 
-<p>Initially we defined our basic concepts:</p>
+<ol>
+  <li><strong>SCM:</strong> Use our SCM protocol to push our code</li>
+  <li><strong>PULL CODE:</strong> Our source control repository, triggers an event</li>
+  <li><strong>BUILD:</strong> This trigger gets detected by our Pipeline process which builds our code</li>
+  <li><strong>TEST:</strong> The Build gets tested</li>
+  <li><strong>FAIL/SUCCESS:</strong> This results in a failure or success</li>
+  <li><strong>RELEASE:</strong> On success we release our code to the world</li>
+</ol>
 
-<ul>
-  <li><strong>State:</strong> What does our current environment look like?</li>
-  <li><strong>Action:</strong> What action are we taking?</li>
-  <li><strong>Policy:</strong> When taking action $a$ in state $s$, where do we go to?</li>
-</ul>
+<p><img src="/assets/images/posts/CI/ci-pipeline.png" alt="/assets/images/posts/CI/ci-pipeline.png" /></p>
 
-<p>Whereafter we introduced a concept of <em>reward</em> in our MRP</p>
+<h2 id="setting-up-our-pipeline">Setting up our Pipeline</h2>
 
-<ul>
-  <li><strong>Immediate Reward $R_t$:</strong> We want to steer our agent towards the action with the highest reward. Example: We want it to go forward on a cliff, and not fall off. This is given through the sum of our future rewards: $R_t = r_{t + 1} + r_{t + 2} + … + r_T$</li>
-  <li><strong>Discounted Reward $G_t$</strong> To prevent us from constantly following the same path and reward, we add a discount factor that will reduce the reward over time. Written as: $G_t = R_{t + 1} + γ R_{t + 2} + γ^2R_{t + 3} + … = \sum^{\infty}_{k=0}γ^k R_{t+k+1}$</li>
-</ul>
+<p>Just as in Travis, we are able to generate a <code class="highlighter-rouge">YAML</code> file in our code repository, that will be picked up by <code class="highlighter-rouge">Azure Devops</code>. So get started by creating a <code class="highlighter-rouge">azure-pipelines.yml</code> file in your root folder.</p>
 
-<p>To this we also added probabilities due to the fact of it being described as an MDP and that nothing is certain.</p>
-
-<ul>
-  <li><strong>Transition Probability:</strong> What is the expected state to end up in after taking a certain action? $P_{ss’}^a = P[S_{t+1} = s’ \mid S_t = s, A_t = a]$</li>
-  <li><strong>Reward Probability:</strong> What is the expected reward of ending up in a certain state after taking an action? $R_s^a = E[r_{t+1} \mid S_t = s, A_t = a]$</li>
-</ul>
-
-<p>So that we were finally able to write 2 new functions that allow us to interpret our expected value of a certain state.</p>
-
-<ul>
-  <li><strong>State-Value Function:</strong> Value when we follow policy $\pi$ forever starting from our state $s$ given by $V^{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid s_t = s] = \mathbb{E}_{\pi}[\sum^{\infty}_{k=0}γ^kr_{t+k+1} \mid s_t=s]$</li>
-  <li><strong>Action-Value Function:</strong> Value when we follow policy $\pi$ after taking action $a$ on our state $s$ given by $Q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t \mid s_t = s, a_t = a] = \mathbb{E}_{\pi}[\sum^{\infty}_{k=0}γ^kr_{t+k+1} \mid s_t=s,a_t=a]$</li>
-</ul>
-
-<p>Now we know that, how are we able to create some kind of algorithm that allows us to find a path through our states, taking specific actions, that will eventually lead to the highest return. Knowing that our states do not depend on each other? (See MDP). Or in math terms, <strong>how can we find our optimal policy $\pi^*$ which maximizes the return in every state?</strong>.</p>
-
-<p>For this, let us introduce something called <strong>Bellman Equations</strong>.</p>
-
-<h2 id="bellman-equations">Bellman Equations</h2>
-
-<h3 id="introduction">Introduction</h3>
-
-<p>As written in the book by Sutton and Barto, the Bellman equation is an approach towards <strong>solving the term of “optimal control”</strong>. Which is done through the creation of a <strong>functional equation that describes the problem of designing a controller to minimize a measure of a dynamical system’s behavior over time.</strong>. This approach of Bellman utilizes the concepts of a state and a value function as we saw before.</p>
+<p>For our <code class="highlighter-rouge">Github Pages</code> we want to achieve that whenever we push to <code class="highlighter-rouge">development</code> that everything is build and the built source is pushed to <code class="highlighter-rouge">master</code>. This is a quite anti-pattern kind of process, seeing that most of the time we would build to an <code class="highlighter-rouge">artifact</code> and release this artifact to the world. For easiness we however want to do this, to keep our set of tools as minimal as possible.</p>
 
 <blockquote>
-  <p><strong>Note:</strong> A value function we could also write as the “<em>optimal return function</em>”</p>
+  <p><strong>Note:</strong> This build is an anti-pattern because of described above!</p>
 </blockquote>
 
-<p>Afterwards, this class of methods for solving these optimal control problems came to be known as dynamic programming.</p>
+<p>To achieve this, we can use the following steps:</p>
 
-<blockquote>
-  <p><strong>Dynamic Programming:</strong> is a method for solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions.</p>
-</blockquote>
+<ol>
+  <li>On push to <code class="highlighter-rouge">development</code> branch, trigger the process</li>
+  <li>Pull our code (<code class="highlighter-rouge">git clone</code>) from the development branch</li>
+  <li>Build our Jekyll site to a destination folder (<code class="highlighter-rouge">jekyll build -d &lt;DESTINATION&gt;</code>). We can see this as our artifact if we zip it!</li>
+  <li>Create a branch based of <code class="highlighter-rouge">master</code> (important!) which contained our previous build site</li>
+  <li>Clean the master branch from all files and copy over our artifact files</li>
+  <li>Add our changes and commit</li>
+  <li>Push to remote</li>
+</ol>
 
-<p>To know if we can solve a problem through the use of Dynamic Programming, we can take a look at the <em>Principle of Optimality</em> which was also created by Richard E. Bellman.</p>
+<p>In Azure Pipelines this can be achieved through <code class="highlighter-rouge">steps</code> which describes our steps above in a <code class="highlighter-rouge">YAML</code> kind of structure. So let’s get started by creating our different steps.</p>
 
-<blockquote>
-  <p><strong>Principle of Optimality:</strong> An optimal policy has the property that whatever the initial state and initial decision are, the remaining decision must constitute an optimal policy with regard to the state resulting from the fist decision.</p>
-</blockquote>
+<h3 id="step-1trigger-on-push-to-development-branch">Step 1:Trigger on-push to Development Branch</h3>
 
-<h3 id="bellman-equation---state-value-function-vpis">Bellman Equation - State-Value Function $V^\pi(s)$</h3>
+<p>Describing to trigger on push is just 2 lines of code:</p>
 
-<p>So what the Bellman function will actually does, is that it will allow us to write an equation that will <strong>represent our State-Value Function $V^\pi(s)$ as a recursive relationship between the value of a state and the value of its successor states</strong>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">development</span>
+</code></pre></div></div>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{equation}
-\begin{split}
-V^\pi(s) =& \mathbb{E}_{\pi}[G_t | S_t = s] \\
-         =& \mathbb{E}_{\pi}[r_{t+1} + \gamma G_{T+1} | S_t = s] \\
-         =& \sum_{a} \pi(a | s) \sum_{s', r} P(s' , r | s, a)[ r + \gamma \mathbb{E}_{\pi}[G_{t + 1} | S_{t + 1} = s] ] \\
-         =& \sum_{a} \pi(a | s) \sum_{s', r} P(s' , r | s, a)[ r + \gamma v_{\pi}(s') ], \forall s \in S
-\end{split}
-\end{equation} %]]></script>
+<h3 id="step-2-pull-our-code">Step 2: Pull our Code</h3>
 
-<blockquote>
-  <p><strong>Note:</strong> We do not go into detail here on how it works or to derive it, for more details about that, feel free to read the paper.</p>
-</blockquote>
+<p>Luckily our code pulling is done automatically, due to the integration with GitHub. We however do have to add our credentials again, since they are removed by default. This way we can push! To do this, add the following:</p>
 
-<p>If we now want to find the best value function $V^*$, then that means that we need to find: $V^*(s) = max_{\pi}V^{\pi}(s)$ or in terms of our last equation: $V^*(s) = max_{a} \sum_{s’, r} P(s’ , r | s, a)[ r + \gamma V^{*}(s’) ]$ which is our <strong>Bellman Optimality Equation</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;tabs=schema#checkout</span>
+<span class="pi">-</span> <span class="na">checkout</span><span class="pi">:</span> <span class="s">self</span>
+  <span class="na">persistCredentials</span><span class="pi">:</span> <span class="no">true</span> <span class="c1"># set to 'true' to leave the OAuth token in the Git config after the initial fetch</span>
+</code></pre></div></div>
 
-<h3 id="bellman-equation---action-value-function-qpisa">Bellman Equation - Action-Value Function $Q^\pi(s,a)$</h3>
+<h3 id="step-3-build-our-jekyll-website">Step 3: Build our Jekyll Website</h3>
 
-<p>For the Action-Value Function we follow the same intuition as in the State-Value one, but here including the action. Eventually leading us to this equation:</p>
+<p>Let’s start by writing our steps that we want to execute when we have our code. For this, we need to know that everything we do is described as a <code class="highlighter-rouge">task</code> under <code class="highlighter-rouge">steps</code>. Looking like this:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{equation}
-\begin{split}
-Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
-            =& \sum_{a} \pi(a | s) \sum_{s', r} P(s' , r | s, a)[ r + \gamma v_{\pi}(s') ]
-\end{split}
-\end{equation} %]]></script>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> 
+</code></pre></div></div>
 
-<p>Which leads to our <strong>Bellman Optimality Equation</strong>: $Q^*(s, a) =\sum_{s’, r} P(s’ , r | s, a)[ r + \gamma  max_{a’} Q^{*}(s’, a’) ]$</p>
+<p>Doing this now for our Jekyll build, we will configure it to use ruby, install our dependencies and build our Jekyll website!</p>
 
-<h2 id="solving">Solving</h2>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">UseRubyVersion@0</span> <span class="c1"># See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Use</span><span class="nv"> </span><span class="s">Ruby</span><span class="nv"> </span><span class="s">&gt;=</span><span class="nv"> </span><span class="s">2.5'</span>
 
-<p>In the next article, we will talk about some algorithms that will allow us to solve something called a “GridWorld” later on.</p>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gem</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">bundler'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Bundler'</span>
 
-<h2 id="references">References</h2>
-<ul>
-  <li><a href="https://www.scss.tcd.ie/~luzs/t/cs7032/solvemdps.pdf">https://www.scss.tcd.ie/~luzs/t/cs7032/solvemdps.pdf</a></li>
-  <li><a href="https://joshgreaves.com/reinforcement-learning/understanding-rl-the-bellman-equations/">https://joshgreaves.com/reinforcement-learning/understanding-rl-the-bellman-equations/</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Reinforcement_learning">https://en.wikipedia.org/wiki/Reinforcement_learning</a></li>
-  <li><a href="http://www.dtic.mil/dtic/tr/fulltext/u2/604386.pdf">The Theory of Dynamic Programming - Richard Bellman</a></li>
-  <li><a href="http://incompleteideas.net/book/ebook/node40.html">http://incompleteideas.net/book/ebook/node40.html</a></li>
-  <li><a href="https://drive.google.com/file/d/1xeUDVGWGUUv1-ccUMAZHJLej2C7aAFWY/view">Reinforcement Learning: An Introduction, 2nd edition, Richard S. Sutton and Andrew G. Barto</a></li>
-  <li><a href="https://datascience.stackexchange.com/questions/9832/what-is-the-q-function-and-what-is-the-v-function-in-reinforcement-learning">https://datascience.stackexchange.com/questions/9832/what-is-the-q-function-and-what-is-the-v-function-in-reinforcement-learning</a></li>
-</ul>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">install'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Dependencies'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">jekyll</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">-d</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Build</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">Static</span><span class="nv"> </span><span class="s">Site'</span>
+</code></pre></div></div>
+
+<h3 id="step-4---7-push-our-build-website-to-the-master-branch">Step 4 - 7: Push our build website to the master branch</h3>
+
+<p>Building our website is the most complex part, for steps 4 - 7 we get:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cd</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath);</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">master;</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">-b</span><span class="nv"> </span><span class="s">azure-pipelines-build'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Master'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git rm -rf .; git clean -fxd;</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Clean</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">git config --global user.email "xavier.geerinck@gmail.com";</span>
+    <span class="no">git config --global user.name "Xavier Geerinck";</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Configure</span><span class="nv"> </span><span class="s">Git</span><span class="nv"> </span><span class="s">User'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cp</span><span class="nv"> </span><span class="s">-a</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)/.</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath)'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">Artifact</span><span class="nv"> </span><span class="s">Files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cleaned</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git add --all;</span>
+    <span class="no">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">Commit'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git checkout master;</span>
+    <span class="no">git merge azure-pipelines-build;</span>
+    <span class="no">git branch -d azure-pipelines-build;</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Merge</span><span class="nv"> </span><span class="s">azure-pipelines-build</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">master'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git push origin master;</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
+</code></pre></div></div>
+
+<h3 id="final-review-of-our-yaml-file">Final Review of our YAML file</h3>
+
+<p>If we correctly followed everything described above, we get the following:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">development</span>
+
+<span class="na">pool</span><span class="pi">:</span>
+  <span class="na">vmImage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Ubuntu-16.04'</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+<span class="c1"># https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;tabs=schema#checkout</span>
+<span class="pi">-</span> <span class="na">checkout</span><span class="pi">:</span> <span class="s">self</span>
+  <span class="na">persistCredentials</span><span class="pi">:</span> <span class="no">true</span> <span class="c1"># set to 'true' to leave the OAuth token in the Git config after the initial fetch</span>
+
+<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">UseRubyVersion@0</span> <span class="c1"># See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Use</span><span class="nv"> </span><span class="s">Ruby</span><span class="nv"> </span><span class="s">&gt;=</span><span class="nv"> </span><span class="s">2.5'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gem</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">bundler'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Bundler'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">install'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Dependencies'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">jekyll</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">-d</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Build</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">Static</span><span class="nv"> </span><span class="s">Site'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cd</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath);</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">master;</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">-b</span><span class="nv"> </span><span class="s">azure-pipelines-build'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Master'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git rm -rf .; git clean -fxd;</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Clean</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">git config --global user.email "xavier.geerinck@gmail.com";</span>
+    <span class="no">git config --global user.name "Xavier Geerinck";</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Configure</span><span class="nv"> </span><span class="s">Git</span><span class="nv"> </span><span class="s">User'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cp</span><span class="nv"> </span><span class="s">-a</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)/.</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath)'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">Artifact</span><span class="nv"> </span><span class="s">Files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cleaned</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git add --all;</span>
+    <span class="no">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">Commit'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git checkout master;</span>
+    <span class="no">git merge azure-pipelines-build;</span>
+    <span class="no">git branch -d azure-pipelines-build;</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Merge</span><span class="nv"> </span><span class="s">azure-pipelines-build</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">master'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
+    <span class="no">cd $(Build.Repository.LocalPath);</span>
+    <span class="no">git push origin master;</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
+
+<span class="c1"># The below will generate a .zip for us that we can download</span>
+<span class="c1"># - task: PublishBuildArtifacts@1</span>
+<span class="c1">#   displayName: 'Publish Artifact: _site'</span>
+<span class="c1">#   inputs:</span>
+<span class="c1">#     ArtifactName: _site</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market.</p>
+
+<p>Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s</p>
 
                 </div>
             </section>
@@ -335,7 +416,7 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                     <script>
                         var disqus_config = function () {
                             this.page.url = window.location.href;
-                            this.page.identifier = '/bellman-equations';
+                            this.page.identifier = '/deploying-gh-pages-with-azure-pipelines';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -369,7 +450,7 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                         <header class="read-next-card-header">
                             <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
                             
-                                <h3 class="read-next-card-header-title"><a href="/tag/ai/">Ai</a></h3>
+                                <h3 class="read-next-card-header-title"><a href="/tag/infrastructure/">Infrastructure</a></h3>
                             
                         </header>
                         <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
@@ -379,13 +460,7 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                 
                                 
                                   
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
+                                    
                                   
                                 
                                   
@@ -396,16 +471,7 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                     
                                         
                                         
-                                            <li><a href="/facebook-horizon">Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive</a></li>
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                            <li><a href="/rl-overview-terminology">Reinforcement Learning - Terminology</a></li>
+                                            <li><a href="/sql-server-2019-big-data-clusters">Creating a Big Data cluster with SQL Server 2019</a></li>
                                         
                                     
                                   
@@ -429,12 +495,17 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/openai-dotnet-core-sdk">Writing a C# SDK for the OpenAI Gym using .NET Core</a></li>
-                                        
-                                    
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
                                   
                                 
                                   
@@ -448,11 +519,6 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
-                                  
                                 
                                   
                                 
@@ -461,14 +527,9 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                   
                                 
                                   
-                                    
-                                  
                                 
                                   
-                                    
-                                        
-                                        
-                                    
+                                
                                   
                                 
                                   
@@ -479,12 +540,7 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                     
                                         
                                         
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
+                                            <li><a href="/connect-docker-wsl">Connect to your Docker Daemon through the Windows Subsystem for Linux (WSL)</a></li>
                                         
                                     
                                   
@@ -492,21 +548,16 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
                                 
                                   
                                 
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/kubernetes-locally-azure">Create a local kubernetes development cluster and scale it with the cloud</a></li>
+                                        
+                                    
                                   
                                 
                                   
@@ -596,9 +647,9 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                             </ul>
                         </div>
                         <footer class="read-next-card-footer">
-                            <a href="/tag/ai/">
+                            <a href="/tag/infrastructure/">
                                 
-                                    See all 9 posts  →
+                                    See all 3 posts  →
                                 
                             </a>
                         </footer>
@@ -611,33 +662,25 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/markov-property-chain-reward-decision">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/decision.png)"></div>
+            <a class="post-card-image-link" href="/quantum-an-introduction">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/quantum.jpeg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/markov-property-chain-reward-decision">
+            <a class="post-card-content-link" href="/quantum-an-introduction">
                 <header class="post-card-header">
                     
                         
                             
-                               <span class="post-card-tags">Ai</span>
-                            
-                        
-                            
-                               <span class="post-card-tags">Ai-ml</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Ai-rl</span>
+                                <span class="post-card-tags">Quantum</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">The Markov Property, Chain, Reward Process and Decision Process</h2>
+                    <h2 class="post-card-title">Quantum Computing - An Introduction</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>As seen in the previous article, we now know the general concept of Reinforcement Learning. But how do we actually get towards solving our third challenge: “Temporal Credit Assignment”? To solve this, we</p>
+                    <p>Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -659,50 +702,6 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/getting-started-with-dotnet-core">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/dotnet.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/getting-started-with-dotnet-core">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Coding</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Coding-dotnet</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Getting started with DotNet Core</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>I wanted to get started with Machine Learning, but rather than using Tensorflow, I wanted to take a different approach and use [ML.NET](https://github.com/dotnet/machinelearning). Now you might ask yourself: "Why use .NET if you</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/xavier/">Xavier Geerinck</a>
-                        </span>
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
         </div>
     </div>
 </aside>
@@ -718,23 +717,23 @@ Q^\pi(s, a) =& \mathbb{E}_{\pi}[G_t | S_t = s, A_t = a] \\
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Bellman Equations</div>
+    <div class="floating-header-title">Continuous Integration for Github Pages with Jekyll in the same repository</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Bellman+Equations&amp;url=https://thebillkidy.github.io/bellman-equations"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Continuous+Integration+for+Github+Pages+with+Jekyll+in+the+same+repository&amp;url=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/bellman-equations"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/bellman-equations&title=Bellman+Equations&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines&title=Continuous+Integration+for+Github+Pages+with+Jekyll+in+the+same+repository&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
