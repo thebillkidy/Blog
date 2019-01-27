@@ -100,6 +100,8 @@ Building our website is the most complex part, for steps 4 - 7 we get:
 - script: >
     cd $(Build.Repository.LocalPath);
     git rm -rf .; git clean -fxd;
+    touch .nojekyll;
+    touch README.md;
   displayName: 'Clean Build Branch'
 
 - script: >
@@ -163,6 +165,8 @@ steps:
 - script: >
     cd $(Build.Repository.LocalPath);
     git rm -rf .; git clean -fxd;
+    touch .nojekyll;
+    touch README.md;
   displayName: 'Clean Build Branch'
 
 - script: >
