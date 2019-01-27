@@ -34,7 +34,7 @@ steps:
 
 - script: >
     git config --global user.email "xavier.geerinck@gmail.com";
-    git config --global user.name "Xavier Geerinck";
+    git config --global user.name "thebillkidy";
   displayName: 'Configure Git User'
 
 - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)'
