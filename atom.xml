@@ -1,0 +1,1213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>My thoughts, tutorials and learnings</description>
+    <link>
+    </link>
+    
+      
+      <item>
+        <title>Quantum Computing - An Introduction</title>
+        
+          <description>&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 16 Jan 2019 10:00:00 +0000</pubDate>
+        <link>
+        /quantum-an-introduction</link>
+        <guid isPermaLink="true">/quantum-an-introduction</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Quantum Computing - A Linear Algebra Refresher</title>
+        
+          <description>&lt;p&gt;Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 16 Jan 2019 09:00:00 +0000</pubDate>
+        <link>
+        /quantum-linear-algebra</link>
+        <guid isPermaLink="true">/quantum-linear-algebra</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating a Big Data cluster with SQL Server 2019</title>
+        
+          <description>&lt;p&gt;SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool!&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 16 Jan 2019 09:00:00 +0000</pubDate>
+        <link>
+        /sql-server-2019-big-data-clusters</link>
+        <guid isPermaLink="true">/sql-server-2019-big-data-clusters</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sending emails in Databricks by using Scala</title>
+        
+          <description>&lt;p&gt;This is going to be quite a short post, but is more intended as reference :)&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 10 Jan 2019 09:00:00 +0000</pubDate>
+        <link>
+        /scala-email-sending</link>
+        <guid isPermaLink="true">/scala-email-sending</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Using secrets to hide passwords and other confidential information in Databricks</title>
+        
+          <description>&lt;p&gt;A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 10 Jan 2019 09:00:00 +0000</pubDate>
+        <link>
+        /databricks-using-secrets</link>
+        <guid isPermaLink="true">/databricks-using-secrets</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>The Achievers Mindset</title>
+        
+          <description>&lt;p&gt;When I tell people that I had 5 startups (yes, see &lt;a href=&quot;/projects&quot;&gt;my projects&lt;/a&gt;), worked for 2, graduated 1.5 years ago as a Industrial Engineer in Computer Science and straight out of school got hired at one of the largest tech firm, then people are always coming up with the same sentences: “You have too much time”, “Geek”, “Get a Hobby”, “Get a Girlfriend”. Well what if I would tell you that this is something easy to achieve? Something that everyone is able to do in life? Would you be interested in learning my story?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 04 Jan 2019 09:00:00 +0000</pubDate>
+        <link>
+        /the-achievers-mind</link>
+        <guid isPermaLink="true">/the-achievers-mind</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive</title>
+        
+          <description>&lt;p&gt;Facebook decided to open-source the platform that they created to solve end-to-end Reinforcement Learning problems at the scale they are working on. So of course I just had to try this ;) Let’s go through this together on how they installed it and what you should do to get this working yourself.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 02 Dec 2018 09:00:00 +0000</pubDate>
+        <link>
+        /facebook-horizon</link>
+        <guid isPermaLink="true">/facebook-horizon</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Reinforcement Learning - Terminology</title>
+        
+          <description>&lt;p&gt;Tags:     Machine LearningReinforcement LearningQ LearningArtificial IntelligenceMonte Carlo&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 29 Nov 2018 09:00:00 +0000</pubDate>
+        <link>
+        /rl-overview-terminology</link>
+        <guid isPermaLink="true">/rl-overview-terminology</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Building a Minecraft Puppet Scanner with Event Hub, a NFC 522 Reader and a Raspberry PI</title>
+        
+          <description>&lt;p&gt;In Belgium we every year celebrate the coming of “Sinterklaas” on the 6th of December, a celebration for children where this mythologic figure delivers presents for all the children that behaved well that year. (see: https://en.wikipedia.org/wiki/Sinterklaas for more information). To follow this tradition, many companies hold internal events where children of the employees are invited to participate in all kinds of events. I was asked to participate in one of these events and come up with a workshop for children of all ranges - being divided in 2 groups (the very young ones, and the somewhat older ones).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 25 Nov 2018 09:00:00 +0000</pubDate>
+        <link>
+        /minecraft-rfc-scanner</link>
+        <guid isPermaLink="true">/minecraft-rfc-scanner</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Big Data, the why, how and what - A thought Process and Architecture</title>
+        
+          <description>&lt;p&gt;One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it, to extract insights that will allow them to stay relevant in the ever faster evolving world of today.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 10 Oct 2018 09:00:00 +0000</pubDate>
+        <link>
+        /big-data-architectures</link>
+        <guid isPermaLink="true">/big-data-architectures</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Getting Tweets of multiple people on Twitter</title>
+        
+          <description>&lt;p&gt;For a new project of mine, I wanted to get the different tweets of multiple people at once and save those as a CSV and JSON for further processing. But how can we do this easily in just a couple of lines?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 20 Sep 2018 09:00:00 +0000</pubDate>
+        <link>
+        /getting-tweets</link>
+        <guid isPermaLink="true">/getting-tweets</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How-To Visualize Metrics with Grafana and Chronograf by using InfluxDB</title>
+        
+          <description>&lt;p&gt;Visualizing is an important part of working with data. Here I will walk you step by step on how you can create a working Visualization dashboard with Grafana and Chronograf which queries events through InfluxDB.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 03 Sep 2018 09:00:00 +0000</pubDate>
+        <link>
+        /visualize-metrics-with-grafana-and-influxdb</link>
+        <guid isPermaLink="true">/visualize-metrics-with-grafana-and-influxdb</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Building a real-time streaming dashboard with Spark, Grafana, Chronograf and InfluxDB</title>
+        
+          <description>&lt;p&gt;When you work with the Internet of Things (IoT) or other real-time data sources, there is one things that keeps bothering you, and that’s a real-time visualization dashboard. So in this post, I will explain how you can set up a pipeline that allows you to visualize through 2 popular visualization tools: Chronograf and Grafana.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 03 Sep 2018 09:00:00 +0000</pubDate>
+        <link>
+        /real-time-streaming-dashboard</link>
+        <guid isPermaLink="true">/real-time-streaming-dashboard</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Lessons learned after being at Microsoft for 1 year</title>
+        
+          <description>&lt;p&gt;Today marks my 1st anniversary of working as a Cloud Solution Architect at Microsoft, and wow what an exciting time it has been! But before I go deeper into my experiences and lessons learned, I first would like to start by thanking some people without whom all of this would never have been possible.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 30 Aug 2018 09:00:00 +0000</pubDate>
+        <link>
+        /lessons-learned-after-1-year-at-microsoft</link>
+        <guid isPermaLink="true">/lessons-learned-after-1-year-at-microsoft</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Predicting Instagram Pictures Likes and Comments with .NET Core and ML.NET</title>
+        
+          <description>&lt;p&gt;For a new fun Project, I wanted to create an Artificial Intelligence model that will allow me to predict the comments and likes of new pictures that a user can post on Instagram based on their own historical data.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 24 Aug 2018 09:00:00 +0000</pubDate>
+        <link>
+        /predicting-instagram-with-dotnet-ml</link>
+        <guid isPermaLink="true">/predicting-instagram-with-dotnet-ml</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating a throttled REST API Consumer</title>
+        
+          <description>&lt;p&gt;A common thing in Node.js is to create a REST API consumer that will perform a REST call. Due to the rise of many REST APIs, you might find yourself in the situation that you want to execute 1000s of calls (for example: Azure Cognitive Services).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 22 Aug 2018 09:00:00 +0000</pubDate>
+        <link>
+        /throttling-api-calls</link>
+        <guid isPermaLink="true">/throttling-api-calls</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How To Bind C++ Code with Dotnet Core</title>
+        
+          <description>&lt;p&gt;While you are working with compiled code, you often find yourself in the situation that every bit of performance count (just think about GPU intensive operations or even game engines). For this reason, we often turn back to coding C++ coding to be as low-level as possible (seeing that writing pure ASM is just too hard).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 17 Aug 2018 09:00:00 +0000</pubDate>
+        <link>
+        /binding-cpp-with-dotnet-core</link>
+        <guid isPermaLink="true">/binding-cpp-with-dotnet-core</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Writing a C# SDK for the OpenAI Gym using .NET Core</title>
+        
+          <description>&lt;p&gt;When we take a look at the OpenAI Gym on Github (&lt;a href=&quot;https://github.com/openai/gym-http-api&quot;&gt;https://github.com/openai/gym-http-api&lt;/a&gt;), we see that it does not have bindings available for C#. Now since I am a firm believer of .NET Core and what it brings to developer ecosystem, I decided to write one myself (&lt;a href=&quot;https://github.com/thebillkidy/dotnetcore-sdk-openai&quot;&gt;https://github.com/thebillkidy/dotnetcore-sdk-openai&lt;/a&gt;). Using what I learned in my previous blog post &lt;a href=&quot;/howto-write-a-sdk-in-dotnet-core&quot;&gt;How to write a SDK in dotnet Core&lt;/a&gt; I created one that looks like this for the main method:&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 10 Aug 2018 10:00:00 +0000</pubDate>
+        <link>
+        /openai-dotnet-core-sdk</link>
+        <guid isPermaLink="true">/openai-dotnet-core-sdk</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How-To write a C# SDK in .NET Core</title>
+        
+          <description>&lt;p&gt;For interacting with OpenAI through C#, I decided to write one myself. But how do we get started writing a SDK?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 10 Aug 2018 09:00:00 +0000</pubDate>
+        <link>
+        /howto-write-a-sdk-in-dotnet-core</link>
+        <guid isPermaLink="true">/howto-write-a-sdk-in-dotnet-core</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How to get and update your profile picture in Active Directory (AD)</title>
+        
+          <description>&lt;p&gt;Updating your Profile Picture in Active Directory is often an annoying process with not enough tools available (or working) to do so. Luckily there are some handy powershell commands that we can use to update this quickly.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 30 Jul 2018 09:00:00 +0000</pubDate>
+        <link>
+        /getting-and-setting-profile-picture-in-ad</link>
+        <guid isPermaLink="true">/getting-and-setting-profile-picture-in-ad</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>So you want to become a leader? Review my lessons learned from the top leaders and roles in technology</title>
+        
+          <description>&lt;p&gt;While working at Microsoft as a Cloud Solution Architect in Data Platform, one of the things we constantly thrive for is improving ourselves and our customers by spreading our energy and passion. A way to improve this is by focusing on our growth path to see which skills we lack and how we can improve those. One of those skills for me is &lt;strong&gt;leadership, and how we can grow towards managing a team and reaching new heights&lt;/strong&gt;. Just think of managing a team of Architect, managing a Product team or even managing the technical strategy of Microsoft (=CTO).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 06 Jul 2018 09:00:00 +0000</pubDate>
+        <link>
+        /learnings-about-leadership-analyzing-job-postings</link>
+        <guid isPermaLink="true">/learnings-about-leadership-analyzing-job-postings</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Abusing the Bing Search API to get access to Data and Visualize it</title>
+        
+          <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 04 Jul 2018 09:00:00 +0000</pubDate>
+        <link>
+        /abusing-crawler-api</link>
+        <guid isPermaLink="true">/abusing-crawler-api</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Getting started with Xamarin Forms v3.0</title>
+        
+          <description>&lt;p&gt;Xamarin Forms has been updated to Version 3 on the 7th of May. If you are not aware of Xamarin.Forms, it is a cross-platform mobile development technology allowing you to write code once and run it on both Android and iOS.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 16 Jun 2018 09:00:00 +0000</pubDate>
+        <link>
+        /getting-started-with-xamarin-forms</link>
+        <guid isPermaLink="true">/getting-started-with-xamarin-forms</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>OpenAI Gym Problems - Solving the CartPole Gym</title>
+        
+          <description>&lt;p&gt;In a previous post we set-up the OpenAI Gym to interface with our Javascript environment. Let’s now look at how we can use this interface to run the CartPole example and solve it with the theory that we learned in previous blog posts.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 10 Jun 2018 09:00:00 +0000</pubDate>
+        <link>
+        /openai-cartpole</link>
+        <guid isPermaLink="true">/openai-cartpole</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Dividing numbers into equal buckets or bins through Bucketization</title>
+        
+          <description>&lt;p&gt;A common practice in Reinforcement Learning is to go from a continuous space towards a discrete space. What does this mean? Take for example a range of numbers between $]-3, 3[$, if we want to represent all the numbers that fit in this range as a state then we would have $\infty$ numbers being represented or $\infty$ states.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 07 Jun 2018 09:00:00 +0000</pubDate>
+        <link>
+        /creating-a-bucketing-function</link>
+        <guid isPermaLink="true">/creating-a-bucketing-function</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Getting started with Azure Functions</title>
+        
+          <description>&lt;p&gt;So I wanted to write a function for a customer that would trigger a bot. What I thought would be an easy process, turned out to be a lot of debugging and tuning to get everything working. Which is why I decided to write this post to help others get started with Azure Functions.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 28 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /getting-started-with-azure-functions</link>
+        <guid isPermaLink="true">/getting-started-with-azure-functions</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Getting started with DotNet Core</title>
+        
+          <description>&lt;p&gt;I wanted to get started with Machine Learning, but rather than using Tensorflow, I wanted to take a different approach and use &lt;a href=&quot;https://github.com/dotnet/machinelearning&quot;&gt;ML.NET&lt;/a&gt;. Now you might ask yourself: “Why use .NET if you have something such as Tensorflow in Python?”. Well, my preference goes towards languages containing brackets (C#, JS, …) rather than having pure identations (Python), making me want to try .NET Core for this.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 27 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /getting-started-with-dotnet-core</link>
+        <guid isPermaLink="true">/getting-started-with-dotnet-core</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Bellman Equations</title>
+        
+          <description>&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Thu, 24 May 2018 23:00:00 +0000</pubDate>
+        <link>
+        /bellman-equations</link>
+        <guid isPermaLink="true">/bellman-equations</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>The Markov Property, Chain, Reward Process and Decision Process</title>
+        
+          <description>&lt;p&gt;As seen in the previous article, we now know the general concept of Reinforcement Learning. But how do we actually get towards &lt;strong&gt;solving our third challenge: “Temporal Credit Assignment”&lt;/strong&gt;?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 20 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /markov-property-chain-reward-decision</link>
+        <guid isPermaLink="true">/markov-property-chain-reward-decision</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Ordinary Least Squares (OLS)</title>
+        
+          <description>&lt;p&gt;Let’s start by defining the goal of our algorithm, what do we want to achieve with our OLS algorithm? Well if we have data points in a region (or XY-axis), then we want to be able to find an equation that fits as closely to these points as possible. We thus want to &lt;strong&gt;minimize the sum of the squared residuals&lt;/strong&gt;. Just take a look at the picture below to see an illustration of this.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 17 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /ordinary-least-squares</link>
+        <guid isPermaLink="true">/ordinary-least-squares</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Getting AMQP to work in your browser</title>
+        
+          <description>&lt;p&gt;For one of my customers, I had to be able to connect to an EventHub through the browser, so how did I do this? So we know that EventHub works with the AMQP protocol, so what if we could get this working in the frontend?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 08 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /amqp-in-browser</link>
+        <guid isPermaLink="true">/amqp-in-browser</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How to run OpenAI Gym on Windows and with Javascript</title>
+        
+          <description>&lt;p&gt;Reinforcement learning does not only requires a lot of knowledge about the subject to get started, it also requires a lot of tools to help you test your ideas. Since this process is quite lengthy and hard, OpenAI helped us with this. By creating something called the OpenAI Gym, they allow you to get started developing and comparing reinforcement learning algorithms in an easy to use way.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 07 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /running-openai-gym-on-windows-and-js</link>
+        <guid isPermaLink="true">/running-openai-gym-on-windows-and-js</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Multi-armed bandit framework</title>
+        
+          <description>&lt;p&gt;To start solving the problem of exploration, we are going to introduce the &lt;strong&gt;Multi-armed bandits framework&lt;/strong&gt;. But what exactly does this solve? Just think that you are executing a clinical trial with 4 pills. You know that the pills have a survival rate but you don’t know what that survival rate is. Your goal: find the pill with the highest chance of survival in X trials.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 03 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /n-arms-bandit-framework</link>
+        <guid isPermaLink="true">/n-arms-bandit-framework</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Connect to your Docker Daemon through the Windows Subsystem for Linux (WSL)</title>
+        
+          <description>&lt;p&gt;Do you have Windows installed and you love using the Linux Subsystem on it? (commonly known as WSL) Well let me tell you the steps to achieve this.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 01 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /connect-docker-wsl</link>
+        <guid isPermaLink="true">/connect-docker-wsl</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>An introduction to Reinforcement Learning (RL)</title>
+        
+          <description>&lt;p&gt;So as we learned in the &lt;a href=&quot;/ml-intro&quot;&gt;intro to Machine Learning&lt;/a&gt;, Reinforcement Learning is this technique where we have an agent who will take specific actions on an environment to try to reach an optimal state. But how can we illustrate this? Take a look at the following picture.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 01 May 2018 09:00:00 +0000</pubDate>
+        <link>
+        /rl-intro</link>
+        <guid isPermaLink="true">/rl-intro</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>An introduction to Machine Learning (ML)</title>
+        
+          <description>&lt;p&gt;Every few decennia there is a new cool kid around the block that makes an impact on the current world, an impact that is so big that we will have to adapt. Starting with the introduction of mainframe computing in 1950, the pc in 1975, the internet in 1980 and the introduction of mobile phones in 2007, towards the current age of Big Data which started in 2012.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 29 Apr 2018 09:00:00 +0000</pubDate>
+        <link>
+        /ml-intro</link>
+        <guid isPermaLink="true">/ml-intro</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”</title>
+        
+          <description>&lt;p&gt;I recently started at Microsoft, where I joined at the perfect moment. Microsoft has been transforming under the lead of our new CEO Satya Nadella. Who brought a new fresh breeze of air through the company, with as goal of “Hitting Refresh” and preparing us for the years to come.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 27 Apr 2018 12:40:00 +0000</pubDate>
+        <link>
+        /key-takeaways-hit-refresh</link>
+        <guid isPermaLink="true">/key-takeaways-hit-refresh</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Create a local kubernetes development cluster and scale it with the cloud</title>
+        
+          <description>&lt;p&gt;So you want to create a Kubernetes cluster to start testing your docker deployment? But you would like to test this locally first? Well, then this post is for you. Here we will go in depth on how you can set up your local development environment, and then port it to the cloud when you need the scale.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 18 Apr 2018 14:11:00 +0000</pubDate>
+        <link>
+        /kubernetes-locally-azure</link>
+        <guid isPermaLink="true">/kubernetes-locally-azure</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating a culture of growth and ambition, Part 2 - Motivation</title>
+        
+          <description>&lt;p&gt;So we learned all about starting our culture, and the base values that a influential leader should have (see FICEL, talked about in &lt;a href=&quot;../culture-creation-part1-leadership&quot;&gt;Part 1&lt;/a&gt;). But once we are this leader, how do we create a growth culture? Well this is all about &lt;strong&gt;Motivation&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 13 Apr 2018 17:52:00 +0000</pubDate>
+        <link>
+        /culture-creation-part2-motivation</link>
+        <guid isPermaLink="true">/culture-creation-part2-motivation</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating a culture of growth and ambition, Part 1 - Leadership</title>
+        
+          <description>&lt;p&gt;Did you ever lay awake in your bed, wondering what to do with your life? Wondering how you can make an impact in the society of today? Wondering how you can make people follow you? Well, if you are thinking about this, you belong to a group of people often called “Influential Leaders”.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 11 Apr 2018 22:52:00 +0000</pubDate>
+        <link>
+        /culture-creation-part1-leadership</link>
+        <guid isPermaLink="true">/culture-creation-part1-leadership</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Visual Studio Android Emulator Debugging</title>
+        
+          <description>&lt;p&gt;So you decided to get into Mobile development? Well your best bet on windows currently is the &lt;strong&gt;Visual Studio Emulator for Android Apps&lt;/strong&gt; by Microsoft (https://www.visualstudio.com/vs/msft-android-emulator/). But you may run into some trouble when using it. This blog post consists out of the most commonly encountered problems with the Visual Studio Emulator for Android Apps, and how you could solve them.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 13 Jan 2018 09:00:00 +0000</pubDate>
+        <link>
+        /visual-studio-android-emulator-debugging</link>
+        <guid isPermaLink="true">/visual-studio-android-emulator-debugging</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How-To Fix slow internet speed on a Realtek adapter with Hyper-V machines</title>
+        
+          <description>&lt;p&gt;When working with the awesome Visual Studio Android Emulator, I encountered the following error:&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 12 Jan 2018 20:13:00 +0000</pubDate>
+        <link>
+        /fix-slow-internet-hyperv-realtek</link>
+        <guid isPermaLink="true">/fix-slow-internet-hyperv-realtek</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>The MERGE Stack</title>
+        
+          <description>&lt;p&gt;https://github.com/thebillkidy/MERGE-Stack&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 04 Apr 2017 15:33:00 +0000</pubDate>
+        <link>
+        /merge-stack</link>
+        <guid isPermaLink="true">/merge-stack</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Todo Application Tutorial React JS - Splitting it up (part 3)</title>
+        
+          <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:02 +0000</pubDate>
+        <link>
+        /react-part-3</link>
+        <guid isPermaLink="true">/react-part-3</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Todo Application Tutorial React JS - Splitting it up (part 2)</title>
+        
+          <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:01 +0000</pubDate>
+        <link>
+        /react-part-2</link>
+        <guid isPermaLink="true">/react-part-2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Bridge Year Experience - University Ghent</title>
+        
+          <description>&lt;p&gt;September last year was one of the most influential times of my life. Being a newly graduated student at the Karel De Grote College in Antwerp I had several choices. Start a company from the project that I had been building, continue my educations and go for the bridge year so that I could do the master year afterwards or start working. Seeing that I was 20 back then I chose for continuing my education and go for my master of science with a major in Computer Science at the University Of Ghent. I believed that this was key to evolving my theoretical thinking skills, and to be able to solve bigger problems than the ones we were taught in college. It would also provide me more opportunities with the ability to get promoted faster later on.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:00 +0000</pubDate>
+        <link>
+        /bridge-year-ugent</link>
+        <guid isPermaLink="true">/bridge-year-ugent</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Todo Application Tutorial React JS - Splitting it up (part 1)</title>
+        
+          <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Wed, 23 Sep 2015 09:12:00 +0000</pubDate>
+        <link>
+        /react-part-1</link>
+        <guid isPermaLink="true">/react-part-1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Spending the summer at a Startup</title>
+        
+          <description>&lt;p&gt;This summer, just after finishing my exams for my bridge year, I decided to do something else this summer. After thinking about it for a long time, I thought, why not instead of working at an already established company, work for a startup instead? This is when I started looking out for startups that were in need of a developer to create their Minimum Viable Product (MVP).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 04 Sep 2015 10:16:00 +0000</pubDate>
+        <link>
+        /spending-the-summer-at-a-startup</link>
+        <guid isPermaLink="true">/spending-the-summer-at-a-startup</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Finding smallest and biggest number multithreaded in C++</title>
+        
+          <description>&lt;p&gt;The goal of this exercise is to create a program that generates a table with random elements in it. Once we created this table we have to start 2 threads. 1 thread will find the biggest number and the other will find the smallest number. We will then send this to a result and print these 2 numbers.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 18:41:00 +0000</pubDate>
+        <link>
+        /finding-smallest-biggest-in-c-multithreaded</link>
+        <guid isPermaLink="true">/finding-smallest-biggest-in-c-multithreaded</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Simulating mkdir -p in bash</title>
+        
+          <description>&lt;p&gt;When we are working with systems that do not support special cases then we need to simulate. That is why it is handy to create different simulations of already existing solutions.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 18:41:00 +0000</pubDate>
+        <link>
+        /simulating-mkdir-p-in-bash</link>
+        <guid isPermaLink="true">/simulating-mkdir-p-in-bash</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Feedients Development Environment</title>
+        
+          <description>&lt;h2 id=&quot;why-did-we-use-this-development-environment&quot;&gt;Why did we use this development environment?&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 18:41:00 +0000</pubDate>
+        <link>
+        /feedients-development-environment</link>
+        <guid isPermaLink="true">/feedients-development-environment</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Solving permutations with Heap's Algorithm in Javascript</title>
+        
+          <description>&lt;p&gt;A friend of mine had just gotten the question to find every combination for a given array in [1, 2, 3].
+When analyzing this question I found out that this is actually a simple permutation that has to be generated with the use of Javascript. Lucky for me we had just had the course Discrete math in school so we saw some algorithms that could do this. The algorithm that I used for this is &lt;strong&gt;Heap’s algorithm&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:13 +0000</pubDate>
+        <link>
+        /solve-permutation-heaps</link>
+        <guid isPermaLink="true">/solve-permutation-heaps</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Radix Sort</title>
+        
+          <description>&lt;p&gt;Radix sort is a sorting algorithm that is different than the traditional algoritms that we encountered already. It sorts data based on the integers their individual digits instead of looking at the complete value.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:12 +0000</pubDate>
+        <link>
+        /radix-sort</link>
+        <guid isPermaLink="true">/radix-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Prim's Algorithm</title>
+        
+          <description>&lt;p&gt;Prim’s algorithm solves problems such as finding the Minimum Spanning Tree (MST) of a graph. With a MST we mean the solution set that connects every node of a graph together with the least weight.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:11 +0000</pubDate>
+        <link>
+        /prims</link>
+        <guid isPermaLink="true">/prims</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Inverting a binary tree in C++</title>
+        
+          <description>&lt;p&gt;So not so long ago (10th of June) &lt;a href=&quot;https://twitter.com/mxcl&quot;&gt;Max Howell&lt;/a&gt; tweeted a post stating:&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:10 +0000</pubDate>
+        <link>
+        /inverting-binary-tree-cpp</link>
+        <guid isPermaLink="true">/inverting-binary-tree-cpp</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Introduction to Algorithms</title>
+        
+          <description>&lt;p&gt;In the last semester of school we are learning about datastructures and algorithms. Because this is a very popular subject for companies, I have decided to write articles about it. They will be numbered from easy to hard so that you are able to learn the most critical sorting algorithms first. Also please note that all the code written here has been written by my (unless specified otherwise), because of this there might be some bugs, please contact me if you find any.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:09 +0000</pubDate>
+        <link>
+        /introduction</link>
+        <guid isPermaLink="true">/introduction</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Floyd Warshall Algorithm</title>
+        
+          <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:08 +0000</pubDate>
+        <link>
+        /floyd-warshall</link>
+        <guid isPermaLink="true">/floyd-warshall</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Depth First Search (DFS)</title>
+        
+          <description>&lt;p&gt;Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as &lt;a href=&quot;http://desple.com/post/118014845597/solving-a-maze-with-perl&quot;&gt;maze solving&lt;/a&gt;, maze generation, …&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:07 +0000</pubDate>
+        <link>
+        /depth-first-search-dfs</link>
+        <guid isPermaLink="true">/depth-first-search-dfs</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Breadth First Search (BFS)</title>
+        
+          <description>&lt;p&gt;Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as &lt;a href=&quot;http://desple.com/post/118014845597/solving-a-maze-with-perl&quot;&gt;maze solving&lt;/a&gt;, maze generation, …&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:06 +0000</pubDate>
+        <link>
+        /breadth-first-search-bfs</link>
+        <guid isPermaLink="true">/breadth-first-search-bfs</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Shell Sort</title>
+        
+          <description>&lt;p&gt;Shell Sort is a more refined version of insertion sort. This algorithm will change our array from completely random unsorted data to partially sorted data so that insertion sort may work faster.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:05 +0000</pubDate>
+        <link>
+        /shell-sort</link>
+        <guid isPermaLink="true">/shell-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Selection Sort</title>
+        
+          <description>&lt;h1 id=&quot;selection-sort&quot;&gt;Selection Sort&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:04 +0000</pubDate>
+        <link>
+        /selection-sort</link>
+        <guid isPermaLink="true">/selection-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Quick Sort</title>
+        
+          <description>&lt;p&gt;QuickSort is also a &lt;strong&gt;Divide And Conquer&lt;/strong&gt; algorithm with a performance of $O(n * log(n))$, however in the worst case this becomes $O(n^2)$.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:03 +0000</pubDate>
+        <link>
+        /quick-sort</link>
+        <guid isPermaLink="true">/quick-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Merge Sort</title>
+        
+          <description>&lt;p&gt;Merge Sort is a comparison algorithm that tries to sort the dataset by a &lt;strong&gt;Divide And Conquer&lt;/strong&gt; method. The performance of this algorithm is $O(n*log(n))$.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:02 +0000</pubDate>
+        <link>
+        /merge-sort</link>
+        <guid isPermaLink="true">/merge-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Insertion Sort</title>
+        
+          <description>&lt;p&gt;Insertion sort is the core algorithm to know, it is also the easiest to understand and implement. The disadvantages however are that it is horribly slow. The recommendation is to use this algorithm when you are sorting really small tables (&amp;lt; 10). Insertion Sort is also used as the base for more advanced algorithms (merge-sort, quick-sort).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:01 +0000</pubDate>
+        <link>
+        /insertion-sort</link>
+        <guid isPermaLink="true">/insertion-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Sorting Algorithm - Heap Sort</title>
+        
+          <description>&lt;h1 id=&quot;heap-sort&quot;&gt;Heap Sort&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 13:00:00 +0000</pubDate>
+        <link>
+        /heap-sort</link>
+        <guid isPermaLink="true">/heap-sort</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Solving a Sudoku with Discrete Math</title>
+        
+          <description>&lt;p&gt;Solving a Sudoku is not an easy task, not for humans and even a computer can struggle with it if it has to go through each combination and try brute forcing the puzzle without any clue.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:03 +0000</pubDate>
+        <link>
+        /solving-a-sudoku</link>
+        <guid isPermaLink="true">/solving-a-sudoku</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Fields - Prime Fields</title>
+        
+          <description>&lt;p&gt;This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:02 +0000</pubDate>
+        <link>
+        /prime-fields</link>
+        <guid isPermaLink="true">/prime-fields</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Fields - Galois Fields</title>
+        
+          <description>&lt;h1 id=&quot;1-galois-fields&quot;&gt;1 Galois Fields&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:01 +0000</pubDate>
+        <link>
+        /galois-fields</link>
+        <guid isPermaLink="true">/galois-fields</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Fields - Elliptical Curves Over Finite Fields</title>
+        
+          <description>&lt;h2 id=&quot;11-weierstrass-equations&quot;&gt;1.1 Weierstrass Equations&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 12:00:00 +0000</pubDate>
+        <link>
+        /elliptical-curves-over-finite-fields</link>
+        <guid isPermaLink="true">/elliptical-curves-over-finite-fields</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Max number with pipes in C++ and Unix</title>
+        
+          <description>&lt;p&gt;Let’s say we have x children, these x children all generate a number and give this to the parent. The parent now finds the highest number and sends the children the process id of the winning child. If the winning child recognises itself then it prints that it is the winner, else they print the winning process id.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:03 +0000</pubDate>
+        <link>
+        /max-number-with-pipes-cpp-unix</link>
+        <guid isPermaLink="true">/max-number-with-pipes-cpp-unix</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating a LinkedList with C++</title>
+        
+          <description>&lt;p&gt;Linked Lists are one of the fundamental data structures. The main usage of a Linked List is when constant insertion and deletion time is required, or when a dynamic list that can grow and shrink over time is needed.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:02 +0000</pubDate>
+        <link>
+        /creating-a-linkedlist</link>
+        <guid isPermaLink="true">/creating-a-linkedlist</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>How to benchmark Reading 10MB in C++</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;This article is based on a vagrant Ubuntu system with an SSD so you might encounter different results.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:01 +0000</pubDate>
+        <link>
+        /benchmarking-reading-10mb-cpp</link>
+        <guid isPermaLink="true">/benchmarking-reading-10mb-cpp</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Basic OOP with C++</title>
+        
+          <description>&lt;p&gt;This article is going to explain 1 example of an Object Oriented Program for C++.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 11:00:00 +0000</pubDate>
+        <link>
+        /basic-oop</link>
+        <guid isPermaLink="true">/basic-oop</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Recursion</title>
+        
+          <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:05 +0000</pubDate>
+        <link>
+        /sql-recursion</link>
+        <guid isPermaLink="true">/sql-recursion</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Part 5 - Common Table Expressions</title>
+        
+          <description>&lt;p&gt;CTE’s (Common Table Expressions) are mostly used when creating recursive queries, creating temporary views (instead of subqueries).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:04 +0000</pubDate>
+        <link>
+        /sql-part-5-cte</link>
+        <guid isPermaLink="true">/sql-part-5-cte</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Part 4 - JOIN + Simulating Functions</title>
+        
+          <description>&lt;p&gt;When creating JOIN queries in SQL we have to realize that we are going to combine every result from the result set with the result set itself. This means that we are going to create a new result set that is the size of the power of 2 of our original result set. (So if we have 1468 records, and we join it with itself, then we will get 2155024 records = 1468^2)&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:03 +0000</pubDate>
+        <link>
+        /sql-part-4-join</link>
+        <guid isPermaLink="true">/sql-part-4-join</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Part 3 - Analytical Functions (Ranking, Rows, Over, ...)</title>
+        
+          <description>&lt;h2 id=&quot;analytical-functions&quot;&gt;Analytical Functions&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:02 +0000</pubDate>
+        <link>
+        /sql-part-3-analytical</link>
+        <guid isPermaLink="true">/sql-part-3-analytical</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Part 2 - Aggregate Functions (GROUP BY, CUBE, ROLLUP, ...)</title>
+        
+          <description>&lt;h2 id=&quot;aggregate-functions&quot;&gt;Aggregate Functions&lt;/h2&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:01 +0000</pubDate>
+        <link>
+        /sql-part-2-aggregate</link>
+        <guid isPermaLink="true">/sql-part-2-aggregate</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SQL - Part 1 - Advanced CASE Selecting</title>
+        
+          <description>&lt;p&gt;While I was studying the course Databases at the University of Ghent, we encountered some special queries that we were not being thaught in the Professional Bachelor course. This is why I tried to summarise those queries here for everyone to learn from.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 10:00:00 +0000</pubDate>
+        <link>
+        /sql-part-1-case</link>
+        <guid isPermaLink="true">/sql-part-1-case</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Solving a maze with Perl</title>
+        
+          <description>&lt;p&gt;Mazes are really famous puzzles where the goal is to find the exit starting from an entrance. We can see these kind of puzzles as a labyrinth. When we found the solution we then draw over them to mark the path that we have to find.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 05 Jun 2015 09:00:00 +0000</pubDate>
+        <link>
+        /perl-solving-a-maze</link>
+        <guid isPermaLink="true">/perl-solving-a-maze</guid>
+      </item>
+      
+    
+  </channel>
+</rss>

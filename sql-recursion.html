@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>SQL - Recursion</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/sql-recursion" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SQL - Recursion" />
+    <meta property="og:description" content="Introduction Recursion in SQL is a lesser known technique, this technique is just like we expect as it would work in any developing language such as C, Javascript, …, it allows us to create a query that will be able to recursively get and process data to find a result." />
+    <meta property="og:url" content="/sql-recursion" />
+    <meta property="og:image" content="/assets/images/covers/database.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2015-06-05T10:00:05+00:00" />
+    <meta property="article:modified_time" content="2015-06-05T10:00:05+00:00" />
+    <meta property="article:tag" content="Sql" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SQL - Recursion" />
+    <meta name="twitter:description" content="Introduction Recursion in SQL is a lesser known technique, this technique is just like we expect as it would work in any developing language such as C, Javascript, …, it allows us to create a query that will be able to recursively get and process data to find a result." />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/database.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Sql" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/sql-recursion",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/database.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/sql-recursion"
+    },
+    "description": "Introduction Recursion in SQL is a lesser known technique, this technique is just like we expect as it would work in any developing language such as C, Javascript, …, it allows us to create a query that will be able to recursively get and process data to find a result."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="SQL - Recursion" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-sql ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/sql/'>SQL</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/database.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">SQL - Recursion</h1>
+                    <h1 id="introduction">Introduction</h1>
+
+<p>Recursion in SQL is a lesser known technique, this technique is just like we expect as it would work in any developing language such as C, Javascript, …, it allows us to create a query that will be able to recursively get and process data to find a result. Think of these examples as possible use cases:</p>
+
+<ul>
+  <li>creating a calendar</li>
+  <li>finding the dates of easter</li>
+  <li>finding the shortest travel route through a country</li>
+  <li>Counting days</li>
+</ul>
+
+<p>and many many more. Also please note that in this article I will make use of the <strong>Oracle DB</strong> the keywords used here are different then in MSSQL but the techniques are the same.</p>
+
+<h1 id="keywords">Keywords</h1>
+
+<p>Before we can start with learning how to write recursive queries, we first need to know the keywords that we can use.</p>
+
+<h3 id="start-with-connect-by">(START WITH) CONNECT BY</h3>
+
+<p>The definition is: (START WITH condition_1) CONNECT BY condition_2 where the START WITH clause is optional.</p>
+
+<p><strong>START WITH</strong> specifies rows that are the root(s) of the hierarchical query.</p>
+
+<p><strong>CONNECT BY</strong> defines the relationship between the parent rows and the child rows of the hierarchy. it must include the keyword PRIOR when referring to the parent row.</p>
+
+<p>We then have some special cases of the CONNECT BY keyword:</p>
+
+<ul>
+  <li><strong>CONNECT_BY_PATH</strong>: This will merge the results together of a CONNECT BY with the given delimiter. Example: connect_by_path(country, ‘;’)</li>
+  <li><strong>CONNECT_BY_ROOT</strong>: Unary operator only valid in hierarchical queries, this returns the column value using data from the root row when a column is qualified with this operator.</li>
+  <li><strong>CONNECT_BY_ISLEAF</strong>: pseudocolumn that returns 1 when the current row is a leaf of the tree defined by the CONNECT_BY condition, else it returns 0</li>
+  <li><strong>CONNECT_BY_ISCYCLE</strong>: pseudocolumn that returns 1 if the current row has a child which is also its ancestor, else it returns 0 (Note: You have to use the NOCYCLE parameter of the CONNECT_BY clause to use this)</li>
+</ul>
+
+<h3 id="level">level</h3>
+
+<p>level is a pseudocolumn in Oracle that can be used in 2 different ways:</p>
+
+<ol>
+  <li>Use it as the keyword for identifying the hierarchy level in a numeric format. 1 = root row, 2 = child of a root, …</li>
+  <li>The second way is to use it as a ‘n’ row generator, this will increment level for each time the query is looped.</li>
+</ol>
+
+<h3 id="dual">DUAL</h3>
+
+<p>Not a table needed in recursion, but used in this article. We use this so we can create data without the need of an actual table.</p>
+
+<h1 id="basic-queries">Basic queries</h1>
+
+<h2 id="creating-a-simple-counter">Creating a simple counter</h2>
+
+<p>the purpose of this simple exercise is to get to know the structure and the base keywords of writing recursive queries. That’s why it is always useful to start with one of the most basic queries out there.</p>
+
+<p>We want to be able to create a counter recursively that will count from 0 to 10 by just using SQL. The result would then be 11 rows stating 0 to 10.</p>
+
+<p>To write this query we need to think of how recursion works properly. This works by writing a SELECT clause that will select data, if we want to select data from our recursive part then we need to use the keyword <strong>level</strong> this keyword can as explained before be used as a ‘n’ row generator.</p>
+
+<p>Then after we created the SELECT we will say: “Run this query as long as it is smaller than 12” (12 because 11 - 1 = 10, which is the last value we need). We do this by writing CONNECT BY level &lt;= 11. This will now loop the query as long as level is not 11, it will then increment level every time the query is looped.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">level</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">level</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="finding-all-remaining-days-of-this-month">Finding all remaining days of this month</h2>
+
+<p>Almost the same as the previous query, we select the current date, we add the level column to it and we substract with 1 so that we can get level as 0 (since we want today to).</p>
+
+<p>Then we say, as long as this is smaller or equal to the last day of the month, loop.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">sysdate</span> <span class="o">+</span> <span class="k">level</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">DAY</span> <span class="k">FROM</span> <span class="n">sysdate</span><span class="p">)</span> <span class="o">+</span> <span class="k">level</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">DAY</span> <span class="k">FROM</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">sysdate</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="counting-every-sunday-of-the-month-for-the-year-2014">Counting every sunday of the month for the year 2014</h2>
+
+<p>To show how we construct this query, I will create every step in detail.</p>
+
+<p><strong>First</strong> we will write a query that can show us the first day of the year 2014</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">dual</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Secondly</strong>, we will need to say: Loop this query while it is not the last day of the year (which is always the 31st of December). So we use a recursive query here that will add (level - 1) to set level to 0 to the 1st of January:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'31/12/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p><strong>Finally</strong>, we group by the year and the month and we perform a count on the day where the day is a Sunday (so to_char(date, ‘d’) = 7:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span>
+<span class="mi">2014</span> <span class="k">year</span>
+<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">MONTH</span> <span class="k">FROM</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">month</span>
+<span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">'d'</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">THEN</span> <span class="mi">1</span> <span class="k">END</span><span class="p">)</span> <span class="n">sundays</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'31/12/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">))</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">2014</span><span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">MONTH</span> <span class="k">FROM</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="k">month</span> <span class="k">ASC</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h1 id="start-with-prior-and-sys_connect_by_path-queries">START WITH, PRIOR and SYS_CONNECT_BY_PATH queries</h1>
+
+<h2 id="merging-all-synonyms-from-a-country-into-one-column-delimited-by-">Merging all synonyms from a country into one column delimited by ;</h2>
+
+<p>Let’s say we are given this as a begin:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="n">x</span> <span class="k">AS</span> <span class="p">(</span> 
+  <span class="k">SELECT</span> <span class="n">regios</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="n">synoniemen</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">row_number</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">eid</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">dup</span><span class="p">)</span> <span class="n">amount</span><span class="p">,</span>
+    <span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">eid</span><span class="p">)</span> <span class="n">total</span>
+  <span class="k">FROM</span> <span class="n">synonyms</span>
+    <span class="k">JOIN</span> <span class="n">regios</span> <span class="k">ON</span> <span class="n">eid</span> <span class="o">=</span> <span class="n">cid</span> <span class="k">AND</span> <span class="n">parent</span> <span class="o">=</span> <span class="s1">'EUR'</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> <span class="n">country</span><span class="p">,</span> <span class="n">ltrim</span><span class="p">(</span><span class="n">sys_connect_by_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">';'</span><span class="p">),</span> <span class="s1">';'</span><span class="p">)</span> <span class="k">names</span>
+<span class="k">FROM</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<p>Because we are using SYS_CONNECT_BY_PATH we will need to use CONNECT BY. The thing we want to do is merge every column of the same country with each other. So in our CONNECT BY we will say that the previous country is equal to the current country and the amount of synonyms is 1 less of the current amount.</p>
+
+<p>This results into: CONNECT BY PRIOR country = country AND PRIOR amount = amount - 1</p>
+
+<p>We also say that the amount needs to start with 1, since this is our parent.</p>
+
+<p>So we type: START WITH amount = 1 And last but not least, we want just the row that has everything merged together, so we say: WHERE level = total.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="n">x</span> <span class="k">AS</span> <span class="p">(</span>
+  <span class="k">SELECT</span> <span class="n">regios</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span>
+  <span class="p">,</span> <span class="n">synoniemen</span><span class="p">.</span><span class="n">name</span>
+  <span class="p">,</span> <span class="n">row_number</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">eid</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">dup</span><span class="p">)</span> <span class="n">amount</span>
+  <span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">eid</span><span class="p">)</span> <span class="n">total</span>
+  <span class="k">FROM</span> <span class="n">synonyms</span>
+    <span class="k">JOIN</span> <span class="n">regios</span> <span class="k">ON</span> <span class="n">eid</span> <span class="o">=</span> <span class="n">cid</span> <span class="k">AND</span> <span class="n">parent</span> <span class="o">=</span> <span class="s1">'EUR'</span>
+<span class="p">)</span>
+<span class="k">SELECT</span> <span class="n">country</span><span class="p">,</span> <span class="n">ltrim</span><span class="p">(</span><span class="n">sys_connect_by_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">';'</span><span class="p">),</span> <span class="s1">';'</span><span class="p">)</span> <span class="k">names</span>
+<span class="k">FROM</span> <span class="n">x</span>
+<span class="k">WHERE</span> <span class="k">level</span> <span class="o">=</span> <span class="n">total</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">amount</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">PRIOR</span> <span class="n">country</span> <span class="o">=</span> <span class="n">country</span> <span class="k">and</span> <span class="k">PRIOR</span> <span class="n">amount</span> <span class="o">=</span> <span class="n">amount</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h1 id="hierarchical-queries">Hierarchical Queries</h1>
+
+<h2 id="selecting-the-leaf-elements-from-belgium">Selecting the leaf elements from belgium</h2>
+
+<p>We start with the parent is Belgium, and then we loop for every parent is the previous hasc. Then when CONNECT_BY_ISLEAF=1 we display it.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">niveau</span><span class="p">,</span> <span class="k">level</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="k">FROM</span> <span class="n">regios</span> <span class="k">WHERE</span> <span class="n">CONNECT_BY_ISLEAF</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">parent</span> <span class="o">=</span> <span class="s1">'BE'</span> <span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">parent</span> <span class="o">=</span> <span class="k">PRIOR</span> <span class="n">hasc</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="select-every-city-that-falls-under-the-city-ghent">Select every city that falls under the City Ghent</h2>
+
+<p>For this we will again use a recursive query, we use START WITH name = ‘Ghent’ and we will connect by parent = PRIOR hasc again.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">hasc</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">niveau</span><span class="p">,</span> <span class="k">level</span>
+<span class="k">FROM</span> <span class="n">regios</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'Ghent'</span> <span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">parent</span> <span class="o">=</span> <span class="k">PRIOR</span> <span class="n">hasc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="upward-recursion-select-every-entity-above-where-hasc--be">Upward recursion, select every entity above where hasc = ‘BE’</h2>
+
+<p>We do exactly the same as going down, we only set the PRIOR different.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">SELECT</span> <span class="n">hasc</span><span class="p">,</span> <span class="n">niveau</span><span class="p">,</span> <span class="k">level</span><span class="p">,</span> <span class="n">connect_by_isleaf</span>
+<span class="k">FROM</span> <span class="n">regios</span> 
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">hasc</span> <span class="o">=</span> <span class="s1">'BE'</span> <span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">PRIOR</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">hasc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="select-the-cities-under-hasc-beov-and-add-identation">Select the cities under hasc ‘BE.OV’ and add identation</h2>
+
+<p>For this we will use the function LPAD, LPAD is going to add a padding from the left with the given length and the string1 where it will add to. We use a ‘.’ and a length of 10 so that this shows a proper identation where needed. Then the rest is again the same. We however only apply identation to where the level &gt; 0</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">LPAD</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">'.'</span><span class="p">)</span> <span class="o">||</span> <span class="n">name</span> <span class="o">||</span> <span class="s1">' ('</span> <span class="o">||</span> <span class="n">hasc</span> <span class="o">||</span> <span class="s1">')'</span>
+<span class="k">FROM</span> <span class="n">regios</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">parent</span> <span class="o">=</span> <span class="s1">'BE.OV'</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">PRIOR</span> <span class="n">hasc</span> <span class="o">=</span> <span class="n">parent</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h1 id="connect_by_root-and-sys_connect_by_path-functions">CONNECT_BY_ROOT and SYS_CONNECT_BY_PATH functions</h1>
+
+<h2 id="creating-a-recursive-query-to-create-a-path-of-the-hierarchy">Creating a recursive query to create a path of the hierarchy.</h2>
+
+<p>Let’s create a query that will select every city of Belgium and connect the hierarchy in Belgium with a /. This all on 1 line. We then will check if the ROOT entity of this hierarchy is Belgium by using the CONNECT_BY_ROOT function.</p>
+
+<p>To do this we will select the name, the level and the connect_by_root as columns and we will also create the parents column. This last column is special because we will use the sys_connect_by_path function to connect every name together with a delimiter that we give it.</p>
+
+<p>Then we filter only the leaves and we start with the name = Belgie as our first element. We then use CONNECT BY to recursively loop every result as long as the parent is the previous hasc.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+<span class="p">,</span> <span class="n">ltrim</span><span class="p">(</span><span class="n">sys_connect_by_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">'/'</span><span class="p">),</span> <span class="s1">'/'</span><span class="p">)</span> <span class="n">parents</span>
+<span class="p">,</span> <span class="k">level</span>
+<span class="p">,</span> <span class="n">connect_by_root</span> <span class="n">name</span> <span class="nv">" = Belgium ?"</span>
+<span class="k">FROM</span> <span class="n">regios</span>
+<span class="k">WHERE</span> <span class="n">CONNECT_BY_ISLEAF</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'België'</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">parent</span> <span class="o">=</span> <span class="k">PRIOR</span> <span class="n">hasc</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">parents</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="using-connect_by_root-to-start-from-the-root-element-and-find-all-entities-for-these-root-elements-till-a-given-element">Using CONNECT_BY_ROOT to start from the root element and find all entities for these root elements till a given element.</h2>
+
+<p>The task is that we want to find all root elements that have the entity with the name ‘Central’ somewhere in it’s pad.</p>
+
+<p>For this we use the connect_by_root function which accepts a column (here hasc since we want the top hasc) and then we rename it to another column name called parent.</p>
+
+<p>We also connect the names together with a delimiter ;.</p>
+
+<p>In our WHERE clause we say WHERE name = ‘Central’ to show that it has to stop there. And we let it start on the NULL parent and continue as long as we can until we find the ‘Central’ name.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">connect_by_root</span> <span class="n">hasc</span> <span class="k">AS</span> <span class="n">parent</span><span class="p">,</span> <span class="n">ltrim</span><span class="p">(</span><span class="n">sys_connect_by_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">';'</span><span class="p">),</span> <span class="s1">';'</span><span class="p">)</span> <span class="k">pad</span>
+<span class="k">FROM</span> <span class="n">regios</span>
+<span class="k">WHERE</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'Central'</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">parent</span> <span class="k">IS</span> <span class="k">NULL</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">PRIOR</span> <span class="n">hasc</span> <span class="o">=</span> <span class="n">parent</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="using-connect_by_root-to-start-from-an-element-all-the-way-up-to-the-root-element">Using CONNECT_BY_ROOT to start from an element all the way up to the ROOT element.</h2>
+
+<p>We do kind of the same here, only this time we will START WITH the name equal to the name we want it (‘Central’ here). And we loop the parent upwards.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">CONNECT_BY_ROOT</span> <span class="n">name</span> <span class="k">AS</span> <span class="n">child</span><span class="p">,</span> <span class="n">ltrim</span><span class="p">(</span><span class="n">sys_connect_by_path</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">';'</span><span class="p">),</span> <span class="s1">';'</span><span class="p">)</span> <span class="k">pad</span>
+<span class="k">FROM</span> <span class="n">regios</span>
+<span class="k">WHERE</span> <span class="n">CONNECT_BY_ISLEAF</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">'Central'</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">PRIOR</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">hasc</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h1 id="ordering-siblings-by">Ordering siblings BY</h1>
+
+<h2 id="using-the-siblings-by-to-find-every-city-in-flanders-and-order-them-according-to-the-province-and-city">Using the SIBLINGS BY to find every city in Flanders and order them according to the province and city</h2>
+
+<p>The first problem that we have to solve is finding the province, this is not an easy task if we do not use recursive functions. To find this we use the CONNECT_BY_ROOT keyword again and CONNECT_BY_ROOT the name and rename it to province.</p>
+
+<p>Then we discard everything that is not a leaf (this because we are not interested in the top branches) and we start with the parent being ‘BE.VL’ which represents Flanders.</p>
+
+<p>We then loop everything by saying PRIOR hasc = parent and finally we ORDER SIBLINGS BY name which will order every single sibling by the name it was given.</p>
+
+<p><strong>Query</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">CONNECT_BY_ROOT</span> <span class="n">name</span> <span class="n">provincie</span>
+<span class="k">FROM</span> <span class="n">regios</span>
+<span class="k">WHERE</span> <span class="n">CONNECT_BY_ISLEAF</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">START</span> <span class="k">WITH</span> <span class="n">parent</span> <span class="o">=</span> <span class="s1">'BE.VL'</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="k">PRIOR</span> <span class="n">hasc</span> <span class="o">=</span> <span class="n">parent</span>
+<span class="k">ORDER</span> <span class="n">siblings</span> <span class="k">BY</span> <span class="n">name</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h1 id="creating-a-calendar-with-sql">Creating a calendar with SQL</h1>
+
+<h2 id="what-we-will-create">What we will create</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Su Mo Tu We Th Fr Sa
+--- -- -- -- -- -- -- --
+jan 01 02 03
+jan 04 05 06 07 08 09 10
+jan 11 12 13 14 15 16 17
+jan 18 19 20 21 22 23 24
+jan 25 26 27 28 29 30 31
+
+feb 01 02 03 04 05 06 07
+feb 08 09 10 11 12 13 14
+feb 15 16 17 18 19 20 21
+feb 22 23 24 25 26 27 28
+
+mar 01 02 03 04 05 06 07
+mar 08 09 10 11 12 13 14
+mar 15 16 17 18 19 20 21
+mar 22 23 24 25 26 27 28
+mar 29 30 31
+
+apr 01 02 03 04
+apr 05 06 07 08 09 10 11
+apr 12 13 14 15 16 17 18
+apr 19 20 21 22 23 24 25
+apr 26 27 28 29 30
+
+may 01 02
+may 03 04 05 06 07 08 09
+may 10 11 12 13 14 15 16
+may 17 18 19 20 21 22 23
+may 24 25 26 27 28 29 30
+may 31
+</code></pre></div></div>
+
+<h2 id="how-to">How to</h2>
+
+<p>Creating a calendar in SQL is not an easy task, however with the help of recursion we can do this.</p>
+
+<p>First we need to get all the days that we want to show, so let’s say that we want to show the calendar for this month and the next 4 months.</p>
+
+<p>For this we will need to <strong>first</strong> create a query that will get those days of the months that we want to show. We can do this by this query:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="k">level</span> <span class="n">x</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="k">level</span> <span class="o">&lt;=</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>which basically gets the months and keeps looping for all the days while we are not at the end.</p>
+
+<p>We will wrap this into a CTE so that we can use this to create a calendar.</p>
+
+<p><strong>Secondly</strong>, we will get some extra data, this data is needed so we can show the week day on the top and the month on the left, we can also correct the formatting with this.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="n">z</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="k">SELECT</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="k">level</span> <span class="n">x</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="k">level</span> <span class="o">&lt;=</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="n">x</span>
+<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">year</span> <span class="k">FROM</span> <span class="n">x</span><span class="p">)</span> <span class="k">as</span> <span class="k">year</span>
+<span class="p">,</span> <span class="k">CAST</span><span class="p">(</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'mm'</span><span class="p">)</span> <span class="k">AS</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">month</span>
+<span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'iw'</span><span class="p">)</span> <span class="n">weeknumber</span>
+<span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'dd'</span><span class="p">)</span> <span class="n">daymonth</span>
+<span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">)</span> <span class="n">daynumber</span>
+<span class="k">FROM</span> <span class="n">z</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>And the <strong>last</strong> thing we need to do is say that for the daynumber, when it is 1 print in column monday, when 2 in tuesday, when 3 in wednesday, …. for every day of the week. And the LEFT most column will be our month, so we use a substring with all the months in and we select the length based on the month.</p>
+
+<p>When we did all this we get this as our final result:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="n">z</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="k">SELECT</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="k">level</span> <span class="n">x</span>
+<span class="k">FROM</span> <span class="n">dual</span>
+<span class="k">CONNECT</span> <span class="k">BY</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="k">level</span> <span class="o">&lt;=</span> <span class="n">LAST_DAY</span><span class="p">(</span><span class="n">ADD_MONTHS</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">),</span> <span class="n">cal</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="k">SELECT</span>
+<span class="n">x</span>
+<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">year</span> <span class="k">FROM</span> <span class="n">x</span><span class="p">)</span> <span class="k">as</span> <span class="k">year</span>
+<span class="p">,</span> <span class="k">CAST</span><span class="p">(</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'mm'</span><span class="p">)</span> <span class="k">AS</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">month</span>
+<span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'iw'</span><span class="p">)</span> <span class="n">weeknumber</span>
+<span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'dd'</span><span class="p">)</span> <span class="n">daymonth</span>
+<span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">)</span> <span class="n">daynumber</span>
+<span class="k">FROM</span> <span class="n">z</span>
+<span class="p">)</span>
+<span class="k">SELECT</span>
+<span class="n">substr</span><span class="p">(</span><span class="s1">'janfebmaraprmayjunjulaugsepoctnovdec'</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="k">MIN</span><span class="p">(</span><span class="k">month</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="nv">" "</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'1'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Su</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'2'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Mo</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'3'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Tu</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'4'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">We</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'5'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Th</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'6'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Fr</span>
+<span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'7'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Sa</span>
+<span class="k">FROM</span> <span class="n">cal</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="k">year</span><span class="p">,</span> <span class="k">month</span><span class="p">,</span> <span class="n">weeknumber</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">year</span><span class="p">,</span> <span class="k">month</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="n">daymonth</span><span class="p">);</span>
+</code></pre></div></div>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/sql-recursion';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/sql-part-5-cte">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/database.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/sql-part-5-cte">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Coding</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-sql</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">SQL - Part 5 - Common Table Expressions</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>CTE’s (Common Table Expressions) are mostly used when creating recursive queries, creating temporary views (instead of subqueries). Calculating the dates of easter Use case And Example: We want to calculate the dates of</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/basic-oop">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding4.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/basic-oop">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Coding</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-cpp</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Basic OOP with C++</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>This article is going to explain 1 example of an Object Oriented Program for C++. We will create a small program that allows us to create figures, these being: * A circle *</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">SQL - Recursion</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=SQL+-+Recursion&amp;url=https://thebillkidy.github.io/sql-recursion"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/sql-recursion"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/sql-recursion&title=SQL+-+Recursion&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

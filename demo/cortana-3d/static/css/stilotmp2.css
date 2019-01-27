@@ -1,0 +1,128 @@
+#controlz {
+  position:absolute;	
+  top:36%;
+  right:0;
+  margin:auto;
+  width:180px;
+  height:300px;
+  text-align:center;
+  z-index:5;
+  }
+  #controlz ul {
+  list-style:none;
+  margin:0;
+  }
+  #controlz li {
+  display:inline-block;
+  font:normal 17px/1.6em 'futura_icg_lightregular', arial, sans-serif;
+  text-align:right;
+  vertical-align:top;
+  color:#bbb;
+  width:70px;
+  }
+  #controlz li.c {
+  padding-left:10px;
+  width:180px;
+  text-align:left;
+  color:#777;
+  }
+  #controlz input[type=range] {
+  -webkit-appearance:none;
+  margin:3px 0 0;
+  }
+  #controlz input[type=range]:focus {
+  outline:none;
+  }
+  #controlz input[type=range]::-webkit-slider-runnable-track {
+  height:20px;
+  cursor:pointer;
+  animate:0.2s;
+  background:rgba(50,80,100,0.5);
+  border-radius:0;
+  border:0px solid #000000;
+  }
+  #controlz input[type=range]::-webkit-slider-thumb {
+  height:20px;
+  width:15px;
+  background:#345;
+  cursor:pointer;
+  -webkit-appearance:none;
+  }
+  #controlz input[type=range]:focus::-webkit-slider-runnable-track {
+  background:#aaa;
+  }
+  #controlz input[type=range]::-moz-range-track {
+  height:20px;
+  cursor:pointer;
+  animate:0.2s;
+  background:rgba(50,80,100,0.5);
+  border-radius:0;
+  }
+  #controlz input[type=range]::-moz-range-thumb {
+  height:20px;
+  width:15px;
+  border-radius:1px;
+  background:#345;
+  cursor:pointer;
+  }
+  #controlz input[type=range]::-ms-track {
+  height:20px;
+  cursor:pointer;
+  animate:0.2s;
+  background:transparent;
+  border-color:transparent;
+  color:transparent;
+  }
+  #controlz input[type=range]::-ms-fill-lower {
+  background:#369;
+  border:0px solid #000000;
+  border-radius:2px;
+  }
+  #controlz input[type=range]::-ms-fill-upper {
+  background:#369;
+  border:0px solid #000000;
+  border-radius:2px;
+  }
+  #controlz input[type=range]::-ms-thumb {
+  height:20px;
+  width:15px;
+  border-radius:1px;
+  background:#345;
+  cursor:pointer;
+  }
+  #controlz input[type=range]:focus::-ms-fill-lower {
+  background:#369;
+  }
+  #controlz input[type=range]:focus::-ms-fill-upper {
+  background:#369;
+  }
+  
+  #rando {
+  position:absolute;
+  display:block;
+  bottom:32%;
+  right:0;
+  padding:10px 0;
+  width:128px;
+  height:32px;
+  font-family:'futura_icg_lightregular';
+  font-size:15px;
+  text-align:center;
+  color:#fff;
+  background:#336699;
+  opacity:.7;
+  z-index:5;
+  }
+  #rando:hover {
+  background:#003366;
+  -webkit-transition:all 0.3s ease-out; 
+  transition:all 0.3s ease-out; 
+  outline:0;
+  cursor:pointer
+  }	
+  @media screen and (max-width: 1280px) {
+  #controlz {
+  top:35%;
+  }
+  }
+  

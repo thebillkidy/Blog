@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Big Data, the why, how and what - A thought Process and Architecture</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/big-data-architectures" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Big Data, the why, how and what - A thought Process and Architecture" />
+    <meta property="og:description" content="One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it," />
+    <meta property="og:url" content="/big-data-architectures" />
+    <meta property="og:image" content="/assets/images/covers/bigdata2.jpeg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2018-10-10T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2018-10-10T09:00:00+00:00" />
+    <meta property="article:tag" content="Big-data" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Big Data, the why, how and what - A thought Process and Architecture" />
+    <meta name="twitter:description" content="One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it," />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/bigdata2.jpeg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Big-data" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/big-data-architectures",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/bigdata2.jpeg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/big-data-architectures"
+    },
+    "description": "One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it,"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Big Data, the why, how and what - A thought Process and Architecture" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="10 October 2018">10 October 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/big-data/'>BIG-DATA</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/bigdata2.jpeg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Big Data, the why, how and what - A thought Process and Architecture</h1>
+                    <p>One of the most common questions I get when talking with customers, is how they are able to set up a good big data architecture that will allow them to process all their existing data. With as an ultimate goal to perform advanced analytics and AI on top of it, to extract insights that will allow them to stay relevant in the ever faster evolving world of today.</p>
+
+<p>To tackle this issue, I always first start by asking them what their understanding “Big Data” is, because one customer is not the other. One might think that Big Data is just the way they are able to process all their different excel files, while another might think that it is the holy grail for all their projects and intelligence. Well in this article, I want to explain you what Big Data means to me and provide you a thought process that can help you in defining your Big Data strategy for your organization.</p>
+
+<p>Now what is Big Data? Gartner explains it through different V’s: “Volume”, “Variety”, “Velocity”, “Veracity”, where if you have 2 of the first 3, then you are speaking about Big Data. To quote it in their own words:</p>
+
+<blockquote>
+  <p><em>Big data is high-volume, high-velocity and/or high-variety information assets that demand cost-effective, innovative forms of information processing that enable enhanced insight, decision making, and process automation.</em> - https://www.gartner.com/it-glossary/big-data</p>
+</blockquote>
+
+<p>For me Big Data is however so much more. It is one thing to be able to speak about it and recognise when you are using, but it’s another to implement it in such a way that your whole organisation is able to benefit from it.</p>
+
+<p>Let’s tackle 3 of the most common pain points that I see while working with customers:</p>
+
+<h2 id="1-creating-a-centralized-data-lake">1. Creating a Centralized Data Lake</h2>
+
+<p>When talking with my customers, every time the same question comes up when wanting to start utilizing Big Data. The question of “Where are we going to store it?”. But everytime this answer is quite simple: “As centralized as possible”. Storing your data in a centralized place will allow you to maintain better control over it. This way you will be able to have a knowledge about your in flows, processing flows as well as your outgoing flows, giving you the power to draw complex analytics from all of this data.</p>
+
+<p>But why can people overlook this then? Well because in the real world it is not as simple as it sounds. Many of the enterprises out there are tens of years old, having processes and structures in place that sometimes date back to these times. Just think about all the enterprises out there that still work in a vertical structure, where teams work in silos and where data belonging to these teams does not cross over to different teams. Resulting in a fragmented data landscape.</p>
+
+<p>Due to this when setting up your centralized data repository, the first part is to perform change management on the organization. Can you go from a vertical structure, to a more horizontal structure where teams work together with each other, and consume the same data repository? More about this in point 3.</p>
+
+<p>While the second part is, how do you correctly store the data coming in from all these different systems in all these different formats and data types. This is what we will look at in point 2.</p>
+
+<p>If you would visualize this thought process, you might end up with something that looks like the following:</p>
+
+<p><img src="/assets/images/posts/big-data/vision.png" alt="/assets/images/posts/big-data/vision.png" /></p>
+
+<h2 id="2-utilizing-your-data-lake-through-landing-zones">2. Utilizing your Data Lake through Landing Zones</h2>
+
+<p>So we have all this data coming in, in all their different formats and data types. At first sight, this might look like a bad thing; but actually it isn’t. A Data Lake is created for just that, to store data in any kind of format - making it the perfect tool for all your historic needs.</p>
+
+<p>But how do we structure this data? Well, A good practice is to store the data coming in, in different “landing zones”. Which are used to not only store your original raw data coming in from your BI systems, videos, … but also to store your processed data - that is processed in such a way that every format and data type is normalized to the same standards that you are used to. Just think about normalizing data so it uses the same date format everywhere. These zones we often call the “raw” and “staging” zones.</p>
+
+<p>Linking these two zones together is just a matter of connecting the correct ETL processes, that pull the data from the “raw” zone, modify it in the way you want, and then puts it in your “staging” zone, ready for consumption by your reporting tools or data warehouses.</p>
+
+<p>An interesting question you may now have is: “But aren’t we losing performance if we are going from our original structured data sources towards a data lake, to then go back to a data warehouse”? This is indeed a interesting question that we can only answer by going back to the purpose of a data lake. A Data Lake it’s goal is to have a <em>centralized data store</em>, where all our data is collected so that our <em>data scientists</em> are able to perform their jobs on the purest form of source data. But secondly, where our <em>ETL jobs</em> are running, constantly copying the data from the processed “staging” zone towards the target systems. Looking back at these different purposes, we are able to say that even though we might hit a small performance hit, it will be an easy system to control everything happening on our data, resulting in an improved analytics, reporting and even governance process.</p>
+
+<h2 id="3-correct-internal-governance">3. Correct Internal Governance</h2>
+
+<p>As in all good things, there is still a hard thing for everything; this is no exception. The hardest part for creating a centralized data lake is the governance. Now you have have everything in place to pull your data from your different systems towards your data lake and you are able to process this data so that it is available for consumption. But how do you actually work with this across your different teams?</p>
+
+<p>Different teams will work on the data in a data lake, making it necessary to have the correct access control roles in place that will define which users have access to which part of the data lake. Just think about different scenarios, such as a BI specialist who does not need access to the data lake, but rather needs access to aggregated views that we provide them. Or you want to work across regions that allow you to provide row level security on your data, so that the people in the different regions only see the data meant for them. These are all things you will have to think about when creating your Big Data architecture.</p>
+
+<p>Often we see the following roles and how they are configured for these organizations:</p>
+<ul>
+  <li><strong>Data Engineer:</strong> Your data engineer is in charge of setting up ETL jobs to process data from one landing zone to the other, requiring full access to the data lake.</li>
+  <li><strong>Data Scientist:</strong> This role has access to the data lake in its purest form through the “raw” landing zone. By providing access to this, data scientists will be able to draw conclusions from your data and build AI models on top of these that could greatly benefit your organization.</li>
+  <li><strong>BI Specialist:</strong> These people often do not require access to the data itself, but rather to views. It could thus be beneficial to provide access to views created through a system such as <em>Hive</em> that allows your specialist to run simple SQL queries on top of your data, while still providing Row Level Security and everything else that you are used to in terms of security. (Note: Row Level Security is something that needs to be configured correctly, it might sound easy, but it can take a while to configure correctly on unstructured data)</li>
+</ul>
+
+<blockquote>
+  <p>In case you wish extra security and nobody accessing the data lake, you could for example create a subset of your data lake through a simple ETL copy where the different roles are able to play and do everything they wish. With this subset being recreated every night.</p>
+</blockquote>
+
+<h2 id="example-architectures">Example Architectures</h2>
+
+<p>So we defined 3 topics that we need to think about when designing a Big Data architecture, but how does one look in practice now? For this I created 2 architectures that I want to share with you.</p>
+
+<p>The first one is a standard Big Data architecture, allowing you to see how we ingest data from our source systems into a data lake and start serving this. This kind of architecture is what I call a more “slower” architecture, because you might rely on polling systems that will poll every “x” seconds or minutes to see if new data is available. This will happen on the most left part where you get the data from your source systems, as well as on the most right part where data will be pushed towards the consumption layer. However for most use cases this could be fine, it all depends on the question: “How fast do I want data to be available in my consumption layer?”.</p>
+
+<p><img src="/assets/images/posts/big-data/architecture.png" alt="/assets/images/posts/big-data/architecture.png" /></p>
+
+<p>If you however want your data to be accessible almost as soon as it is being put in the systems, then you need to look at more “event-driven” kind of systems. These will work with events that are triggered every time data is made available, rather than having to poll every few seconds or minutes.</p>
+
+<p><img src="/assets/images/posts/big-data/architecture-pubsub.png" alt="/assets/images/posts/big-data/architecture-pubsub.png" /></p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/big-data-architectures';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/big-data/">Big-data</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/sql-server-2019-big-data-clusters">Creating a Big Data cluster with SQL Server 2019</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/minecraft-rfc-scanner">Building a Minecraft Puppet Scanner with Event Hub, a NFC 522 Reader and a Raspberry PI</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/visualize-metrics-with-grafana-and-influxdb">How-To Visualize Metrics with Grafana and Chronograf by using InfluxDB</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/big-data/">
+                                
+                                    See all 4 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/getting-tweets">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/twitter.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/getting-tweets">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Coding</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-javascript</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Getting Tweets of multiple people on Twitter</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>For a new project of mine, I wanted to get the different tweets of multiple people at once and save those as a CSV and JSON for further processing. But how can we</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/minecraft-rfc-scanner">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/minecraft.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/minecraft-rfc-scanner">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Coding</span>
+                            
+                        
+                            
+                               <span class="post-card-tags">Coding-javascript</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Big-data</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Building a Minecraft Puppet Scanner with Event Hub, a NFC 522 Reader and a Raspberry PI</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>In Belgium we every year celebrate the coming of "Sinterklaas" on the 6th of December, a celebration for children where this mythologic figure delivers presents for all the children that behaved well that</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Big Data, the why, how and what - A thought Process and Architecture</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Big+Data%2C+the+why%2C+how+and+what+-+A+thought+Process+and+Architecture&amp;url=https://thebillkidy.github.io/big-data-architectures"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/big-data-architectures"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/big-data-architectures&title=Big+Data%2C+the+why%2C+how+and+what+-+A+thought+Process+and+Architecture&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

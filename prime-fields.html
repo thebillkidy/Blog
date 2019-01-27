@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Fields - Prime Fields</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/prime-fields" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fields - Prime Fields" />
+    <meta property="og:description" content="This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT). In this program we learned about 3 specific sub-groups of Discrete Mathematics: Fields Graphs Groups In this post I will summarise" />
+    <meta property="og:url" content="/prime-fields" />
+    <meta property="og:image" content="/assets/images/covers/algorithms.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2015-06-05T12:00:02+00:00" />
+    <meta property="article:modified_time" content="2015-06-05T12:00:02+00:00" />
+    <meta property="article:tag" content="Discrete-math" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fields - Prime Fields" />
+    <meta name="twitter:description" content="This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT). In this program we learned about 3 specific sub-groups of Discrete Mathematics: Fields Graphs Groups In this post I will summarise" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/algorithms.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Discrete-math" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/prime-fields",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/algorithms.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/prime-fields"
+    },
+    "description": "This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT). In this program we learned about 3 specific sub-groups of Discrete Mathematics: Fields Graphs Groups In this post I will summarise"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Fields - Prime Fields" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-discrete-math ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/discrete-math/'>DISCRETE-MATH</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/algorithms.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Fields - Prime Fields</h1>
+                    <p>This post is about the discrete math that is being taught at the University Ghent for people attending the Bridge program to Master Of Science in Industrial Engineering (IT).</p>
+
+<p>In this program we learned about 3 specific sub-groups of Discrete Mathematics:</p>
+
+<ul>
+  <li>Fields</li>
+  <li>Graphs</li>
+  <li>Groups</li>
+</ul>
+
+<p>In this post I will summarise the most important exercises that we learned and I will explain on how to solve them.</p>
+
+<h2 id="10-fields">1.0 Fields</h2>
+<p>A field is a collection of elements that interact with each other through interaction by ⊕ or ⊖. These 2 symbols stand for additive and multiplicative interactions.</p>
+
+<p>Field Axioms:</p>
+
+<ul>
+  <li>(F, ⊕) : Additive group, with neutral element ⦶ (the zero element)</li>
+  <li>(F\⦶, ⊖) : Multiplicative group with neutral element 1 (base element)</li>
+</ul>
+
+<p>We can create those finite fields with 1 of the 2 methods:</p>
+
+<h3 id="11-prime-fields">1.1 Prime Fields</h3>
+<p><strong>Prime Fields (ℤp,+,.):</strong> ) Creates a field with the zero element <strong>0</strong> and the base element <strong>1</strong>, but <strong>p</strong> has to be a prime number!</p>
+
+<ul>
+  <li><strong>(ℤp\0,+,.)</strong> cyclic group <strong>if</strong> p is prime</li>
+  <li><strong>(ℤ12,+,.)</strong> not a field, because (ℤ12\0,.) is not a group</li>
+</ul>
+
+<p>We can dissolve every integer as a product of powers of prime factors. Do note that we can do this by hand but that this gets harder for bigger numbers, that is why we mostly write programs to do this for us.</p>
+
+<p>Prime numbers are used in many ways in Discrete Math, some of the problems we can solve using prime numbers are: calculating the Euler φ, Galois Field orders, … These examples will be shown later.</p>
+
+<p>&gt; 1. <strong>Prime Numbers:</strong> This are numbers that we can only divide by 1 and itself. (Example: 3, 1, 11, …)
+&gt; 2. <strong>Axioms:</strong> Is something that is not proven, but it is generally accepted.</p>
+
+<h3 id="112-euclidean-algorithm">1.1.2 Euclidean Algorithm</h3>
+<h4 id="1121-calculating-the-gcd-greatest-common-divisor-and-lcm-least-common-multiple">1.1.2.1 Calculating the GCD (Greatest Common Divisor) and LCM (Least Common Multiple)</h4>
+<p>When we know the prime factors of the 2 given integers X and Y then it is easy to calculate the GCD and the LCM.</p>
+
+<script type="math/tex; mode=display">gcd(x, y) * lcm(x, y) = x * y</script>
+
+<h5 id="11211-gcd">1.1.2.1.1 GCD</h5>
+<p>The Greatest Common Divisor of 2 or more integers is found when we can divide the largest positive integer (both of the integers are &gt; 0) by the other numbers without a remainder. Example: GCD(8, 12) = 4</p>
+
+<p>If the gcd(x, y) = 1 then the number is a <strong>relative prime</strong>.</p>
+
+<p>When we apply this to our prime factors, then this means that we want to get the smallest exponents that appear in both X and Y.</p>
+
+<p><strong>Example:</strong> Calculate the GCD of 792 and 2420.
+1) Find the prime factors:
+<script type="math/tex">792 = 2 * 2 * 2 * 3 * 3 * 11 = 2^3 * 3^2 * 11</script>
+<script type="math/tex">2420 = 2 * 2 * 5 * 11 * 11 = 2^2 * 5 * 11^2</script></p>
+
+<p>2) Find the smallest exponents and numbers that appear in both the prime factors:
+<script type="math/tex">2^2*11</script></p>
+
+<p>==&gt; This is your GCD</p>
+
+<h5 id="11212-lcm">1.1.2.1.2 LCM</h5>
+<p>The Least Common Multiple works the same was as the GCD, only do we now find the biggest exponents in the prime factors that appear in X and/or Y.</p>
+
+<p><strong>Example:</strong> Calculate the LCM of 792 and 2420.
+1) Find the prime factors:
+<script type="math/tex">792 = 2 * 2 * 2 * 3 * 3 * 11 = 2^3 * 3^2 * 11</script>
+<script type="math/tex">2420 = 2 * 2 * 5 * 11 * 11 = 2^2 * 5 * 11^2</script></p>
+
+<p>2) Find the biggest exponents in the numbers, and get all of them
+<script type="math/tex">2^3 * 3^2 * 5 * 11^2 = 43560</script></p>
+
+<p>==&gt; This is your LCM</p>
+
+<h4 id="1122-calculating-the-gcd-and-lcm-with-the-euclidian-algorithm">1.1.2.2 Calculating the GCD and LCM with the Euclidian Algorithm</h4>
+<p>The Euclidian Algorithm can also be used to calculate the GCD and LCM. This algorithm works by performing a remainder division, after we did this we then get the gcd on the right bottom (if remainder = 0), or on the left bottom (if the remained &gt; 0).</p>
+
+<p><strong>Example:</strong> 99 / 84 with the use of the euclidean algorithm.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>X</th>
+      <th> </th>
+      <th>Y</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>99</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>84</td>
+      <td>1</td>
+      <td>84</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>- —</td>
+      <td> </td>
+      <td> </td>
+      <td>(99 - 84) = 15</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>5</td>
+      <td>75</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>- —-</td>
+      <td>(84 - 75) = 9</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>1</td>
+      <td>9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>- —</td>
+      <td> </td>
+      <td> </td>
+      <td>(15 - 9) = 6</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>- —-</td>
+      <td>(9 - 6) = 3</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>2</td>
+      <td>3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>- —</td>
+      <td> </td>
+      <td> </td>
+      <td>(6 - 6) = 0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>==&gt; Remainder is 0, so the right bottom is the GCD = 3</p>
+
+<p>==&gt; Our LCM = (99 * 84) / 3 = 2772</p>
+
+<p><strong>Example 2:</strong> calculate the LCM and the GCD of 792 and 2420 using the Euclidean Algorithm</p>
+
+<p>==&gt; After performing the steps described above we get that GCD = 44</p>
+
+<p>==&gt; LCM = (792 * 2420) / 44 = 43560</p>
+
+<h4 id="1123-the-extended-euclidean-algorithm">1.1.2.3 The Extended Euclidean Algorithm</h4>
+<p>The extended Euclidean algorithm allows us to check our calculations and if our GCD(x, y) = 1, then the extended euclidean algorithm allows us to calculate (1 / x) % y efficiently.</p>
+
+<p><strong>steps:</strong></p>
+
+<ol>
+  <li>Write out the basic algorithm</li>
+  <li>Add 3 columns to the right of the basic algorithm. In the center column write your result of the middle column of the basic algorithm. Now write 1 in the top left and 0 as the second number on the right. Now perform the basic algorithm with these numbers multiplying them with the numbers in the middle column. Keep doing this till you are on the same line as your last number in the middle column.</li>
+  <li>Do the same as step 2 but this time use 0 in the top left and 1 as the second number.</li>
+</ol>
+
+<p><strong>Example:</strong> Find the gcd, lcm and the result for 53-1 % 97</p>
+
+<p><strong>Step 1:</strong></p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPTXZBZW4tUldvR0k" alt="extended euclidean algorithm" /></p>
+
+<p><strong>Step 2:</strong></p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPYUh0OTFCTE1uZjg" alt="extended euclidean algorithm" /></p>
+
+<p><strong>Result:</strong></p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPYi1rSEt4RU5Da2M" alt="extended euclidean algorithm" /></p>
+
+<p>Here we can see that the inverse of 53 modulo 97 is equal to 11.</p>
+
+<h4 id="1124-chain-divisions">1.1.2.4 Chain Divisions</h4>
+<p>Chain divisions allow us to write square roots as big divisions so that they near this square root. This algorithm is also based on the Euclidean algorithm, but only a bit modified. So we will simplify it.</p>
+
+<script type="math/tex; mode=display">\sqrt[3]{10} \simeq \frac{105033}{48752}</script>
+
+<p>To calculate this in a long division, we keep repeating these steps:</p>
+
+<ol>
+  <li>Get the number before the . (write this down)</li>
+  <li>Do our original number minus this number</li>
+  <li>Inverse the resulting number</li>
+  <li>Repeat from step 1</li>
+</ol>
+
+<p><strong>Example:</strong> 10^(1/3)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Remainder</th>
+      <th style="text-align: left">Result (of the inverse, first result is our square root!)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: left">2.154434690</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: left">6.475229108</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">6</td>
+      <td style="text-align: left">2.10424821</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: left">9.592490815</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">9</td>
+      <td style="text-align: left">1.687789876</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: left">1.453932421</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: left">2.202971088</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: left">4.926810069</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: left">1.078969719</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: left">12.66308162</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">…</td>
+      <td style="text-align: left">…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>and we can continue doing this till infinity. the more numbers we calculate, the closer we will get to the square root.</p>
+
+<p>To get this into the form that we need to see our square root we now just have to write them as a division of (1 / next) + remained</p>
+
+<p>For the root that we calculated above this will be (ending with a 1 / 1):</p>
+
+<script type="math/tex; mode=display">\frac{1}{\frac{1}{\frac{1}{\frac{1}{\frac{1}{\frac{1}{\frac{1}{\frac{1}{4\frac{1}{1} + 1} + } + 2} + 1} + 1} + 9} + 2} + 6} + 2</script>
+
+<h3 id="113-multiplicative-functions">1.1.3 Multiplicative Functions</h3>
+<h4 id="1131-the-euler-φ">1.1.3.1 The Euler φ</h4>
+<p>The Euler Phi will calculate how many numbers (for y &lt; x) the GCD = 1 Too calculate this we need to have the prime factoring, after we have the prime factor we can write the Euler Phi as the product of the fractions of the primes divided by the prime - 1 and afterwards multiplied by the number to calculate <script type="math/tex">\varphi(n)=n\prod_{p|n}\left(1-\frac{1}{p}\right)</script> <strong>Example: 1</strong> Euler Phi of 90 <script type="math/tex">\varphi(90) = \varphi(2 * 3^2 * 5) = 90 * \frac{1}{2} * \frac{2}{3} * \frac{4}{5} = 24</script> <strong>Example: 1</strong> Euler Phi of 21560 <script type="math/tex">\varphi(21560) = \varphi(2^3 * 5 * 7^2 * 11) = 21560 * \frac{1}{2} * \frac{4}{5} * \frac{6}{7} * \frac{10}{11} = 6720</script> #### 1.1.3.2 Möbius μ ##### 1.1.3.2.1 Introduction The Möbius μ can have the numbers {-1, 0, 1} depending on the factorisation of the prime factors. μ(n) = 1 if n has an even amount of prime factors μ(n) = -1 if n has an odd amount of prime factors μ(n) = 0 if the number has a squared prime factor <strong>Examples:</strong> μ(21) = μ(3 x 7) ==&gt; even number, so μ(21) = 1</p>
+
+<p>μ(20) = μ(22 x 5) ==&gt; squared prime factor, so μ(20) = 0</p>
+
+<p>μ(83) = μ(83) ==&gt; odd number, so μ(83) = -1</p>
+
+<p>μ(30) = μ(2 x 3 x 5) ==&gt; odd, so μ(30) = -1</p>
+
+<h5 id="11322-möbius-inversion">1.1.3.2.2 Möbius Inversion</h5>
+<p>We can also use the μ function to calculate the Euler Phi, herefor we need to find all the dividors (d) first and then multiple them all together with the use of the Möbius function.</p>
+
+<script type="math/tex; mode=display">\varphi(90) = \mu(d) * \frac{x}{d}</script>
+
+<p><strong>Example:</strong> Euler Phi of 90 With Möbius</p>
+
+<script type="math/tex; mode=display">\varphi(90) = 1, 2, 3, 5, 6, 10, 15, 30 = \mu(1) * \frac{90}{1} + \mu(2) * \frac{90}{2} + \mu(3) * \frac{90}{3} + \mu(5) * \frac{90}{5} + \mu(6) * \frac{90}{6} + \mu(10) * \frac{90}{10} +\mu(15) * \frac{90}{15} + \mu(30) * \frac{90}{30} = 24</script>
+
+<h4 id="1133-legendre-symbol">1.1.3.3 Legendre Symbol</h4>
+<p>The Legendre Symbol (x|p), also has {1, -1, 0} as a result.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\left(\frac{x}{p}\right) =
+\begin{cases}
+1 &amp; \text{ if } x \text{ is a quadratic residue modulo } p \text{ and } x \not\equiv 0\pmod{p} \\ \newline
+-1 &amp; \text{ if } x \text{ is a quadratic non-residue modulo } p \\ \newline
+0 &amp; \text{ if } x \equiv 0 \pmod{p}.
+\end{cases} %]]></script>
+
+<h3 id="114-primitive-roots-modulo-n">1.1.4 Primitive Roots (modulo n)</h3>
+<p>Every integer a where the order modulo n is equal to φ(n) is a primitive root modulo n. If this is true, then a is a generator of the multiplicative group (ℤp\0,.).</p>
+
+<p>This group of a prime field has exactly φ(p - 1) primitive roots</p>
+
+<p>If we take p as a prime, then b is a primitive root for p if the powers of b (1, b, b2, n3, …) include all of the residue classes modulo p (except 0).</p>
+
+<p>Imagine that we need to find the primitive root for 601, then we need to try 601 numbers to see if we get them all, this would be a lot of work but luckily we can test this faster.</p>
+
+<p>A general method of testing if we got a primitive root is to check x to the power of every divisor of (p - 1) (modulo p). If only the last number results into 1, then this is a primitive root. Else it is not.</p>
+
+<p>To find all those divisors, you just have to find the prime factorization of (p - 1) and then let those numbers interact with each other.</p>
+
+<p><strong>Example 1:</strong> Primitive root of p = 7
+If p = 7, 3 is a primitive root for p, because the powers of 3 are: 1, 3, 2, 6, 4, 5 (It generates every number for the prime except the prime itself and 0).</p>
+
+<p><strong>Example 2:</strong> Primitive root of p = 7
+If p = 7, then 2 is NOT a primitive root for p, because the powers of 2 are: 1, 2, 4, 1, 2, 4, 1, 2, 4, … which is missing the values 3, 5 and 6.</p>
+
+<p><strong>Example 3:</strong> Primitive root of p = 601
+Prime factors: 23, 3, 52
+Factors:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{array}{lcr}
+x &amp; x^3 &amp; x^5 &amp; x^{25} &amp; x^{3 * 25} &amp; x^{3 * 5} \newline
+x^2 &amp; x^{2 * 3} &amp; x^{2 * 5} &amp; x^{2 * 25} &amp; x^{3 * 2 * 25} &amp; x^{3 * 5 * 2} \newline
+x^4 &amp; x^{4 * 3} &amp; x^{4 * 5} &amp; x^{4 * 25} &amp; x^{3 * 4 * 25} &amp; x^{3 * 5 * 4} \newline
+x^8 &amp; x^{8 * 3} &amp; x^{8 * 5} &amp; x^{8 * 25} &amp; x^{3 * 8 * 25} &amp; x^{3 * 5 * 8} \newline
+\end{array} %]]></script>
+
+<p>Now we just need to let x vary from 1 -&gt; 600 and increment by 1. And as soon as we get a 1 as the last number (last number = p - 1), then we got a primitive root.</p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPeGVTa2ZDLWMzcms" alt="primitive_root_7" /></p>
+
+<p><strong>Conclusion:</strong> Here we find that for <strong>x = 7</strong> we get 1, which means that this is a primitive root.</p>
+
+<p>&gt; Excel will not be able to solve this completely due to the upper limit being placed on the modulo function. More info here: <a href="http://support.microsoft.com/kb/119083">http://support.microsoft.com/kb/119083</a></p>
+
+<h3 id="115-discrete-logarithms">1.1.5 Discrete Logarithms</h3>
+<p>A discrete logarithm will allow you to solve the equation:
+<script type="math/tex">\newcommand{\Mod}[1]{\ (\text{mod}\ #1)}
+ω^k \Mod{p} = x</script></p>
+
+<p>where ω and x are elements of a finite group.</p>
+
+<h4 id="naive-method">Naive method</h4>
+<p>When we are given a prime (p), a primitive root (ω) and the result of ωk % p (x) then we can calculate the integer k by iterating over the group by using this formula:
+<script type="math/tex">\newcommand{\Mod}[1]{\ (\text{mod}\ #1)}
+\sum_{k=1}^{p - 1} ω^{k} \Mod{p}</script></p>
+
+<p>We call this the naive method because who wants to loop through every element for a primitive root? (image having to do this for the prime number 9973, then we would need to go through 9973 indexes). That is why we have a great algorithm for this, called the baby-step giant-step method.</p>
+
+<h4 id="the-baby-step-giant-step-method">The baby-step giant-step method</h4>
+<p>You will be able to perform this method for p &lt; 1040 which is fine for us in these exercises. (else search after the Polhlig-Hellman method).</p>
+
+<p>To perform this algorithm, we have to follow these steps:</p>
+
+<ol>
+  <li>Calculate the first row, the number of elements in the row = square root prime, the element = ωk % p</li>
+  <li>Find the inverse value for the last value in the row that we calculated.</li>
+  <li>Create a column that starts with the index k given, then calculate the following elements in that column by doing the previous value * inverse value % p.</li>
+  <li>Repeat step 3 till we encounter a value that also appears in the row that we calculated, this value is the one we need.</li>
+</ol>
+
+<p><strong>Example:</strong> Calculate the index of 4 for : ω = 5 in ℤ97</p>
+
+<p>From this question we can derive that k = 4, ω = 5 and p = 97</p>
+
+<p>Now we calculate our first row till the square root of 97 (which is 10 rounded, so we need 10 values)</p>
+
+<p><img src="https://drive.google.com/uc?export=view&amp;id=0B-cbbSwiSpTPUFlsTXh2dlpPNjA" alt="grand_step_baby_step" /></p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/prime-fields';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/discrete-math/">Discrete-math</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/solving-a-sudoku">Solving a Sudoku with Discrete Math</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/galois-fields">Fields - Galois Fields</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/elliptical-curves-over-finite-fields">Fields - Elliptical Curves Over Finite Fields</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/discrete-math/">
+                                
+                                    See all 3 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/galois-fields">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/galois-fields">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Discrete-math</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Fields - Galois Fields</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>1 Galois Fields 1.1 Construction of Galois Fields A Galois field has a finite amount of numbers and is written as GF(q) or Fq. Where q = pn. When knowing all this we</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/solving-a-sudoku">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/solving-a-sudoku">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Discrete-math</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Solving a Sudoku with Discrete Math</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Solving a Sudoku is not an easy task, not for humans and even a computer can struggle with it if it has to go through each combination and try brute forcing the puzzle</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Fields - Prime Fields</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Fields+-+Prime+Fields&amp;url=https://thebillkidy.github.io/prime-fields"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/prime-fields"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/prime-fields&title=Fields+-+Prime+Fields&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

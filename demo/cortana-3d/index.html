@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Servant</title>
+	<link rel="stylesheet" href="static/css/main.css">
+	<link rel="shortcut icon" href="static/images/favicon.png">
+
+
+
+	<!-- <link media="all" type="text/css" href="static/css/stilo.css" rel="stylesheet"> -->
+	<!-- <link media="all" type="text/css" href="static/css/stilotmp2.css" rel="stylesheet"> -->
+
+	<!-- <script data-main="app" src="lib/require.js"></script> -->
+</head>
+
+<body>
+	<div class="divider"></div>
+
+	<div id="wrapper">
+		<header>
+			<div id="time">
+				<div id="clock_image"></div>
+				<div id="clock">...</div>
+				<div id="date_bar"></div>
+				<div id="date">
+					<div id="date-field">January 18</div>
+					<div id="weekday">Friday</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			<div id="title">
+				<div id="version">0.1</div>
+				<h1>Project Servant</h1>
+			</div>
+			<div class="clear"></div>
+		</header>
+
+		<section id="main">
+			<aside class="left">
+				<div id="controlz">
+					<ul>
+						<li class="c">
+							<h1 id="listHappy">Happy</h1>
+							<input id="happy" type="range" min="0" max="1.0" step="0.01" />
+						</li>
+						<li class="c">
+							<h1 id="listAngry">Angry</h1>
+							<input id="angry" type="range" min="0" max="1.0" step="0.01" />
+						</li>
+						<li class="c">
+							<h1 id="listWorried">Worried</h1>
+							<input id="worried" type="range" min="0" max="1.0" step="0.01" />
+						</li>
+						<li class="c">
+							<h1 id="listMouthOpen">Mouth</h1>
+							<input id="mouthopen" type="range" min="0" max="1.0" step="0.01" />
+						</li>
+					</ul>
+					
+					<button id="rando">RANDOMIZE</button>
+				</div>
+			</aside>
+			<!-- <aside class="right">
+				<div id="chat">
+					<div id="chat-messages"></div>
+
+					<div class="message" id="load" style="display:none;">
+						<span class="author">&gt;</span>
+						<img src="static/images/ajax.gif" align="absmiddle" />
+					</div>
+
+					<div id="input">
+						<div class="author" id="input-author"></div>
+
+						<input type="text" id="input-content" />
+
+						<div class="clear"></div>
+					</div>
+				</div>
+
+			</aside> -->
+
+			<div id="container"></div>
+
+			<div id="controls">
+				<div id="preview">
+					<video autoplay="true" id="webcam"></video>
+					<img id="tempImg" />
+				</div>
+				<div id="buttons">
+					<button id="btnStart">Start Webcam</button>
+					<button id="btnSample">Capture Mimic</button>
+					<button id="btnStop">Stop Webcam</button>
+				</div>
+				<p>Disclaimer: Pictures will NOT be saved, and a sample will be taken once you press "Capture Mimic"</p>
+			</div>
+		</section>
+	</div>
+
+
+	<!-- Face Scripts -->
+	<script src="static/js/lib/three.min.js"></script>
+	<script src="static/js/lib/Detector.js"></script>
+	<script src="static/js/lib/OBJLoader.js"></script>
+	<script src="static/js/lib/OrbitControls.js"></script>
+	<script src="static/js/facial.js"></script>
+	<script src="static/js/nit2.js"></script>
+	<script src="static/js/cognitive.js"></script>
+	<script src="static/js/webcam.js"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Create a local kubernetes development cluster and scale it with the cloud</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/kubernetes-locally-azure" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Create a local kubernetes development cluster and scale it with the cloud" />
+    <meta property="og:description" content="So you want to create a Kubernetes cluster to start testing your docker deployment? But you would like to test this locally first? Well, then this post is for you. Here we will go in depth on how you can set up your local development environment, and then port it" />
+    <meta property="og:url" content="/kubernetes-locally-azure" />
+    <meta property="og:image" content="/assets/images/covers/kubernetes.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2018-04-18T14:11:00+00:00" />
+    <meta property="article:modified_time" content="2018-04-18T14:11:00+00:00" />
+    <meta property="article:tag" content="Infrastructure" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Create a local kubernetes development cluster and scale it with the cloud" />
+    <meta name="twitter:description" content="So you want to create a Kubernetes cluster to start testing your docker deployment? But you would like to test this locally first? Well, then this post is for you. Here we will go in depth on how you can set up your local development environment, and then port it" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/kubernetes.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Infrastructure" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/kubernetes-locally-azure",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/kubernetes.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/kubernetes-locally-azure"
+    },
+    "description": "So you want to create a Kubernetes cluster to start testing your docker deployment? But you would like to test this locally first? Well, then this post is for you. Here we will go in depth on how you can set up your local development environment, and then port it"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Create a local kubernetes development cluster and scale it with the cloud" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-howto tag-kubernetes ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="18 April 2018">18 April 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/infrastructure/'>INFRASTRUCTURE</a>,
+                            
+                        
+                            
+                               <a href='/tag/kubernetes/'>KUBERNETES</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/kubernetes.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Create a local kubernetes development cluster and scale it with the cloud</h1>
+                    <p>So you want to create a Kubernetes cluster to start testing your docker deployment? But you would like to test this locally first? Well, then this post is for you. Here we will go in depth on how you can set up your local development environment, and then port it to the cloud when you need the scale.</p>
+
+<h2 id="local-development-environment---minikube">Local Development Environment - Minikube</h2>
+
+<h3 id="installation-and-starting-it-windows">Installation and starting it (Windows)</h3>
+
+<ol>
+  <li>Install <code class="highlighter-rouge">kubectl</code>, see https://kubernetes.io/docs/tasks/tools/install-kubectl/ for more information
+    <ul>
+      <li>Note: I have installed this on the Windows Subsystem for Linux (WSL) since I already had it running on there. It also proved that I could access my <code class="highlighter-rouge">kubectl</code> from any other environment.</li>
+    </ul>
+  </li>
+  <li>For Minikube, I ran <code class="highlighter-rouge">choco install minikube --version 0.25.0 --allow-downgrade</code> (older version since the most recent one was bugged - https://github.com/docker/machine/issues/4342)
+    <ul>
+      <li>Note: Chocolatey is a windows package manager, find more about it here: https://chocolatey.org/</li>
+    </ul>
+  </li>
+  <li>Run: <code class="highlighter-rouge">minikube start --vm-driver="hyperv" --hyperv-virtual-switch="&lt;YOUR_SWITCH&gt;"</code> to start the Kubernetes cluster in the HyperV hypervisor
+    <ul>
+      <li>To find the <YOUR_SWITCH>, go to `Hyper-V Manager` in windows. At the right you will see `Virtual Switch Manager`, click this and find your Ethernet Adapter name. In my case this was named: `Realtek PCIe GBE Family Controller Virtual Switch`</YOUR_SWITCH></li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>Note: Once you ran <code class="highlighter-rouge">minikube start</code> you should be able to access kubectl. If this is not the case (as for me, because I was running WSL), check the next points. Else you can skip straight towards the Commands section.</p>
+</blockquote>
+
+<h3 id="connecting-your-kubectl-command-to-your-kubernetes-cluster">Connecting your kubectl command to your Kubernetes cluster</h3>
+
+<p>Since our Kubernetes cluster is running on HyperV, we need to configure our local kubectl command to connect to this cluster. Depending on what you are using, these commands may differ. Let’s go deeper on how we can configure this for PowerShell and WSL.</p>
+
+<h4 id="configuring-kubectl-for-powershell">Configuring kubectl for PowerShell</h4>
+
+<p>Configuring kubectl for use with PowerShell is very easy. For this you just have to run the following command: <code class="highlighter-rouge">&amp; minikube docker-env | Invoke-Expression</code> which will configure your Docker client to connect to the Docker Daemon running in the HyperV</p>
+
+<h4 id="configuring-kubectl-for-windows-subsystem-for-linux-wsl">Configuring kubectl for Windows Subsystem for Linux (WSL)</h4>
+
+<p>I also wanted to access my <code class="highlighter-rouge">docker</code> daemon, this we can do through these commands</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">DOCKER_TLS_VERIFY</span><span class="o">=</span><span class="s2">"1"</span>
+<span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span><span class="s2">"tcp://&lt;your_ip&gt;:2375"</span>
+<span class="nb">export </span><span class="nv">DOCKER_CERT_PATH</span><span class="o">=</span><span class="s2">"/mnt/c/Users/&lt;user&gt;/.minikube/certs"</span>
+<span class="nb">export </span><span class="nv">DOCKER_API_VERSION</span><span class="o">=</span><span class="s2">"1.23"</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>You can now test this by running <code class="highlighter-rouge">docker ps</code> to see your running containers.</p>
+</blockquote>
+
+<p>Now we also need to set our <code class="highlighter-rouge">kubectl</code> command, which we can do like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl config set-cluster minikube <span class="nt">--server</span><span class="o">=</span>https://&lt;your_local_ip&gt;:8443 <span class="nt">--certificate-authority</span><span class="o">=</span>/mnt/c/Users/&lt;user&gt;/.minikube/ca.crt
+kubectl config set-context minikube <span class="nt">--cluster</span><span class="o">=</span>minikube <span class="nt">--user</span><span class="o">=</span>minikube
+kubectl config set-credentials minikube <span class="nt">--client-certificate</span><span class="o">=</span>/mnt/c/Users/&lt;user&gt;/.minikube/client.crt <span class="nt">--client-key</span><span class="o">=</span>/mnt/c/Users/&lt;user&gt;/.minikube/client.key
+kubectl config use-context minikube
+</code></pre></div></div>
+
+<blockquote>
+  <p>You can not test this by running <code class="highlighter-rouge">kubectl proxy</code> which should allow you to access the dashboard on http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/</p>
+</blockquote>
+
+<h2 id="cloud-deployment---azure">Cloud Deployment - Azure</h2>
+
+<h3 id="creating-an-azure-aks-instance-through-the-cli">Creating an Azure AKS instance through the CLI</h3>
+
+<blockquote>
+  <p>Note: If you do not have the Azure CLI installed, you can also use https://shell.azure.com/</p>
+</blockquote>
+
+<ol>
+  <li>Start by checking if you have access to your account by running <code class="highlighter-rouge">az account list</code>
+    <ul>
+      <li>Note: If you do not have access use <code class="highlighter-rouge">az login</code> to login to your account</li>
+    </ul>
+  </li>
+  <li>Set your subscription with <code class="highlighter-rouge">az account set --subscription &lt;name_or_id&gt;</code></li>
+  <li>Create an AKS with <code class="highlighter-rouge">az aks create -g &lt;resource_group&gt; -n &lt;name_of_aks_cluster&gt; --node-vm-size Standard_B1ms --location westeurope --node-count 5 --ssh-key-value &lt;path_to_ssh_pub&gt;</code></li>
+  <li>Configure your kubectl to connect to the kubernetes cluster by using <code class="highlighter-rouge">az aks get-credentials --resource-group &lt;RESOURCE_GROUP&gt; --name &lt;NAME&gt;</code></li>
+</ol>
+
+<h3 id="getting-the-right-vm-size">Getting the right VM Size</h3>
+
+<p>You can view the VM sizes through the CLI with <code class="highlighter-rouge">az vm list-sizes --location westeurope</code>, and the locations through <code class="highlighter-rouge">az account list-locations</code></p>
+
+<blockquote>
+  <p>Note: Filter instances with jq: <code class="highlighter-rouge">az vm list-sizes --location westeurope | jq '.[] | select(.name | contains("Standard_A"))'</code></p>
+</blockquote>
+
+<p>Another way to view those sizes is through the Website: https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/</p>
+
+<h2 id="creating-and-deploying-a-dockerfile-in-your-kubernetes-cluster">Creating and deploying a Dockerfile in your Kubernetes Cluster</h2>
+
+<h3 id="1-build-dockerfile">1. Build dockerfile</h3>
+
+<p>Build your image using the docker daemon:
+<code class="highlighter-rouge">docker build -t &lt;image_name&gt;:&lt;version&gt; &lt;dir&gt;</code></p>
+
+<p>example:</p>
+
+<p><code class="highlighter-rouge">docker build -t node_image:v1 .</code></p>
+
+<blockquote>
+  <p>Note: If you would like to skip WSL and just use Powershell, then you can configure docker to connect to the Docker Daemon in your HyperV through <code class="highlighter-rouge">&amp; minikube docker-env | Invoke-Expression</code></p>
+</blockquote>
+
+<h3 id="2-deploying-the-newly-build-docker-image">2. Deploying the newly build docker image</h3>
+
+<p><code class="highlighter-rouge">kubectl run &lt;deployment-name&gt; --image=&lt;image_name&gt;:&lt;version&gt; --port=&lt;port_exposed&gt;</code></p>
+
+<p>example: <code class="highlighter-rouge">kubectl run node-image --image=node_image:v1</code></p>
+
+<h3 id="3-monitoring-your-deployment">3. Monitoring your deployment</h3>
+
+<p>Once you started your Kubernetes cluster, you can monitor it through the Kubernetes UI. To get access to this UI, you need to run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl proxy
+</code></pre></div></div>
+
+<p>Whereafter a local UI server will be created that you can access through this link: http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/</p>
+
+<h2 id="command-reference">Command Reference</h2>
+
+<p>To get you up to speed with Minikube and Kubernetes, I included a list of useful commands as a reference</p>
+
+<h3 id="minikube">Minikube</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">minikube start</code></td>
+      <td>Starts the Kubernetes cluster</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">minikube dashboard</code></td>
+      <td>Open the Kubernetes dashboard</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">minikube docker-env</code></td>
+      <td>Get the docker-env to connect to</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">minikube service &lt;deployment-name&gt;</code></td>
+      <td>Access a service in the browser</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="kubernetes">Kubernetes</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Access dashboard</td>
+      <td><code class="highlighter-rouge">kubectl proxy</code>, now view http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default for the dashboard</td>
+    </tr>
+    <tr>
+      <td>Creating a deployment</td>
+      <td><code class="highlighter-rouge">kubectl run &lt;deployment-name&gt; --image=&lt;image_name&gt;:&lt;version&gt; --port=&lt;port_exposed&gt;</code></td>
+    </tr>
+    <tr>
+      <td>View deployments</td>
+      <td><code class="highlighter-rouge">kubectl get deployments</code></td>
+    </tr>
+    <tr>
+      <td>View Pods</td>
+      <td><code class="highlighter-rouge">kubectl get pods</code></td>
+    </tr>
+    <tr>
+      <td>View Logs from a pod</td>
+      <td><code class="highlighter-rouge">kubectl logs &lt;pod-name&gt;</code></td>
+    </tr>
+    <tr>
+      <td>Make a container accessible from outside K8S</td>
+      <td><code class="highlighter-rouge">kubectl expose deployment &lt;deployment-name&gt; --type=LoadBalancer</code></td>
+    </tr>
+    <tr>
+      <td>View Services</td>
+      <td><code class="highlighter-rouge">kubectl get services</code></td>
+    </tr>
+    <tr>
+      <td>Delete a deployment</td>
+      <td><code class="highlighter-rouge">kubectl delete deployment &lt;deployment-name&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="faq">FAQ</h2>
+
+<p>When you have problems, always try this first:</p>
+
+<ol>
+  <li>Start PowerShell as Administrator</li>
+  <li>Run <code class="highlighter-rouge">minikube delete</code></li>
+  <li>Run <code class="highlighter-rouge">minikube start --vm-driver hyperv</code></li>
+</ol>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/kubernetes-locally-azure';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/infrastructure/">Infrastructure</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/sql-server-2019-big-data-clusters">Creating a Big Data cluster with SQL Server 2019</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/connect-docker-wsl">Connect to your Docker Daemon through the Windows Subsystem for Linux (WSL)</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/infrastructure/">
+                                
+                                    See all 2 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/culture-creation-part2-motivation">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/summit.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/culture-creation-part2-motivation">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Business</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Creating a culture of growth and ambition, Part 2 - Motivation</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>So we learned all about starting our culture, and the base values that a influential leader should have (see FICEL, talked about in Part 1). But once we are this leader, how do</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/key-takeaways-hit-refresh">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/book-satya-hit-refresh.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/key-takeaways-hit-refresh">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Experience</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Business</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>I recently started at Microsoft, where I joined at the perfect moment. Microsoft has been transforming under the lead of our new CEO Satya Nadella. Who brought a new fresh breeze of air</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Create a local kubernetes development cluster and scale it with the cloud</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Create+a+local+kubernetes+development+cluster+and+scale+it+with+the+cloud&amp;url=https://thebillkidy.github.io/kubernetes-locally-azure"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/kubernetes-locally-azure"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/kubernetes-locally-azure&title=Create+a+local+kubernetes+development+cluster+and+scale+it+with+the+cloud&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

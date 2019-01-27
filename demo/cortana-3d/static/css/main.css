@@ -1,0 +1,623 @@
+/** * Project Servant * @author Jesper Lindström * @see https://github.com/raxezdev/servant */
+@font-face {
+	font-family:'SourceCodePro';
+	src:url('../fonts/SourceCodePro-Regular.eot');
+	src:local('☺'), url('../fonts/SourceCodePro-Regular.woff') format('woff'), url('../fonts/SourceCodePro-Regular.ttf') format('truetype'), url('../fonts/SourceCodePro-Regular.svg') format('svg');
+	font-weight:normal;
+	font-style:normal;
+}
+/* Scrollbars */
+::-webkit-scrollbar {
+	width: 12px;
+}
+::-webkit-scrollbar-track {
+	background-color:#1c6a80;
+}
+::-webkit-scrollbar-thumb {
+	background-color:#41d5ff;
+}
+/* Animations */
+@keyframes spin {
+	from {
+			transform: rotate(0deg);
+ }
+	to {
+			transform: rotate(360deg);
+ }
+}
+@-moz-keyframes spin {
+	from {
+			-moz-transform: rotate(0deg);
+ }
+	to {
+			-moz-transform: rotate(360deg);
+ }
+}
+@-webkit-keyframes spin {
+	from {
+			-webkit-transform: rotate(0deg);
+ }
+	to {
+			-webkit-transform: rotate(360deg);
+ }
+}
+@-o-keyframes spin {
+	from {
+			-o-transform: rotate(0deg);
+ }
+	to {
+			-o-transform: rotate(360deg);
+ }
+}
+@keyframes intro {
+	from {
+			transform: scale(0);
+		 opacity:0;
+ }
+	to {
+			transform: scale(1);
+		 opacity:1;
+ }
+}
+@-moz-keyframes intro {
+	from {
+			-moz-transform: scale(0);
+		 opacity:0;
+ }
+	to {
+			-moz-transform: scale(1);
+		 opacity:1;
+ }
+}
+@-webkit-keyframes intro {
+	from {
+			-webkit-transform: scale(0);
+		 opacity:0;
+ }
+	to {
+			-webkit-transform: scale(1);
+		 opacity:1;
+ }
+}
+@-o-keyframes intro {
+	from {
+			-o-transform: scale(0);
+		 opacity:0;
+ }
+	to {
+			-o-transform: scale(1);
+		 opacity:1;
+ }
+}
+@keyframes introFade {
+	from {
+			opacity:0;
+ }
+	to {
+			opacity:1;
+ }
+}
+@-moz-keyframes introFade {
+	from {
+			opacity:0;
+ }
+	to {
+			opacity:1;
+ }
+}
+@-webkit-keyframes introFade {
+	from {
+			opacity:0;
+ }
+	to {
+			opacity:1;
+ }
+}
+@-o-keyframes introFade {
+	from {
+			opacity:0;
+ }
+	to {
+			opacity:1;
+ }
+}
+@keyframes dropDown {
+	from {
+			margin-top:-70px;
+ }
+	to {
+			margin-top:0px;
+ }
+}
+@-moz-keyframes dropDown {
+	from {
+			margin-top:-70px;
+ }
+	to {
+			margin-top:0px;
+ }
+}
+@-webkit-keyframes dropDown {
+	from {
+			margin-top:-70px;
+ }
+	to {
+			margin-top:0px;
+ }
+}
+@-o-keyframes dropDown {
+	from {
+			margin-top:-70px;
+ }
+	to {
+			margin-top:0px;
+ }
+}
+/* General */
+body {
+	background-color:#000;
+	margin:0px;
+	padding:0px;
+	font-family:'SourceCodePro', "Courier New", Courier, monospace;
+	color:#41d5ff;
+	font-size:14px;
+	margin-bottom:50px;
+}
+.clear {
+	clear:both;
+}
+a {
+	text-decoration:none;
+}
+a, #top .left #love, #top .right #github, #voice-bar-fill {
+	transition:0.3s all;
+	-webkit-transition:0.3s all;
+	-moz-transition:0.3s all;
+	-ms-transition:0.3s all;
+	o-transition:0.3s all;
+}
+/* Top bar */
+#top {
+	padding:10px;
+	border-bottom:1px solid #1a5566;
+	margin-bottom:3px;
+	animation:dropDown 0.5s;
+	-moz-animation:dropDown 0.5s;
+	-webkit-animation:dropDown 0.5s;
+	-o-animation:dropDown 0.5s;
+}
+.divider {
+	height:1px;
+	background-color:#41d5ff;
+}
+#top .left, #top .right {
+	font-size:14px;
+}
+#top .left a, #top .right a {
+	color:#1c6a80;
+}
+#top .left #love {
+	background-image:url(../images/heart.png);
+	width:19px;
+	height:16px;
+	display:inline-block;
+	opacity:0.7;
+}
+#top .right #github {
+	background-image:url(../images/github.png);
+	width:16px;
+	height:16px;
+	display:inline-block;
+	opacity:0.7;
+	margin-right:3px;
+}
+#top .left a:hover, #top .right a:hover {
+	color:#41d5ff;
+}
+#top .left a:hover #love, #top .right a:hover #github {
+	opacity:1;
+}
+.right {
+	float:right;
+}
+/* real UI */
+#wrapper {
+	padding: 40px;
+	margin-left:auto;
+	margin-right:auto;
+}
+header {
+	animation:introFade 1s;
+	-moz-animation:introFade 1s;
+	-webkit-animation:introFade 1s;
+	-o-animation:introFade 1s;
+}
+header #time {
+	float:left;
+	width:248px;
+	animation:introFade 3s;
+	-moz-animation:introFade 3s;
+	-webkit-animation:introFade 3s;
+	-o-animation:introFade 3s;
+}
+header #clock_image {
+	background-image:url(../images/time.png);
+	height:113px;
+	width:113px;
+	background-repeat:no-repeat;
+	animation:spin 10s infinite;
+	-moz-animation:spin 10s infinite;
+	-webkit-animation:spin 10s infinite;
+	-o-animation:spin 10s infinite;
+	animation-timing-function:linear;
+	-moz-animation-timing-function:linear;
+	-webkit-animation-timing-function:linear;
+	-o-animation-timing-function:linear;
+	position:absolute;
+	z-index:-1;
+}
+header #time #clock {
+	float:left;
+	width:113px;
+	height:68px;
+	text-align:center;
+	padding-top:45px;
+	font-size:18px;
+	color:#fff;
+}
+header #time #date_bar {
+	height:6px;
+	width:135px;
+	background-color:#41d5ff;
+	position:absolute;
+	margin-left:111px;
+	margin-top:58px;
+}
+header #time #date {
+	font-size:20px;
+	margin-top:26px;
+	float:left;
+	margin-left:10px;
+}
+header #time #weekday {
+	font-size:14px;
+	margin-top:20px;
+}
+header #title {
+	float:left;
+	margin-left:30px;
+	width:599px;
+	height:63px;
+	background-image:url(../images/title.jpg);
+	margin-top:30px;
+}
+header #title #version {
+	font-size:16px;
+	margin-top:20px;
+	margin-left:17px;
+	float:left;
+}
+header #title h1 {
+	float:left;
+	display:block;
+	font-weight:normal;
+	font-size:18px;
+	margin-top:19px;
+	margin-left:25px;
+	color:#fff;
+}
+#main .left {
+	width:211px;
+	float:left;
+	margin-right:23px;
+}
+/* Chat UI */
+#main .right {
+	min-height:450px;
+	background-image:url(../images/border.jpg);
+	background-repeat:repeat-y;
+	width:569px;
+	float:left;
+	padding:0px 30px;
+	animation:introFade 5s;
+	-moz-animation:introFade 5s;
+	-webkit-animation:introFade 5s;
+	-o-animation:introFade 5s;
+}
+#main .right #chat {
+	line-height:1.5;
+	height:500px;
+	overflow:auto;
+}
+#main .right #chat .author {
+	color:#fff;
+}
+#main .right #chat #input .author {
+	float:left;
+}
+#main .right #chat #input #input-content {
+	float:left;
+	width:480px;
+	margin-left:8px;
+	border:none;
+	background-color:#000;
+	color:#41d5ff;
+	font-size:14px;
+	font-family:SourceCodePro;
+}
+#main .right #chat #input #input-content:focus {
+	outline:none;
+}
+/* FFT visualizer */
+#visualizer {
+	margin-top:15px;
+}
+.side-divider {
+	background-image:url(../images/side_divider.jpg);
+	height:1px;
+	animation:introFade 3s;
+	-moz-animation:introFade 3s;
+	-webkit-animation:introFade 3s;
+	-o-animation:introFade 3s;
+}
+/* Volume slider */
+#voice-level {
+	background-image:url(../images/voice-level.jpg);
+	min-width:59px;
+	height:55px;
+	background-repeat:no-repeat;
+	margin-bottom:15px;
+	animation:intro 0.5s;
+	-moz-animation:intro 0.5s;
+	-webkit-animation:intro 0.5s;
+	-o-animation:intro 0.5s;
+}
+#voice-level h1 {
+	font-weight:normal;
+	font-size:14px;
+	display:block;
+	margin-left:65px;
+}
+#voice-level #voice-bar {
+	height:8px;
+	width:140px;
+	background-color:#081c21;
+	position:absolute;
+	margin-left:58px;
+	margin-top:-8px;
+	cursor:pointer;
+}
+#voice-level #voice-bar:active #voice-bar-fill {
+	background-color:#fff;
+}
+#voice-level #voice-bar:active #voice-bar-circle {
+	border-color:#fff;
+}
+#voice-level #voice-bar-fill {
+	height:8px;
+	background-color:#41d5ff;
+	cursor:pointer;
+}
+#voice-level #voice-bar-circle {
+	float:right;
+	width:12px;
+	height:12px;
+	border-radius:100%;
+	background-color:#000;
+	border:2px solid #41d5ff;
+	margin-top:-4px;
+	margin-right:-5px;
+	cursor: url(https://mail.google.com/mail/images/2/openhand.cur) 8 8, move;
+}
+/* MISC */
+#container {
+	height: 500px;
+	width: 500px;
+}
+#main {
+	display: flex;
+	justify-content: space-between;
+}
+#webcam {
+	width: 250px;
+}
+/* Controls */
+#controlz ul {
+	margin: 40px 0 0 0;
+	padding: 0;
+}
+#controlz li {
+	list-style: none;
+	margin: 5px 0;
+}
+#controlz li input {
+	margin: 0;
+}
+#controlz li h1 {
+	font-size: 14px;
+	margin: 5px 0;
+}
+#controlz input[type=range]::-webkit-slider-runnable-track {
+	height:20px;
+	cursor:pointer;
+	animate:0.2s;
+	background:rgba(50,80,100,0.5);
+	border-radius:0;
+	border:0px solid #000000;
+}
+#controlz input[type=range]::-webkit-slider-thumb {
+	height:20px;
+	width:15px;
+	background:#345;
+	cursor:pointer;
+	-webkit-appearance:none;
+}
+#controlz input[type=range]:focus::-webkit-slider-runnable-track {
+	background:#aaa;
+}
+#controlz input[type=range]::-moz-range-track {
+	height:20px;
+	cursor:pointer;
+	animate:0.2s;
+	background:rgba(50,80,100,0.5);
+	border-radius:0;
+}
+#controlz input[type=range]::-moz-range-thumb {
+	height:20px;
+	width:15px;
+	border-radius:1px;
+	background:#345;
+	cursor:pointer;
+}
+#controlz input[type=range]::-ms-track {
+	height:20px;
+	cursor:pointer;
+	animate:0.2s;
+	background:transparent;
+	border-color:transparent;
+	color:transparent;
+}
+#controlz input[type=range]::-ms-fill-lower {
+	background:#369;
+	border:0px solid #000000;
+	border-radius:2px;
+}
+#controlz input[type=range]::-ms-fill-upper {
+	background:#369;
+	border:0px solid #000000;
+	border-radius:2px;
+}
+#controlz input[type=range]::-ms-thumb {
+	height:20px;
+	width:15px;
+	border-radius:1px;
+	background:#345;
+	cursor:pointer;
+}
+#controlz input[type=range]:focus::-ms-fill-lower {
+	background:#369;
+}
+#controlz input[type=range]:focus::-ms-fill-upper {
+	background:#369;
+}
+
+#controls {
+	width: 250px;
+}
+
+
+#controls > #buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+#controls > button {
+		width: 150px;
+		height: 50px;
+		margin: 10px auto;
+}
+
+#controls > img, #controls > video {
+	margin-bottom: 10px;
+}
+
+#controls > button {
+	display: block;
+	margin: 0 auto;
+}
+
+/* Mobile Optimization */
+@media (max-width: 980px) {
+	#wrapper {
+		padding: 20px;
+	}
+
+	#main {
+		flex-direction: column;
+	}
+
+	header #clock_image {
+		height: 56px;
+		width: 56px;
+		background-size: 56px 56px;
+	}
+
+	header #time {
+		display: none;
+	}
+
+	header #title {
+		display: none;
+	}
+
+	#container {
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+	}
+
+	#container canvas {
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+	}
+
+	.left {
+		order: 3;
+	}
+
+	#controlz {
+		/* display: none; */
+		text-align: center;
+	}
+
+	#controlz li {
+		display: flex;
+	}
+
+	#controlz li h1 {
+		font-size: 14px;
+		margin: 5px 0;
+		width: 70px;
+	}
+
+	#controlz li h1 {
+		font-size: 14px;
+		margin: 5px 0;
+	}
+
+	#controls {
+		margin: 0 auto;
+		width: auto;
+	}
+
+	#controls > #buttons {
+		display: flex;
+		flex-direction: row;
+	}
+
+	button {
+			width: 150px;
+			height: 50px;
+			margin: 10px auto;
+	}
+
+	#preview {
+		display: flex;
+	}
+
+	#preview > * {
+		margin: 10px;
+	}
+
+	#main .left {
+		width: auto;
+		margin: 0 auto;
+	}
+}
+
+@media (max-width: 500px) {
+	#controls > #buttons {
+		flex-direction: column;
+	}
+}

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/key-takeaways-hit-refresh" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”" />
+    <meta property="og:description" content="I recently started at Microsoft, where I joined at the perfect moment. Microsoft has been transforming under the lead of our new CEO Satya Nadella. Who brought a new fresh breeze of air through the company, with as goal of “Hitting Refresh” and preparing us for the years to come." />
+    <meta property="og:url" content="/key-takeaways-hit-refresh" />
+    <meta property="og:image" content="/assets/images/covers/book-satya-hit-refresh.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2018-04-27T12:40:00+00:00" />
+    <meta property="article:modified_time" content="2018-04-27T12:40:00+00:00" />
+    <meta property="article:tag" content="Experience" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”" />
+    <meta name="twitter:description" content="I recently started at Microsoft, where I joined at the perfect moment. Microsoft has been transforming under the lead of our new CEO Satya Nadella. Who brought a new fresh breeze of air through the company, with as goal of “Hitting Refresh” and preparing us for the years to come." />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/book-satya-hit-refresh.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Experience" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/key-takeaways-hit-refresh",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/book-satya-hit-refresh.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/key-takeaways-hit-refresh"
+    },
+    "description": "I recently started at Microsoft, where I joined at the perfect moment. Microsoft has been transforming under the lead of our new CEO Satya Nadella. Who brought a new fresh breeze of air through the company, with as goal of “Hitting Refresh” and preparing us for the years to come."
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-experience ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="27 April 2018">27 April 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/experience/'>EXPERIENCE</a>,
+                            
+                        
+                            
+                               <a href='/tag/business/'>BUSINESS</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/book-satya-hit-refresh.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”</h1>
+                    <p>I recently started at Microsoft, where I joined at the perfect moment. Microsoft has been transforming under the lead of our new CEO Satya Nadella. Who brought a new fresh breeze of air through the company, with as goal of “Hitting Refresh” and preparing us for the years to come.</p>
+
+<p>As lucky as I was, I joined a few weeks before he released his book. Which made it special for me, since every Employee receives a special Employee Edition of this awesome book, including notes by Satya. (I can say that these notes were really well thought-off, seeing that even the Index at the back had extra notes in them to reference back to certain pages where notes were added). Of course I instantly set a goal for myself to finish this book, but I added a small little task for myself, which was to mark everything I personally found very interesting. These parts not only include some marked lines by Satya, but also my own reading between the lines.</p>
+
+<p>This Blog Post will summarize my Key Takeaways from this book. The top part will include the points that I found Critical, and that I think everyone should learn — including some remarks from myself. Whereas the bottom part will be more literal copied parts with references to the pages.</p>
+
+<blockquote>
+  <p>Disclaimer: Please note that almost everything besides my own comments written below comes from the Book Hit Refresh by Satya Nadella. If you like the parts that I included below, I recommend everyone to acquire (https://news.microsoft.com/hitrefresh/) a copy of this book and read it yourself. It is a very well written book that includes a lot of brainstorming for the future, and will definitely give you a spark to think about the future yourself.</p>
+</blockquote>
+
+<h2 id="my-5-key-picks">My 5 Key Picks</h2>
+
+<h3 id="page-119about-leaders">Page: 119 — About leaders</h3>
+
+<p>“To be a leader in this company, your job is to find the rose petals in a field of shit”</p>
+
+<blockquote>
+  <p>If I had to summarize myself how I see a leader, I couldn’t have done it any better. It is short, to the point and a hidden call-to-action for existing leaders.
+We can look at a leader as an operator of a machine. Machines are built up using a lot of different cogs of all sizes that coherently work together as one giant machine. So by definition it is important to select cogs that you know you can trust and rely on before operating your machine. Since without these cogs, it all falls apart and you would not be able to operate anything.</p>
+</blockquote>
+
+<h3 id="pages-119-and-120leadership-principles">Pages 119 and 120 — Leadership principles</h3>
+
+<ol>
+  <li>Bring clarity to those you work with. By taking internal and external noise and synthesizing a message from it to deliver to your team.</li>
+  <li>Leaders generate energy, not only on their own teams but across the company</li>
+  <li>They find a way to deliver success to make things happen. This means driving innovations that people love and are inspired to work on; finding balance between long-term success and short-term wins; and being boundary-less and globally minded in seeking solutions.</li>
+</ol>
+
+<blockquote>
+  <p>The key point in this list described above for me, is point 2: “Generating Energy”. Did you every talk to someone that had such a specific way of talking that you were instantly convinced? Or someone who talks in such a way that you are amazed by everything that person says? Well this is a kind of energy a leader needs. The energy that is contagious and makes other people move and follow the leader in every step they take.
+An excellent example here is Satya. When he got promoted as a CEO, he talked in such a way that the whole culture started to shift. His energy was transmitted to the people close around him, who in their turn passed the energy down towards the people close to them. If we can continue this chain till the furthest shackle. It results in everybody being on the same line, moving as one entity and reaching for the furthest stars.
+If someone ever asked me what I think are the best hiring qualities a recruiter should look for. Then my top answer would definitely be to look for the people who have energy. Because I know that those people will be the ones that can help your organization move and focus on the more innovative things.</p>
+</blockquote>
+
+<h3 id="page-125our-partners">Page 125 — Our Partners</h3>
+
+<p>“For everyone working with partners, I encourage you to ask yourself “what could be?” and explore new, creative ways to do interesting things that add value back to our platforms for customers”</p>
+
+<blockquote>
+  <p>This sentence speaks for itself. Without our partners we would not be able to get to the point where we are now. They are your first line of defense in receiving critical feedback, that can help you finetune your application for a better customer experience. Without them, we would need to receive this feedback from our customers, which is a good thing but also a dangerous thing. Customers criticize more easily which can have an impact on brand name and customer acquisition.</p>
+</blockquote>
+
+<h3 id="page-166how-quantum-computers-will-become-part-of-our-lives">Page 166 — How quantum computers will become part of our lives</h3>
+
+<p>“Quantum computers will not stake the form of a new stand-alone, super-fast PC but will operate as a co-processor, receiving its instructions and cues from a stack of classical processors”</p>
+
+<blockquote>
+  <p>For me this was very interesting and opened up new ways of thinking. I always thought that quantum computers would replace our existing computers. But after reading sense, it makes more sense that quantum computers will focus on what they are good at. Allowing us to iterate further on what we already have, rather than reworking it.</p>
+</blockquote>
+
+<h3 id="page-203the-different-run-times-through-history">Page 203 — The different run-times through history</h3>
+
+<p>“There were 2 different run times already (First PC, then Web) and now we are progressing towards the third one: AI”</p>
+
+<p>This is key. Seeing my age, I only saw the second run time coming since the PC battle was one that was already won (See Linux, Windows and Mac OS). Web however was just starting back then and has meanwhile reached a mature enough stage for us to be looking at a new run time.</p>
+
+<p>Looking back at when the Web run time started, we can see the same patterns arriving now. Just as then, now AI is arriving in more startups, people are jumping on board, the general public is seeing and acknowledging its existence more and more. Helping me believe that AI is indeed the next run time. The question that I have however is the timeline. AI has promises, but in my opinion a lot of work is needed for it to become mainstream.</p>
+
+<h2 id="other-picks">Other Picks</h2>
+
+<h3 id="pages-38-and-39three-business-and-leadership-principles-learned-from-cricket">Pages 38 and 39 — Three business and leadership principles learned from cricket</h3>
+
+<ul>
+  <li>Compete vigorously and with passion in the face of uncertainty and intimidation</li>
+  <li>Put your team first, ahead of your personal statistics and recognition</li>
+  <li>One brilliant character who does not put the team first can destroy the entire team</li>
+</ul>
+
+<h3 id="page-126four-initiatives-every-company-must-make-a-priority">Page 126 — four initiatives every company must make a priority</h3>
+
+<ul>
+  <li>Engage with your customer base by leveraging data to improve the customer experience</li>
+  <li>Empower your own employees by enabling greater and more mobile productivity and collaboration in the new digital world of work</li>
+  <li>Optimize operations, automating and simplifying business process across sales, operations and finance</li>
+  <li>Transform our products, services and business models (become a digital company)</li>
+</ul>
+
+<h3 id="page-150three-areas-we-have-to-work-on-to-make-ai-a-reality">Page 150 — Three areas we have to work on to make AI a reality</h3>
+
+<ul>
+  <li>Big Data</li>
+  <li>Massive Computing Power</li>
+  <li>Sophisticated Algorithms</li>
+</ul>
+
+<h3 id="page-150about-artificial-general-intelligence">Page 150 — About Artificial General Intelligence</h3>
+
+<p>Artificial General Intelligence (AGI) is the point at which a computer matches or even surpasses human intellectual capabilities</p>
+
+<h3 id="page-150the-layers-of-artificial-intelligence">Page 150 — The layers of Artificial Intelligence</h3>
+
+<ul>
+  <li>Bottom Layer: Pattern recognition</li>
+  <li>Middle Layer: Perception, sensing more and more complex scenes (estimated that 99% of human perception is through speech and vision)</li>
+  <li>Top Layer: Cognition — Deep understanding of human language</li>
+</ul>
+
+<h3 id="pages-151-152-and-153the-state-of-ai-today-and-where-we-are-going">Pages 151, 152 and 153 — The state of AI today and where we are going</h3>
+
+<ul>
+  <li>Bespoke (=tailored/commissioned to a particular specification): This is how AI is today, only for a few companies</li>
+  <li>Democratized: Make tools so that everyone can use AI (this is what Microsoft is doing)</li>
+  <li>Learn to Learn: Get computers to the point where they Learn to Learn</li>
+</ul>
+
+<h3 id="page-162scientific-and-engineering-breakthroughs-needed-to-get-to-quantum-computing">Page 162 — Scientific and engineering breakthroughs needed to get to quantum computing</h3>
+
+<ul>
+  <li>Math breakthrough: The Topological Qubit</li>
+  <li>Superconducting Breakthrough: Fabrication process to yield thousands of topological qubits that are both highly reliable and stable. A promising technique is available here called “Majorana fermions”</li>
+  <li>Computer Science Breakthrough: New computational methods for programming the quantum computer</li>
+</ul>
+
+<h3 id="page-182formula-for-trust">Page 182 — Formula for Trust</h3>
+
+<p>Formula for trust: E + SV + SR = T/t (Empathy + Shared Values + Safety and Reliability = Trust over time)</p>
+
+<blockquote>
+  <p>Note: Of course this is not possible, but rather an estimation if it could be written as a formula</p>
+</blockquote>
+
+<h3 id="page-197conversational-ai">Page 197 — Conversational AI</h3>
+
+<p>Conversational AI needs to be able to create and understand dialog to deliver a personal, social and emotional experience</p>
+
+<h3 id="page-212accelerants-for-innovations">Page 212 — Accelerants for innovations</h3>
+
+<p>Ultimately, we need technological breakthroughs to drive growth beyond what we’re seeing, and I believe mixed reality, artificial intelligence and quantum are the type of innovations that will serve as accelerants</p>
+
+<h3 id="page-215leadership-opportunities-that-no-single-communityregion-has-seized-yet">Page 215 — Leadership opportunities that no single community/region has seized yet</h3>
+
+<ul>
+  <li>Desert farming in Australia</li>
+  <li>Local banking in Dubai</li>
+  <li>Innovations in IoT</li>
+  <li>Ambient Intelligence</li>
+  <li>Mobile Payment Systems</li>
+  <li>Virtual Reality</li>
+  <li>Silicon Photonics</li>
+  <li>3D printing</li>
+  <li>Wearables</li>
+  <li>Lightweight, low altitude satellites</li>
+  <li>Drones</li>
+  <li>Native advertising</li>
+  <li>Driverless cars</li>
+  <li>Robotics and industrial automation</li>
+  <li>Adaptive, gamified education</li>
+  <li>Nano-machines</li>
+  <li>Genomics</li>
+  <li>Economical Solar, Wind , and tidal power</li>
+</ul>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/key-takeaways-hit-refresh';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/experience/">Experience</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/the-achievers-mind">The Achievers Mindset</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/lessons-learned-after-1-year-at-microsoft">Lessons learned after being at Microsoft for 1 year</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/learnings-about-leadership-analyzing-job-postings">So you want to become a leader? Review my lessons learned from the top leaders and roles in technology</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/experience/">
+                                
+                                    See all 6 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/kubernetes-locally-azure">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/kubernetes.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/kubernetes-locally-azure">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Infrastructure</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Kubernetes</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Create a local kubernetes development cluster and scale it with the cloud</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>So you want to create a Kubernetes cluster to start testing your docker deployment? But you would like to test this locally first? Well, then this post is for you. Here we will</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/ml-intro">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/ai4.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/ml-intro">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Ai</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Ai-ml</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">An introduction to Machine Learning (ML)</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Every few decennia there is a new cool kid around the block that makes an impact on the current world, an impact that is so big that we will have to adapt. Starting</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">My Key Take-aways from reading Satya Nadella’s Book “Hit Refresh”</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=My+Key+Take-aways+from+reading+Satya+Nadella%E2%80%99s+Book+%E2%80%9CHit+Refresh%E2%80%9D&amp;url=https://thebillkidy.github.io/key-takeaways-hit-refresh"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/key-takeaways-hit-refresh"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/key-takeaways-hit-refresh&title=My+Key+Take-aways+from+reading+Satya+Nadella%E2%80%99s+Book+%E2%80%9CHit+Refresh%E2%80%9D&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

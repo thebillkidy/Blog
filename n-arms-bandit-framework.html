@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Multi-armed bandit framework</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/n-arms-bandit-framework" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Multi-armed bandit framework" />
+    <meta property="og:description" content="To start solving the problem of exploration, we are going to introduce the Multi-armed bandits framework. But what exactly does this solve? Just think that you are executing a clinical trial with 4 pills. You know that the pills have a survival rate but you don’t know what that survival" />
+    <meta property="og:url" content="/n-arms-bandit-framework" />
+    <meta property="og:image" content="/assets/images/posts/multi-armed-bandits.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2018-05-03T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2018-05-03T09:00:00+00:00" />
+    <meta property="article:tag" content="Ai" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Multi-armed bandit framework" />
+    <meta name="twitter:description" content="To start solving the problem of exploration, we are going to introduce the Multi-armed bandits framework. But what exactly does this solve? Just think that you are executing a clinical trial with 4 pills. You know that the pills have a survival rate but you don’t know what that survival" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/posts/multi-armed-bandits.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Ai" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/n-arms-bandit-framework",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/posts/multi-armed-bandits.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/n-arms-bandit-framework"
+    },
+    "description": "To start solving the problem of exploration, we are going to introduce the Multi-armed bandits framework. But what exactly does this solve? Just think that you are executing a clinical trial with 4 pills. You know that the pills have a survival rate but you don’t know what that survival"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Multi-armed bandit framework" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 3 May 2018"> 3 May 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/ai/'>AI</a>,
+                            
+                        
+                            
+                               <a href='/tag/ai-ml/'>AI-ML</a>,
+                            
+                        
+                            
+                               <a href='/tag/ai-rl/'>AI-RL</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/multi-armed-bandits.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Multi-armed bandit framework</h1>
+                    <p>To start solving the problem of exploration, we are going to introduce the <strong>Multi-armed bandits framework</strong>. But what exactly does this solve? Just think that you are executing a clinical trial with 4 pills. You know that the pills have a survival rate but you don’t know what that survival rate is. Your goal: find the pill with the highest chance of survival in X trials.</p>
+
+<p>This is an example of a <strong>Multi-bandit framework</strong>, to put this more formal:</p>
+
+<p>Given $K$ actions (=arms) from a list of actions $A = {a_1, a_2, …, a_k}$ and knowing that the reward $r$ for a certain action is unknown $R_a = Pr(r \mid a)$</p>
+
+<blockquote>
+  <p>Note: for those who are new to probability theory, $\mid$ is a conditional, so $Pr(r \mid a)$ means the probability of getting reward $r$ if action $a$ happens.</p>
+</blockquote>
+
+<p>Now at each time step $t = 1, 2, …, T$</p>
+
+<ol>
+  <li>Choose an action: $a_t \in A$</li>
+  <li>See the reward received: $r_t ~ Pr(r mid a_t)$</li>
+</ol>
+
+<p><span style="font-size: 2.5rem; text-align: center; display: block;"><strong>Goal:</strong> Maximize $\sum_tr_t$</span></p>
+
+<p>We call this kind of setup a <em>stochastic</em> setup, since $r_t$ is stochastic.</p>
+
+<blockquote>
+  <p>Note: Stochastic means something that is randomly determined.</p>
+</blockquote>
+
+<h2 id="regret">Regret</h2>
+
+<p>What is important in this framework, is to be able to quantify the “price of information”, or in other words: “If I choose path B instead of A, how hard will my reward decrease? how much will I regret taking path B?”.</p>
+
+<p>This means that we can say that for a successful algorithm, we want to to minimize our regret $L_t$, or maximize the reward $\sum_t{r_t}$</p>
+
+<p>Our regret can be formulated as: $L_T$ = “The optimal way” - “what we managed to achieve without knowing the optimal route” = $L_T = T\mathbf{E}[r \mid a^{*}] - \sum_T\mathbf{E}[r \mid a_t]$ .</p>
+
+<h2 id="exploration-algorithms">Exploration Algorithms</h2>
+
+<h3 id="the-naive-algoritm">The Naive Algoritm</h3>
+
+<p>Let’s go back to the example of the pills, where we have T time steps (= population) and k actions. How would we divide the pills naively?</p>
+
+<p>Here we would just pick a <em>round-robin</em> approach, where we divide the pills equally.</p>
+
+<p>But we can do better!</p>
+
+<h3 id="greedy-algorithm">Greedy Algorithm</h3>
+
+<p>A greedy algorithm is an algorithm that makes the choice that seems to be the best at the moment. Which means that we will make a local-optimal choice rather than a global-optimal solution.</p>
+
+<p>Now what happens if we try to apply this greedy algorithm to our Pill division problem? Then we would pick the pill that yields the best results, how you would say? By counting the amounts we were successful, and then keeping to pick this one.</p>
+
+<p>We thus want to estimate what the reward could be for any of the actions? or in mathematical terms: $\hat{r}_a \approx \mathbf{E} [ r \mid a ]$, but how can we calculate this?</p>
+
+<blockquote>
+  <p>Note $\mathbf{E}$ represents the <em>expected value</em> , or what is our random variable expected to be if we repeat something $\infty$ times?</p>
+</blockquote>
+
+<p>Well let’s create a new variable that represents on how many times we chose a sample: $n_a$, then we say that $\hat{r}_a = \frac{r_t}{n_a}$. So our best action would be defined by $a_t = argmax \hat{r}_a$</p>
+
+<p>The problem with this algorithm however, is that it could lock-on suboptimal forever due to the fact that we do not do any exploration. For example, if we take pills and we have a positive result the first time, then we would not go and try the other ones.</p>
+
+<p>Our Greedy Algorithm has <strong>linear regret</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Use the greedy empirical estimate to choose an arm
+ * 
+ * @param {Array} armCounts nArms * 2, representing the observed counts
+ * @returns {Integer} the arm to be pulled at the next timestep (0 index based)
+ */</span>
+<span class="kd">const</span> <span class="nx">greedyChoice</span> <span class="o">=</span> <span class="p">(</span><span class="nx">armCounts</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">pMax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">choice</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">armCounts</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">nPull</span> <span class="o">=</span> <span class="p">(</span><span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">nPull</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pHat</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">pHat</span> <span class="o">=</span> <span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nx">nPull</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pHat</span> <span class="o">&gt;</span> <span class="nx">pMax</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pMax</span> <span class="o">=</span> <span class="nx">pHat</span><span class="p">;</span>
+      <span class="nx">choice</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">choice</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="optimistic-greedy-algorithm-epsilon-greedy">Optimistic Greedy Algorithm ($\epsilon$-Greedy)</h3>
+
+<p>Since the greedy algorith locks-on a suboptimal choice, we want to be able to “explore” more to try to find the global minimum. Therefore we will have to introduce a probability to explore. This probability is what we can write as our $\epsilon$ variable.</p>
+
+<p>So formal this will be that with probability $\epsilon$ we will select a random action and with probability 1 - $\epsilon$ we will select our best action.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Use the greedy empirical estimate to choose an arm
+ * 
+ * @param {Array} armCounts nArms * 2, representing the observed counts
+ * @param {Integer} epsilon A value between 0 and 1 representing 
+ *                          how much chance there is to pick a random action
+ * @returns {Integer} the arm to be pulled at the next timestep (0 index based)
+ */</span>
+<span class="kd">const</span> <span class="nx">greedyEpsilonChoice</span> <span class="o">=</span> <span class="p">(</span><span class="nx">armCounts</span><span class="p">,</span> <span class="nx">epsilon</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">choice</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">epsilon</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">choice</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">armCounts</span><span class="p">.</span><span class="nx">length</span><span class="p">));</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">choice</span> <span class="o">=</span> <span class="nx">greedyChoice</span><span class="p">(</span><span class="nx">armCounts</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">choice</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="upper-confidence-bound-ucb-algorithm">Upper Confidence Bound (UCB) Algorithm</h3>
+
+<p>We just saw two algorithms (Greedy and $\epsilon$-greedy) that are able to achieve linear regret. But can we do better? Well as proven Lai and Robbins, it appears that the lower bound of Regret is Logarithmic. But how can we achieve this?</p>
+
+<p>Well we can achieve this through a principle known as <em>optimism in the face of uncertainty</em>. To achieve low regret, we only need to identify the optimal action. Therefore we need use to use the collected data to eliminate actions that are sub-optimal as much as possible.</p>
+
+<p>The algorithm is written as follows:</p>
+
+<ol>
+  <li>For each action a, maintain the amount of times we took that action $n_a$ and the empirical average of pay-offs for that action $\hat{r}_a$</li>
+  <li>For the first $k$ rounds, play each action once</li>
+  <li>At round t, play $a_t = argmax(\hat{r}_a + \sqrt{\frac{2logt}{n_a}})$</li>
+</ol>
+
+<p>This algorithm achieves a Logarithmic regret, but only if the amount of rounds is larger than our amount of actions. It does this by adding an exp bonus to unexplored actions/less frequently called actions, represented by $\sqrt{\frac{2logt}{n_a}}$. This however decreases rapidly once $n_a$ increases.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @param {Array} armCounts nArms * 2, representing the observed counts
+ * @param {Integer} timestep the number of timesteps elapsed
+ * @returns {Integer} the arm to be pulled at the next timestep (0 index based)
+ */</span>
+<span class="kd">const</span> <span class="nx">ucbChoice</span> <span class="o">=</span> <span class="p">(</span><span class="nx">armCounts</span><span class="p">,</span> <span class="nx">timestep</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">pMax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">choice</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">armCounts</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">nPull</span> <span class="o">==</span> <span class="p">(</span><span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">nPull</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">nPull</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">pHat</span> <span class="o">=</span> <span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nx">nPull</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">pUpper</span> <span class="o">=</span> <span class="nx">pHat</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">timestep</span><span class="p">)</span> <span class="o">/</span> <span class="nx">nPull</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pUpper</span> <span class="o">&gt;</span> <span class="nx">pMax</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pMax</span> <span class="o">=</span> <span class="nx">pUpper</span><span class="p">;</span>
+      <span class="nx">choice</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">choice</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="posterior-sampling-algorithm-thompson-sampling">Posterior Sampling Algorithm (=Thompson Sampling)</h3>
+
+<p>If we have prior knowledge on what the payoffs could be, then posterior sampling says to take action a according to the probability that a is optimal. Resulting in a convergence to the a* method.</p>
+
+<p>In our drug discovery example, the rewards were <em>Bernoulli</em> (live or die), which is a <em>random Binary Variable</em>).</p>
+
+<p>We can thus say that Rewards = Bernoulli($P_a$), assuming that $P_a \approx Beta(1, 1)$ with $Beta$ being a Beta distribution.</p>
+
+<blockquote>
+  <p>Note: A beta distribution is a uniform chance distribution with 2 parameters.</p>
+</blockquote>
+
+<p>Algorithm:</p>
+
+<ol>
+  <li>Maintain patients who lived or died</li>
+  <li>At round T
+    <ul>
+      <li>$\hat{P}_a \approx Beta(1 + live, 1 + die)$ (the posterior distribution for each arm)</li>
+      <li>Play $a_t = argmax(P_a)$. (We will play the most optimistic looking sample)</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @param {Array} armCounts nArms * 2, representing the observed counts
+ * @returns {Integer} the arm to be pulled at the next timestep (0 index based)
+ */</span>
+<span class="kd">const</span> <span class="nx">posteriorSamplingChoice</span> <span class="o">=</span> <span class="p">(</span><span class="nx">armCounts</span><span class="p">,</span> <span class="nx">timestep</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">pMax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">choice</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">priorA</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">priorB</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">armCounts</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">pSample</span> <span class="o">=</span> <span class="nx">rBeta</span><span class="p">(</span><span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">priorA</span><span class="p">,</span> <span class="nx">armCounts</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">priorB</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pSample</span> <span class="o">&gt;</span> <span class="nx">pMax</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pMax</span> <span class="o">=</span> <span class="nx">pSample</span><span class="p">;</span>
+      <span class="nx">choice</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">choice</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">rbeta</span><span class="p">(</span><span class="nx">alpha</span><span class="p">,</span> <span class="nx">beta</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">alpha_gamma</span> <span class="o">=</span> <span class="nx">rgamma</span><span class="p">(</span><span class="nx">alpha</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">alpha_gamma</span> <span class="o">/</span> <span class="p">(</span><span class="nx">alpha_gamma</span> <span class="o">+</span> <span class="nx">rgamma</span><span class="p">(</span><span class="nx">beta</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">SG_MAGICCONST</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">4.5</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">LOG4</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">4.0</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">rgamma</span><span class="p">(</span><span class="nx">alpha</span><span class="p">,</span> <span class="nx">beta</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// does not check that alpha &gt; 0 &amp;&amp; beta &gt; 0</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">alpha</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Uses R.C.H. Cheng, "The generation of Gamma variables with non-integral</span>
+    <span class="c1">// shape parameters", Applied Statistics, (1977), 26, No. 1, p71-74</span>
+    <span class="kd">var</span> <span class="nx">ainv</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="nx">alpha</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">bbb</span> <span class="o">=</span> <span class="nx">alpha</span> <span class="o">-</span> <span class="nx">LOG4</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">ccc</span> <span class="o">=</span> <span class="nx">alpha</span> <span class="o">+</span> <span class="nx">ainv</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">u1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">((</span><span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">7</span> <span class="o">&lt;</span> <span class="nx">u1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">u1</span> <span class="o">&lt;</span> <span class="mf">0.9999999</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="kd">var</span> <span class="nx">u2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+      <span class="nx">v</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">u1</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="nx">u1</span><span class="p">))</span><span class="o">/</span><span class="nx">ainv</span><span class="p">;</span>
+      <span class="nx">x</span> <span class="o">=</span> <span class="nx">alpha</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">exp</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="nx">u1</span><span class="o">*</span><span class="nx">u1</span><span class="o">*</span><span class="nx">u2</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">bbb</span><span class="o">+</span><span class="nx">ccc</span><span class="o">*</span><span class="nx">v</span><span class="o">-</span><span class="nx">x</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">r</span> <span class="o">+</span> <span class="nx">SG_MAGICCONST</span> <span class="o">-</span> <span class="mf">4.5</span><span class="o">*</span><span class="nx">z</span> <span class="o">&gt;=</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="nx">r</span> <span class="o">&gt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">z</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">beta</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">alpha</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">u</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">u</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="nx">e</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">u</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">u</span><span class="p">)</span> <span class="o">*</span> <span class="nx">beta</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span> 
+    <span class="c1">// 0 &lt; alpha &lt; 1</span>
+    <span class="c1">// Uses ALGORITHM GS of Statistical Computing - Kennedy &amp; Gentle</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">u3</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+      <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">E</span> <span class="o">+</span> <span class="nx">alpha</span><span class="p">)</span><span class="o">/</span><span class="nb">Math</span><span class="p">.</span><span class="nx">E</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">b</span><span class="o">*</span><span class="nx">u3</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="nx">alpha</span><span class="p">));</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">x</span> <span class="o">=</span> <span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="nx">b</span><span class="o">-</span><span class="nx">p</span><span class="p">)</span><span class="o">/</span><span class="nx">alpha</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="kd">var</span> <span class="nx">u4</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">p</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">u4</span> <span class="o">&lt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">(</span><span class="nx">alpha</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)))</span> <span class="p">{</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">u4</span> <span class="o">&lt;=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">exp</span><span class="p">(</span><span class="o">-</span><span class="nx">x</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">beta</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://www.edx.org/course/reinforcement-learning-explained">https://www.edx.org/course/reinforcement-learning-explained</a></li>
+  <li><a href="http://iosband.github.io/2015/07/28/Beat-the-bandit.html">http://iosband.github.io/2015/07/28/Beat-the-bandit.html</a></li>
+  <li><a href="https://ac.els-cdn.com/0196885885900028/1-s2.0-0196885885900028-main.pdf?_tid=26e19e4d-690a-4275-a0c1-64c0bd26f1b5&amp;acdnat=1525014288_cc7f41ecd4796166f70a32b9b3e969c3">Tze Leung Lai and Herbert Robbins. Asymptotically efﬁcient adaptive allocation rules. Advances in applied mathematics, 6(1):4–22, 1985</a></li>
+  <li><a href="https://jeremykun.com/2013/10/28/optimism-in-the-face-of-uncertainty-the-ucb1-algorithm/">https://jeremykun.com/2013/10/28/optimism-in-the-face-of-uncertainty-the-ucb1-algorithm/</a></li>
+  <li><a href="https://stackoverflow.com/questions/9590225/is-there-a-library-to-generate-random-numbers-according-to-a-beta-distribution-f">https://stackoverflow.com/questions/9590225/is-there-a-library-to-generate-random-numbers-according-to-a-beta-distribution-f</a></li>
+</ul>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/n-arms-bandit-framework';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/ai/">Ai</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/facebook-horizon">Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/rl-overview-terminology">Reinforcement Learning - Terminology</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/openai-dotnet-core-sdk">Writing a C# SDK for the OpenAI Gym using .NET Core</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/ai/">
+                                
+                                    See all 9 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/connect-docker-wsl">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/docker.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/connect-docker-wsl">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Infrastructure</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Connect to your Docker Daemon through the Windows Subsystem for Linux (WSL)</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Do you have Windows installed and you love using the Linux Subsystem on it? (commonly known as WSL) Well let me tell you the steps to achieve this. Let’s start by Install the</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/running-openai-gym-on-windows-and-js">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/openai.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/running-openai-gym-on-windows-and-js">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Ai</span>
+                            
+                        
+                            
+                               <span class="post-card-tags">Ai-ml</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Ai-rl</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">How to run OpenAI Gym on Windows and with Javascript</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Reinforcement learning does not only requires a lot of knowledge about the subject to get started, it also requires a lot of tools to help you test your ideas. Since this process is</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Multi-armed bandit framework</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Multi-armed+bandit+framework&amp;url=https://thebillkidy.github.io/n-arms-bandit-framework"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/n-arms-bandit-framework"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/n-arms-bandit-framework&title=Multi-armed+bandit+framework&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

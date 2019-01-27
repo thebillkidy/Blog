@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>OpenAI Gym Problems - Solving the CartPole Gym</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/openai-cartpole" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="OpenAI Gym Problems - Solving the CartPole Gym" />
+    <meta property="og:description" content="In a previous post we set-up the OpenAI Gym to interface with our Javascript environment. Let’s now look at how we can use this interface to run the CartPole example and solve it with the theory that we learned in previous blog posts. Requirements: An introduction to Reinforcement Learning (RL)" />
+    <meta property="og:url" content="/openai-cartpole" />
+    <meta property="og:image" content="/assets/images/covers/openai.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2018-06-10T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2018-06-10T09:00:00+00:00" />
+    <meta property="article:tag" content="Ai" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="OpenAI Gym Problems - Solving the CartPole Gym" />
+    <meta name="twitter:description" content="In a previous post we set-up the OpenAI Gym to interface with our Javascript environment. Let’s now look at how we can use this interface to run the CartPole example and solve it with the theory that we learned in previous blog posts. Requirements: An introduction to Reinforcement Learning (RL)" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/openai.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Ai" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/openai-cartpole",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/openai.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/openai-cartpole"
+    },
+    "description": "In a previous post we set-up the OpenAI Gym to interface with our Javascript environment. Let’s now look at how we can use this interface to run the CartPole example and solve it with the theory that we learned in previous blog posts. Requirements: An introduction to Reinforcement Learning (RL)"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="OpenAI Gym Problems - Solving the CartPole Gym" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="10 June 2018">10 June 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/ai/'>AI</a>,
+                            
+                        
+                            
+                               <a href='/tag/ai-ml/'>AI-ML</a>,
+                            
+                        
+                            
+                               <a href='/tag/ai-rl/'>AI-RL</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/openai.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">OpenAI Gym Problems - Solving the CartPole Gym</h1>
+                    <p>In a previous post we set-up the OpenAI Gym to interface with our Javascript environment. Let’s now look at how we can use this interface to run the CartPole example and solve it with the theory that we learned in previous blog posts.</p>
+
+<p>Requirements:</p>
+
+<ul>
+  <li><a href="/rl-intro">An introduction to Reinforcement Learning (RL)</a></li>
+  <li><a href="/markov-property-chain-reward-decision">The Markov Property, Chain, Reward Process and Decision Process</a></li>
+  <li><a href="/bellman-equations">Bellman Equations</a></li>
+  <li><a href="/running-openai-gym-on-windows-and-js">How to run OpenAI Gym on Windows and with Javascript</a></li>
+  <li><a href="/creating-a-bucketing-function">Bucketization</a></li>
+</ul>
+
+<h2 id="setting-up-our-experiment">Setting up our Experiment</h2>
+
+<p>We are again going to use Javascript to solve this, so everything you did before in the first article in our requirements comes in handy. Start by creating a new directory with our <code class="highlighter-rouge">package.json</code> and a <code class="highlighter-rouge">index.js</code> file for our main entry point.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> To make things easier, it’s recommended to add a line that will start our server in the <code class="highlighter-rouge">package.json</code> file under the <code class="highlighter-rouge">scripts</code>: <code class="highlighter-rouge">nodemon -x 'python ../OpenAI-Gym/server.py'</code>. This way we can run <code class="highlighter-rouge">npm run server</code> to start our server, just make sure that you also run <code class="highlighter-rouge">npm install nodemon --save-dev</code> to ensure that the package is installed. Make sure to edit the path to point to the correct directories (in my case I put my experiments just one directory above the OpenAI-Gym files)</p>
+</blockquote>
+
+<p>In the newly created <code class="highlighter-rouge">index.js</code> file we can now write some boilerplate code that will allow us to run our environment and visualize it. See the bottom of this article for the contents of this file.</p>
+
+<h2 id="getting-to-know-the-different-methods">Getting to know the different methods</h2>
+
+<p>We learned the basics of RL in a previous article (see requirements) where we learned the following cycle:</p>
+
+<ol>
+  <li>We get an initial observation from an environment (the world) which we call our state $s$</li>
+  <li>Based on this state $s$, our agent will choose an action $a$</li>
+  <li>This action will modify our world, and receive a reward based on the output of it</li>
+  <li>We go back to step 2</li>
+</ol>
+
+<p>These steps are implemented in OpenAI through the following methods:</p>
+
+<ol>
+  <li>Get our initial observation: <code class="highlighter-rouge">state.observation = await client.envReset(instanceId)</code></li>
+  <li>Now decide which action to take based on the observation and the <em>previous</em> reward: <code class="highlighter-rouge">agent.chooseAction(state.observation, state.reward, state.done)</code></li>
+  <li>Get a new observation from our world: <code class="highlighter-rouge">state = await client.envStep(instanceId, actionToTake, true);</code></li>
+  <li>We go back to step 2</li>
+</ol>
+
+<p>To be able to make everything dynamic and create a true self-learning algorithm, OpenAI provides several other methods as well:</p>
+
+<ul>
+  <li>Create our environment: <code class="highlighter-rouge">await client.envCreate(envId);</code></li>
+  <li>Get our actionSpace containing the different actions that we can take
+    <ul>
+      <li><strong>Example:</strong> For <code class="highlighter-rouge">CartPole-v0</code> this returns: <code class="highlighter-rouge">{ info: { n: 2, name: 'Discrete' } }</code></li>
+      <li><strong>Method:</strong> <code class="highlighter-rouge">await client.envActionSpaceInfo(instanceId);</code></li>
+    </ul>
+  </li>
+  <li>Get our observationSpace containing the different observations that will be returned
+    <ul>
+      <li><strong>Example:</strong> For <code class="highlighter-rouge">CartPole-v0</code> this returns: <code class="highlighter-rouge">{ info: { high: [], low: [], name: 'Box', shape: [ 4 ] } }</code></li>
+      <li><strong>Method:</strong> <code class="highlighter-rouge">await client.envObservationSpaceInfo(instanceId);</code></li>
+    </ul>
+  </li>
+  <li>Starting and closing the monitoring process: <code class="highlighter-rouge">await client.envMonitorStart(instanceId, outDir, true);</code>, <code class="highlighter-rouge">await client.envMonitorClose(instanceId);</code></li>
+  <li>Upload the results to view it online: <code class="highlighter-rouge">await client.upload(outDir)</code></li>
+</ul>
+
+<h2 id="solving-the-cartpole-problem">Solving the CartPole problem</h2>
+
+<h3 id="discovering-the-inputs">Discovering the inputs</h3>
+
+<p>So in our CartPole example, let’s take a look at one of our state observations:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="err">done</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="err">info</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="err">observation</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="mf">0.10040040129814863</span><span class="p">,</span><span class="w">
+    </span><span class="mf">0.5559659866710018</span><span class="p">,</span><span class="w">
+    </span><span class="mf">-0.17649755837025902</span><span class="p">,</span><span class="w">
+    </span><span class="mf">-1.1301794535568273</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="err">reward</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Basically, these numbers are 4 unknown random continuous numbers, that we do not know what they do in our algorithm… (though we can make an interpretation of them with our human brain and say that they represent <strong>position $x$</strong>, <strong>velocity $v$</strong>, <strong>angle $\theta$</strong> and <strong>angular velocity $\alpha$</strong>).</p>
+
+<p>Next to these 4 random numbers, we also know by observing the action space that we can take 2 specific discrete actions (again by using our human brain we can classify this as moving the cart to the left or moving it to the right).</p>
+
+<h3 id="solving-the-problem">Solving the problem</h3>
+
+<p>Applying what we learned in the previous article of [RL Intro][/rl-intro], we know that we now need to create a policy that shows us which state we will land in after taking a certain action. By then combining this with the <a href="/bellman-equations">Bellman Equations</a>, we are able to create an optimal $\pi^{*}$ that will maximize the return in every state. So we follow our boilerplate of every reinforcement algorithm, stating that we first check our environment, then take an action and based on the reward of that action update our q-function. Or summarized:</p>
+
+<ol>
+  <li>Observe the environment</li>
+  <li>Based on the observed environment, take an action</li>
+  <li>Now look at the reward that we got from taking an action, and update our Q-Table with this reward.</li>
+</ol>
+
+<p>To start with point 1, we want to be able to represent our observation as a state index. This is needed to be able to construct our Q-Table which will consist of our state and actions. For this we use a method called <a href="/creating-a-bucketing-function">Bucketization</a> which will convert our observations from a continuous state (the numbers that fit between our lower bound and upper bound can be described as ]$-\infty$, $\infty$[) towards a discrete state (we “bucket” our numbers, returning only a subset of indexes rather than $\infty$ ones), allowing us to keep our states minimal and represent them in our memory.</p>
+
+<blockquote>
+  <p>Note: I did limit the velocity speed and the angle of our cartpole to achieve convergence faster.</p>
+</blockquote>
+
+<p>For point 2, we will then use what we learned in the <a href="/n-arms-bandit-framework">Multi-armed bandit framework</a> article, stating that we take our actions as returned by taking the maximum value for that state it’s actions (<code class="highlighter-rouge">Math.max(Q[s]</code>) but that we add an <strong>exploration factor</strong> that will still take a random action on some points, but still minimizes regret.</p>
+
+<p>And as our last point 3, we then update our Q-Table by utilizing the Bellman Equation which results in the single line</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">oldStateIdx</span><span class="p">][</span><span class="nx">action</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="nx">reward</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">gamma</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">newStateIdx</span><span class="p">].</span><span class="nx">getMaxValue</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">oldStateIdx</span><span class="p">][</span><span class="nx">action</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Successfully coding this and applying, will give us the following result:</p>
+
+<video width="640" height="480" autoplay="">
+  <source src="/assets/videos/cartpole.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<h2 id="files">Files</h2>
+
+<h3 id="indexjs-template">Index.js Template</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * For more information, check: https://gym.openai.com/docs/
+ */</span>
+<span class="kd">const</span> <span class="nx">gym</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../OpenAI-Gym/gym-http-api/binding-js/dist/lib/gymHTTPClient'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Bucket</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./Bucket'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">episodeCount</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">maxTimeSteps</span> <span class="o">=</span> <span class="mi">250</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">outDir</span> <span class="o">=</span> <span class="s2">"/tmp/random-agent/results"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">numTrials</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">envId</span> <span class="o">=</span> <span class="s2">"CartPole-v0"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">gym</span><span class="p">.</span><span class="k">default</span><span class="p">(</span><span class="s2">"http://127.0.0.1:5000"</span><span class="p">);</span>
+
+<span class="c1">// Parameter to enable debug</span>
+<span class="kd">const</span> <span class="nx">PRINT_DEBUG</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Experiment</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">agentClass</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">environment</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">agent</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">initialize</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Create our environment</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">environment</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envCreate</span><span class="p">(</span><span class="nx">envId</span><span class="p">);</span>
+
+    <span class="c1">// Our ActionSpace</span>
+    <span class="c1">// For CartPole-v0 this returns: { info: { n: 2, name: 'Discrete' } }</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envActionSpaceInfo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
+
+    <span class="c1">// Our ObservationSpace</span>
+    <span class="c1">// For CartPole-v0 this returns: { info: { high: [XXX], low: [XXX], name: 'Box', shape: [ 4 ] } }</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envObservationSpaceInfo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
+
+    <span class="c1">// Rebind our velocity and angular velocity parameters, the pole should stand still as much as possible</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">high</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">low</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">high</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">radians</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">low</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">radians</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
+
+    <span class="c1">// Set our learning agent</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">agent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CartPoleAgent</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">[</span><span class="s2">"n"</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">oldObservation</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">initialize</span><span class="p">();</span>
+
+    <span class="c1">// Start Monitoring</span>
+    <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envMonitorStart</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">,</span> <span class="nx">outDir</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+    <span class="c1">// For every episode</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">episode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">episode</span> <span class="o">&lt;</span> <span class="nx">episodeCount</span><span class="p">;</span> <span class="nx">episode</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Reset the whole environment to start over</span>
+      <span class="kd">let</span> <span class="nx">environment</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">done</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="na">info</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="na">observation</span><span class="p">:</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envReset</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">),</span> <span class="c1">// envReset gives an initial observation</span>
+        <span class="na">reward</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Keep executing while we can:</span>
+      <span class="c1">// if state.done = true, then that means the pole tipped to far, or we died</span>
+      <span class="c1">// if t &gt;= maxTimeSteps, then we did not solve it fast enough</span>
+      <span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">environment</span><span class="p">.</span><span class="nx">done</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span> <span class="o">&lt;</span> <span class="nx">maxTimeSteps</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">environment</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">agent</span><span class="p">.</span><span class="nx">act</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">,</span> <span class="nx">episode</span><span class="p">,</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">observation</span><span class="p">);</span>
+        <span class="nx">t</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Episode </span><span class="p">${</span><span class="nx">episode</span><span class="p">}</span><span class="s2"> ended after </span><span class="p">${</span><span class="nx">t</span><span class="p">}</span><span class="s2"> timesteps`</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Stop Monitoring</span>
+    <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envMonitorClose</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">outDir</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Create and run our experiment</span>
+<span class="kd">const</span> <span class="nx">experiment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Experiment</span><span class="p">();</span>
+<span class="nx">experiment</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+
+<span class="c1">// Our Agent in charge of learning based on the observation and reward</span>
+<span class="kd">class</span> <span class="nx">CartPoleAgent</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">numberOfActions</span><span class="p">,</span> <span class="nx">numberOfObservations</span><span class="p">,</span> <span class="nx">observationSpaceInfo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numberOfActions</span> <span class="o">=</span> <span class="nx">numberOfActions</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">numberOfObservations</span> <span class="o">=</span> <span class="nx">numberOfObservations</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span> <span class="o">=</span> <span class="nx">observationSpaceInfo</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">gamma</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span> <span class="c1">// Discount factor</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minEpsilon</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span> <span class="c1">// Exploration factor</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minAlpha</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span> <span class="c1">// Learning Rate</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">adaDivisor</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+
+    <span class="c1">// Create buckets and states, for the CartPole we know that it's x, v, theta, alpha (position, velocity, angle, angular velocity)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">initializeBuckets</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">states</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">initializeStates</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">q</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">initializeQTable</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">states</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">numberOfActions</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">PRINT_DEBUG</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">printDebug</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">initializeStates</span><span class="p">(</span><span class="nx">buckets</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">bucketIndexes</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">buckets</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">bucket</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">bucketIndexes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">bucketIndexes</span><span class="p">);</span>
+    <span class="p">})</span>
+
+    <span class="kd">let</span> <span class="nx">states</span> <span class="o">=</span> <span class="nx">cartesianProduct</span><span class="p">(...</span><span class="nx">bucketIndexes</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">states</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * 
+   * We have an amount of observations, but to limit the states we can have we specify ranges or "buckets" for the values
+   * In our initialization method, we define the amount of "steps" for each observation bucket 
+   * Example: 1, 1, 6, 12 means that for observation #0 we set 1 bucket, #2 also 1, #3 6 buckets and #4 12 buckets
+   *          which represents that we will create 12 different steps for observation #4
+   * @param {Array} buckets 
+   */</span>
+  <span class="nx">initializeBuckets</span><span class="p">(</span><span class="nx">bucketSizes</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">buckets</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">numberOfObservations</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">bucketSize</span> <span class="o">=</span> <span class="nx">bucketSizes</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="kd">const</span> <span class="nx">upperBound</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">high</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="kd">const</span> <span class="nx">lowerBound</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">low</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="nx">buckets</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Bucket</span><span class="p">(</span><span class="nx">bucketSize</span><span class="p">,</span> <span class="nx">lowerBound</span><span class="p">,</span> <span class="nx">upperBound</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">buckets</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Since the amount of spaces that we can have is huge, we need to limit this
+   * 
+   * This limiting is done through using "buckets", or we also say that we put everything that is between X and Y in bucket Z
+   * 
+   * 
+   * For every feature we specify a range between where the values can be
+   * TODO: Our Q-Table is [state&lt;tuple&gt;][action] so we need to define the tuple which is our number of observations
+   * Therefore we need to "compact" them or write a "range" so that we do not overextend
+   * 
+   * Note: this is also called "discretization"
+   */</span>
+  <span class="nx">initializeQTable</span><span class="p">(</span><span class="nx">stateCount</span><span class="p">,</span> <span class="nx">actionCount</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">q</span> <span class="o">=</span> <span class="p">[];</span> <span class="c1">// Our Q-Table</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">stateIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">stateIdx</span> <span class="o">&lt;</span> <span class="nx">stateCount</span><span class="p">;</span> <span class="nx">stateIdx</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">q</span><span class="p">[</span><span class="nx">stateIdx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">actionIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">actionIdx</span> <span class="o">&lt;</span> <span class="nx">actionCount</span><span class="p">;</span> <span class="nx">actionIdx</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">q</span><span class="p">[</span><span class="nx">stateIdx</span><span class="p">][</span><span class="nx">actionIdx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">q</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Convert our observation to a state index based on the buckets
+   * @param {*} states 
+   * @param {*} bucketArrays 
+   * @param {*} observations 
+   */</span>
+  <span class="nx">observationToStateIndex</span><span class="p">(</span><span class="nx">states</span><span class="p">,</span> <span class="nx">bucketArrays</span><span class="p">,</span> <span class="nx">observations</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">observationBucketIndexes</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">observations</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">observationBucketIndexes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">bucketArrays</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getBucketIdxForValue</span><span class="p">(</span><span class="nx">observations</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">stateIndex</span> <span class="o">=</span> <span class="nx">states</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">observationBucketIndexes</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+    <span class="k">return</span> <span class="nx">stateIndex</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * 
+   * @param {Array} observation array of observations (e.g. [1, 6, 9, 2.3])
+   * @param {number} reward The reward we got from taking the previous action
+   */</span>
+  <span class="k">async</span> <span class="nx">act</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="nx">instanceId</span><span class="p">,</span> <span class="nx">episode</span><span class="p">,</span> <span class="nx">observation</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ========================================================</span>
+    <span class="c1">// 1. Map the current observation to a state</span>
+    <span class="c1">// ========================================================</span>
+    <span class="c1">// We get a number of values back, convert these to states</span>
+    <span class="kd">let</span> <span class="nx">stateIndex</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationToStateIndex</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">states</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">,</span> <span class="nx">observation</span><span class="p">);</span>
+
+    <span class="c1">// Learning discount factor and learning rate</span>
+    <span class="kd">const</span> <span class="nx">epsilon</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getEpsilon</span><span class="p">(</span><span class="nx">episode</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">alpha</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAlpha</span><span class="p">(</span><span class="nx">episode</span><span class="p">);</span>
+
+    <span class="c1">// ========================================================</span>
+    <span class="c1">// 2. Based on our observation, choose and take an action and view the change in environment</span>
+    <span class="c1">// ========================================================</span>
+    <span class="c1">// Choose an action</span>
+    <span class="kd">const</span> <span class="nx">action</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">chooseAction</span><span class="p">(</span><span class="nx">stateIndex</span><span class="p">,</span> <span class="nx">epsilon</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">newEnvironment</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envStep</span><span class="p">(</span><span class="nx">instanceId</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// returns { done, info, observation, reward }</span>
+    
+    <span class="c1">// ========================================================</span>
+    <span class="c1">// 3. Based on result of the action, update our Q value</span>
+    <span class="c1">// ========================================================</span>
+    <span class="kd">let</span> <span class="nx">newStateIndex</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationToStateIndex</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">states</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">,</span> <span class="nx">newEnvironment</span><span class="p">.</span><span class="nx">observation</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">updateQ</span><span class="p">(</span><span class="nx">stateIndex</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="nx">newEnvironment</span><span class="p">.</span><span class="nx">reward</span><span class="p">,</span> <span class="nx">newStateIndex</span><span class="p">,</span> <span class="nx">alpha</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">newEnvironment</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Update our Q-Table based on the Bellman Equation for Action-Value
+   * @param {number} oldStateIdx 
+   * @param {number} action 
+   * @param {number} reward 
+   * @param {number} newStateIdx 
+   * @param {number} alpha 
+   */</span>
+  <span class="nx">updateQ</span><span class="p">(</span><span class="nx">oldStateIdx</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="nx">reward</span><span class="p">,</span> <span class="nx">newStateIdx</span><span class="p">,</span> <span class="nx">alpha</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">oldStateIdx</span><span class="p">][</span><span class="nx">action</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="nx">reward</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">gamma</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">newStateIdx</span><span class="p">].</span><span class="nx">getMaxValue</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">oldStateIdx</span><span class="p">][</span><span class="nx">action</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * For exploration, return random action if Math.random &lt;= explorationFactor (epsilon), else max Q value for the current state
+   * @param {int} state 
+   */</span>
+  <span class="nx">chooseAction</span><span class="p">(</span><span class="nx">stateIndex</span><span class="p">,</span> <span class="nx">epsilon</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">random</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">isRandom</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="nx">epsilon</span><span class="p">);</span>
+
+    <span class="c1">// If we want to explore (depending on epsilon), take a random action</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isRandom</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">numberOfActions</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">[</span><span class="nx">stateIndex</span><span class="p">].</span><span class="nx">getIndexOfMaxValue</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Our exploration factor
+   * 
+   * We use a dynamic parameter dependent on the episode, to be able to reduce exploration over our timeframe
+   * @param {*} t 
+   */</span>
+  <span class="nx">getEpsilon</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">minEpsilon</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">log10</span><span class="p">((</span><span class="nx">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">adaDivisor</span><span class="p">)));</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Our Learning factor
+   * 
+   * We use a dynamic parameter dependent on the episode, to be able to reduce learning over our timeframe
+   * @param {*} t 
+   */</span>
+  <span class="nx">getAlpha</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">minAlpha</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">log10</span><span class="p">((</span><span class="nx">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">adaDivisor</span><span class="p">)));</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * We get an observation (e.g.) [1, 6, 9, 2.3] which defines our "state" or what we currently see.
+   * To get our state we need to look at each feature value (1, 6, ...) and define in which bucket these fit. Then we can resolve this to a state idx
+   * 
+   * Our bucket id is then 
+   * 
+   * In this method we define this to a unique entry for our Q-Table
+   * 
+   * @param {*} observation 
+   */</span>
+  <span class="nx">convertObservationToBucketIndexes</span><span class="p">(</span><span class="nx">observation</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">bucketIndexes</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">observation</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">bucketIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">observation</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">lowerBound</span><span class="p">)</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">bucketSize</span><span class="p">);</span>
+      <span class="nx">bucketIndexes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">bucketIndex</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">bucketIndexes</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**
+   * Help method to view some details about our algorithm
+   */</span>
+  <span class="nx">printDebug</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Buckets'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">);</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Possible States'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">states</span><span class="p">);</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Initial Q-Table'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Get the index value of the maximum value in an array
+ * e.g. if our array is [2, 6, 3, 5] it will return 1 since 6 is the highest
+ */</span>
+<span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getIndexOfMaxValue</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(...</span><span class="k">this</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Return the highest value in our array
+ */</span>
+<span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getMaxValue</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(...</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Generate the cartesian product between sets
+ * 
+ * In other terms: generate all possible combinations of multiple arrays
+ * 
+ * https://stackoverflow.com/questions/12303989/cartesian-product-of-multiple-arrays-in-javascript
+ * 
+ * @param {Array} inArr an array of numbers
+ */</span>
+<span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[].</span><span class="nx">concat</span><span class="p">(...</span><span class="nx">a</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">d</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">[].</span><span class="nx">concat</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">e</span><span class="p">))));</span>
+<span class="kd">const</span> <span class="nx">cartesianProduct</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">c</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">b</span> <span class="p">?</span> <span class="nx">cartesianProduct</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">),</span> <span class="p">...</span><span class="nx">c</span><span class="p">)</span> <span class="p">:</span> <span class="nx">a</span><span class="p">);</span>
+
+<span class="cm">/**
+ * Convert degrees to radians
+ * @param {number} degrees 
+ */</span>
+<span class="nb">Math</span><span class="p">.</span><span class="nx">radians</span> <span class="o">=</span> <span class="p">(</span><span class="nx">degrees</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">degrees</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">/</span> <span class="mi">180</span><span class="p">;</span>
+
+<span class="cm">/**
+ * Convert radians to degrees
+ * @param {number} radians 
+ */</span>
+<span class="nb">Math</span><span class="p">.</span><span class="nx">degrees</span> <span class="o">=</span> <span class="p">(</span><span class="nx">radians</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">radians</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="bucketjs">Bucket.js</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Bucket</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">bucketCount</span><span class="p">,</span> <span class="nx">rangeLow</span><span class="p">,</span> <span class="nx">rangeHigh</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">bucketCount</span> <span class="o">=</span> <span class="nx">bucketCount</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">rangeLow</span> <span class="o">=</span> <span class="nx">rangeLow</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">rangeHigh</span> <span class="o">=</span> <span class="nx">rangeHigh</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">stepSize</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">rangeLow</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">rangeHigh</span><span class="p">))</span> <span class="o">/</span> <span class="nx">bucketCount</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">buckets</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// For easiness we include the indexes</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">bucketIndexes</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">bucketCount</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">bucketIndexes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">initBuckets</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">initBuckets</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">bucketCount</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">addValueToBucket</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">idx</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getBucketIdxForValue</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">buckets</span><span class="p">[</span><span class="nx">idx</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">getBucketIdxForValue</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// Find bucket, put values on the outer size of the range in the last bucket</span>
+    <span class="k">while</span> <span class="p">((</span><span class="nx">idx</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">bucketCount</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">rangeLow</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">stepSize</span> <span class="o">*</span> <span class="p">(</span><span class="nx">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">idx</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">idx</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Bucket</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="references">References</h2>
+
+<p>While creating this solution, I used the following articles as a reference.</p>
+
+<ul>
+  <li><a href="https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947">https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947</a></li>
+  <li><a href="https://ferdinand-muetsch.de/cartpole-with-qlearning-first-experiences-with-openai-gym.html">https://ferdinand-muetsch.de/cartpole-with-qlearning-first-experiences-with-openai-gym.html</a></li>
+  <li><a href="https://threads-iiith.quora.com/Deep-Q-Learning-with-Neural-Networks-on-Cart-Pole">https://threads-iiith.quora.com/Deep-Q-Learning-with-Neural-Networks-on-Cart-Pole</a></li>
+  <li><a href="https://gist.github.com/n1try/af0b8476ae4106ec098fea1dfe57f578">https://gist.github.com/n1try/af0b8476ae4106ec098fea1dfe57f578</a></li>
+  <li><a href="https://gist.github.com/n1try/2a6722407117e4d668921fce53845432#file-dqn_cartpole-py">https://gist.github.com/n1try/2a6722407117e4d668921fce53845432#file-dqn_cartpole-py</a></li>
+</ul>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/openai-cartpole';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/ai/">Ai</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/facebook-horizon">Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/rl-overview-terminology">Reinforcement Learning - Terminology</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/openai-dotnet-core-sdk">Writing a C# SDK for the OpenAI Gym using .NET Core</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/ai/">
+                                
+                                    See all 9 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/creating-a-bucketing-function">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/buckets.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/creating-a-bucketing-function">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Coding</span>
+                            
+                        
+                            
+                               <span class="post-card-tags">Coding-javascript</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Ai-rl</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Dividing numbers into equal buckets or bins through Bucketization</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>A common practice in Reinforcement Learning is to go from a continuous space towards a discrete space. What does this mean? Take for example a range of numbers between $]-3, 3[$, if we</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/getting-started-with-xamarin-forms">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/dotnet.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/getting-started-with-xamarin-forms">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Coding</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-dotnet</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Getting started with Xamarin Forms v3.0</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Xamarin Forms has been updated to Version 3 on the 7th of May. If you are not aware of Xamarin.Forms, it is a cross-platform mobile development technology allowing you to write code once</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">OpenAI Gym Problems - Solving the CartPole Gym</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=OpenAI+Gym+Problems+-+Solving+the+CartPole+Gym&amp;url=https://thebillkidy.github.io/openai-cartpole"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/openai-cartpole"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/openai-cartpole&title=OpenAI+Gym+Problems+-+Solving+the+CartPole+Gym&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>
