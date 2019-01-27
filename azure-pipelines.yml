@@ -37,6 +37,10 @@ steps:
   displayName: 'Configure Build Folder'
 
 - script: >
+    cd $(Build.ArtifactStagingDirectory);
+    ls -la;
+    cd $(Build.Repository.LocalPath);
+    ls -la;
     git add --all;
     git commit -m"Pipelines-Bot: Updated site";
     git push origin master:refs/heads/master --force
