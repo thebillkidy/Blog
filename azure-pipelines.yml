@@ -29,6 +29,7 @@ steps:
     git rm -rf .; git clean -fxd;
     touch .nojekyll;
     touch README.md;
+    echo "# My Blog" >> README.md;
   displayName: 'Clean Build Branch'
 
 - script: >
