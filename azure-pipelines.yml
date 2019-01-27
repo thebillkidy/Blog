@@ -27,6 +27,7 @@ steps:
 - script: >
     cd $(Build.Repository.LocalPath);
     git rm -rf .; git clean -fxd;
+    touch .nojekyll;
   displayName: 'Clean Build Branch'
 
 - script: >
