@@ -31,7 +31,11 @@ steps:
 - script: >
     cd $(Build.Repository.LocalPath);
     find . -path ./.git -prune -o -exec rm -rf {} \;
+    echo "------------------ CLEANED LOCALPATH ------------------";
+    ls -la;
     cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath);
+    echo "------------------ COPIED ARTIFACTS TO LOCALPATH ------------------";
+    ls -la;
     git config --global user.email "xavier.geerinck@gmail.com";
     git config --global user.name "Xavier Geerinck";
   displayName: 'Configure Build Folder'
@@ -39,7 +43,7 @@ steps:
 - script: >
     cd $(Build.ArtifactStagingDirectory);
     ls -la;
-    echo "--- TEMP ---";
+    echo "------------------ TEMP ------------------";
     cd $(Build.Repository.LocalPath);
     ls -la;
     git add --all;
