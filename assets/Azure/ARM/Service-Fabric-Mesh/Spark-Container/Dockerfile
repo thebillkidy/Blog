@@ -71,13 +71,25 @@ RUN wget http://www-eu.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2
     tar -xzf spark-2.4.0-bin-hadoop2.7.tgz && \
     mv spark-2.4.0-bin-hadoop2.7 /usr/local/spark
 
+# Environment
+ENV SPARK_HOME=/usr/local/spark
+
+# Configure History Server (https://www.linode.com/docs/databases/hadoop/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/)
+ADD ./spark-defaults.conf /usr/local/spark/conf/spark-defaults.conf
+RUN mkdir -p /opt/spark-logs
+RUN /usr/local/spark/sbin/start-history-server.sh
+
 # Expose our ports
-# 8080 = Spark Master IU
+# 8080 = Spark Master UI
 # 8081 = Spark Worker UI
 # 7077 = Master Service
+# 4040 = SparkContext Web UI 
+# 18080 = History Server
 EXPOSE 8080
 EXPOSE 8081
 EXPOSE 7077
+EXPOSE 18080
+EXPOSE 4040
 
 # Define default command.
-CMD ["bash"]
+CMD ["/bin/bash"]
