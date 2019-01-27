@@ -11,7 +11,8 @@ pool:
 
 steps:
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&tabs=schema#checkout
-- persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch
+- checkout: self
+  persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch
 
 - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
   displayName: 'Use Ruby >= 2.5'
