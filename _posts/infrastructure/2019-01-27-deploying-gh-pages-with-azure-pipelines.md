@@ -102,6 +102,7 @@ Building our website is the most complex part, for steps 4 - 7 we get:
     git rm -rf .; git clean -fxd;
     touch .nojekyll;
     touch README.md;
+    echo "# My Blog" >> README.md;
   displayName: 'Clean Build Branch'
 
 - script: >
@@ -167,6 +168,7 @@ steps:
     git rm -rf .; git clean -fxd;
     touch .nojekyll;
     touch README.md;
+    echo "# My Blog" >> README.md;
   displayName: 'Clean Build Branch'
 
 - script: >
