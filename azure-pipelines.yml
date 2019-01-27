@@ -22,7 +22,12 @@ steps:
 - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)'
   displayName: 'Build Jekyll Static Site'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: _site'
-  inputs:
-    ArtifactName: _site
+# Azure Devops will run git config and get -c http.extraheader="AUTHORIZATION: basic ***" for Authentication to our repo
+# This way we will be able to push everything without the need for an authentication token as e.g. https://thebillkidy:$GH_TOKEN@github.com/#{REPO_SLUG}.git
+- script: 'git init; git remote add origin https://github.com/thebillkidy/thebillkidy.github.io; git add .; git commit -m"Pipelines-Bot: Updated site"; git push origin master:refs/heads/master --force'
+  displayName: 'Push changes to master'
+
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Artifact: _site'
+#   inputs:
+#     ArtifactName: _site
