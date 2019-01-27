@@ -57,7 +57,7 @@ steps:
 - script: >
     cd $(Build.Repository.LocalPath);
     ls -la;
-    git remote set-url origin https://thebillkidy@github.com/thebillkidy/thebillkidy.github.io.git;
+    git remote set-url origin https://thebillkidy:$(System.AccessToken)@github.com/thebillkidy/thebillkidy.github.io.git;
     git diff;
     git remote -v;
     git push origin master;
