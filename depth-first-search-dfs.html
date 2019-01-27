@@ -198,8 +198,8 @@ into the {body} of the default.hbs template -->
     <span class="n">DFS</span><span class="p">(</span><span class="n">root_node</span><span class="p">.</span><span class="n">left</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="c1">// Do something with the key of the node
-</span><span class="p">}</span>
+  <span class="c1">// Do something with the key of the node</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <h3 id="graphs">Graphs</h3>
@@ -216,11 +216,11 @@ into the {body} of the default.hbs template -->
 <h4 id="implementation-1">Implementation</h4>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">DFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">amount_of_nodes</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Set all nodes as undiscovered
-</span>  <span class="n">vector</span> <span class="n">discovered</span><span class="p">(</span><span class="n">amount_of_nodes</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="c1">// Set all nodes as undiscovered</span>
+  <span class="n">vector</span> <span class="n">discovered</span><span class="p">(</span><span class="n">amount_of_nodes</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 
-  <span class="c1">// Go through every node
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">amount_of_nodes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Go through every node</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">amount_of_nodes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">discovered</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
       <span class="n">DFS_process_node</span><span class="p">(</span><span class="n">discovered</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
     <span class="p">}</span>
@@ -228,11 +228,11 @@ into the {body} of the default.hbs template -->
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="nf">DFS_process_node</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">discovered</span><span class="p">,</span> <span class="kt">int</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Set node as discovered
-</span>  <span class="n">discovered</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="c1">// Set node as discovered</span>
+  <span class="n">discovered</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 
-  <span class="c1">// Now go through it's neighbours
-</span>  <span class="k">for</span> <span class="p">(</span><span class="n">neighbour</span> <span class="n">i</span> <span class="n">in</span> <span class="n">neighbours</span> <span class="n">of</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Now go through it's neighbours</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">neighbour</span> <span class="n">i</span> <span class="n">in</span> <span class="n">neighbours</span> <span class="n">of</span> <span class="n">node</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">discovered</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
       <span class="n">DFS_process_node</span><span class="p">(</span><span class="n">discovered</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
     <span class="p">}</span>

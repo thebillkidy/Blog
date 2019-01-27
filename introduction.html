@@ -217,8 +217,8 @@ into the {body} of the default.hbs template -->
 #include "chrono.h"
 </span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span> <span class="c1">// seed it
-</span>
+  <span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span> <span class="c1">// seed it</span>
+
   <span class="n">HeapSort</span> <span class="n">is</span><span class="p">;</span>
   <span class="n">meet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">is</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">);</span>
 
@@ -315,8 +315,8 @@ into the {body} of the default.hbs template -->
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#ifndef Labo2_sortvector_h
 #define Labo2_sortvector_h
 </span>
-<span class="c1">// sortvector is een klasse van sorteerbare vectoren
-</span>
+<span class="c1">// sortvector is een klasse van sorteerbare vectoren</span>
+
 <span class="cp">#include
 </span><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">istream</span><span class="p">;</span>
 <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="p">;</span>
@@ -347,8 +347,8 @@ into the {body} of the default.hbs template -->
 <span class="kt">void</span> <span class="n">vul_omgekeerd</span><span class="p">();</span>
 <span class="kt">void</span> <span class="n">shuffle</span><span class="p">();</span>
 <span class="kt">void</span> <span class="n">vul_random_zonder_dubbels</span><span class="p">();</span>
-<span class="kt">void</span> <span class="n">vul_random</span><span class="p">();</span> <span class="c1">// nog niet implementeren
-</span>
+<span class="kt">void</span> <span class="n">vul_random</span><span class="p">();</span> <span class="c1">// nog niet implementeren</span>
+
 <span class="kt">bool</span> <span class="n">is_gesorteerd</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 <span class="kt">bool</span> <span class="n">is_range</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
@@ -361,8 +361,8 @@ into the {body} of the default.hbs template -->
 <span class="n">vector</span> <span class="n">tab</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="n">schrijf</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">os</span><span class="p">)</span><span class="k">const</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// Aantal elementen
-</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// Aantal elementen</span>
+
 <span class="p">};</span>
 
 <span class="k">template</span>
@@ -441,15 +441,15 @@ into the {body} of the default.hbs template -->
 <span class="kt">void</span> <span class="n">meet</span><span class="p">(</span><span class="kt">int</span> <span class="n">kortste</span><span class="p">,</span> <span class="kt">int</span> <span class="n">langste</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sorteermethode</span> <span class="o">&amp;</span> <span class="n">sm</span><span class="p">,</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">)</span> <span class="p">{</span>
 <span class="kt">int</span> <span class="n">lengte</span> <span class="o">=</span> <span class="n">kortste</span><span class="p">;</span>
 
-<span class="c1">// Print header
-</span><span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">"Lengte</span><span class="se">\t\t</span><span class="s">"</span>
+<span class="c1">// Print header</span>
+<span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">"Lengte</span><span class="se">\t\t</span><span class="s">"</span>
 <span class="o">&lt;&lt;</span> <span class="s">"random</span><span class="se">\t</span><span class="s">"</span>
 <span class="o">&lt;&lt;</span> <span class="s">"gesorteerd</span><span class="se">\t</span><span class="s">"</span>
 <span class="o">&lt;&lt;</span> <span class="s">" omgekeerd"</span>
 <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 
-<span class="c1">// Print results
-</span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">langste</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// Print results</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">langste</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 <span class="n">lengte</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
 
 <span class="n">Sortvector</span> <span class="n">svr</span><span class="p">(</span><span class="n">lengte</span><span class="p">);</span>

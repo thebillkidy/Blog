@@ -184,12 +184,12 @@ into the {body} of the default.hbs template -->
 
 <h2 id="code">Code:</h2>
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1 argument: Number of child process to generate.
-// Every child process generates a number and sends it to the parent.
-// The parent then finds the biggest of the numbers and sends that back to the children
-// When the children are done writing this number to the screen the parent exits.
-// ==&gt; 2 pipes, one for reading and one for writing
-</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1 argument: Number of child process to generate.</span>
+<span class="c1">// Every child process generates a number and sends it to the parent.</span>
+<span class="c1">// The parent then finds the biggest of the numbers and sends that back to the children</span>
+<span class="c1">// When the children are done writing this number to the screen the parent exits.</span>
+<span class="c1">// ==&gt; 2 pipes, one for reading and one for writing</span>
+
 <span class="cp">#include // srand, rand
 #include // pipe, close, write
 #include // printf
@@ -210,60 +210,60 @@ into the {body} of the default.hbs template -->
     <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="n">process</span> <span class="n">processes</span><span class="p">[</span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])];</span> <span class="c1">// our process table
-</span>  <span class="kt">int</span> <span class="n">received_numbers</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">process</span> <span class="n">processes</span><span class="p">[</span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])];</span> <span class="c1">// our process table</span>
+  <span class="kt">int</span> <span class="n">received_numbers</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">fd1</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
   <span class="kt">int</span> <span class="n">fd2</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 
-  <span class="c1">// Create the processes
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Create the pipe for this process
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">pipe</span><span class="p">(</span><span class="n">fd1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">pipe</span><span class="p">(</span><span class="n">fd2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Create the processes</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Create the pipe for this process</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pipe</span><span class="p">(</span><span class="n">fd1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">pipe</span><span class="p">(</span><span class="n">fd2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
       <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="c1">// Create the child process
-</span>    <span class="k">if</span> <span class="p">((</span><span class="n">processes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Create the child process</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">processes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
       <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">processes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// CHILD
-</span>      <span class="n">close</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// Close unused read end
-</span>      <span class="n">close</span><span class="p">(</span><span class="n">fd2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">// Close unused write end
-</span>
-      <span class="c1">// Generating the random number
-</span>      <span class="n">srand</span><span class="p">(</span><span class="n">getpid</span><span class="p">());</span>
+      <span class="c1">// CHILD</span>
+      <span class="n">close</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// Close unused read end</span>
+      <span class="n">close</span><span class="p">(</span><span class="n">fd2</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">// Close unused write end</span>
+
+      <span class="c1">// Generating the random number</span>
+      <span class="n">srand</span><span class="p">(</span><span class="n">getpid</span><span class="p">());</span>
       <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
 
-      <span class="c1">// Send this number to the parent
-</span>      <span class="k">if</span> <span class="p">((</span><span class="n">write</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">number</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Send this number to the parent</span>
+      <span class="k">if</span> <span class="p">((</span><span class="n">write</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">number</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
       <span class="p">};</span>
 
-      <span class="c1">// Wait for the response
-</span>      <span class="kt">int</span> <span class="n">winner_pid</span><span class="p">;</span>
+      <span class="c1">// Wait for the response</span>
+      <span class="kt">int</span> <span class="n">winner_pid</span><span class="p">;</span>
       <span class="k">while</span> <span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">winner_pid</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 
-      <span class="c1">// Determine if the process is the winner or not
-</span>      <span class="k">if</span> <span class="p">(</span><span class="n">winner_pid</span> <span class="o">==</span> <span class="n">getpid</span><span class="p">())</span> <span class="p">{</span>
+      <span class="c1">// Determine if the process is the winner or not</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">winner_pid</span> <span class="o">==</span> <span class="n">getpid</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">"I'm the winner!n"</span><span class="p">);</span>
       <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">"Process %d is the winnern"</span><span class="p">,</span> <span class="n">winner_pid</span><span class="p">);</span>
       <span class="p">}</span>
 
-      <span class="c1">// Exit child
-</span>      <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="c1">// Exit child</span>
+      <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="c1">// PARENT
-</span>      <span class="n">close</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">// Close unused write end
-</span>      <span class="n">close</span><span class="p">(</span><span class="n">fd2</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// Close unused read end
-</span>
+      <span class="c1">// PARENT</span>
+      <span class="n">close</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">// Close unused write end</span>
+      <span class="n">close</span><span class="p">(</span><span class="n">fd2</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// Close unused read end</span>
+
       <span class="n">processes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">fd_write</span> <span class="o">=</span> <span class="n">fd2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 
-      <span class="c1">// Wait for the processes to close
-</span>      <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+      <span class="c1">// Wait for the processes to close</span>
+      <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">number</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="p">{</span>
         <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -271,23 +271,23 @@ into the {body} of the default.hbs template -->
 
       <span class="n">printf</span><span class="p">(</span><span class="s">"Number Received: %-10d from process: %dn"</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">processes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">pid</span><span class="p">);</span>
 
-      <span class="c1">// Determine winner
-</span>      <span class="k">if</span> <span class="p">(</span><span class="n">winner_value</span> <span class="o">&lt;</span> <span class="n">number</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Determine winner</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">winner_value</span> <span class="o">&lt;</span> <span class="n">number</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">winner_id</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="c1">// Send the winner back
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Send the winner back</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">((</span><span class="n">write</span><span class="p">(</span><span class="n">processes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">fd_write</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">processes</span><span class="p">[</span><span class="n">winner_id</span><span class="p">].</span><span class="n">pid</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
       <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="c1">// Wait for the childs to exit
-</span>  <span class="n">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="c1">// Wait for the childs to exit</span>
+  <span class="n">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>

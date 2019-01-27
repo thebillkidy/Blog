@@ -289,29 +289,29 @@ into the {body} of the default.hbs template -->
 
 <h3 id="c-code">C++ Code</h3>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// Initial increment
-</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// Initial increment</span>
+
 <span class="k">while</span> <span class="p">(</span><span class="n">k</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Split the vector in columns, loop through each column
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">col</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="c1">// Split the vector in columns, loop through each column</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">col</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
     <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">col</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> 
     
-    <span class="c1">// Gap sequence back, we get the other elements of the columns int temp = v[col]; 
-</span>    <span class="c1">// Get the element we are sorting 
-</span>    <span class="c1">// Perform Insertion sort 
-</span>    <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
-      <span class="c1">// Make sure to take the index of the elements in the columns based on the gap!
-</span>      <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> 
+    <span class="c1">// Gap sequence back, we get the other elements of the columns int temp = v[col]; </span>
+    <span class="c1">// Get the element we are sorting </span>
+    <span class="c1">// Perform Insertion sort </span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+      <span class="c1">// Make sure to take the index of the elements in the columns based on the gap!</span>
+      <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> 
       
-      <span class="n">j</span> <span class="o">-=</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// Go to the next element
-</span>    <span class="p">}</span>
+      <span class="n">j</span> <span class="o">-=</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// Go to the next element</span>
+    <span class="p">}</span>
 
-    <span class="c1">// And on the end of course place the element once we found the spot
-</span>    <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span> 
+    <span class="c1">// And on the end of course place the element once we found the spot</span>
+    <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span> 
   <span class="p">}</span>
 
-  <span class="n">k</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// Next increment
-</span><span class="p">}</span>
+  <span class="n">k</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// Next increment</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <h2 id="benchmark">Benchmark</h2>

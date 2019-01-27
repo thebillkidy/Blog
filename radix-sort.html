@@ -271,24 +271,24 @@ while (digit &lt; max_digits) {
   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1">// Digit = 0 means the LSD this goes towards the MSD
-// Size = number of integers starting at input
-</span><span class="kt">void</span> <span class="nf">radix_sort</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">max_digits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// Number of maximum digits appearing in a number
-</span>  <span class="kt">int</span> <span class="n">digit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Start at LSD (so / 0)
-</span>  <span class="kt">int</span> <span class="n">division</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">// Digit = 0 means the LSD this goes towards the MSD</span>
+<span class="c1">// Size = number of integers starting at input</span>
+<span class="kt">void</span> <span class="nf">radix_sort</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">max_digits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// Number of maximum digits appearing in a number</span>
+  <span class="kt">int</span> <span class="n">digit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// Start at LSD (so / 0)</span>
+  <span class="kt">int</span> <span class="n">division</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
   <span class="k">while</span> <span class="p">(</span><span class="n">digit</span> <span class="o">&lt;</span> <span class="n">max_digits</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">queue</span> <span class="n">buckets</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">// Represent buckets
-</span>
-    <span class="c1">// Put the numbers into their correct queue
-</span>    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">queue</span> <span class="n">buckets</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">// Represent buckets</span>
+
+    <span class="c1">// Put the numbers into their correct queue</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="kt">int</span> <span class="n">bucketIdx</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">division</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
       <span class="n">buckets</span><span class="p">[</span><span class="n">bucketIdx</span><span class="p">].</span><span class="n">push</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
     <span class="p">}</span>
 
-    <span class="c1">// Put the numbers into the array again
-</span>    <span class="n">vector</span> <span class="n">tempNumbers</span><span class="p">;</span>
+    <span class="c1">// Put the numbers into the array again</span>
+    <span class="n">vector</span> <span class="n">tempNumbers</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">bucketIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">bucketIdx</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">bucketIdx</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">buckets</span><span class="p">[</span><span class="n">bucketIdx</span><span class="p">].</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">tempNumbers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">buckets</span><span class="p">[</span><span class="n">bucketIdx</span><span class="p">].</span><span class="n">front</span><span class="p">());</span>
@@ -298,8 +298,8 @@ while (digit &lt; max_digits) {
 
     <span class="n">numbers</span> <span class="o">=</span> <span class="n">tempNumbers</span><span class="p">;</span>
 
-    <span class="c1">// Go to the next digit and repeat
-</span>    <span class="n">digit</span><span class="o">++</span><span class="p">;</span>
+    <span class="c1">// Go to the next digit and repeat</span>
+    <span class="n">digit</span><span class="o">++</span><span class="p">;</span>
     <span class="n">division</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>

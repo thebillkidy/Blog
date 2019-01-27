@@ -300,17 +300,17 @@ into the {body} of the default.hbs template -->
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">insertionSort</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="c1">// Save the temporary element T temp = v[i]; 
-</span>    <span class="c1">// Create a key that points to the previous index 
-</span>    <span class="c1">// (we need to check if we have to shift) int j = i - 1; 
-</span>    <span class="c1">// Now we need to move the elements to the right if they are bigger 
-</span>    <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> <span class="c1">// Shift right
-</span>      <span class="n">j</span><span class="o">--</span><span class="p">;</span> <span class="c1">// Go one element back
-</span>    <span class="p">}</span>
+    <span class="c1">// Save the temporary element T temp = v[i]; </span>
+    <span class="c1">// Create a key that points to the previous index </span>
+    <span class="c1">// (we need to check if we have to shift) int j = i - 1; </span>
+    <span class="c1">// Now we need to move the elements to the right if they are bigger </span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> <span class="c1">// Shift right</span>
+      <span class="n">j</span><span class="o">--</span><span class="p">;</span> <span class="c1">// Go one element back</span>
+    <span class="p">}</span>
 
-    <span class="c1">// last but not least, fill in the temp on the position that we found
-</span>    <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="c1">// last but not least, fill in the temp on the position that we found</span>
+    <span class="n">v</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>

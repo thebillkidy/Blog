@@ -237,7 +237,7 @@ add_library<span class="o">(</span>hello-cpp SHARED HelloWorld.cpp HelloWorld.h<
 cmake <span class="nb">.</span>
 
 <span class="c"># Build with all cores available (Mac OS)</span>
-make <span class="nt">-j</span><span class="k">$(</span>sysctl hw.ncpu | cut <span class="nt">-d</span>: <span class="nt">-f2</span><span class="k">)</span>
+make <span class="nt">-j</span><span class="k">$(</span>sysctl hw.ncpu | <span class="nb">cut</span> <span class="nt">-d</span>: <span class="nt">-f2</span><span class="k">)</span>
 
 <span class="c"># Build with all cores available (Linux)</span>
 make <span class="nt">-j</span><span class="k">$(</span><span class="nb">grep</span> <span class="nt">-c</span> ^processor /proc/cpuinfo<span class="k">)</span>

@@ -276,16 +276,16 @@ into the {body} of the default.hbs template -->
 * ChildLeft = 2 * idx_el + 1
 */</span>
 <span class="kt">int</span> <span class="n">getChildLeftIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-  <span class="c1">//return 2 * index + 1;
-</span>  <span class="k">return</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="c1">//return 2 * index + 1;</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="cm">/**
 * ChildRight = 2 * (idx_el + 1)
 */</span>
 <span class="kt">int</span> <span class="n">getChildRightIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-  <span class="c1">//return 2 * (index + 1);
-</span>  <span class="k">return</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="c1">//return 2 * (index + 1);</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="cm">/**
@@ -300,16 +300,16 @@ into the {body} of the default.hbs template -->
     <span class="n">height</span><span class="o">++</span><span class="p">;</span>
   <span class="p">}</span> 
   
-  <span class="k">return</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// -1 don't include root element 
-</span><span class="p">}</span> 
+  <span class="k">return</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// -1 don't include root element </span>
+<span class="p">}</span> 
 
 <span class="cm">/** 
  * GetSecondLastHeightStart() = (2^h - 1) - 1 ==&gt; 
  *     last -1 since we want to rebase to 0 for array index
  */</span>
 <span class="kt">int</span> <span class="n">getSecondLastHeightStartIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">h</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-  <span class="c1">// Simulate 2^h
-</span>  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="c1">// Simulate 2^h</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
   <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="p">{</span>
@@ -332,46 +332,46 @@ into the {body} of the default.hbs template -->
   <span class="kt">int</span> <span class="n">elLeftIndex</span> <span class="o">=</span> <span class="n">getChildLeftIndex</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
   <span class="kt">int</span> <span class="n">elRightIndex</span> <span class="o">=</span> <span class="n">getChildRightIndex</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 
-  <span class="c1">// Put biggest node on root
-</span>  <span class="kt">int</span> <span class="n">largestNodeIdx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+  <span class="c1">// Put biggest node on root</span>
+  <span class="kt">int</span> <span class="n">largestNodeIdx</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 
-  <span class="c1">// If left child is the biggest, replace with parent
-</span>  <span class="k">if</span> <span class="p">((</span><span class="n">elLeftIndex</span> <span class="o">&lt;</span> <span class="n">endIndex</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">largestNodeIdx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">elLeftIndex</span><span class="p">]))</span> <span class="p">{</span>
+  <span class="c1">// If left child is the biggest, replace with parent</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">elLeftIndex</span> <span class="o">&lt;</span> <span class="n">endIndex</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">largestNodeIdx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">elLeftIndex</span><span class="p">]))</span> <span class="p">{</span>
     <span class="n">largestNodeIdx</span> <span class="o">=</span> <span class="n">elLeftIndex</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="c1">// if right child exists, check if it is less than
-</span>  <span class="k">if</span> <span class="p">((</span><span class="n">elRightIndex</span> <span class="o">&lt;</span> <span class="n">endIndex</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">largestNodeIdx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">elRightIndex</span><span class="p">]))</span> <span class="p">{</span>
+  <span class="c1">// if right child exists, check if it is less than</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">elRightIndex</span> <span class="o">&lt;</span> <span class="n">endIndex</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">largestNodeIdx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">elRightIndex</span><span class="p">]))</span> <span class="p">{</span>
     <span class="n">largestNodeIdx</span> <span class="o">=</span> <span class="n">elRightIndex</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="c1">// If one of the 2 was larger than the parent
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">largestNodeIdx</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Switch parent with child
-</span>    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="c1">// If one of the 2 was larger than the parent</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">largestNodeIdx</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Switch parent with child</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">largestNodeIdx</span><span class="p">];</span>
     <span class="n">v</span><span class="p">[</span><span class="n">largestNodeIdx</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
 
-    <span class="c1">// ReApply maxHeapify on the subtree
-</span>    <span class="n">maxHeapify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">largestNodeIdx</span><span class="p">,</span> <span class="n">endIndex</span><span class="p">);</span>
+    <span class="c1">// ReApply maxHeapify on the subtree</span>
+    <span class="n">maxHeapify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">largestNodeIdx</span><span class="p">,</span> <span class="n">endIndex</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="n">heapSort</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">heapSize</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 
-  <span class="c1">// Eerst heapify
-</span>  <span class="n">buildMaxHeap</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+  <span class="c1">// Eerst heapify</span>
+  <span class="n">buildMaxHeap</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 
-  <span class="c1">// Nu sortdown, hier gaan we telkens het eerst el nemen en vervangen met het laatste el, Hierna resizen we de array en repeat
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Swap eerste en laatste
-</span>    <span class="n">T</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="c1">// Nu sortdown, hier gaan we telkens het eerst el nemen en vervangen met het laatste el, Hierna resizen we de array en repeat</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Swap eerste en laatste</span>
+    <span class="n">T</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
     <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
 
-    <span class="c1">// Maak de heap opnieuw
-</span>    <span class="n">maxHeapify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+    <span class="c1">// Maak de heap opnieuw</span>
+    <span class="n">maxHeapify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>

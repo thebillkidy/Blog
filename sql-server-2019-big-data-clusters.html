@@ -198,14 +198,14 @@ into the {body} of the default.hbs template -->
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Needed on WSL</span>
 <span class="nb">sudo </span>apt-get update
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> libssl-dev libffi-dev
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> python-dev
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> libssl-dev libffi-dev
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> python-dev
 
 <span class="c"># Modify Sources</span>
-<span class="nb">sudo </span>apt-get install apt-transport-https lsb-release software-properties-common <span class="nt">-y</span>
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>apt-transport-https lsb-release software-properties-common <span class="nt">-y</span>
 <span class="nv">AZ_REPO</span><span class="o">=</span><span class="k">$(</span>lsb_release <span class="nt">-cs</span><span class="k">)</span>
 <span class="nb">echo</span> <span class="s2">"deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ </span><span class="nv">$AZ_REPO</span><span class="s2"> main"</span> | <span class="se">\</span>
-    <span class="nb">sudo </span>tee /etc/apt/sources.list.d/azure-cli.list
+    <span class="nb">sudo tee</span> /etc/apt/sources.list.d/azure-cli.list
 
 <span class="c"># Microsoft Signing Key</span>
 <span class="nb">sudo </span>apt-key <span class="nt">--keyring</span> /etc/apt/trusted.gpg.d/Microsoft.gpg adv <span class="se">\</span>
@@ -214,19 +214,19 @@ into the {body} of the default.hbs template -->
 
 <span class="c"># Install</span>
 <span class="nb">sudo </span>apt-get update
-<span class="nb">sudo </span>apt-get install azure-cli
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>azure-cli
 </code></pre></div></div>
 
 <h3 id="mssqlctl">mssqlctl</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install Python</span>
 <span class="nb">sudo </span>apt-get update <span class="o">&amp;&amp;</span> /
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> python3 <span class="o">&amp;&amp;</span> /
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> python3-pip <span class="o">&amp;&amp;</span> /
-<span class="nb">sudo</span> <span class="nt">-H</span> pip3 install <span class="nt">--upgrade</span> pip
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> python3 <span class="o">&amp;&amp;</span> /
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> python3-pip <span class="o">&amp;&amp;</span> /
+<span class="nb">sudo</span> <span class="nt">-H</span> pip3 <span class="nb">install</span> <span class="nt">--upgrade</span> pip
 
 <span class="c"># Install mssqlctl</span>
-pip3 install <span class="nt">--index-url</span> https://private-repo.microsoft.com/python/ctp-2.2 mssqlctl
+pip3 <span class="nb">install</span> <span class="nt">--index-url</span> https://private-repo.microsoft.com/python/ctp-2.2 mssqlctl
 </code></pre></div></div>
 
 <h3 id="aks">AKS</h3>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-27T09:48:40+00:00</updated><id>/</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Quantum Computing - An Introduction</title><link href="/quantum-an-introduction" rel="alternate" type="text/html" title="Quantum Computing - An Introduction" /><published>2019-01-16T10:00:00+00:00</published><updated>2019-01-16T10:00:00+00:00</updated><id>/quantum-an-introduction</id><content type="html" xml:base="/quantum-an-introduction">&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-27T15:03:33+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Quantum Computing - An Introduction</title><link href="/quantum-an-introduction" rel="alternate" type="text/html" title="Quantum Computing - An Introduction" /><published>2019-01-16T10:00:00+00:00</published><updated>2019-01-16T10:00:00+00:00</updated><id>/quantum-an-introduction</id><content type="html" xml:base="/quantum-an-introduction">&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
 
 &lt;h2 id=&quot;quantum-computing&quot;&gt;Quantum Computing?&lt;/h2&gt;
 
@@ -220,97 +220,7 @@ CNOT * (H \otimes I) * (\vert \psi \rangle \otimes \vert \theta \rangle)
   &lt;li&gt;&lt;strong&gt;Short’s Factoring:&lt;/strong&gt; Factor an integer in its prime factors. With Quantum this is possible in Polynomial time (RSA encryption is based on Prime Factors, showing the impact quantum can have here)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;For an implementation of these algorithms, feel free to check this awesome &lt;a href=&quot;https://people.cs.umass.edu/~strubell/doc/quantum_tutorial.pdf&quot;&gt;article&lt;/a&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.</summary></entry><entry><title type="html">Quantum Computing - A Linear Algebra Refresher</title><link href="/quantum-linear-algebra" rel="alternate" type="text/html" title="Quantum Computing - A Linear Algebra Refresher" /><published>2019-01-16T09:00:00+00:00</published><updated>2019-01-16T09:00:00+00:00</updated><id>/quantum-linear-algebra</id><content type="html" xml:base="/quantum-linear-algebra">&lt;p&gt;Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing.&lt;/p&gt;
-
-&lt;h2 id=&quot;basic-concepts&quot;&gt;Basic Concepts&lt;/h2&gt;
-
-&lt;p&gt;Most often used in Quantum Computing are the so called “Ket” vectors, which are a representation of the “Dirac Notation”.&lt;/p&gt;
-
-&lt;p&gt;These vectors can look like: $&amp;lt;\phi|\psi&amp;gt;$ where we have several elements:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt; x&lt;/code&gt; = Our “bra”, mostly representing a row vector&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt;   = Action of a linear functional on a vector or the scalar product of vectors&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;y &amp;gt;&lt;/code&gt; = our “ket”, mostly representing a column vector&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;matrices&quot;&gt;Matrices&lt;/h2&gt;
-
-&lt;p&gt;A matrix is a rectangular scheme of numbers with &lt;code class=&quot;highlighter-rouge&quot;&gt;m rows&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;x columns&lt;/code&gt;. It is an easy way to calculate formulas that are represented in some sort of structure. Most commonly used in Quantum Computing is the need for being able to Multiply these matrices. However to be able to multiple these matrices, we first need to look if the &lt;em&gt;base requirement of the columns of matrix a being equal to the rows of matrix b&lt;/em&gt; is met. Once that is done, we can start multiplying them.&lt;/p&gt;
-
-&lt;p&gt;To multiple those, we then take every row and multiply it with every column, taking the sum of the results.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{bmatrix}
-a &amp; b \\
-c &amp; d
-\end{bmatrix}
-
-\begin{bmatrix}
-x \\
-y
-\end{bmatrix}
-
-=
-
-\begin{bmatrix}
-ax + by \\
-cx + dy
-\end{bmatrix} %]]&gt;&lt;/script&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Notice that our first matrix is a 2 x 2 matrix, and our second one is a 2 x 1 –&amp;gt; 2 x &lt;strong&gt;2&lt;/strong&gt; &amp;amp; &lt;strong&gt;2&lt;/strong&gt; x 1, the insides 2’s have to be equal.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Putting this into practice:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{bmatrix}
-1 &amp; 2 &amp; 3 \\
-3 &amp; 4 &amp; 5 \\
-6 &amp; 7 &amp; 8
-\end{bmatrix}
-
-\begin{bmatrix}
-0 &amp; 0 &amp; 1 \\
-0 &amp; 1 &amp; 0 \\
-1 &amp; 0 &amp; 0
-\end{bmatrix}
-
-=
-
-\begin{bmatrix}
-1*0+2*0+3*1 &amp; 1*0+2*1+3*0 &amp; 1*1+2*0+3*0 \\
-4*0+5*0+6*1 &amp; 4*0+5*1+6*0 &amp; 4*1+5*0+6*0 \\
-7*0+8*0+9*1 &amp; 7*0+8*1+9*0 &amp; 7*1+8*0+9*0
-\end{bmatrix}
-
-=
-
-\begin{bmatrix}
-3 &amp; 2 &amp; 1 \\
-6 &amp; 5 &amp; 4 \\
-9 &amp; 8 &amp; 7
-\end{bmatrix} %]]&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;complex-numbers&quot;&gt;Complex Numbers&lt;/h2&gt;
-
-&lt;p&gt;Complex numbers are written by $i$, they solve the fundamental problem of $\sqrt{-1}$ which is impossible to solve, stating it as a new symbol $i$.&lt;/p&gt;
-
-&lt;p&gt;We can visualize complex numbers by using a circle of unit length 1, generating an Imaginary axis and a Real axis.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/quantum/linear-algebra/complex-numbers2.png&quot; alt=&quot;/assets/images/posts/quantum/linear-algebra/complex-numbers2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Where we can find the following statements:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$z = x + y*i$&lt;/li&gt;
-  &lt;li&gt;$z= e^{j\theta}$&lt;/li&gt;
-  &lt;li&gt;$z = \mid z \mid * (cos(\theta) + i*sin(\theta))$&lt;/li&gt;
-  &lt;li&gt;$\mid z \mid = \sqrt{x^2 + y^2}$&lt;/li&gt;
-  &lt;li&gt;$\theta = tg^{-1}(\frac{y}{x})$&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing.</summary></entry><entry><title type="html">Creating a Big Data cluster with SQL Server 2019</title><link href="/sql-server-2019-big-data-clusters" rel="alternate" type="text/html" title="Creating a Big Data cluster with SQL Server 2019" /><published>2019-01-16T09:00:00+00:00</published><updated>2019-01-16T09:00:00+00:00</updated><id>/sql-server-2019-big-data-clusters</id><content type="html" xml:base="/sql-server-2019-big-data-clusters">&lt;p&gt;SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool!&lt;/p&gt;
+&lt;p&gt;For an implementation of these algorithms, feel free to check this awesome &lt;a href=&quot;https://people.cs.umass.edu/~strubell/doc/quantum_tutorial.pdf&quot;&gt;article&lt;/a&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.</summary></entry><entry><title type="html">Creating a Big Data cluster with SQL Server 2019</title><link href="/sql-server-2019-big-data-clusters" rel="alternate" type="text/html" title="Creating a Big Data cluster with SQL Server 2019" /><published>2019-01-16T09:00:00+00:00</published><updated>2019-01-16T09:00:00+00:00</updated><id>/sql-server-2019-big-data-clusters</id><content type="html" xml:base="/sql-server-2019-big-data-clusters">&lt;p&gt;SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool!&lt;/p&gt;
 
 &lt;p&gt;But the most wonderful feature of all in my opinion are the “Big Data Clusters”, allowing you to spin up scalable clusters and deploy SQL Server, Spark and HDFS containers side-by-side. But how does it accomplish all of this? Well the architecture below shows us the magic:&lt;/p&gt;
 
@@ -336,14 +246,14 @@ cx + dy
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Needed on WSL&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; libssl-dev libffi-dev
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python-dev
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; libssl-dev libffi-dev
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python-dev
 
 &lt;span class=&quot;c&quot;&gt;# Modify Sources&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install apt-transport-https lsb-release software-properties-common &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;apt-transport-https lsb-release software-properties-common &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;AZ_REPO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$AZ_REPO&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; main&quot;&lt;/span&gt; | &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tee /etc/apt/sources.list.d/azure-cli.list
+    &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/azure-cli.list
 
 &lt;span class=&quot;c&quot;&gt;# Microsoft Signing Key&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key &lt;span class=&quot;nt&quot;&gt;--keyring&lt;/span&gt; /etc/apt/trusted.gpg.d/Microsoft.gpg adv &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -352,19 +262,19 @@ cx + dy
 
 &lt;span class=&quot;c&quot;&gt;# Install&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install azure-cli
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;azure-cli
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;mssqlctl&quot;&gt;mssqlctl&lt;/h3&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install Python&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python3 &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python3-pip &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
-&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; pip3 install &lt;span class=&quot;nt&quot;&gt;--upgrade&lt;/span&gt; pip
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python3 &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python3-pip &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
+&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--upgrade&lt;/span&gt; pip
 
 &lt;span class=&quot;c&quot;&gt;# Install mssqlctl&lt;/span&gt;
-pip3 install &lt;span class=&quot;nt&quot;&gt;--index-url&lt;/span&gt; https://private-repo.microsoft.com/python/ctp-2.2 mssqlctl
+pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--index-url&lt;/span&gt; https://private-repo.microsoft.com/python/ctp-2.2 mssqlctl
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;aks&quot;&gt;AKS&lt;/h3&gt;
@@ -488,7 +398,147 @@ kubectl get service service-proxy-lb &lt;span class=&quot;nt&quot;&gt;-n&lt;/spa
 
 &lt;!-- ![/assets/images/posts/sql-server-2019/data-studio-sql.png](/assets/images/posts/sql-server-2019/data-studio-sql.png) --&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/data-studio-hdfs-overview.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/data-studio-hdfs-overview.png&quot; /&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="big-data" /><category term="infrastructure" /><category term="coding-sql" /><summary type="html">SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool!</summary></entry><entry><title type="html">Sending emails in Databricks by using Scala</title><link href="/scala-email-sending" rel="alternate" type="text/html" title="Sending emails in Databricks by using Scala" /><published>2019-01-10T09:00:00+00:00</published><updated>2019-01-10T09:00:00+00:00</updated><id>/scala-email-sending</id><content type="html" xml:base="/scala-email-sending">&lt;p&gt;This is going to be quite a short post, but is more intended as reference :)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/data-studio-hdfs-overview.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/data-studio-hdfs-overview.png&quot; /&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="big-data" /><category term="infrastructure" /><category term="coding-sql" /><summary type="html">SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool!</summary></entry><entry><title type="html">Quantum Computing - A Linear Algebra Refresher</title><link href="/quantum-linear-algebra" rel="alternate" type="text/html" title="Quantum Computing - A Linear Algebra Refresher" /><published>2019-01-16T09:00:00+00:00</published><updated>2019-01-16T09:00:00+00:00</updated><id>/quantum-linear-algebra</id><content type="html" xml:base="/quantum-linear-algebra">&lt;p&gt;Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-concepts&quot;&gt;Basic Concepts&lt;/h2&gt;
+
+&lt;p&gt;Most often used in Quantum Computing are the so called “Ket” vectors, which are a representation of the “Dirac Notation”.&lt;/p&gt;
+
+&lt;p&gt;These vectors can look like: $&amp;lt;\phi|\psi&amp;gt;$ where we have several elements:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt; x&lt;/code&gt; = Our “bra”, mostly representing a row vector&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt;   = Action of a linear functional on a vector or the scalar product of vectors&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;y &amp;gt;&lt;/code&gt; = our “ket”, mostly representing a column vector&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;matrices&quot;&gt;Matrices&lt;/h2&gt;
+
+&lt;p&gt;A matrix is a rectangular scheme of numbers with &lt;code class=&quot;highlighter-rouge&quot;&gt;m rows&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;x columns&lt;/code&gt;. It is an easy way to calculate formulas that are represented in some sort of structure. Most commonly used in Quantum Computing is the need for being able to Multiply these matrices. However to be able to multiple these matrices, we first need to look if the &lt;em&gt;base requirement of the columns of matrix a being equal to the rows of matrix b&lt;/em&gt; is met. Once that is done, we can start multiplying them.&lt;/p&gt;
+
+&lt;p&gt;To multiple those, we then take every row and multiply it with every column, taking the sum of the results.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix}
+a &amp; b \\
+c &amp; d
+\end{bmatrix}
+
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+ax + by \\
+cx + dy
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Notice that our first matrix is a 2 x 2 matrix, and our second one is a 2 x 1 –&amp;gt; 2 x &lt;strong&gt;2&lt;/strong&gt; &amp;amp; &lt;strong&gt;2&lt;/strong&gt; x 1, the insides 2’s have to be equal.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Putting this into practice:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix}
+1 &amp; 2 &amp; 3 \\
+3 &amp; 4 &amp; 5 \\
+6 &amp; 7 &amp; 8
+\end{bmatrix}
+
+\begin{bmatrix}
+0 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+1*0+2*0+3*1 &amp; 1*0+2*1+3*0 &amp; 1*1+2*0+3*0 \\
+4*0+5*0+6*1 &amp; 4*0+5*1+6*0 &amp; 4*1+5*0+6*0 \\
+7*0+8*0+9*1 &amp; 7*0+8*1+9*0 &amp; 7*1+8*0+9*0
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+3 &amp; 2 &amp; 1 \\
+6 &amp; 5 &amp; 4 \\
+9 &amp; 8 &amp; 7
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;complex-numbers&quot;&gt;Complex Numbers&lt;/h2&gt;
+
+&lt;p&gt;Complex numbers are written by $i$, they solve the fundamental problem of $\sqrt{-1}$ which is impossible to solve, stating it as a new symbol $i$.&lt;/p&gt;
+
+&lt;p&gt;We can visualize complex numbers by using a circle of unit length 1, generating an Imaginary axis and a Real axis.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/quantum/linear-algebra/complex-numbers2.png&quot; alt=&quot;/assets/images/posts/quantum/linear-algebra/complex-numbers2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Where we can find the following statements:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$z = x + y*i$&lt;/li&gt;
+  &lt;li&gt;$z= e^{j\theta}$&lt;/li&gt;
+  &lt;li&gt;$z = \mid z \mid * (cos(\theta) + i*sin(\theta))$&lt;/li&gt;
+  &lt;li&gt;$\mid z \mid = \sqrt{x^2 + y^2}$&lt;/li&gt;
+  &lt;li&gt;$\theta = tg^{-1}(\frac{y}{x})$&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing.</summary></entry><entry><title type="html">Using secrets to hide passwords and other confidential information in Databricks</title><link href="/databricks-using-secrets" rel="alternate" type="text/html" title="Using secrets to hide passwords and other confidential information in Databricks" /><published>2019-01-10T09:00:00+00:00</published><updated>2019-01-10T09:00:00+00:00</updated><id>/databricks-using-secrets</id><content type="html" xml:base="/databricks-using-secrets">&lt;p&gt;A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-databricks-cli&quot;&gt;Installing Databricks CLI&lt;/h2&gt;
+
+&lt;p&gt;Luckily Databricks allows us just this. But before we can get started, we first have to configure our CLI tool of Databricks. For my example, I have decided to work with &lt;strong&gt;token authentication&lt;/strong&gt; seeing that I login through AAD.&lt;/p&gt;
+
+&lt;p&gt;To configure a Token for your Databricks account, login to the portal and go to: User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token and fill in a comment and a lifetime. (Note: you can leave lifetime empty, making a token for indefinite use).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/databricks-secrets/creating-user-token.png&quot; alt=&quot;/assets/images/posts/databricks-secrets/creating-user-token.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/databricks-secrets/creating-user-token-generated.png&quot; alt=&quot;/assets/images/posts/databricks-secrets/creating-user-token-generated.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can now start installing our CLI and configure our account in it by using the token.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install the Databricks CLI&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;databricks-cli
+databricks configure &lt;span class=&quot;nt&quot;&gt;--token&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Log in on our Databricks account with a token&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# --- Details ---&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Host: &amp;lt;YOUR_HOST&amp;gt; # For Azure this could be: https://&amp;lt;REGION&amp;gt;.azuredatabricks.net e.g. https://westeurope.azuredatabricks.net&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Token: &amp;lt;TOKEN&amp;gt; # Our generated token in User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token (Name = Databricks-CLI)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;creating-a-secret&quot;&gt;Creating a secret&lt;/h2&gt;
+
+&lt;p&gt;Once we did that, we can actually start creating a secret. Open up your favorite terminal and run the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create our secret in a new scope&lt;/span&gt;
+databricks secrets create-scope &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; &amp;lt;SECRET_SCOPE&amp;gt;
+databricks secrets put &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; XAVIER &lt;span class=&quot;nt&quot;&gt;--key&lt;/span&gt; &amp;lt;KEY_NAME&amp;gt; &lt;span class=&quot;c&quot;&gt;# Save the secret&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# -&amp;gt; Input Password in the editor that opens and close it&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Show our scopes&lt;/span&gt;
+databricks secrets list &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; &amp;lt;SECRET_SCOPE&amp;gt; &lt;span class=&quot;c&quot;&gt;# Shows Scopes&lt;/span&gt;
+dbutils.secrets.get&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;KEY_NAME&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Congratulations! Your first secret has been created and can now be utilized in your notebooks with the &lt;code class=&quot;highlighter-rouge&quot;&gt;dbutils&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dbutils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secrets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;KEY_NAME&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html&quot;&gt;https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html&quot;&gt;https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret&quot;&gt;https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="databricks" /><summary type="html">A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs.</summary></entry><entry><title type="html">Sending emails in Databricks by using Scala</title><link href="/scala-email-sending" rel="alternate" type="text/html" title="Sending emails in Databricks by using Scala" /><published>2019-01-10T09:00:00+00:00</published><updated>2019-01-10T09:00:00+00:00</updated><id>/scala-email-sending</id><content type="html" xml:base="/scala-email-sending">&lt;p&gt;This is going to be quite a short post, but is more intended as reference :)&lt;/p&gt;
 
 &lt;p&gt;Something I found to be quite interesting is sending emails through Databricks to warn me when something happened in parts of my code. After searching a bit, I came up with this code that would help me send an email:&lt;/p&gt;
 
@@ -528,57 +578,7 @@ kubectl get service service-proxy-lb &lt;span class=&quot;nt&quot;&gt;-n&lt;/spa
     &lt;span class=&quot;n&quot;&gt;transport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;transport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getAllRecipients&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Xavier Geerinck</name></author><category term="databricks" /><category term="coding-scala" /><summary type="html">This is going to be quite a short post, but is more intended as reference :)</summary></entry><entry><title type="html">Using secrets to hide passwords and other confidential information in Databricks</title><link href="/databricks-using-secrets" rel="alternate" type="text/html" title="Using secrets to hide passwords and other confidential information in Databricks" /><published>2019-01-10T09:00:00+00:00</published><updated>2019-01-10T09:00:00+00:00</updated><id>/databricks-using-secrets</id><content type="html" xml:base="/databricks-using-secrets">&lt;p&gt;A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs.&lt;/p&gt;
-
-&lt;h2 id=&quot;installing-databricks-cli&quot;&gt;Installing Databricks CLI&lt;/h2&gt;
-
-&lt;p&gt;Luckily Databricks allows us just this. But before we can get started, we first have to configure our CLI tool of Databricks. For my example, I have decided to work with &lt;strong&gt;token authentication&lt;/strong&gt; seeing that I login through AAD.&lt;/p&gt;
-
-&lt;p&gt;To configure a Token for your Databricks account, login to the portal and go to: User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token and fill in a comment and a lifetime. (Note: you can leave lifetime empty, making a token for indefinite use).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/databricks-secrets/creating-user-token.png&quot; alt=&quot;/assets/images/posts/databricks-secrets/creating-user-token.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/databricks-secrets/creating-user-token-generated.png&quot; alt=&quot;/assets/images/posts/databricks-secrets/creating-user-token-generated.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We can now start installing our CLI and configure our account in it by using the token.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install the Databricks CLI&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip install databricks-cli
-databricks configure &lt;span class=&quot;nt&quot;&gt;--token&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Log in on our Databricks account with a token&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# --- Details ---&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Host: &amp;lt;YOUR_HOST&amp;gt; # For Azure this could be: https://&amp;lt;REGION&amp;gt;.azuredatabricks.net e.g. https://westeurope.azuredatabricks.net&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Token: &amp;lt;TOKEN&amp;gt; # Our generated token in User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token (Name = Databricks-CLI)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;creating-a-secret&quot;&gt;Creating a secret&lt;/h2&gt;
-
-&lt;p&gt;Once we did that, we can actually start creating a secret. Open up your favorite terminal and run the following commands:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create our secret in a new scope&lt;/span&gt;
-databricks secrets create-scope &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; &amp;lt;SECRET_SCOPE&amp;gt;
-databricks secrets put &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; XAVIER &lt;span class=&quot;nt&quot;&gt;--key&lt;/span&gt; &amp;lt;KEY_NAME&amp;gt; &lt;span class=&quot;c&quot;&gt;# Save the secret&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# -&amp;gt; Input Password in the editor that opens and close it&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Show our scopes&lt;/span&gt;
-databricks secrets list &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; &amp;lt;SECRET_SCOPE&amp;gt; &lt;span class=&quot;c&quot;&gt;# Shows Scopes&lt;/span&gt;
-dbutils.secrets.get&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;KEY_NAME&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Congratulations! Your first secret has been created and can now be utilized in your notebooks with the &lt;code class=&quot;highlighter-rouge&quot;&gt;dbutils&lt;/code&gt; command:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dbutils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secrets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;KEY_NAME&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html&quot;&gt;https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html&quot;&gt;https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret&quot;&gt;https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="databricks" /><summary type="html">A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs.</summary></entry><entry><title type="html">The Achievers Mindset</title><link href="/the-achievers-mind" rel="alternate" type="text/html" title="The Achievers Mindset" /><published>2019-01-04T09:00:00+00:00</published><updated>2019-01-04T09:00:00+00:00</updated><id>/the-achievers-mind</id><content type="html" xml:base="/the-achievers-mind">&lt;p&gt;When I tell people that I had 5 startups (yes, see &lt;a href=&quot;/projects&quot;&gt;my projects&lt;/a&gt;), worked for 2, graduated 1.5 years ago as a Industrial Engineer in Computer Science and straight out of school got hired at one of the largest tech firm, then people are always coming up with the same sentences: “You have too much time”, “Geek”, “Get a Hobby”, “Get a Girlfriend”. Well what if I would tell you that this is something easy to achieve? Something that everyone is able to do in life? Would you be interested in learning my story?&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Xavier Geerinck</name></author><category term="databricks" /><category term="coding-scala" /><summary type="html">This is going to be quite a short post, but is more intended as reference :)</summary></entry><entry><title type="html">The Achievers Mindset</title><link href="/the-achievers-mind" rel="alternate" type="text/html" title="The Achievers Mindset" /><published>2019-01-04T09:00:00+00:00</published><updated>2019-01-04T09:00:00+00:00</updated><id>/the-achievers-mind</id><content type="html" xml:base="/the-achievers-mind">&lt;p&gt;When I tell people that I had 5 startups (yes, see &lt;a href=&quot;/projects&quot;&gt;my projects&lt;/a&gt;), worked for 2, graduated 1.5 years ago as a Industrial Engineer in Computer Science and straight out of school got hired at one of the largest tech firm, then people are always coming up with the same sentences: “You have too much time”, “Geek”, “Get a Hobby”, “Get a Girlfriend”. Well what if I would tell you that this is something easy to achieve? Something that everyone is able to do in life? Would you be interested in learning my story?&lt;/p&gt;
 
 &lt;p&gt;All of this comes from just one simple thing, and that is a &lt;strong&gt;different way of thinking&lt;/strong&gt;. By applying a different mindset, you are able to gain the confidence to go bold and chase your dreams, to start something and accomplish it, to learn from your mistakes and iterate upon them.&lt;/p&gt;
 
@@ -637,29 +637,29 @@ conda config &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; channels pytorc
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/facebookresearch/Horizon.git
 &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;Horizon/
-conda install &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;docker/requirements.txt&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# wait till it solved the environment, then select y&lt;/span&gt;
+conda &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;docker/requirements.txt&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# wait till it solved the environment, then select y&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;activate base &lt;span class=&quot;c&quot;&gt;# Activate the base conda environment&lt;/span&gt;
 
-pip install onnx &lt;span class=&quot;c&quot;&gt;# Install ONNX&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;dirname &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;dirname &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;which conda&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set JAVA_HOME to anaconda installation&lt;/span&gt;
+pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;onnx &lt;span class=&quot;c&quot;&gt;# Install ONNX&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;which conda&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set JAVA_HOME to anaconda installation&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Go back to root&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Install Spark 2.3.1&lt;/span&gt;
 wget http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
 &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzf&lt;/span&gt; spark-2.3.1-bin-hadoop2.7.tgz
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mv spark-2.3.1-bin-hadoop2.7 /usr/local/spark
+&lt;span class=&quot;nb&quot;&gt;sudo mv &lt;/span&gt;spark-2.3.1-bin-hadoop2.7 /usr/local/spark
 
 &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;:/usr/local/spark/bin &lt;span class=&quot;c&quot;&gt;# add to PATH so we can find spark-submit&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Install OpenAI Gym&lt;/span&gt;
-pip install &lt;span class=&quot;s2&quot;&gt;&quot;gym[classic_control,box2d,atari]&quot;&lt;/span&gt;
+pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gym[classic_control,box2d,atari]&quot;&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Build Thrift Classes&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;Horizon/
 thrift &lt;span class=&quot;nt&quot;&gt;--gen&lt;/span&gt; py &lt;span class=&quot;nt&quot;&gt;--out&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; ml/rl/thrift/core.thrift
 
 &lt;span class=&quot;c&quot;&gt;# Build Horizon&lt;/span&gt;
-pip install &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# we use &quot;-e&quot; for &quot;ephemral package&quot; which will instantly reflect changes in the package&lt;/span&gt;
+pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# we use &quot;-e&quot; for &quot;ephemral package&quot; which will instantly reflect changes in the package&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;horizon-global-overview&quot;&gt;Horizon (Global Overview)&lt;/h2&gt;
@@ -706,7 +706,7 @@ pip install &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quo
 &lt;p&gt;Our usage document lists that we should create the training data through these commands:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create a directory where we will put the training data&lt;/span&gt;
-mkdir cartpole_discrete
+&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;cartpole_discrete
 
 &lt;span class=&quot;c&quot;&gt;# Generate training data&lt;/span&gt;
 python ml/rl/test/gym/run_gym.py &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ml/rl/test/gym/discrete_dqn_cartpole_v0_100_eps.json &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; cartpole_discrete/training_data.json
@@ -735,29 +735,29 @@ Exception: Usage: python run_gym.py &lt;span class=&quot;nt&quot;&gt;-p&lt;/span
 
 &lt;p&gt;The main method will now continue doing a couple of things:&lt;/p&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Load our parameters from the json&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Load our parameters from the json
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Initialize a dataset variable of type `RLDataset` if the `file_path` parameter is set&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#    `file_path`: If set, save all collected samples as an RLDataset to this file.&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RLDataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Initialize a dataset variable of type `RLDataset` if the `file_path` parameter is set
+#    `file_path`: If set, save all collected samples as an RLDataset to this file.
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RLDataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Call the method `run_gym` with the parameters and arguments provided&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;reward_history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestep_history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;predictor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run_gym&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Call the method `run_gym` with the parameters and arguments provided
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reward_history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestep_history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;predictor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run_gym&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;score_bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpu_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start_saving_from_episode&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Save our dataset if provided through the -f parameter&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Save our dataset if provided through the -f parameter
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;#  Save the results to a csv if the `results_file_path` parameter is set&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results_file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#  Save the results to a csv if the `results_file_path` parameter is set
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results_file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;write_lists_to_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results_file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reward_history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timestep_history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Return our reward history&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reward_history&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Return our reward history
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reward_history&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;After running our command shown in the usage document &lt;code class=&quot;highlighter-rouge&quot;&gt;python ml/rl/test/gym/run_gym.py -p ml/rl/test/gym/discrete_dqn_cartpole_v0_100_eps.json -f cartpole_discrete/training_data.json&lt;/code&gt; we can see the following structure in the &lt;code class=&quot;highlighter-rouge&quot;&gt;training_data.json&lt;/code&gt; file which was defined by the &lt;code class=&quot;highlighter-rouge&quot;&gt;-f&lt;/code&gt; parameter.&lt;/p&gt;
@@ -795,12 +795,12 @@ Holds a collection of RL samples in the &quot;pre-timeline&quot; format.
 :param file_path: String Load/save the dataset from/to this file.
 &quot;&quot;&quot;&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# === LINES REMOVED ===&lt;/span&gt;
-
+&lt;span class=&quot;c1&quot;&gt;# === LINES REMOVED ===
+&lt;/span&gt;
 &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;ds&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2019-01-01&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Fix ds for simplicity in open source examples&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;mdp_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mdp_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;ds&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2019-01-01&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# Fix ds for simplicity in open source examples
+&lt;/span&gt;    &lt;span class=&quot;s&quot;&gt;&quot;mdp_id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mdp_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
     &lt;span class=&quot;s&quot;&gt;&quot;sequence_number&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sequence_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
     &lt;span class=&quot;s&quot;&gt;&quot;state_features&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state_features&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;s&quot;&gt;&quot;action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -817,8 +817,8 @@ Holds a collection of RL samples in the &quot;pre-timeline&quot; format.
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;env_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Initialize the OpenAI Gym Environment&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OpenAIGymEnvironment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Initialize the OpenAI Gym Environment
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OpenAIGymEnvironment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;env_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;rl_parameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;epsilon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;rl_parameters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;softmax_policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -829,29 +829,29 @@ Holds a collection of RL samples in the &quot;pre-timeline&quot; format.
 
 &lt;span class=&quot;n&quot;&gt;use_gpu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpu_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;USE_CPU&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Use the &quot;training&quot; {} parameters and &quot;model_type&quot;: &quot;&amp;lt;MODEL&amp;gt;&quot; model_type&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# to create a trainer as the ones listed in /ml/rl/training/*_trainer.py&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The model_type is defined in /ml/rl/test/gym/open_ai_gym_environment.py&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;model_type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rl_parameters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use_gpu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Use the &quot;training&quot; {} parameters and &quot;model_type&quot;: &quot;&amp;lt;MODEL&amp;gt;&quot; model_type
+# to create a trainer as the ones listed in /ml/rl/training/*_trainer.py
+# The model_type is defined in /ml/rl/test/gym/open_ai_gym_environment.py
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;model_type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rl_parameters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use_gpu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Create a GymDQNPredictor based on the ModelType and Trainer above&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# This is located in /ml/rl/test/gym/gym_predictor.py&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;predictor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_predictor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use_gpu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Create a GymDQNPredictor based on the ModelType and Trainer above
+# This is located in /ml/rl/test/gym/gym_predictor.py
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predictor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_predictor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use_gpu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;c2_device&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DeviceOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;caffe2_pb2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CUDA&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use_gpu&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;caffe2_pb2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CPU&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpu_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Train using SGD (stochastic gradient descent)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# This just passess the parameters given towards a method called train_gym_online_rl which will train our algorithm&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_sgd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Train using SGD (stochastic gradient descent)
+# This just passess the parameters given towards a method called train_gym_online_rl which will train our algorithm
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;train_sgd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;c2_device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;replay_buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;model_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;trainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;predictor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;{} test run&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;{} test run&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;score_bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;run_details&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;save_timesteps_to_dataset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save_timesteps_to_dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -1058,7 +1058,7 @@ The &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; method i
 mvn &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; preprocessing/pom.xml clean package
 
 &lt;span class=&quot;c&quot;&gt;# Clear last run's spark data (in case of interruption)&lt;/span&gt;
-rm &lt;span class=&quot;nt&quot;&gt;-Rf&lt;/span&gt; spark-warehouse derby.log metastore_db preprocessing/spark-warehouse preprocessing/metastore_db preprocessing/derby.log
+&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Rf&lt;/span&gt; spark-warehouse derby.log metastore_db preprocessing/spark-warehouse preprocessing/metastore_db preprocessing/derby.log
 
 &lt;span class=&quot;c&quot;&gt;# Run timelime on pre-timeline data&lt;/span&gt;
 /usr/local/spark/bin/spark-submit &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -1066,11 +1066,11 @@ rm &lt;span class=&quot;nt&quot;&gt;-Rf&lt;/span&gt; spark-warehouse derby.log m
   &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;ml/rl/workflow/sample_configs/discrete_action/timeline.json&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Merge output data to single file&lt;/span&gt;
-mkdir training_data
-mv cartpole_discrete_timeline/part&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; training_data/cartpole_training_data.json
+&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;training_data
+&lt;span class=&quot;nb&quot;&gt;mv &lt;/span&gt;cartpole_discrete_timeline/part&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; training_data/cartpole_training_data.json
 
 &lt;span class=&quot;c&quot;&gt;# Remove the output data folder&lt;/span&gt;
-rm &lt;span class=&quot;nt&quot;&gt;-Rf&lt;/span&gt; cartpole_discrete_timeline
+&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Rf&lt;/span&gt; cartpole_discrete_timeline
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;After execution we can now watch the created file by running: &lt;code class=&quot;highlighter-rouge&quot;&gt;head -n1 training_data/cartpole_training_data.json&lt;/code&gt;:&lt;/p&gt;
@@ -1240,7 +1240,7 @@ external_input: &lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;
 external_input: &lt;span class=&quot;s2&quot;&gt;&quot;6&quot;&lt;/span&gt;
 external_output: &lt;span class=&quot;s2&quot;&gt;&quot;11&quot;&lt;/span&gt;
 
-INFO:ml.rl.preprocessing.preprocessor_net:Processed split &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0, 4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;feature &lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;CONTINUOUS
+INFO:ml.rl.preprocessing.preprocessor_net:Processed &lt;span class=&quot;nb&quot;&gt;split&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0, 4&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;feature &lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;CONTINUOUS
 INFO:ml.rl.preprocessing.preprocessor_net:input# 0: preprocessor_net.py:287:Where_output0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -1261,7 +1261,7 @@ INFO:ml.rl.preprocessing.preprocessor_net:input# 0: preprocessor_net.py:287:Wher
     &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
     &lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;Achieved an average reward score of {} over {} evaluations.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;Achieved an average reward score of {} over {} evaluations.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;avg_rewards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AVG_OVER_NUM_EPS&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;

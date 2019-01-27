@@ -208,8 +208,8 @@ into the {body} of the default.hbs template -->
       <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="c1">// Do something with the key
-</span>  <span class="p">}</span>
+    <span class="c1">// Do something with the key</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -222,18 +222,18 @@ into the {body} of the default.hbs template -->
 <h4 id="implementation-1">Implementation</h4>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">BFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">start_node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">amount_of_nodes</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// First create the node visited vector
-</span>  <span class="n">vector</span> <span class="n">discovered</span><span class="p">(</span><span class="n">amount_of_nodes</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="c1">// First create the node visited vector</span>
+  <span class="n">vector</span> <span class="n">discovered</span><span class="p">(</span><span class="n">amount_of_nodes</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 
-  <span class="c1">// Create the queue and push the first node on it
-</span>  <span class="n">queue</span> <span class="n">q</span><span class="p">;</span>
+  <span class="c1">// Create the queue and push the first node on it</span>
+  <span class="n">queue</span> <span class="n">q</span><span class="p">;</span>
   <span class="n">discovered</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
   <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 
-  <span class="c1">// While the queue is not empty, keep adding the other nodes
-</span>  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="c1">// new start node
-</span>    <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+  <span class="c1">// While the queue is not empty, keep adding the other nodes</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="c1">// new start node</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
 
     <span class="k">for</span> <span class="p">(</span><span class="n">neighbour</span> <span class="n">i</span> <span class="n">in</span> <span class="n">neighbours</span> <span class="n">of</span> <span class="n">node</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">discovered</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>

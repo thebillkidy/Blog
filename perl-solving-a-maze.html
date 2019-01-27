@@ -370,7 +370,7 @@ Putting it all together in perl code</p>
 <span class="k">my</span> <span class="nv">@lines</span><span class="p">;</span>
 <span class="k">while</span> <span class="p">(</span><span class="nv">$input</span> <span class="o">=~</span> <span class="sr">m/&lt;line x1=\"([0-9]+)\" y1=\"([0-9]+)\" x2=\"([0-9]+)\" y2=\"([0-9]+)\" \/&gt;+/g</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="nv">$x1</span><span class="p">,</span><span class="nv">$y1</span><span class="p">,</span><span class="nv">$x2</span><span class="p">,</span><span class="nv">$y2</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$1</span> <span class="sr">/ 16,$2 /</span> <span class="mi">16</span><span class="p">,</span><span class="nv">$3</span> <span class="sr">/ 16,$4 /</span> <span class="mi">16</span><span class="p">);</span>
-    <span class="k">my</span> <span class="nv">%H</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="k">my</span> <span class="o">%</span><span class="nv">H</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s">"x1"</span> <span class="o">=&gt;</span> <span class="nv">$x1</span><span class="p">,</span>
         <span class="s">"x2"</span> <span class="o">=&gt;</span> <span class="nv">$x2</span><span class="p">,</span>
         <span class="s">"y1"</span> <span class="o">=&gt;</span> <span class="nv">$y1</span><span class="p">,</span>
@@ -382,7 +382,7 @@ Putting it all together in perl code</p>
     <span class="c1">#if ($y2 &gt; $rows + 1) { $rows = $y2 - 1; }</span>
     <span class="c1">#if ($x2 &gt; $cols + 1) { $cols = $x2 - 1; }</span>
     <span class="c1"># Add to lines</span>
-    <span class="nb">push</span> <span class="nv">@lines</span><span class="p">,</span> <span class="o">\</span><span class="nv">%H</span><span class="p">;</span>
+    <span class="nb">push</span> <span class="nv">@lines</span><span class="p">,</span> <span class="o">\%</span><span class="nv">H</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="c1"># ================================================</span>
 <span class="c1"># Getting the neighbours for each element</span>
@@ -393,7 +393,7 @@ Putting it all together in perl code</p>
 <span class="k">my</span> <span class="nv">@elements</span> <span class="o">=</span> <span class="p">();</span>
 <span class="k">my</span> <span class="nv">@corners</span> <span class="o">=</span> <span class="p">();</span>
 <span class="k">for</span> <span class="p">(</span><span class="k">my</span> <span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$elCount</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">my</span> <span class="nv">%H</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="k">my</span> <span class="o">%</span><span class="nv">H</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s">"top"</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="nv">$cols</span><span class="p">,</span>
         <span class="s">"right"</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s">"bot"</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nv">$cols</span><span class="p">,</span>
@@ -405,7 +405,7 @@ Putting it all together in perl code</p>
     <span class="p">);</span>
     <span class="c1"># Row and column</span>
     <span class="nv">$row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nv">$i</span> <span class="o">/</span> <span class="nv">$cols</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="nv">$col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nv">$i</span> <span class="nv">%</span> <span class="err">$</span><span class="nv">cols</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nv">$col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nv">$i</span> <span class="o">%</span> <span class="nv">$cols</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="c1"># Boundaries</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">$H</span><span class="p">{</span><span class="s">"top"</span><span class="p">}</span> <span class="o">&gt;</span> <span class="nv">$elCount</span> <span class="o">||</span> <span class="nv">$H</span><span class="p">{</span><span class="s">"top"</span><span class="p">}</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$H</span><span class="p">{</span><span class="s">"top"</span><span class="p">}</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">$H</span><span class="p">{</span><span class="s">"right"</span><span class="p">}</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">*</span> <span class="nv">$cols</span><span class="p">)</span> <span class="o">||</span> <span class="nv">$H</span><span class="p">{</span><span class="s">"right"</span><span class="p">}</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$H</span><span class="p">{</span><span class="s">"right"</span><span class="p">}</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>

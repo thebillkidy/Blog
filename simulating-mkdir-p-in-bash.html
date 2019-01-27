@@ -191,7 +191,7 @@ into the {body} of the default.hbs template -->
 <span class="k">fi</span>
 
 <span class="c"># Start processing the path creation</span>
-<span class="nv">IFS</span><span class="o">=</span><span class="s1">'/'</span> <span class="nb">read</span> <span class="nt">-ra</span> dir <span class="o">&lt;&lt;&lt;</span> <span class="nv">$1</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">'/'</span> <span class="nb">read</span> <span class="nt">-ra</span> <span class="nb">dir</span> <span class="o">&lt;&lt;&lt;</span> <span class="nv">$1</span>
 <span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">dir</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do</span>
   <span class="c"># If empty, skip</span>
   <span class="k">if</span> <span class="o">[[</span> <span class="nv">$i</span> <span class="o">==</span> <span class="s2">""</span> <span class="o">]]</span><span class="p">;</span>
@@ -202,7 +202,7 @@ into the {body} of the default.hbs template -->
   <span class="c"># Determine if dir exists, if not create it</span>
   <span class="k">if</span> <span class="o">[[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="nv">$i</span> <span class="o">]]</span><span class="p">;</span>
   <span class="k">then
-    </span>mkdir <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+    </span><span class="nb">mkdir</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
   <span class="k">fi</span>
 
   <span class="c"># Descend into the new dir</span>

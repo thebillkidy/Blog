@@ -372,8 +372,8 @@ One of the tasks when hiring a new developer is to get this developer completely
 
 <span class="c"># Check parameters (We need the dockerpath too install + name for the image)</span>
 <span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="nt">-o</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="nt">-o</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$3</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
-  </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span><span class="s2"> "</span>
-  <span class="nb">echo</span> <span class="s2">"Example: </span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span><span class="s2"> docker/ghost_demo/ ghost_demo"</span>
+  </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="sb">`</span><span class="nb">basename</span> <span class="nv">$0</span><span class="sb">`</span><span class="s2"> "</span>
+  <span class="nb">echo</span> <span class="s2">"Example: </span><span class="sb">`</span><span class="nb">basename</span> <span class="nv">$0</span><span class="sb">`</span><span class="s2"> docker/ghost_demo/ ghost_demo"</span>
   <span class="nb">echo</span> <span class="s2">"Info: The DockerfilePath is the path from this as root to the directory where the Dockerfile is located"</span>
 
   <span class="nb">exit </span>0
@@ -388,11 +388,11 @@ One of the tasks when hiring a new developer is to get this developer completely
   <span class="nb">sudo </span>apt-get update
 
   <span class="c"># Install wget &amp; ca-certificates</span>
-  <span class="nb">sudo </span>apt-get install <span class="nt">-y</span> wget ca-certificates docker.io
+  <span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> wget ca-certificates docker.io
 
   <span class="c"># Link and fix paths</span>
-  ln <span class="nt">-sf</span> /usr/bin/docker.io /usr/local/bin/docker
-  sed <span class="nt">-i</span> <span class="s1">'$acomplete -F _docker docker'</span> /etc/bash_completion.d/docker.io
+  <span class="nb">ln</span> <span class="nt">-sf</span> /usr/bin/docker.io /usr/local/bin/docker
+  <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'$acomplete -F _docker docker'</span> /etc/bash_completion.d/docker.io
 
   <span class="c"># Start Docker on server boot</span>
   update-rc.d docker.io defaults
@@ -427,10 +427,10 @@ RUN <span class="se">\</span>
 <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> <span class="se">\</span>
 wget https://ghost.org/zip/ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="se">\</span>
 unzip ghost-latest.zip <span class="nt">-d</span> /ghost <span class="o">&amp;&amp;</span> <span class="se">\</span>
-rm <span class="nt">-f</span> ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">rm</span> <span class="nt">-f</span> ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="se">\</span>
 <span class="nb">cd</span> /ghost <span class="o">&amp;&amp;</span> <span class="se">\</span>
-npm install <span class="nt">--production</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
-sed <span class="s1">'s/127.0.0.1/0.0.0.0/'</span> /ghost/config.example.js <span class="o">&gt;</span> /ghost/config.js <span class="o">&amp;&amp;</span> <span class="se">\</span>
+npm <span class="nb">install</span> <span class="nt">--production</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">sed</span> <span class="s1">'s/127.0.0.1/0.0.0.0/'</span> /ghost/config.example.js <span class="o">&gt;</span> /ghost/config.js <span class="o">&amp;&amp;</span> <span class="se">\</span>
 useradd ghost <span class="nt">--home</span> /ghost
 
 <span class="c"># Add files.</span>
@@ -467,32 +467,32 @@ EXPOSE 2368
 <span class="nb">cd</span> <span class="s2">"</span><span class="nv">$GHOST</span><span class="s2">"</span>
 
 <span class="c"># Symlink data directory.</span>
-mkdir <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$DATA</span><span class="s2">"</span>
-rm <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$DATA</span><span class="s2">"</span>
-ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$DATA</span><span class="s2">"</span> <span class="s2">"content"</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$DATA</span><span class="s2">"</span>
+<span class="nb">rm</span> <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$DATA</span><span class="s2">"</span>
+<span class="nb">ln</span> <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$DATA</span><span class="s2">"</span> <span class="s2">"content"</span>
 
 <span class="c"># Symlink images directory</span>
-mkdir <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$IMAGES</span><span class="s2">"</span>
-rm <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$IMAGES</span><span class="s2">"</span>
-ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$IMAGES</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$IMAGES</span><span class="s2">"</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$IMAGES</span><span class="s2">"</span>
+<span class="nb">rm</span> <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$IMAGES</span><span class="s2">"</span>
+<span class="nb">ln</span> <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$IMAGES</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$IMAGES</span><span class="s2">"</span>
 
 <span class="c"># Symlink config file.</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$CONFIG</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
-  </span>rm <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$CONFIG</span><span class="s2">"</span>
-  ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$CONFIG</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$CONFIG</span><span class="s2">"</span>
+  </span><span class="nb">rm</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$CONFIG</span><span class="s2">"</span>
+  <span class="nb">ln</span> <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$CONFIG</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$CONFIG</span><span class="s2">"</span>
 <span class="k">fi</span>
 
 <span class="c"># Symlink themes.</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
-  for </span>theme <span class="k">in</span> <span class="k">$(</span>find <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">"</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-exec</span> basename <span class="o">{}</span> <span class="se">\;</span><span class="k">)</span>
+  for </span>theme <span class="k">in</span> <span class="k">$(</span>find <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">"</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-exec</span> <span class="nb">basename</span> <span class="o">{}</span> <span class="se">\;</span><span class="k">)</span>
   <span class="k">do
-    </span>rm <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span>
-    ln <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span>
+    </span><span class="nb">rm</span> <span class="nt">-fr</span> <span class="s2">"</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span>
+    <span class="nb">ln</span> <span class="nt">-s</span> <span class="s2">"</span><span class="nv">$OVERRIDE</span><span class="s2">/</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$THEMES</span><span class="s2">/</span><span class="nv">$theme</span><span class="s2">"</span>
   <span class="k">done
 fi</span>
 
 <span class="c"># Start Ghost</span>
-chown <span class="nt">-R</span> ghost:ghost /data /ghost /ghost-override
+<span class="nb">chown</span> <span class="nt">-R</span> ghost:ghost /data /ghost /ghost-override
 su ghost <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh"> cd "</span><span class="nv">$GHOST</span><span class="sh">" NODE_ENV=</span><span class="k">${</span><span class="nv">NODE_ENV</span><span class="k">:-</span><span class="nv">production</span><span class="k">}</span><span class="sh"> npm start EOF 
 </span></code></pre></div></div>
 
@@ -550,7 +550,7 @@ ghostdemo: Running: inline script
 <span class="o">==&gt;</span> ghostdemo: Step 0 : FROM dockerfile/nodejs
 <span class="o">==&gt;</span> ghostdemo: Pulling repository dockerfile/nodejs
 <span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> 42558db32e73
-<span class="o">==&gt;</span> ghostdemo: Step 1 : RUN <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget https://ghost.org/zip/ghost-latest.zip <span class="o">&amp;&amp;</span> unzip ghost-latest.zip <span class="nt">-d</span> /ghost <span class="o">&amp;&amp;</span> rm <span class="nt">-f</span> ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /ghost <span class="o">&amp;&amp;</span> npm install <span class="nt">--production</span> <span class="o">&amp;&amp;</span> sed <span class="s1">'s/127.0.0.1/0.0.0.0/'</span> /ghost/config.example.js <span class="o">&gt;</span> /ghost/config.js <span class="o">&amp;&amp;</span> useradd ghost <span class="nt">--home</span> /ghost
+<span class="o">==&gt;</span> ghostdemo: Step 1 : RUN <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget https://ghost.org/zip/ghost-latest.zip <span class="o">&amp;&amp;</span> unzip ghost-latest.zip <span class="nt">-d</span> /ghost <span class="o">&amp;&amp;</span> <span class="nb">rm</span> <span class="nt">-f</span> ghost-latest.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /ghost <span class="o">&amp;&amp;</span> npm <span class="nb">install</span> <span class="nt">--production</span> <span class="o">&amp;&amp;</span> <span class="nb">sed</span> <span class="s1">'s/127.0.0.1/0.0.0.0/'</span> /ghost/config.example.js <span class="o">&gt;</span> /ghost/config.js <span class="o">&amp;&amp;</span> useradd ghost <span class="nt">--home</span> /ghost
 <span class="o">==&gt;</span> ghostdemo: <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>8dc4b656ac97
 <span class="k">********************************</span> OUTPUT STRIPPED <span class="k">********************************</span>
 <span class="o">==&gt;</span> ghostdemo: Removing intermediate container 8dc4b656ac97

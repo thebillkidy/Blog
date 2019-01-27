@@ -198,26 +198,26 @@ into the {body} of the default.hbs template -->
 </blockquote>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>fallocate <span class="nt">-l</span> 1G /swapfile
-<span class="nb">sudo </span>chmod 600 /swapfile
+<span class="nb">sudo chmod </span>600 /swapfile
 <span class="nb">sudo </span>mkswap /swapfile
 <span class="nb">sudo </span>swapon /swapfile
-<span class="nb">sudo </span>cp /etc/fstab /etc/fstab.bak
-<span class="nb">echo</span> <span class="s1">'/swapfile none swap sw 0 0'</span> | <span class="nb">sudo </span>tee <span class="nt">-a</span> /etc/fstab
+<span class="nb">sudo cp</span> /etc/fstab /etc/fstab.bak
+<span class="nb">echo</span> <span class="s1">'/swapfile none swap sw 0 0'</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab
 </code></pre></div></div>
 
 <h3 id="client">Client</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>client/
-npm install <span class="c"># or yarn</span>
+npm <span class="nb">install</span> <span class="c"># or yarn</span>
 npm run dev <span class="c"># or yarn run dev</span>
 </code></pre></div></div>
 
 <h3 id="server">Server</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>server/
-npm install <span class="c"># or yarn</span>
-npm install <span class="nt">-g</span> sequelize-cli <span class="c"># Installation of the Database Manager</span>
-npm install mysql <span class="c"># Install the MySQL connector, or see http://docs.sequelizejs.com/en/v3/docs/getting-started/ for more)</span>
+npm <span class="nb">install</span> <span class="c"># or yarn</span>
+npm <span class="nb">install</span> <span class="nt">-g</span> sequelize-cli <span class="c"># Installation of the Database Manager</span>
+npm <span class="nb">install </span>mysql <span class="c"># Install the MySQL connector, or see http://docs.sequelizejs.com/en/v3/docs/getting-started/ for more)</span>
 sequelize db:migrate <span class="c"># Create the initial database schema, to adapt these configs, see: server/config/config.js</span>
 npm run dev <span class="c"># or yarn run dev</span>
 </code></pre></div></div>

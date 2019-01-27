@@ -204,18 +204,18 @@ into the {body} of the default.hbs template -->
 
 <h3 id="pseudocode">Pseudocode</h3>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Algorithm:
-// 1) Init a priority queue, visited list and solution vector
-// 2) Put every element on visited = false
-// 3) Pick a start element and put it on the priority queue
-// 4) while !Q.empty
-//  4a) Get next unvisited node
-</span>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Algorithm:</span>
+<span class="c1">// 1) Init a priority queue, visited list and solution vector</span>
+<span class="c1">// 2) Put every element on visited = false</span>
+<span class="c1">// 3) Pick a start element and put it on the priority queue</span>
+<span class="c1">// 4) while !Q.empty</span>
+<span class="c1">//  4a) Get next unvisited node</span>
+
 <span class="k">while</span> <span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">Q</span><span class="p">.</span><span class="n">top</span><span class="p">()]</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">Q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
   <span class="n">Q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
 
-  <span class="c1">// Set unvisited node as visited and add it to the solution
-</span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+  <span class="c1">// Set unvisited node as visited and add it to the solution</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">Q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
     <span class="n">visited</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
     <span class="n">mst</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
@@ -227,8 +227,8 @@ into the {body} of the default.hbs template -->
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c1">// Return solution
-</span><span class="k">return</span> <span class="n">mst</span><span class="p">;</span>
+<span class="c1">// Return solution</span>
+<span class="k">return</span> <span class="n">mst</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h3 id="c-implementation">C++ Implementation</h3>
@@ -255,10 +255,10 @@ into the {body} of the default.hbs template -->
 <span class="p">}</span>
 
 <span class="n">vector</span> <span class="n">prim</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">graph</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Init priority queue and parents
-</span>  <span class="n">vector</span> <span class="n">visited</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
-  <span class="n">vector</span> <span class="n">mst</span><span class="p">;</span> <span class="c1">// solution
-</span>  <span class="n">priority_queue</span> <span class="n">pq</span><span class="p">;</span>
+  <span class="c1">// Init priority queue and parents</span>
+  <span class="n">vector</span> <span class="n">visited</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="n">vector</span> <span class="n">mst</span><span class="p">;</span> <span class="c1">// solution</span>
+  <span class="n">priority_queue</span> <span class="n">pq</span><span class="p">;</span>
 
   <span class="k">struct</span> <span class="n">node</span> <span class="n">start</span><span class="p">;</span>
   <span class="n">start</span><span class="p">.</span><span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -267,20 +267,20 @@ into the {body} of the default.hbs template -->
   <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
 
   <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-    <span class="c1">// Get next unvisited node
-</span>    <span class="k">while</span> <span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">key</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// Get next unvisited node</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">key</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
       <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
       <span class="k">struct</span> <span class="n">node</span> <span class="n">curr_node</span> <span class="o">=</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-      <span class="n">visited</span><span class="p">[</span><span class="n">curr_node</span><span class="p">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// set it visited (black)
-</span>      <span class="n">mst</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">curr_node</span><span class="p">.</span><span class="n">key</span><span class="p">);</span> <span class="c1">// Add it to the solution
-</span>      <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+      <span class="n">visited</span><span class="p">[</span><span class="n">curr_node</span><span class="p">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// set it visited (black)</span>
+      <span class="n">mst</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">curr_node</span><span class="p">.</span><span class="n">key</span><span class="p">);</span> <span class="c1">// Add it to the solution</span>
+      <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
 
-      <span class="c1">// Get the neighbours of the current node
-</span>      <span class="c1">// Neighbours are all X values that are not 0 in graph[curr_node.key][X] and not visited
-</span>      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Get the neighbours of the current node</span>
+      <span class="c1">// Neighbours are all X values that are not 0 in graph[curr_node.key][X] and not visited</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">graph</span><span class="p">[</span><span class="n">curr_node</span><span class="p">.</span><span class="n">key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
           <span class="k">struct</span> <span class="n">node</span> <span class="n">node</span><span class="p">;</span>
           <span class="n">node</span><span class="p">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
@@ -305,8 +305,8 @@ into the {body} of the default.hbs template -->
     <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span> <span class="p">}</span>
   <span class="p">};</span>
 
-  <span class="c1">// Print solution
-</span>  <span class="n">print_list</span><span class="p">(</span><span class="n">prim</span><span class="p">(</span><span class="n">graph</span><span class="p">));</span>
+  <span class="c1">// Print solution</span>
+  <span class="n">print_list</span><span class="p">(</span><span class="n">prim</span><span class="p">(</span><span class="n">graph</span><span class="p">));</span>
 
   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>

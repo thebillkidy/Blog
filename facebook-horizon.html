@@ -217,29 +217,29 @@ conda config <span class="nt">--add</span> channels pytorch
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/facebookresearch/Horizon.git
 <span class="nb">cd </span>Horizon/
-conda install <span class="sb">`</span><span class="nb">cat </span>docker/requirements.txt<span class="sb">`</span> <span class="c"># wait till it solved the environment, then select y</span>
+conda <span class="nb">install</span> <span class="sb">`</span><span class="nb">cat </span>docker/requirements.txt<span class="sb">`</span> <span class="c"># wait till it solved the environment, then select y</span>
 <span class="nb">source </span>activate base <span class="c"># Activate the base conda environment</span>
 
-pip install onnx <span class="c"># Install ONNX</span>
-<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>dirname <span class="k">$(</span>dirname <span class="nt">--</span> <span class="sb">`</span>which conda<span class="sb">`</span><span class="k">))</span><span class="s2">"</span> <span class="c"># Set JAVA_HOME to anaconda installation</span>
+pip <span class="nb">install </span>onnx <span class="c"># Install ONNX</span>
+<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">dirname</span> <span class="k">$(</span><span class="nb">dirname</span> <span class="nt">--</span> <span class="sb">`</span>which conda<span class="sb">`</span><span class="k">))</span><span class="s2">"</span> <span class="c"># Set JAVA_HOME to anaconda installation</span>
 <span class="nb">cd</span> <span class="c"># Go back to root</span>
 
 <span class="c"># Install Spark 2.3.1</span>
 wget http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
 <span class="nb">tar</span> <span class="nt">-xzf</span> spark-2.3.1-bin-hadoop2.7.tgz
-<span class="nb">sudo </span>mv spark-2.3.1-bin-hadoop2.7 /usr/local/spark
+<span class="nb">sudo mv </span>spark-2.3.1-bin-hadoop2.7 /usr/local/spark
 
 <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/spark/bin <span class="c"># add to PATH so we can find spark-submit</span>
 
 <span class="c"># Install OpenAI Gym</span>
-pip install <span class="s2">"gym[classic_control,box2d,atari]"</span>
+pip <span class="nb">install</span> <span class="s2">"gym[classic_control,box2d,atari]"</span>
 
 <span class="c"># Build Thrift Classes</span>
 <span class="nb">cd </span>Horizon/
 thrift <span class="nt">--gen</span> py <span class="nt">--out</span> <span class="nb">.</span> ml/rl/thrift/core.thrift
 
 <span class="c"># Build Horizon</span>
-pip install <span class="nt">-e</span> <span class="nb">.</span> <span class="c"># we use "-e" for "ephemral package" which will instantly reflect changes in the package</span>
+pip <span class="nb">install</span> <span class="nt">-e</span> <span class="nb">.</span> <span class="c"># we use "-e" for "ephemral package" which will instantly reflect changes in the package</span>
 </code></pre></div></div>
 
 <h2 id="horizon-global-overview">Horizon (Global Overview)</h2>
@@ -286,7 +286,7 @@ pip install <span class="nt">-e</span> <span class="nb">.</span> <span class="c"
 <p>Our usage document lists that we should create the training data through these commands:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a directory where we will put the training data</span>
-mkdir cartpole_discrete
+<span class="nb">mkdir </span>cartpole_discrete
 
 <span class="c"># Generate training data</span>
 python ml/rl/test/gym/run_gym.py <span class="nt">-p</span> ml/rl/test/gym/discrete_dqn_cartpole_v0_100_eps.json <span class="nt">-f</span> cartpole_discrete/training_data.json
@@ -315,29 +315,29 @@ Exception: Usage: python run_gym.py <span class="nt">-p</span> &lt;parameters_fi
 
 <p>The main method will now continue doing a couple of things:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Load our parameters from the json</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load our parameters from the json
+</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="c"># Initialize a dataset variable of type `RLDataset` if the `file_path` parameter is set</span>
-<span class="c">#    `file_path`: If set, save all collected samples as an RLDataset to this file.</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">RLDataset</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_path</span> <span class="k">else</span> <span class="bp">None</span>
+<span class="c1"># Initialize a dataset variable of type `RLDataset` if the `file_path` parameter is set
+#    `file_path`: If set, save all collected samples as an RLDataset to this file.
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">RLDataset</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">file_path</span> <span class="k">else</span> <span class="bp">None</span>
 
-<span class="c"># Call the method `run_gym` with the parameters and arguments provided</span>
-<span class="n">reward_history</span><span class="p">,</span> <span class="n">timestep_history</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">predictor</span> <span class="o">=</span> <span class="n">run_gym</span><span class="p">(</span>
+<span class="c1"># Call the method `run_gym` with the parameters and arguments provided
+</span><span class="n">reward_history</span><span class="p">,</span> <span class="n">timestep_history</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">predictor</span> <span class="o">=</span> <span class="n">run_gym</span><span class="p">(</span>
     <span class="n">params</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">score_bar</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">gpu_id</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">start_saving_from_episode</span>
 <span class="p">)</span>
 
-<span class="c"># Save our dataset if provided through the -f parameter</span>
-<span class="k">if</span> <span class="n">dataset</span><span class="p">:</span>
+<span class="c1"># Save our dataset if provided through the -f parameter
+</span><span class="k">if</span> <span class="n">dataset</span><span class="p">:</span>
     <span class="n">dataset</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-<span class="c">#  Save the results to a csv if the `results_file_path` parameter is set</span>
-<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">results_file_path</span><span class="p">:</span>
+<span class="c1">#  Save the results to a csv if the `results_file_path` parameter is set
+</span><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">results_file_path</span><span class="p">:</span>
     <span class="n">write_lists_to_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">results_file_path</span><span class="p">,</span> <span class="n">reward_history</span><span class="p">,</span> <span class="n">timestep_history</span><span class="p">)</span>
 
-<span class="c"># Return our reward history</span>
-<span class="k">return</span> <span class="n">reward_history</span>
+<span class="c1"># Return our reward history
+</span><span class="k">return</span> <span class="n">reward_history</span>
 </code></pre></div></div>
 
 <p>After running our command shown in the usage document <code class="highlighter-rouge">python ml/rl/test/gym/run_gym.py -p ml/rl/test/gym/discrete_dqn_cartpole_v0_100_eps.json -f cartpole_discrete/training_data.json</code> we can see the following structure in the <code class="highlighter-rouge">training_data.json</code> file which was defined by the <code class="highlighter-rouge">-f</code> parameter.</p>
@@ -375,12 +375,12 @@ Holds a collection of RL samples in the "pre-timeline" format.
 :param file_path: String Load/save the dataset from/to this file.
 """</span>
 
-<span class="c"># === LINES REMOVED ===</span>
-
+<span class="c1"># === LINES REMOVED ===
+</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
 <span class="p">{</span>
-    <span class="s">"ds"</span><span class="p">:</span> <span class="s">"2019-01-01"</span><span class="p">,</span>  <span class="c"># Fix ds for simplicity in open source examples</span>
-    <span class="s">"mdp_id"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">mdp_id</span><span class="p">),</span>
+    <span class="s">"ds"</span><span class="p">:</span> <span class="s">"2019-01-01"</span><span class="p">,</span>  <span class="c1"># Fix ds for simplicity in open source examples
+</span>    <span class="s">"mdp_id"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">mdp_id</span><span class="p">),</span>
     <span class="s">"sequence_number"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">sequence_number</span><span class="p">),</span>
     <span class="s">"state_features"</span><span class="p">:</span> <span class="n">state_features</span><span class="p">,</span>
     <span class="s">"action"</span><span class="p">:</span> <span class="n">action</span><span class="p">,</span>
@@ -397,8 +397,8 @@ Holds a collection of RL samples in the "pre-timeline" format.
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">env_type</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">"env"</span><span class="p">]</span>
 
-<span class="c"># Initialize the OpenAI Gym Environment</span>
-<span class="n">env</span> <span class="o">=</span> <span class="n">OpenAIGymEnvironment</span><span class="p">(</span>
+<span class="c1"># Initialize the OpenAI Gym Environment
+</span><span class="n">env</span> <span class="o">=</span> <span class="n">OpenAIGymEnvironment</span><span class="p">(</span>
     <span class="n">env_type</span><span class="p">,</span>
     <span class="n">rl_parameters</span><span class="o">.</span><span class="n">epsilon</span><span class="p">,</span>
     <span class="n">rl_parameters</span><span class="o">.</span><span class="n">softmax_policy</span><span class="p">,</span>
@@ -409,29 +409,29 @@ Holds a collection of RL samples in the "pre-timeline" format.
 
 <span class="n">use_gpu</span> <span class="o">=</span> <span class="n">gpu_id</span> <span class="o">!=</span> <span class="n">USE_CPU</span>
 
-<span class="c"># Use the "training" {} parameters and "model_type": "&lt;MODEL&gt;" model_type</span>
-<span class="c"># to create a trainer as the ones listed in /ml/rl/training/*_trainer.py</span>
-<span class="c"># The model_type is defined in /ml/rl/test/gym/open_ai_gym_environment.py</span>
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">"model_type"</span><span class="p">],</span> <span class="n">params</span><span class="p">,</span> <span class="n">rl_parameters</span><span class="p">,</span> <span class="n">use_gpu</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="c1"># Use the "training" {} parameters and "model_type": "&lt;MODEL&gt;" model_type
+# to create a trainer as the ones listed in /ml/rl/training/*_trainer.py
+# The model_type is defined in /ml/rl/test/gym/open_ai_gym_environment.py
+</span><span class="n">trainer</span> <span class="o">=</span> <span class="n">create_trainer</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">"model_type"</span><span class="p">],</span> <span class="n">params</span><span class="p">,</span> <span class="n">rl_parameters</span><span class="p">,</span> <span class="n">use_gpu</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
 
-<span class="c"># Create a GymDQNPredictor based on the ModelType and Trainer above</span>
-<span class="c"># This is located in /ml/rl/test/gym/gym_predictor.py</span>
-<span class="n">predictor</span> <span class="o">=</span> <span class="n">create_predictor</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">use_gpu</span><span class="p">)</span>
+<span class="c1"># Create a GymDQNPredictor based on the ModelType and Trainer above
+# This is located in /ml/rl/test/gym/gym_predictor.py
+</span><span class="n">predictor</span> <span class="o">=</span> <span class="n">create_predictor</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">use_gpu</span><span class="p">)</span>
 
 <span class="n">c2_device</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">DeviceOption</span><span class="p">(</span>
     <span class="n">caffe2_pb2</span><span class="o">.</span><span class="n">CUDA</span> <span class="k">if</span> <span class="n">use_gpu</span> <span class="k">else</span> <span class="n">caffe2_pb2</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">gpu_id</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="c"># Train using SGD (stochastic gradient descent)</span>
-<span class="c"># This just passess the parameters given towards a method called train_gym_online_rl which will train our algorithm</span>
-<span class="k">return</span> <span class="n">train_sgd</span><span class="p">(</span>
+<span class="c1"># Train using SGD (stochastic gradient descent)
+# This just passess the parameters given towards a method called train_gym_online_rl which will train our algorithm
+</span><span class="k">return</span> <span class="n">train_sgd</span><span class="p">(</span>
     <span class="n">c2_device</span><span class="p">,</span>
     <span class="n">env</span><span class="p">,</span>
     <span class="n">replay_buffer</span><span class="p">,</span>
     <span class="n">model_type</span><span class="p">,</span>
     <span class="n">trainer</span><span class="p">,</span>
     <span class="n">predictor</span><span class="p">,</span>
-    <span class="s">"{} test run"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">env_type</span><span class="p">),</span>
+    <span class="s">"{} test run"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">env_type</span><span class="p">),</span>
     <span class="n">score_bar</span><span class="p">,</span>
     <span class="o">**</span><span class="n">params</span><span class="p">[</span><span class="s">"run_details"</span><span class="p">],</span>
     <span class="n">save_timesteps_to_dataset</span><span class="o">=</span><span class="n">save_timesteps_to_dataset</span><span class="p">,</span>
@@ -638,7 +638,7 @@ The <code class="highlighter-rouge">insert</code> method is defined as: <code cl
 mvn <span class="nt">-f</span> preprocessing/pom.xml clean package
 
 <span class="c"># Clear last run's spark data (in case of interruption)</span>
-rm <span class="nt">-Rf</span> spark-warehouse derby.log metastore_db preprocessing/spark-warehouse preprocessing/metastore_db preprocessing/derby.log
+<span class="nb">rm</span> <span class="nt">-Rf</span> spark-warehouse derby.log metastore_db preprocessing/spark-warehouse preprocessing/metastore_db preprocessing/derby.log
 
 <span class="c"># Run timelime on pre-timeline data</span>
 /usr/local/spark/bin/spark-submit <span class="se">\</span>
@@ -646,11 +646,11 @@ rm <span class="nt">-Rf</span> spark-warehouse derby.log metastore_db preprocess
   <span class="s2">"</span><span class="sb">`</span><span class="nb">cat </span>ml/rl/workflow/sample_configs/discrete_action/timeline.json<span class="sb">`</span><span class="s2">"</span>
 
 <span class="c"># Merge output data to single file</span>
-mkdir training_data
-mv cartpole_discrete_timeline/part<span class="k">*</span> training_data/cartpole_training_data.json
+<span class="nb">mkdir </span>training_data
+<span class="nb">mv </span>cartpole_discrete_timeline/part<span class="k">*</span> training_data/cartpole_training_data.json
 
 <span class="c"># Remove the output data folder</span>
-rm <span class="nt">-Rf</span> cartpole_discrete_timeline
+<span class="nb">rm</span> <span class="nt">-Rf</span> cartpole_discrete_timeline
 </code></pre></div></div>
 
 <p>After execution we can now watch the created file by running: <code class="highlighter-rouge">head -n1 training_data/cartpole_training_data.json</code>:</p>
@@ -820,7 +820,7 @@ external_input: <span class="s2">"5"</span>
 external_input: <span class="s2">"6"</span>
 external_output: <span class="s2">"11"</span>
 
-INFO:ml.rl.preprocessing.preprocessor_net:Processed split <span class="o">(</span>0, 4<span class="o">)</span> <span class="k">for </span>feature <span class="nb">type </span>CONTINUOUS
+INFO:ml.rl.preprocessing.preprocessor_net:Processed <span class="nb">split</span> <span class="o">(</span>0, 4<span class="o">)</span> <span class="k">for </span>feature <span class="nb">type </span>CONTINUOUS
 INFO:ml.rl.preprocessing.preprocessor_net:input# 0: preprocessor_net.py:287:Where_output0
 </code></pre></div></div>
 
@@ -841,7 +841,7 @@ INFO:ml.rl.preprocessing.preprocessor_net:input# 0: preprocessor_net.py:287:Wher
     <span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s">"Achieved an average reward score of {} over {} evaluations."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="s">"Achieved an average reward score of {} over {} evaluations."</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span>
             <span class="n">avg_rewards</span><span class="p">,</span> <span class="n">AVG_OVER_NUM_EPS</span>
         <span class="p">)</span>
     <span class="p">)</span>

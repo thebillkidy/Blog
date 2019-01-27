@@ -202,7 +202,7 @@ into the {body} of the default.hbs template -->
 <p>For Instagram data we could write our own scraper, or go the easy way and download one from the internet. In my case, I looked on Github and found a nice project called <a href="https://github.com/althonos/InstaLooter">InstaLooter</a> which is written in python and allows us to download instagram pictures + metadata from any user without being authenticated.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install InstaLooter</span>
-pip install <span class="nt">--user</span> instalooter <span class="nt">--pre</span>
+pip <span class="nb">install</span> <span class="nt">--user</span> instalooter <span class="nt">--pre</span>
 
 <span class="c"># Run InstaLooter in our Step1.DataPrep/data folder and download pictures from the &lt;instagram&gt; account</span>
 instalooter user instagram <span class="nt">-d</span>
@@ -229,7 +229,7 @@ instalooter user instagram <span class="nt">-d</span>
 <span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">dataFolder</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="nx">i</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="s1">'.jpg'</span><span class="p">)).</span><span class="nx">sort</span><span class="p">();</span>
 
 <span class="c1">// Go through files, getting the metadata</span>
-<span class="kd">let</span> <span class="nx">csvResult</span> <span class="o">=</span> <span class="s2">"shortcode;url;likes;comments;tags;</span><span class="err">\</span><span class="s2">n"</span><span class="p">;</span> <span class="c1">// init buffer</span>
+<span class="kd">let</span> <span class="nx">csvResult</span> <span class="o">=</span> <span class="s2">"shortcode;url;likes;comments;tags;</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span> <span class="c1">// init buffer</span>
 <span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="kd">let</span> <span class="nx">skipped</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 

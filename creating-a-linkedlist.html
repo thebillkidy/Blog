@@ -311,8 +311,8 @@ into the {body} of the default.hbs template -->
 <span class="k">class</span> <span class="nc">LinkedList</span>
 <span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-<span class="kt">int</span> <span class="n">m_size</span><span class="p">;</span> <span class="c1">// Keep the m_size, then we don't have to loop through it the whole time
-</span>
+<span class="kt">int</span> <span class="n">m_size</span><span class="p">;</span> <span class="c1">// Keep the m_size, then we don't have to loop through it the whole time</span>
+
 <span class="k">public</span><span class="o">:</span>
 <span class="n">LinkedList</span><span class="p">();</span>
 <span class="o">~</span><span class="n">LinkedList</span><span class="p">();</span>
@@ -325,8 +325,8 @@ into the {body} of the default.hbs template -->
 <span class="kt">void</span> <span class="n">remove_front</span> <span class="p">();</span>
 
 <span class="k">protected</span><span class="o">:</span>
-<span class="n">ListNode</span> <span class="o">*</span> <span class="n">start_node</span><span class="p">;</span> <span class="c1">// Start node
-</span><span class="n">ListNode</span> <span class="o">*</span> <span class="n">search</span> <span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">key</span><span class="p">);</span>
+<span class="n">ListNode</span> <span class="o">*</span> <span class="n">start_node</span><span class="p">;</span> <span class="c1">// Start node</span>
+<span class="n">ListNode</span> <span class="o">*</span> <span class="n">search</span> <span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">key</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="cp">#endif
@@ -356,8 +356,8 @@ into the {body} of the default.hbs template -->
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">LinkedList</span><span class="o">::~</span><span class="n">LinkedList</span><span class="p">()</span> <span class="p">{</span>
 <span class="n">ListNode</span> <span class="o">*</span><span class="n">h</span><span class="p">;</span>
 
-<span class="c1">// While we have nodes, keep deleting them
-</span><span class="k">while</span> <span class="p">(</span><span class="n">m_start_node</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">())</span> <span class="p">{</span>
+<span class="c1">// While we have nodes, keep deleting them</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">m_start_node</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">())</span> <span class="p">{</span>
   <span class="n">h</span> <span class="o">=</span> <span class="n">m_start_node</span><span class="p">;</span>
   <span class="n">m_start_node</span> <span class="o">=</span> <span class="n">m_start_node</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">();</span>
 
@@ -425,14 +425,14 @@ into the {body} of the default.hbs template -->
 <p><strong>Implementation (add_front):</strong></p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">add_front</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// First create the new ListNode
-</span>  <span class="n">ListNode</span> <span class="o">*</span><span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+  <span class="c1">// First create the new ListNode</span>
+  <span class="n">ListNode</span> <span class="o">*</span><span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
 
-  <span class="c1">// Set the node-&gt;next to the start_node
-</span>  <span class="n">node</span><span class="o">-&gt;</span><span class="n">set_next</span><span class="p">(</span><span class="n">m_start_node</span><span class="p">);</span>
+  <span class="c1">// Set the node-&gt;next to the start_node</span>
+  <span class="n">node</span><span class="o">-&gt;</span><span class="n">set_next</span><span class="p">(</span><span class="n">m_start_node</span><span class="p">);</span>
 
-  <span class="c1">// Set the start_node to the node
-</span>  <span class="n">m_start_node</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+  <span class="c1">// Set the start_node to the node</span>
+  <span class="n">m_start_node</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
   <span class="n">m_size</span><span class="o">++</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -469,21 +469,21 @@ into the {body} of the default.hbs template -->
   <span class="n">ListNode</span> <span class="o">*</span><span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
   <span class="n">m_size</span><span class="o">++</span><span class="p">;</span>
 
-  <span class="c1">// If the start_node is NULL, just set the startnode to our new node.
-</span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">m_start_node</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the start_node is NULL, just set the startnode to our new node.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">m_start_node</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">m_start_node</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="c1">// If the first node is bigger then the new node, then set the new node as first node
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">m_start_node</span><span class="o">-&gt;</span><span class="n">get_key</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If the first node is bigger then the new node, then set the new node as first node</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">m_start_node</span><span class="o">-&gt;</span><span class="n">get_key</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">node</span><span class="o">-&gt;</span><span class="n">set_next</span><span class="p">(</span><span class="n">m_start_node</span><span class="p">);</span>
     <span class="n">m_start_node</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="c1">// Else search for a spot to enter it, this spot is when the next node is bigger then the current node.
-</span>  <span class="n">ListNode</span> <span class="o">*</span><span class="n">h</span> <span class="o">=</span> <span class="n">m_start_node</span><span class="p">;</span>
+  <span class="c1">// Else search for a spot to enter it, this spot is when the next node is bigger then the current node.</span>
+  <span class="n">ListNode</span> <span class="o">*</span><span class="n">h</span> <span class="o">=</span> <span class="n">m_start_node</span><span class="p">;</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">h</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">()</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_key</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">get_next</span><span class="p">();</span>
   <span class="p">}</span>
@@ -498,8 +498,8 @@ into the {body} of the default.hbs template -->
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">remove</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">ListNode</span> <span class="o">*</span><span class="n">h</span> <span class="o">=</span> <span class="n">m_start_node</span><span class="p">;</span>
 
-  <span class="c1">// If first node, then remove the first node
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">get_key</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// If first node, then remove the first node</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">h</span><span class="o">-&gt;</span><span class="n">get_key</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">remove_front</span><span class="p">();</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
@@ -544,8 +544,8 @@ into the {body} of the default.hbs template -->
 
   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Added "</span> <span class="o">&lt;&lt;</span> <span class="n">list</span><span class="p">.</span><span class="n">get_size</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">" nodes."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 
-  <span class="c1">// Remove both 10's, 4 and 1 (Testing remove front, remove end, remove double, remove mid)
-</span>  <span class="n">list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="c1">// Remove both 10's, 4 and 1 (Testing remove front, remove end, remove double, remove mid)</span>
+  <span class="n">list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
   <span class="n">list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
   <span class="n">list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
   <span class="n">list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>

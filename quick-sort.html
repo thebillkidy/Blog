@@ -343,36 +343,36 @@ into the {body} of the default.hbs template -->
 <h3 id="c-code">C++ Code</h3>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">vector</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">leftIdx</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rightIdx</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-  <span class="c1">// Set indexes that we can move
-</span>  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">leftIdx</span><span class="p">;</span>
+  <span class="c1">// Set indexes that we can move</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">leftIdx</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">rightIdx</span><span class="p">;</span>
 
-  <span class="c1">// Find pivot
-</span>  <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">v</span><span class="p">[(</span><span class="n">leftIdx</span> <span class="o">+</span> <span class="n">rightIdx</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
+  <span class="c1">// Find pivot</span>
+  <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">v</span><span class="p">[(</span><span class="n">leftIdx</span> <span class="o">+</span> <span class="n">rightIdx</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">];</span>
 
-  <span class="c1">// Swap container
-</span>  <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+  <span class="c1">// Swap container</span>
+  <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
 
-  <span class="c1">// PARTITION
-</span>  <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Move indexes till we got a swap point.
-</span>    <span class="k">while</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span> <span class="k">while</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">)</span>
+  <span class="c1">// PARTITION</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Move indexes till we got a swap point.</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span> <span class="k">while</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">)</span>
       <span class="n">j</span><span class="o">--</span><span class="p">;</span>
 
-    <span class="c1">// Swap
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Swap</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">tmp</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
       <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
       <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
 
-      <span class="c1">// We swapped so move the indexes
-</span>      <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+      <span class="c1">// We swapped so move the indexes</span>
+      <span class="n">i</span><span class="o">++</span><span class="p">;</span>
       <span class="n">j</span><span class="o">--</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="c1">// RECURSION as long as we are not at the end
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">leftIdx</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">leftIdx</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span> <span class="k">if</span> <span class="p">(</span><span class="n">rightIdx</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// RECURSION as long as we are not at the end</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">leftIdx</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span> <span class="n">quick_sort</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">leftIdx</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span> <span class="k">if</span> <span class="p">(</span><span class="n">rightIdx</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">quick_sort</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">rightIdx</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>

@@ -10,25 +10,61 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- task: Docker@0
-  displayName: 'Run Jekyll'
-  inputs:
-    containerRegistryType: 'Container Registry'
-    action: 'Run an image'
-    imageName: 'jekyll/builder:latest'
-    volumes: |
-      $(build.sourcesDirectory):/srv/jekyll
-      $(build.binariesDirectory):/srv/jekyll/_site
-    containerCommand: 'jekyll build --future'
-    detached: false
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&tabs=schema#checkout
+- checkout: self
+  persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch
 
-- task: ArchiveFiles@1
-  displayName: Archive Files
-  inputs:
-    includeRootFolder: false
+- task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
+  displayName: 'Use Ruby >= 2.5'
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Site
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    ArtifactName: www
+- script: 'gem install bundler'
+  displayName: 'Install Bundler'
+
+- script: 'bundle install'
+  displayName: 'Install Jekyll and Dependencies'
+
+- script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)'
+  displayName: 'Build Jekyll Static Site'
+
+# Azure Devops will run git config and get -c http.extraheader="AUTHORIZATION: basic ***" for Authentication to our repo
+# This way we will be able to push everything without the need for an authentication token as e.g. https://thebillkidy:$GH_TOKEN@github.com/#{REPO_SLUG}.git
+# We will now configure git in our ArtifactStagingDirectory (this way we don't have to clean )
+- script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
+  displayName: 'Create Build Branch based on Master'
+
+- script: >
+    cd $(Build.Repository.LocalPath);
+    git rm -rf .; git clean -fxd;
+  displayName: 'Clean Build Branch'
+
+- script: >
+    git config --global user.email "xavier.geerinck@gmail.com";
+    git config --global user.name "Xavier Geerinck";
+  displayName: 'Configure Git User'
+
+- script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)'
+  displayName: 'Copy Artifact Files to Cleaned Build Branch'
+
+- script: >
+    cd $(Build.Repository.LocalPath);
+    git add --all;
+    git commit -m"Pipelines-Bot: Updated site";
+  displayName: 'Create our Commit'
+
+- script: >
+    cd $(Build.Repository.LocalPath);
+    git checkout master;
+    git merge azure-pipelines-build;
+    git branch -d azure-pipelines-build;
+  displayName: 'Merge azure-pipelines-build into master'
+
+- script: >
+    cd $(Build.Repository.LocalPath);
+    git push origin master;
+  displayName: 'Push changes to remote'
+
+# The below will generate a .zip for us that we can download
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Artifact: _site'
+#   inputs:
+#     ArtifactName: _site

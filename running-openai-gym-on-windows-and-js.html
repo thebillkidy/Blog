@@ -196,13 +196,13 @@ into the {body} of the default.hbs template -->
 </ol>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install Python + Dependencies</span>
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> python-dev
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> python-pip
-<span class="nb">sudo </span>apt-get install <span class="nt">-y</span> python-numpy python-dev cmake zlib1g-dev libjpeg-dev xvfb xorg-dev python-opengl libboost-all-dev libsdl2-dev swig
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> python-dev
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> python-pip
+<span class="nb">sudo </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> python-numpy python-dev cmake zlib1g-dev libjpeg-dev xvfb xorg-dev python-opengl libboost-all-dev libsdl2-dev swig
 
-<span class="nb">sudo </span>pip install werkzeug
-<span class="nb">sudo </span>pip install itsdangerous
-<span class="nb">sudo </span>pip install click
+<span class="nb">sudo </span>pip <span class="nb">install </span>werkzeug
+<span class="nb">sudo </span>pip <span class="nb">install </span>itsdangerous
+<span class="nb">sudo </span>pip <span class="nb">install </span>click
 
 <span class="c"># Export our display settings for XMing</span>
 <span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span>localhost:0.0
@@ -216,11 +216,11 @@ into the {body} of the default.hbs template -->
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># OpenAI Gym</span>
 git clone https://github.com/openai/gym-http-api
 <span class="nb">cd </span>gym-http-api
-<span class="nb">sudo </span>pip install <span class="nt">-r</span> requirements.txt
-<span class="nb">sudo </span>pip install <span class="nt">-e</span> <span class="s1">'.[all]'</span>
+<span class="nb">sudo </span>pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+<span class="nb">sudo </span>pip <span class="nb">install</span> <span class="nt">-e</span> <span class="s1">'.[all]'</span>
 <span class="nb">cd </span>binding-js
-npm install
-gulp
+npm <span class="nb">install
+</span>gulp
 </code></pre></div></div>
 
 <h2 id="running-dev-server">Running dev server</h2>
