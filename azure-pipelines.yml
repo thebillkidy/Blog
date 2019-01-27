@@ -54,6 +54,10 @@ steps:
     git branch -d azure-pipelines-build;
   displayName: 'Merge azure-pipelines-build into master'
 
+- script: >
+    git push;
+  displayName: 'Push changes to remote'
+
 # The below will generate a .zip for us that we can download
 # - task: PublishBuildArtifacts@1
 #   displayName: 'Publish Artifact: _site'
