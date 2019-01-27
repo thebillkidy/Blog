@@ -19,7 +19,8 @@ steps:
     volumes: |
       $(build.sourcesDirectory):/srv/jekyll
       $(build.binariesDirectory):/srv/jekyll/_site
-    containerCommand: 'jekyll build --future'
+    # containerCommand: 'jekyll build --future'
+    containerCommand: 'bundle exec jekyll build'
     detached: false
 
 - task: ArchiveFiles@1
