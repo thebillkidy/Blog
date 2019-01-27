@@ -21,10 +21,15 @@ steps:
 - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)'
   displayName: 'Build Jekyll Static Site'
 
+- script: |
+    git config user.email "xavier.geerinck@gmail.com";
+    git config user.name "thebillkidy";
+  displayName: 'Configure Git User'
+
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
   displayName: 'Create Build Branch based on Master'
 
-- script: >
+- script: |
     cd $(Build.Repository.LocalPath);
     git rm -rf .; git clean -fxd;
     touch .nojekyll;
@@ -32,28 +37,23 @@ steps:
     echo "# My Blog" >> README.md;
   displayName: 'Clean Build Branch'
 
-- script: >
-    git config --global user.email "xavier.geerinck@gmail.com";
-    git config --global user.name "thebillkidy";
-  displayName: 'Configure Git User'
-
 - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)'
   displayName: 'Copy Artifact Files to Cleaned Build Branch'
 
-- script: >
+- script: |
     cd $(Build.Repository.LocalPath);
     git add --all;
     git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";
   displayName: 'Create our Commit'
 
-- script: >
+- script: |
     cd $(Build.Repository.LocalPath);
     git checkout master;
     git merge azure-pipelines-build;
     git branch -d azure-pipelines-build;
   displayName: 'Merge azure-pipelines-build into master'
 
-- script: >
+- script: |
     cd $(Build.Repository.LocalPath);
     git push origin master;
   displayName: 'Push changes to remote'
