@@ -14,6 +14,8 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
+- persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch
+
 - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
   displayName: 'Use Ruby >= 2.5'
 
