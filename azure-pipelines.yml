@@ -30,7 +30,7 @@ steps:
 # We will now configure git in our ArtifactStagingDirectory (this way we don't have to clean )
 - script: >
     cd $(Build.Repository.LocalPath);
-    find . -path ./.git -prune -o -exec rm -rf {} \;
+    git rm -rf .; git clean -fxd;
     echo "------------------ CLEANED LOCALPATH ------------------";
     ls -la;
     cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath);
