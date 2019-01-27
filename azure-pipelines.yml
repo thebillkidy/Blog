@@ -48,7 +48,7 @@ steps:
 - script: >
     cd $(Build.Repository.LocalPath);
     git add --all;
-    git commit -m"Pipelines-Bot: Updated site";
+    git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";
   displayName: 'Create our Commit'
 
 - script: >
