@@ -32,10 +32,10 @@ steps:
     echo "# My Blog" >> README.md;
   displayName: 'Clean Build Branch'
 
-- script: >
-    git config --global user.email "xavier.geerinck@gmail.com";
-    git config --global user.name "thebillkidy";
-  displayName: 'Configure Git User'
+# - script: >
+#     git config --global user.email "xavier.geerinck@gmail.com";
+#     git config --global user.name "thebillkidy";
+#   displayName: 'Configure Git User'
 
 - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)'
   displayName: 'Copy Artifact Files to Cleaned Build Branch'
