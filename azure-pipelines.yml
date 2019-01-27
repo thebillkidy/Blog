@@ -6,14 +6,11 @@
 trigger:
 - development
 
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&tabs=schema#checkout
-checkout:
-- persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch
-
 pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&tabs=schema#checkout
 - persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch
 
 - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
