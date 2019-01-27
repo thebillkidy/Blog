@@ -28,6 +28,7 @@ steps:
     cd $(Build.Repository.LocalPath);
     git rm -rf .; git clean -fxd;
     touch .nojekyll;
+    touch README.md;
   displayName: 'Clean Build Branch'
 
 - script: >
