@@ -19,37 +19,34 @@ steps:
 - script: 'bundle install'
   displayName: 'Install Jekyll and Dependencies'
 
-- script: 'cd $(Build.Repository.LocalPath); git checkout -b azure-pipelines-build'
-  displayName: 'Create Build Branch'
-
 - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)'
   displayName: 'Build Jekyll Static Site'
 
 # Azure Devops will run git config and get -c http.extraheader="AUTHORIZATION: basic ***" for Authentication to our repo
 # This way we will be able to push everything without the need for an authentication token as e.g. https://thebillkidy:$GH_TOKEN@github.com/#{REPO_SLUG}.git
 # We will now configure git in our ArtifactStagingDirectory (this way we don't have to clean )
+- script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
+  displayName: 'Create Build Branch based on Master'
+
 - script: >
     cd $(Build.Repository.LocalPath);
     git rm -rf .; git clean -fxd;
-    echo "------------------ CLEANED LOCALPATH ------------------";
-    ls -la;
-    cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath);
-    echo "------------------ COPIED ARTIFACTS TO LOCALPATH ------------------";
-    ls -la;
-    git config --global user.email "xavier.geerinck@gmail.com";
-    git config --global user.name "Xavier Geerinck";
-  displayName: 'Configure Build Folder'
+  displayName: 'Clean Build Branch'
 
 - script: >
-    cd $(Build.ArtifactStagingDirectory);
-    ls -la;
-    echo "------------------ TEMP ------------------";
+    git config --global user.email "xavier.geerinck@gmail.com";
+    git config --global user.name "Xavier Geerinck";
+  displayName: 'Configure Git User'
+
+- script: >
+    cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath);
+  displayName: 'Copy Artifact Files to Cleaned Build Branch'
+
+- script: >
     cd $(Build.Repository.LocalPath);
-    ls -la;
     git add --all;
     git commit -m"Pipelines-Bot: Updated site";
-    git push origin master:refs/heads/master --force
-  displayName: 'Push changes to azure-pipelines-build branch'
+  displayName: 'Create our Commit'
 
 - script: >
     git checkout master;
