@@ -30,12 +30,19 @@ steps:
 #   -> create github pat here: https://github.com/settings/tokens
 #   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
 
-- script: 'echo $(echo -n "thebillkidy":github_pat);'
+- script: |
+    pass=$(github_pat)
+    user="thebillkidy"
+    auth="Basic $(echo -n $user:$pass | base64)"
+    echo $auth
   displayName: 'Configure Git PAT Token'
 
 - script: |
     pass=$(github_pat)
+    echo $pass
     user="thebillkidy"
+    echo $user
+    echo $(echo -n $user:$pass)
     auth="Basic $(echo -n $user:$pass | base64)"
     git config --global http.extraheader "AUTHORIZATION: $auth"
   displayName: 'Configure Git PAT Token'
@@ -68,6 +75,13 @@ steps:
   displayName: 'Merge azure-pipelines-build into master'
 
 - script: |
+    pass=$(github_pat)
+    echo $(github_pat)
+    user="thebillkidy"
+    auth="Basic $(echo -n $user:$pass | base64)"
+    git config --global http.https://github.com.extraHeader "AUTHORIZATION: $auth"
+    git config --global http.extraHeader "AUTHORIZATION: $auth"
+
     cd $(Build.Repository.LocalPath);
     git push origin master;
   displayName: 'Push changes to remote'
