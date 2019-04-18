@@ -73,8 +73,11 @@ steps:
 
 - script: |
     pass=$(github_pat)
+    echo $(github_pat)
     user="thebillkidy"
     auth="Basic $(echo -n $user:$pass | base64)"
+    git config --global http.https://github.com.extraHeader "AUTHORIZATION: $auth"
+    git config --global http.extraHeader "AUTHORIZATION: $auth"
 
     cd $(Build.Repository.LocalPath);
     git -c http.extraheader "AUTHORIZATION: $auth" push origin master;
