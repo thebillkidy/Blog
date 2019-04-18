@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover: 'assets/images/covers/azure-data-lake.png'
+cover: 'assets/images/covers/lake.jpg'
 navigation: True
 title: Creating an Azure Data Lake Gen 2 File Browser for the Web
 date: 2019-04-18 09:00:00
