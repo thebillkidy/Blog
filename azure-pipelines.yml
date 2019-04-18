@@ -65,6 +65,7 @@ steps:
   gh_user=thebillkidy
   gh_pass=$(github_pat)
   gh_repo=thebillkidy.github.io
+  
   curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \
   -X POST \
   -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
@@ -72,6 +73,10 @@ steps:
   displayName: '[GitHub] Trigger Page Build'
 
 - script: |
+  gh_user=thebillkidy
+  gh_pass=$(github_pat)
+  gh_repo=thebillkidy.github.io
+
   curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \
   -X GET \
   -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
