@@ -30,7 +30,11 @@ steps:
 #   -> create github pat here: https://github.com/settings/tokens
 #   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
 
-- script: 'echo $(echo -n "thebillkidy":github_pat);'
+- script: |
+    pass=$(github_pat)
+    user="thebillkidy"
+    auth="Basic $(echo -n $user:$pass | base64)"
+    echo $auth
   displayName: 'Configure Git PAT Token'
 
 - script: |
@@ -68,8 +72,12 @@ steps:
   displayName: 'Merge azure-pipelines-build into master'
 
 - script: |
+    pass=$(github_pat)
+    user="thebillkidy"
+    auth="Basic $(echo -n $user:$pass | base64)"
+
     cd $(Build.Repository.LocalPath);
-    git push origin master;
+    git -c http.extraheader "AUTHORIZATION: $auth" push origin master;
   displayName: 'Push changes to remote'
 
 # The below will generate a .zip for us that we can download
