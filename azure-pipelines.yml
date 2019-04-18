@@ -44,7 +44,6 @@ steps:
     echo $user
     echo $(echo -n $user:$pass)
     auth="Basic $(echo -n $user:$pass | base64)"
-    git config --global -add http.extraheader "AUTHORIZATION: $auth"
   displayName: 'Configure Git PAT Token'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
