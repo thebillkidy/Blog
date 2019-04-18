@@ -2,7 +2,7 @@ trigger:
 - development
 
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: 'Ubuntu-18.04'
 
 steps:
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&tabs=schema#checkout
@@ -24,7 +24,7 @@ steps:
 - script: |
     git config user.email "xavier.geerinck@gmail.com";
     git config user.name "thebillkidy";
-    git config http.extraheader="AUTHORIZATION: Basic $(github_pat)";
+    git config http.https://github.com.extraheader="AUTHORIZATION: Basic $(github_pat)";
   displayName: 'Configure Git User'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
