@@ -67,7 +67,7 @@ steps:
     gh_repo="thebillkidy.github.io";
     auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);
 
-    curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \
+    curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -i \
     -X POST \
     -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
     -H "Authorization: Basic ${auth_pass}"
