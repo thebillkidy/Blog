@@ -24,6 +24,7 @@ steps:
 - script: |
     git config user.email "xavier.geerinck@gmail.com";
     git config user.name "thebillkidy";
+    git config http.extraheader="AUTHORIZATION: Basic $(github_pat)";
   displayName: 'Configure Git User'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
@@ -58,7 +59,7 @@ steps:
 #   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
 - script: |
     cd $(Build.Repository.LocalPath);
-    git push -c http.extraheader="AUTHORIZATION: Basic $(github_pat)" origin master;
+    git push origin master;
   displayName: 'Push changes to remote'
 
 # The below will generate a .zip for us that we can download
