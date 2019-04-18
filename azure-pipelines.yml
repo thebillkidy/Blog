@@ -33,7 +33,11 @@ steps:
 - script: 'echo $(echo -n "thebillkidy":github_pat);'
   displayName: 'Configure Git PAT Token'
 
-- script: 'git config --global http.extraheader "AUTHORIZATION: Basic $(echo -n "thebillkidy":$(github_pat)) | base64";'
+- script: |
+    pass=$(github_pat)
+    user="thebillkidy"
+    auth="Basic $(echo -n $user:$pass | base64)"
+    git config --global http.extraheader "AUTHORIZATION: $auth"
   displayName: 'Configure Git PAT Token'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
