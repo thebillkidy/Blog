@@ -53,9 +53,12 @@ steps:
     git branch -d azure-pipelines-build;
   displayName: 'Merge azure-pipelines-build into master'
 
+# Note: github_pat should be configured as an environment variable in devops
+#   -> create github pat here: https://github.com/settings/tokens
+#   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
 - script: |
     cd $(Build.Repository.LocalPath);
-    git push origin master;
+    git push -c http.extraheader="AUTHORIZATION: Basic $(github_pat)" origin master;
   displayName: 'Push changes to remote'
 
 # The below will generate a .zip for us that we can download
