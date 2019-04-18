@@ -62,27 +62,27 @@ steps:
 #   -> create github pat here: https://github.com/settings/tokens
 #   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
 - script: |
-  gh_user="thebillkidy";
-  gh_pass=$(github_pat);
-  gh_repo="thebillkidy.github.io";
-  auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);
+    gh_user="thebillkidy";
+    gh_pass=$(github_pat);
+    gh_repo="thebillkidy.github.io";
+    auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);
 
-  curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \
-  -X POST \
-  -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
-  -H "Authorization: Basic ${auth_pass}"
+    curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \
+    -X POST \
+    -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
+    -H "Authorization: Basic ${auth_pass}"
   displayName: '[GitHub] Trigger Page Build'
 
 - script: |
-  gh_user="thebillkidy";
-  gh_pass=$(github_pat);
-  gh_repo="thebillkidy.github.io";
-  auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);
+    gh_user="thebillkidy";
+    gh_pass=$(github_pat);
+    gh_repo="thebillkidy.github.io";
+    auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);
 
-  curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \
-  -X GET \
-  -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
-  -H "Authorization: Basic $auth_pass"
+    curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \
+    -X GET \
+    -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
+    -H "Authorization: Basic $auth_pass"
   displayName: '[GitHub] Get Page Build Status'
 
 # The below will generate a .zip for us that we can download
