@@ -24,8 +24,14 @@ steps:
 - script: |
     git config user.email "xavier.geerinck@gmail.com";
     git config user.name "thebillkidy";
-    git -c http.extraheader "AUTHORIZATION: Basic $(github_pat)";
   displayName: 'Configure Git User'
+
+# Note: github_pat should be configured as an environment variable in devops
+#   -> create github pat here: https://github.com/settings/tokens
+#   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
+
+- script: 'git -c http.extraheader "AUTHORIZATION: Basic $(github_pat)";'
+  displayName: 'Configure Git PAT Token'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
   displayName: 'Create Build Branch based on Master'
@@ -54,9 +60,6 @@ steps:
     git branch -d azure-pipelines-build;
   displayName: 'Merge azure-pipelines-build into master'
 
-# Note: github_pat should be configured as an environment variable in devops
-#   -> create github pat here: https://github.com/settings/tokens
-#   -> Create environment variable in dev.azure.com under pipelines -> edit (right top) -> variables (right top triple dots) -> called github_pat -> click the lock
 - script: |
     cd $(Build.Repository.LocalPath);
     git push origin master;
