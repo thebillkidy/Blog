@@ -354,11 +354,32 @@ into the {body} of the default.hbs template -->
     <span class="no">git push origin master;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
 
-<span class="c1"># The below will generate a .zip for us that we can download</span>
-<span class="c1"># - task: PublishBuildArtifacts@1</span>
-<span class="c1">#   displayName: 'Publish Artifact: _site'</span>
-<span class="c1">#   inputs:</span>
-<span class="c1">#     ArtifactName: _site</span>
+<span class="c1"># Note: github_pat should be configured as an environment variable in devops</span>
+<span class="c1">#   -&gt; create github pat here: https://github.com/settings/tokens</span>
+<span class="c1">#   -&gt; Create environment variable in dev.azure.com under pipelines -&gt; edit (right top) -&gt; variables (right top triple dots) -&gt; called github_pat -&gt; click the lock</span>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="no">gh_user="thebillkidy";</span>
+    <span class="no">gh_pass=$(github_pat);</span>
+    <span class="no">gh_repo="thebillkidy.github.io";</span>
+    <span class="no">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+
+    <span class="no">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \</span>
+    <span class="no">-X POST \</span>
+    <span class="no">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
+    <span class="no">-H "Authorization: Basic ${auth_pass}"</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[GitHub]</span><span class="nv"> </span><span class="s">Trigger</span><span class="nv"> </span><span class="s">Page</span><span class="nv"> </span><span class="s">Build'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="no">gh_user="thebillkidy";</span>
+    <span class="no">gh_pass=$(github_pat);</span>
+    <span class="no">gh_repo="thebillkidy.github.io";</span>
+    <span class="no">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+
+    <span class="no">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \</span>
+    <span class="no">-X GET \</span>
+    <span class="no">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
+    <span class="no">-H "Authorization: Basic $auth_pass"</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[GitHub]</span><span class="nv"> </span><span class="s">Get</span><span class="nv"> </span><span class="s">Page</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Status'</span>
 </code></pre></div></div>
 
 <h2 id="conclusion">Conclusion</h2>
@@ -714,7 +735,7 @@ into the {body} of the default.hbs template -->
     <article class="post-card post-template">
         
             <a class="post-card-image-link" href="/azure-data-lake-gen-2-browser">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/azure-data-lake.png)"></div>
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/lake.jpg)"></div>
             </a>
         
         <div class="post-card-content">

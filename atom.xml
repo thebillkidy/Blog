@@ -371,11 +371,32 @@
     &lt;span class=&quot;no&quot;&gt;git push origin master;&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Push&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;changes&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;remote'&lt;/span&gt;
 
-&lt;span class=&quot;c1&quot;&gt;# The below will generate a .zip for us that we can download&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# - task: PublishBuildArtifacts@1&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#   displayName: 'Publish Artifact: _site'&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#   inputs:&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#     ArtifactName: _site&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Note: github_pat should be configured as an environment variable in devops&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#   -&amp;gt; create github pat here: https://github.com/settings/tokens&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#   -&amp;gt; Create environment variable in dev.azure.com under pipelines -&amp;gt; edit (right top) -&amp;gt; variables (right top triple dots) -&amp;gt; called github_pat -&amp;gt; click the lock&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;gh_user=&quot;thebillkidy&quot;;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;gh_pass=$(github_pat);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;gh_repo=&quot;thebillkidy.github.io&quot;;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;auth_pass=$(echo -n &quot;${gh_user}:$(github_pat)&quot; | base64);&lt;/span&gt;
+
+    &lt;span class=&quot;no&quot;&gt;curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;-X POST \&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;-H &quot;Accept: application/vnd.github.mister-fantastic-preview+json&quot; \&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;-H &quot;Authorization: Basic ${auth_pass}&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[GitHub]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Trigger&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build'&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;gh_user=&quot;thebillkidy&quot;;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;gh_pass=$(github_pat);&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;gh_repo=&quot;thebillkidy.github.io&quot;;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;auth_pass=$(echo -n &quot;${gh_user}:$(github_pat)&quot; | base64);&lt;/span&gt;
+
+    &lt;span class=&quot;no&quot;&gt;curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;-X GET \&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;-H &quot;Accept: application/vnd.github.mister-fantastic-preview+json&quot; \&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;-H &quot;Authorization: Basic $auth_pass&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;displayName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[GitHub]&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Page&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Build&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Status'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
