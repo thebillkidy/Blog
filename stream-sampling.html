@@ -10,7 +10,7 @@
 
 
 
-    <title>How To Bind C++ Code with Dotnet Core</title>
+    <title>Sampling a real-time stream</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -24,26 +24,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="My thoughts, tutorials and learnings" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/binding-cpp-with-dotnet-core" />
+    <link rel="canonical" href="/stream-sampling" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="How To Bind C++ Code with Dotnet Core" />
-    <meta property="og:description" content="While you are working with compiled code, you often find yourself in the situation that every bit of performance count (just think about GPU intensive operations or even game engines). For this reason, we often turn back to coding C++ coding to be as low-level as possible (seeing that writing" />
-    <meta property="og:url" content="/binding-cpp-with-dotnet-core" />
-    <meta property="og:image" content="/assets/images/covers/dotnet.png" />
+    <meta property="og:title" content="Sampling a real-time stream" />
+    <meta property="og:description" content="A common problem when working with real-time streams is that you are unaware of the data going in there due to the vast amount of systems connected to it and producing data. Therefor it is interesting to be able to “sample” a stream, where you will connect to the stream" />
+    <meta property="og:url" content="/stream-sampling" />
+    <meta property="og:image" content="/assets/images/covers/stream.jpeg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2018-08-17T09:00:00+00:00" />
-    <meta property="article:modified_time" content="2018-08-17T09:00:00+00:00" />
+    <meta property="article:published_time" content="2019-04-23T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2019-04-23T09:00:00+00:00" />
     <meta property="article:tag" content="Coding" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="How To Bind C++ Code with Dotnet Core" />
-    <meta name="twitter:description" content="While you are working with compiled code, you often find yourself in the situation that every bit of performance count (just think about GPU intensive operations or even game engines). For this reason, we often turn back to coding C++ coding to be as low-level as possible (seeing that writing" />
+    <meta name="twitter:title" content="Sampling a real-time stream" />
+    <meta name="twitter:description" content="A common problem when working with real-time streams is that you are unaware of the data going in there due to the vast amount of systems connected to it and producing data. Therefor it is interesting to be able to “sample” a stream, where you will connect to the stream" />
     <meta name="twitter:url" content="/" />
-    <meta name="twitter:image" content="/assets/images/covers/dotnet.png" />
+    <meta name="twitter:image" content="/assets/images/covers/stream.jpeg" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -62,23 +62,23 @@
         "name": "Xavier Geerinck - Blog",
         "logo": "/false"
     },
-    "url": "/binding-cpp-with-dotnet-core",
+    "url": "/stream-sampling",
     "image": {
         "@type": "ImageObject",
-        "url": "/assets/images/covers/dotnet.png",
+        "url": "/assets/images/covers/stream.jpeg",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/binding-cpp-with-dotnet-core"
+        "@id": "/stream-sampling"
     },
-    "description": "While you are working with compiled code, you often find yourself in the situation that every bit of performance count (just think about GPU intensive operations or even game engines). For this reason, we often turn back to coding C++ coding to be as low-level as possible (seeing that writing"
+    "description": "A common problem when working with real-time streams is that you are unaware of the data going in there due to the vast amount of systems connected to it and producing data. Therefor it is interesting to be able to “sample” a stream, where you will connect to the stream"
 }
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="How To Bind C++ Code with Dotnet Core" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Sampling a real-time stream" href="/feed.xml" />
 
 
 
@@ -144,7 +144,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="17 August 2018">17 August 2018</time>
+                    <time class="post-full-meta-date" datetime="23 April 2019">23 April 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -153,7 +153,11 @@ into the {body} of the default.hbs template -->
                             
                         
                             
-                               <a href='/tag/coding-dotnet/'>CODING-DOTNET</a>
+                               <a href='/tag/coding-javascript/'>CODING-JAVASCRIPT</a>,
+                            
+                        
+                            
+                               <a href='/tag/big-data/'>BIG-DATA</a>
                             
                         
                     
@@ -161,119 +165,111 @@ into the {body} of the default.hbs template -->
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/covers/dotnet.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/stream.jpeg)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">How To Bind C++ Code with Dotnet Core</h1>
-                    <p>While you are working with compiled code, you often find yourself in the situation that every bit of performance count (just think about GPU intensive operations or even game engines). For this reason, we often turn back to coding C++ coding to be as low-level as possible (seeing that writing pure ASM is just too hard).</p>
+                        <h1 class="post-full-title">Sampling a real-time stream</h1>
+                    <p>A common problem when working with real-time streams is that you are unaware of the data going in there due to the vast amount of systems connected to it and producing data. Therefor it is interesting to be able to “sample” a stream, where you will connect to the stream with your credentials, wait till an event comes in and then end the connection.</p>
 
-<p>But wouldn’t it be nice if we were able to write C++ code and interface that through our Dotnet Core application? Well this is the case! Through something called <strong>Native Interoperability</strong> (<a href="https://docs.microsoft.com/en-us/dotnet/standard/native-interop">https://docs.microsoft.com/en-us/dotnet/standard/native-interop</a>) allowing us to interface with our C++ code through the *<code class="highlighter-rouge">DllImport</code> attribute found in the <code class="highlighter-rouge">System.Runtime.InteropServices</code> namespace.</p>
-
-<p>Let’s start by creating a small example project that makes use of this and will print a simple <em>“Hello World”</em> from our C# code, executed in the C++ part.</p>
+<p>But how can we do this easily? What code can make enable us to do this? Well there are some parts that we need to keep in mind when designing:</p>
 
 <ol>
-  <li>Create a folder called “Hello-World-Project”</li>
-  <li>In “Hello-World-Project” create a new Directory called <code class="highlighter-rouge">cpp</code></li>
-  <li>In “Hello-World-Project” create a new console dotnet application with the output directory name <code class="highlighter-rouge">dotnet</code> (forgot how? check: <a href="/getting-started-with-dotnet-core">getting-started-with-dotnet-core</a>)</li>
+  <li>Streams can be byfrom different producers (Azure Event Hub, Apache Kafka, Socket Stream, …)</li>
+  <li>Streams can receive events in a very large time span (&gt; 10min)</li>
+  <li>Streams can be very fast (millions of events per second)</li>
+  <li>Streams can have events arriving out of order</li>
+  <li>…</li>
 </ol>
 
-<h2 id="building-our-c-library">Building our C++ Library</h2>
+<p>In the scope for our little project are numbers 1, 2 and 3. So let’s discuss on how we can tackle those and how it resolves into creating our sampler.</p>
 
-<p>Since I like building my projects on WSL (Windows Subsystem for Linux), I utilize C++ compilation through <code class="highlighter-rouge">make</code>. Therefore I need to use <code class="highlighter-rouge">CMake</code> to compile my C++ project. To compile our C++ project with cmake, start by creating a <code class="highlighter-rouge">CMakeLists.txt</code> file. To this file add the following content:</p>
+<h2 id="1-streams-can-be-from-different-producers">1. Streams can be from different producers</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Configure our Required Version</span>
-cmake_minimum_required<span class="o">(</span>VERSION 3.0<span class="o">)</span>
+<p>Every producer has their own SDK. But how can we make a sampler that supports more than just one? Well it’s all about interfaces! (or actually more commonly called the <a href="https://en.wikipedia.org/wiki/Strategy_pattern"><strong>Strategy Pattern</strong></a>).</p>
 
-<span class="c"># Define the name of our project</span>
-project<span class="o">(</span>hello-cpp<span class="o">)</span>
+<p>We will create 2 methods (<code class="highlighter-rouge">open()</code> and <code class="highlighter-rouge">close()</code>) that our strategies have to implement, so that our parent class can call these methods, without worrying if the underlying class has them or not.</p>
 
-<span class="c"># Define the output library to be a shared file (.so or .dll) and output it as "(lib)hello-cpp.so"</span>
-add_library<span class="o">(</span>hello-cpp SHARED HelloWorld.cpp HelloWorld.h<span class="o">)</span>
-</code></pre></div></div>
+<p><strong><a href="https://github.com/thebillkidy/PublicProjects/blob/master/JS/Azure/EventHub/StreamSample/stream/IStream.ts">IStream.ts</a></strong></p>
 
-<p>We can now configure our project but still need our project files that actually define our “Hello World” method. For this create 2 files called <code class="highlighter-rouge">HelloWorld.cpp</code> and <code class="highlighter-rouge">HelloWorld.h</code> with the following content:</p>
-
-<p><strong>HelloWorld.cpp</strong></p>
-
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "HelloWorld.h"
-#include &lt;iostream&gt;
-</span>
-<span class="kt">void</span> <span class="nf">PrintHelloWorld</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hello World!"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kr">interface</span> <span class="nx">IStream</span> <span class="p">{</span>
+    <span class="nx">open</span><span class="p">(</span><span class="nx">e</span><span class="p">:</span> <span class="nx">EventEmitter</span><span class="p">)</span> <span class="p">:</span> <span class="k">void</span><span class="p">;</span>
+    <span class="nx">close</span><span class="p">()</span> <span class="p">:</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p><strong>HelloWorld.h</strong></p>
+<p>In this way, we can relatively easily implement providers for:</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#ifdef __cplusplus
-</span><span class="k">extern</span> <span class="s">"C"</span> <span class="p">{</span>
-<span class="cp">#endif
-</span>
-<span class="cp">#ifdef _WIN32
-#  ifdef MODULE_API_EXPORTS
-#    define MODULE_API __declspec(dllexport)
-#  else
-#    define MODULE_API __declspec(dllimport)
-#  endif
-#else
-#  define MODULE_API
-#endif
-</span>
-<span class="n">MODULE_API</span> <span class="kt">void</span> <span class="n">PrintHelloWorld</span><span class="p">();</span>
+<ul>
+  <li><a href="https://github.com/thebillkidy/PublicProjects/blob/master/JS/Azure/EventHub/StreamSample/stream/streamEventHub.ts">Azure Event Hub</a></li>
+  <li><a href="https://github.com/thebillkidy/PublicProjects/blob/master/JS/Azure/EventHub/StreamSample/stream/streamSocket.ts">Socket</a></li>
+</ul>
 
-<span class="cp">#ifdef __cplusplus
-</span><span class="p">}</span>
-<span class="cp">#endif
-</span></code></pre></div></div>
+<h2 id="2-streams-can-have-a-large-time-span-between-events">2. Streams can have a large time span between events</h2>
 
-<p>We can see that our <code class="highlighter-rouge">.cpp</code> file is quite straightforward, defining the method body as written in the Header file. What we however notice is that a lot of code was added to our <code class="highlighter-rouge">.h</code> file in the form of a <code class="highlighter-rouge">Macro</code> identified by <code class="highlighter-rouge">#define</code>. This is needed because Windows uses the <code class="highlighter-rouge">__declspec(dllexport)</code> function, while as Unix systems don’t use this (more information: <a href="https://docs.microsoft.com/en-us/cpp/cpp/declspec">https://docs.microsoft.com/en-us/cpp/cpp/declspec</a>). The macro does nothing more than making our life easier, so we just have to write <code class="highlighter-rouge">MODULE_API</code> in front of our methods to export them and make them available in our C# code.</p>
+<p>Since streams don’t always send events every X seconds, we need to make sure that when designing a sampler, that we take this into account. Therefor we need to create a kind of “timeout” mechanism, that kills the stream if nothing is received within the following seconds.</p>
 
-<p>As a last step, we just have to build our library so that we are able to use it in our C# code, execute the following in the cpp folder:</p>
+<p>In Javascript we can relatively easily do this by utilizing the <code class="highlighter-rouge">setTimeout</code> function that will call a function once it is done</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Configure the MakeFile</span>
-cmake <span class="nb">.</span>
-
-<span class="c"># Build with all cores available (Mac OS)</span>
-make <span class="nt">-j</span><span class="k">$(</span>sysctl hw.ncpu | <span class="nb">cut</span> <span class="nt">-d</span>: <span class="nt">-f2</span><span class="k">)</span>
-
-<span class="c"># Build with all cores available (Linux)</span>
-make <span class="nt">-j</span><span class="k">$(</span><span class="nb">grep</span> <span class="nt">-c</span> ^processor /proc/cpuinfo<span class="k">)</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">timeout</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span> <span class="c1">// 1 second</span>
+<span class="kd">let</span> <span class="nx">timeoutFunction</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'triggered'</span><span class="p">),</span> <span class="nx">timeout</span><span class="p">);</span>
 </code></pre></div></div>
 
-<blockquote>
-  <p>Note: For windows, using cmake is a bit more complicated. You can however get towards using it by installing it through <code class="highlighter-rouge">choco install cmake</code> so that you can run cmake like that.</p>
-</blockquote>
+<h2 id="3-streams-can-have-events-arriving-very-fast">3. Streams can have events arriving very fast</h2>
 
-<h2 id="building-our-c-dotnet-core-application">Building our C# Dotnet Core Application</h2>
+<p>Streams are supposed to be fast by nature, so how do we only get one event? Well most of the providers allow you to process incoming messages. But to instantly stop when something arrived, we are best off to use an <code class="highlighter-rouge">EventEmitter</code> that will fire as soon as something arrives.</p>
 
-<p>Now move to your <code class="highlighter-rouge">dotnet</code> directory, and add the following code to your <code class="highlighter-rouge">Program.cs</code>:</p>
+<p>This way our main process can catch this event and call our <code class="highlighter-rouge">close()</code> method from point 1.</p>
 
-<pre><code class="language-C#">using System;
-using System.Runtime.InteropServices;
+<p>For our Socket Stream this looks like this (with <code class="highlighter-rouge">onData()</code> doing just this):</p>
 
-namespace CppBind
-{
-    class Program
-    {
-        [DllImport(@"../cpp/libhello-cpp.so")]
-        public static extern void PrintHelloWorld();
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nx">open</span><span class="p">(</span><span class="nx">eventEmitter</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">eventEmitter</span> <span class="o">=</span> <span class="nx">eventEmitter</span><span class="p">;</span>
 
-        static void Main(string[] args)
-        {
-            PrintHelloWorld();
-        }
-    }
-}
-</code></pre>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">connection</span> <span class="o">=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">port</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">resolve</span><span class="p">();</span>
+        <span class="p">});</span>
 
-<p>What we do here, is that we use the <code class="highlighter-rouge">DllImport</code> attribute to include our <code class="highlighter-rouge">.so</code> library that was created earlier. By defining this method in the upper part of our class as an extern, we’re then able to call this in other functions as we did in our <code class="highlighter-rouge">Main</code> function here.</p>
+        <span class="k">this</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">onData</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'[StreamSocket] Stream Opened'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
 
-<p>Eventually running this with <code class="highlighter-rouge">dotnet run</code> will result in the following beautiful output:</p>
+<span class="nx">onData</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'stream_message_received'</span><span class="p">,</span> <span class="nx">msg</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<p><img src="/assets/images/posts/binding-cpp-with-dotnet-core-1.png" alt="/assets/images/posts/binding-cpp-with-dotnet-core-1.png" /></p>
+<h2 id="4-merging-2-promises-with-only-one-firing">4. Merging 2 promises with only one firing</h2>
+
+<p>Now the most difficult part comes: “How do we cancel another promise if the other one fired?”</p>
+
+<p>To solve this, I utilized the <code class="highlighter-rouge">EventEmitter</code> as a kind of <code class="highlighter-rouge">bus</code> concept. The different promises (timeout or event received) will then fire an event through this <code class="highlighter-rouge">EventEmitter</code>, so that <code class="highlighter-rouge">once()</code> an event is received, it will return a main promise.</p>
+
+<p>Illustrating this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">bus</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span>
+
+<span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">bus</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">'event_1'</span><span class="p">,</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">'event1'</span><span class="p">));</span>
+    <span class="nx">bus</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">'event_2'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">'event2'</span><span class="p">));</span>
+
+    <span class="c1">// Fire event 1 or 2</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">bus</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'event_1'</span><span class="p">),</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">4000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">bus</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'event_2'</span><span class="p">),</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">4000</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="5-conclusion">5. Conclusion</h2>
+
+<p>By merging the concepts above, we can now write a sampler that will connect to our different streams and wait till OR a message arrived OR a timeout was received, whereafter it will return us the result through an API that can be written.</p>
+
+<p>To see this in working code, feel free to check this repository: <a href="https://github.com/thebillkidy/PublicProjects/tree/master/JS/Azure/EventHub/StreamSample">https://github.com/thebillkidy/PublicProjects/tree/master/JS/Azure/EventHub/StreamSample</a></p>
 
                 </div>
             </section>
@@ -330,7 +326,7 @@ namespace CppBind
                     <script>
                         var disqus_config = function () {
                             this.page.url = window.location.href;
-                            this.page.identifier = '/binding-cpp-with-dotnet-core';
+                            this.page.identifier = '/stream-sampling';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -374,11 +370,6 @@ namespace CppBind
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/stream-sampling">Sampling a real-time stream</a></li>
-                                        
                                     
                                   
                                 
@@ -432,6 +423,8 @@ namespace CppBind
                                     
                                         
                                         
+                                            <li><a href="/predicting-instagram-with-dotnet-ml">Predicting Instagram Pictures Likes and Comments with .NET Core and ML.NET</a></li>
+                                        
                                     
                                   
                                 
@@ -443,6 +436,9 @@ namespace CppBind
                                   
                                 
                                   
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -710,33 +706,29 @@ namespace CppBind
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/openai-dotnet-core-sdk">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/openai.jpg)"></div>
+            <a class="post-card-image-link" href="/azure-data-lake-gen-2-browser">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/lake.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/openai-dotnet-core-sdk">
+            <a class="post-card-content-link" href="/azure-data-lake-gen-2-browser">
                 <header class="post-card-header">
                     
                         
                             
-                               <span class="post-card-tags">Ai</span>
+                               <span class="post-card-tags">Azure</span>
                             
                         
                             
-                               <span class="post-card-tags">Ai-ml</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Ai-rl</span>
+                                <span class="post-card-tags">Coding-javascript</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">Writing a C# SDK for the OpenAI Gym using .NET Core</h2>
+                    <h2 class="post-card-title">Creating an Azure Data Lake Gen 2 File Browser for the Web</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>When we take a look at the OpenAI Gym on Github (https://github.com/openai/gym-http-api), we see that it does not have bindings available for C#. Now since I am a firm believer of .NET Core</p>
+                    <p>While working with Azure Data Lake Gen 2 (ADLS Gen 2), I saw that one common ask from the people around me is to be able to interact with it through a web</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -758,50 +750,6 @@ namespace CppBind
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/throttling-api-calls">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/throttling-api-calls">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Coding</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Coding-javascript</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Creating a throttled REST API Consumer</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>A common thing in Node.js is to create a REST API consumer that will perform a REST call. Due to the rise of many REST APIs, you might find yourself in the situation</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/xavier/">Xavier Geerinck</a>
-                        </span>
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
         </div>
     </div>
 </aside>
@@ -817,23 +765,23 @@ namespace CppBind
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">How To Bind C++ Code with Dotnet Core</div>
+    <div class="floating-header-title">Sampling a real-time stream</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=How+To+Bind+C%2B%2B+Code+with+Dotnet+Core&amp;url=https://thebillkidy.github.io/binding-cpp-with-dotnet-core"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Sampling+a+real-time+stream&amp;url=https://thebillkidy.github.io/stream-sampling"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/binding-cpp-with-dotnet-core"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/stream-sampling"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/binding-cpp-with-dotnet-core&title=How+To+Bind+C%2B%2B+Code+with+Dotnet+Core&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/stream-sampling&title=Sampling+a+real-time+stream&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
