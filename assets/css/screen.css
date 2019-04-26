@@ -867,7 +867,7 @@ Usage (In Ghost editor):
     counter-reset: line-numbers;
 }
 
-.post-full-content pre code > .line-numbers:before {
+.post-full-content pre code .line-numbers:before {
     counter-increment: line-numbers;
     content: counter(line-numbers);
     display: inline-block;

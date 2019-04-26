@@ -72,3 +72,6 @@ experience:
 kubernetes:
   name: Kubernetes
   cover: /assets/images/covers/kubernetes.jpg
+devops:
+  name: DevOps
+  cover: /assets/images/covers/experience.jpg
