@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/ai.png'
 navigation: True
 title: Automatically create an AI model for your dataset using Azure AutoML
-date: 2019-05-16 09:00:00
+date: 2019-05-15 09:00:00
 tags: azure coding-python
 class: post-template
 subclass: 'post'
