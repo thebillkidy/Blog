@@ -3889,6 +3889,80 @@ Predicted comments: 5451.721
         
           <description>&lt;p&gt;So I wanted to write a function for a customer that would trigger a bot. What I thought would be an easy process, turned out to be a lot of debugging and tuning to get everything working. Which is why I decided to write this post to help others get started with Azure Functions.&lt;/p&gt;
 
+&lt;p&gt;Let’s get started, start by creating your Function application and open the dashboard on your newly created function.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-1.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At your left you will see your function app account (in my case interoperabilitybot) and then a dropdown with “Functions”. This contains all your functions, so click on the one you created by default (or create one by clicking the + button when you hover over Functions). This will bring you to the following screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-2.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can now click the “View files” tab on the right to view your files belonging to your Function app. Here I had to go to the &lt;code class=&quot;highlighter-rouge&quot;&gt;function.json&lt;/code&gt; file to correct the default settings that were created for me.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-3.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After removing the &lt;code class=&quot;highlighter-rouge&quot;&gt;_originalEntryPoint&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;_originalScriptFile&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;scriptFile&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;entryPoint&lt;/code&gt; entries, I then got the following configuration:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-4.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Not everyone will have these entries, if you do not have them, then you can just continue :)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now you can upload all your files through the “View files” tab and clicking the “Add” button.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can create folders by adding the suffix “/”. Example: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;myFolder&amp;gt;/&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Once you did that and added your &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file, we now have to install our dependencies. To do this, we need to open our &lt;strong&gt;Kudu Dashboard&lt;/strong&gt; by going to &lt;a href=&quot;https://\&amp;lt;your_function_app_name\&amp;gt;.scm.azurewebsites.net&quot;&gt;https://&amp;lt;your_function_app_name&amp;gt;.scm.azurewebsites.net&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-5.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here you can click the “Debug console” dropdown and select “PowerShell” (or CMD if you prefer that).&lt;/p&gt;
+
+&lt;p&gt;Now navigate to your function app by using &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; (in my case I had a function called messages, so I had to navigate to: &lt;code class=&quot;highlighter-rouge&quot;&gt;D:\home\site\wwwroot\messages&lt;/code&gt;) where you then can run the command &lt;code class=&quot;highlighter-rouge&quot;&gt;npm install&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-6.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now restart your function app by going back to the main page and clicking “Restart”, and go back to your function and click “Run”.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-7.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-7.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-8.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-8.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;upgrading-nodejs-version&quot;&gt;Upgrading Node.js Version&lt;/h2&gt;
+
+&lt;p&gt;After that I deployed my function correctly, it appeared that some functionallity such as await/async was not supported. When going to my Kudu dashboard and entering &lt;code class=&quot;highlighter-rouge&quot;&gt;node --version&lt;/code&gt; it appeared that my node version was showing &lt;code class=&quot;highlighter-rouge&quot;&gt;v6.9.1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-9.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-9.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To change this, head back to your functions dashboard but this time click on “Platform features”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-10.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-10.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And go to “Application settings”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-11.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-11.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Scroll down a bit here until you find the &lt;code class=&quot;highlighter-rouge&quot;&gt;WEBSITE_NODE_DEFAULT_VERSION&lt;/code&gt; string with the version next to it. Change this to the version you would like (safest is to pick the LTS version).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-12.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-12.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After that click “Save” on the top of that page to save your settings.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/getting-started-functions-13.png&quot; alt=&quot;/assets/images/posts/getting-started-functions-13.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now restart your function app as you did before.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-asyncawait-support-to-work&quot;&gt;Getting async/await support to work&lt;/h2&gt;
+
+&lt;p&gt;Async/await is currently only supported in Node &amp;gt;= 8.5.5, which means we have to set the correct node version for this to work. Once we did this we also have to execute the following actions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In Kudu: &lt;code class=&quot;highlighter-rouge&quot;&gt;npm i -g azure-functions-core-tools@core&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Recreate our function in runtime 2&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         
         <pubDate>Mon, 28 May 2018 09:00:00 +0000</pubDate>
