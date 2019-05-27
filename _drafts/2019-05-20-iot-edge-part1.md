@@ -127,12 +127,197 @@ xavier@Azure:~$ az vm run-command invoke -g Demo-IoTEdge -n xavier-edge-1 --comm
 > **Note:** You can now check if IoT Edge is running by SSHing on the machine and executing `sudo systemctl status iotedge`
 > **Interesting Commands:** `journalctl -u iotedge` - Check logs, `sudo iotedge list` - Show modules running
 
-## Creating our Device Container Simulator
+## Creating our Edge Device's Echo Module
 
-For testing purposes, we want to create a small container that echos the current time every 2 seconds to IoT Hub. For easy purposes, we can follow [https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module) to install our development machine and create our initial module boilerplate.
+For testing purposes, we want to create a small container that echos the current time every 2 seconds to IoT Hub. To do this we follow a few steps:
+
+1. **Command Palette (ctrl + p):** Azure: Sign In
+2. **Command Palette (ctrl + p):** Azure IoT Edge: New IoT Edge solution
+   * **Path:** /home/xavier/iot-edge/
+   * **Solution:** EdgeSolutionCameraFilter
+   * **Module Template:** C# Module
+   * **Module Name:** EchoModule (our demo container for now)
+   * **Docker Repository:** xavierregistry.azurecr.io/echomodule
+
+> Note: for more information and details, check [https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module) which goes through the steps of creating a temperature model.
+
+> Note 2: I didn't have docker installed on my machine. We can however easily work around this by utilizing a remote Linux VM Machine and use [VS Code Remote-SSH](https://code.visualstudio.com/docs/remote/remote-overview)
+
+Once we did that, we will see the following boilerplate code created once we open our folder.
 
 ![/assets/images/posts/iot-edge/iothub-echo-module-creation.png](/assets/images/posts/iot-edge/iothub-echo-module-creation.png)
 
-The Echo Module is created by default, the only thing that I changed is that I renamed `input1` to `input-echo` and `output1` to `output-echo` for clarity reasons.
+This boilerplate code creates a module that will play back our input on the output channel. To make this clearer, I renamed `input1` to `input-echo` and `output1` to `output-echo`.
 
-We can now de
+![/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png](/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png)
+
+Another thing I did is to add a timer that will send a message every 30 seconds to make it clear that it is actually doing something and that we don't necessarily have to send something to it ;) The code I used for that:
+
+```csharp
+// Register a Timer that will send every X seconds
+var myTimer = new System.Timers.Timer();
+myTimer.Elapsed += new System.Timers.ElapsedEventHandler((object source, System.Timers.ElapsedEventArgs e) => {
+    var now = DateTime.Now.ToString("g");
+    var message = new Message(Encoding.UTF8.GetBytes($"Sending event at {now}"));
+    ioTHubModuleClient.SendEventAsync("output", message);
+});
+myTimer.Interval = 30 * 1000; // Every 30 seconds
+myTimer.Enabled = true;
+```
+
+![/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png](/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png)
+
+A last thing we now have to do is to remove a few lines from our `deployment.template.json` and `deployment.template.debug.json` file in the root folder: 
+
+```json
+"sensorToEchoModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/EchoModule/inputs/input1\")"
+```
+
+And some lines that deploy another module that we don't need
+
+```json
+"tempSensor": {
+  "version": "1.0",
+  "type": "docker",
+  "status": "running",
+  "restartPolicy": "always",
+  "settings": {
+    "image": "mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0",
+    "createOptions": "{}"
+  }
+},
+```
+
+Now we are ready to build, publish and finally deploy our edge module.
+
+## Building, Publishing & Deploying the Edge Module
+
+### Building and Publishing our Edge Module
+
+We can now easily build and publish our Edge Module by right-clicking our `deployment.template.json` and selecting "Build and Push Iot Edge Solution"
+
+![/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png](/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png)
+
+> **Note:** For me this failed due to permission issues on my Linux machine, however when you have the terminal open you can just press the up arrow and add `sudo` in the front. 
+> **Hint:** ctrl + a jumps to the beginning of a line
+
+This will now build and push our solution, resulting in:
+
+```bash
+# Docker container is building
+Step 1/12 : FROM microsoft/dotnet:2.1-sdk AS build-env
+2.1-sdk: Pulling from microsoft/dotnet
+c5e155d5a1d1: Pull complete 
+221d80d00ae9: Pull complete 
+4250b3117dca: Pull complete 
+3b7ca19181b2: Pull complete 
+5980daa97e3c: Pull complete 
+7cbae962589c: Pull complete 
+4ab425e558b6: Pull complete 
+Digest: sha256:481a526515bd95f7ecbe866b99ddac6130da3402e8e4fb09712123393d3f1475
+Status: Downloaded newer image for microsoft/dotnet:2.1-sdk
+ ---> 511c1f563ce6
+Step 2/12 : WORKDIR /app
+ ---> Running in ed3388ecf107
+Removing intermediate container ed3388ecf107
+ ---> e8033981828f
+Step 3/12 : COPY *.csproj ./
+ ---> 4614b845cc5d
+Step 4/12 : RUN dotnet restore ---> Running in 2db5ed302e26  Restore completed in 3.24 sec for /app/EchoModule.csproj.
+Removing intermediate container 2db5ed302e26
+ ---> b74b9ac5490b
+Step 5/12 : COPY . ./
+ ---> 8132d7ecea0d
+ Step 6/12 : RUN dotnet publish -c Release -o out
+ ---> Running in 62098984d63d
+Microsoft (R) Build Engine version 16.1.76+g14b0a930a7 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 485.11 ms for /app/EchoModule.csproj.
+  EchoModule -> /app/bin/Release/netcoreapp2.1/EchoModule.dll
+  EchoModule -> /app/out/
+Removing intermediate container 62098984d63d
+ ---> 46899da4cedb
+Step 7/12 : FROM microsoft/dotnet:2.1-runtime-stretch-slim
+2.1-runtime-stretch-slim: Pulling from microsoft/dotnet
+743f2d6c1f65: Pull complete 
+074da88b8de0: Pull complete 
+ac831735b47a: Pull complete 
+625946e33cc4: Pull complete 
+Digest: sha256:5ff2b0f6e69b44f6404d46445be34408551331429d5a84b667cfee49ebd8117d
+Status: Downloaded newer image for microsoft/dotnet:2.1-runtime-stretch-slim
+ ---> f7da44fabfad
+Step 8/12 : WORKDIR /app
+ ---> Running in b999e9d179aa
+Removing intermediate container b999e9d179aa
+ ---> 247b2ac0a988
+Step 9/12 : COPY --from=build-env /app/out ./
+ ---> ef30f581b39d
+Step 10/12 : RUN useradd -ms /bin/bash moduleuser
+ ---> Running in 172a5e40a83e
+Removing intermediate container 172a5e40a83e
+ ---> dc3691450b75
+Step 11/12 : USER moduleuser
+ ---> Running in c71d5ab2fc77
+Removing intermediate container c71d5ab2fc77
+ ---> d4798c0654e7
+Step 12/12 : ENTRYPOINT ["dotnet", "EchoModule.dll"]
+ ---> Running in 547f0facbdd8
+Removing intermediate container 547f0facbdd8
+ ---> 114a7cc96b50
+Successfully built 114a7cc96b50
+Successfully tagged xavierregistry.azurecr.io/echomodule:0.0.1-amd64
+
+# Pushing it
+The push refers to repository [xavierregistry.azurecr.io/echomodule]
+11e1e4b905fe: Pushed 
+a0d529ad3f07: Pushed 
+f081219e5aa6: Pushed 
+be1595c6dfc4: Pushed 
+ecf7942d9af2: Pushed 
+ea4e5356527d: Pushed 
+6270adb5794c: Pushed 
+0.0.1-amd64: digest: sha256:7021323942c2323adb48d17ec73b00e69ec19216c816de59e2eb6e9a0b3f682c size: 1789
+```
+
+### Deploying our Edge Module
+
+Now that our module is created and pushed to our repository, we can now push it to our Edge Module. For this, simply right-click on our device and select "Create Deployment for Single Device"
+
+![/assets/images/posts/iot-edge/iothub-echo-module-deploy.png](/assets/images/posts/iot-edge/iothub-echo-module-deploy.png)
+
+![/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png](/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png)
+
+This will open up our output and show: 
+
+```bash
+[Edge] Start deployment to device [xavier-device-1]
+[Edge] Deployment succeeded.
+```
+
+When we open up our device now, we can see that under modules we have an extra module deployed.
+
+![/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png](/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png)
+
+## Testing our Deployment
+
+To monitor our device, we can now go to our devices and select "Start Monitoring Built-In Event Endpoint" which will open a logger for us. When we did this, we will now after a few seconds see:
+
+```bash
+[IoTHubMonitor] [5:59:27 PM] Message received from [xavier-device-1/EchoModule]:
+"Sending event at 05/24/2019 17:59"
+```
+
+For our Echo module, we can now send a C2D message (Cloud to Device), we do this by Right-Clicking our device again and selecting "Send D2C Message to IoTHub" and entering our message.
+
+When everything goes well we will now see the following in our Device Event Log:
+
+```bash
+[D2CMessage] Sending message to [IoT Hub] ...
+[IoTHubMonitor] [6:02:36 PM] Message received from [xavier-device-1]:
+"Hello World"
+```
+
+## Conclusion
+
+We now created our first initial module, so let's get started for real now and work on [creating our AI Edge Module in Part 2](/iot-edge-part2)!
