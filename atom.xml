@@ -8,6 +8,392 @@
     
       
       <item>
+        <title>Creating an Internet Of Things (IoT) Edge Deployment</title>
+        
+          <description>&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
+
+&lt;p&gt;A way to solve this is by utilizing edge deployments. Edge deployments allow you to create your model in a scalable environment (cloud) and deploy these to the edge devices. Which can then utilize this model, filter the needed data and send just this data back when the connection is re-established.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Interesting use cases&lt;/strong&gt; for example are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Image processing from live video feeds (drones, street cameras, train tracks, …)
+    &lt;ul&gt;
+      &lt;li&gt;Just think about streaming at 24fps, including your model inference and including the network round-trip&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dongles in cars, sending the captured data from its CAN-bus
+    &lt;ul&gt;
+      &lt;li&gt;If a car sends at 1Hz, what is your captured data rate? It’s &lt;a href=&quot;https://newsroom.intel.com/editorials/self-driving-cars-big-meaning-behind-one-number-4-terabytes/&quot;&gt;predicted&lt;/a&gt; that self-driving cars will consume about 4Tb every 1.5 hours!&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So how can we solve this technical wise? Well you’d be happy to know that currently we have all the tools in place to actually accomplish this on-edge computing already!&lt;/p&gt;
+
+&lt;p&gt;Illustrating this with an architecture, we can see that we will have to add a small computing capability to our devices (think for example cameras, cars, …) that will then hook up to an event pipeline or IoT Device manager. On top of this we can then add our full lifecycle that can train our model and send the trained model back to the edge devices, creating a perfect loop and self-iterating process.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So let’s try to simulate this in our own environment! Now since this post would get too big due to the different steps being required, I decided to split it up into different modules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/iot-edge-part1&quot;&gt;Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/iot-edge-part2&quot;&gt;Part 2 - Create and Deploy our Machine Learning filters on Edge&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        
+        <pubDate>Mon, 20 May 2019 09:00:00 +0000</pubDate>
+        <link>
+        /iot-edge</link>
+        <guid isPermaLink="true">/iot-edge</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title>
+        
+          <description>&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This is Part 1 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt;. Part 2 is currently under construction and will follow soon.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with them. In this first part we will be mainly focusing on doing just that - connecting our devices and sending data to our IoT Hub resource.&lt;/p&gt;
+
+&lt;p&gt;Therefor in this Part we have the following &lt;strong&gt;prerequisities:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note for my variables I used the following:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;YOUR_IOTHUB_NAME = xavier-iothub&lt;/li&gt;
+    &lt;li&gt;YOUR_DEVICE_ID = xavier-device-1&lt;/li&gt;
+    &lt;li&gt;YOUR_EDGE_VM = xavier-edge-1&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;IoT Hub - Connect and manage your devices
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;az iot hub create --resource-group DEMO-IoTEdge --name {YOUR_IOTHUB_NAME} --sku F1&lt;/code&gt; will create a &lt;em&gt;free&lt;/em&gt; iot hub (limits: 8k messages per day and 500 registered devices)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Azure Shell + IoT Cli Extension
+    &lt;ul&gt;
+      &lt;li&gt;Note: Easy way is utilizing &lt;a href=&quot;https://shell.azure.com&quot;&gt;https://shell.azure.com&lt;/a&gt; and run &lt;code class=&quot;highlighter-rouge&quot;&gt;az extension add --name azure-cli-iot-ext&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Azure Edge Runtime on the device
+    &lt;ul&gt;
+      &lt;li&gt;Linux x64: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux&lt;/li&gt;
+      &lt;li&gt;Linux ARM: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;An ARM IoT Device (we use ARM because it might give compatibility issues, but we will most likely have ARM devices in the field)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;registering-a-device&quot;&gt;Registering a Device&lt;/h2&gt;
+
+&lt;h3 id=&quot;creating-a-simulation-device&quot;&gt;Creating a simulation device&lt;/h3&gt;
+
+&lt;p&gt;Checking &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/support#operating-systems&quot;&gt;IoT Edge Supported Devices&lt;/a&gt; showed me that Ubuntu 18.04 is supported on ARM. However since I didn’t have access to a ARM device on the moment of writing, I went with deploying a VM on Azure, which is easily done through the marketplace: &lt;a href=&quot;https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu&quot;&gt;https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az vm create &lt;span class=&quot;nt&quot;&gt;--resource-group&lt;/span&gt; DEMO-IoTEdge &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; xavier-edge-1 &lt;span class=&quot;nt&quot;&gt;--image&lt;/span&gt; microsoft_iot_edge:iot_edge_vm_ubuntu:ubuntu_1604_edgeruntimeonly:latest &lt;span class=&quot;nt&quot;&gt;--admin-username&lt;/span&gt; xavier &lt;span class=&quot;nt&quot;&gt;--ssh-key-values&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;YOUR_SSH_KEY&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--size&lt;/span&gt; Standard_B1ms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: if you are installing on an ARM, feel free to follow the guide at: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;creating-an-iot-edge-device-id&quot;&gt;Creating an IoT Edge Device ID&lt;/h3&gt;
+
+&lt;p&gt;Once our prerequisites are done, we can start adding our devices. For this run: &lt;code class=&quot;highlighter-rouge&quot;&gt;az iot hub device-identity create --hub-name {YOUR_IOTHUB_NAME} --device-id {YOUR_DEVICE_ID} --edge-enabled&lt;/code&gt; which will create an edge-enabled device. This will return something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;authentication&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;symmetricKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;primaryKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{MASKED}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;secondaryKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{MASKED}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sas&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x509Thumbprint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;primaryThumbprint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;secondaryThumbprint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;capabilities&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;iotEdge&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cloudToDeviceMessageCount&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;connectionState&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Disconnected&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;connectionStateUpdatedTime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;deviceId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xavier-device-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;deviceScope&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ms-azure-iot-edge://xavier-device-1-{ID}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{ETAG}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;generationId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{ID}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lastActivityTime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;enabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;statusReason&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;statusUpdatedTime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;connecting-our-iot-edge-device-to-iot-hub&quot;&gt;Connecting our IoT Edge Device to IoT Hub&lt;/h2&gt;
+
+&lt;p&gt;Once we deployed this VM, we can now configure our IoT Edge by getting our IoT Hub connection string and running a shell command which is available in the image.&lt;/p&gt;
+
+&lt;p&gt;To get our connection string we can run:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az iot hub device-identity show-connection-string &lt;span class=&quot;nt&quot;&gt;--device-id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;YOUR_DEVICE_ID&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--hub-name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;YOUR_IOTHUB_NAME&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which will return something such as:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;connectionString&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HostName={YOUR_IOTHUB}.azure-devices.net;DeviceId={YOUR_DEVICE_ID};SharedAccessKey={ACCESS_KEY}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we can run the following script which was pre-deployed on our Edge Device through the Marketplace image, that will configure our edge device:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az vm run-command invoke &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; Demo-IoTEdge &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;YOUR_EDGE_VM&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--command-id&lt;/span&gt; RunShellScript &lt;span class=&quot;nt&quot;&gt;--script&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/etc/iotedge/configedge.sh '{YOUR_DEVICE_CONNECTION_STRING}'&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which should show the following when executed successfully:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@Azure:~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;az vm run-command invoke &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; Demo-IoTEdge &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; xavier-edge-1 &lt;span class=&quot;nt&quot;&gt;--command-id&lt;/span&gt; RunShellScript &lt;span class=&quot;nt&quot;&gt;--script&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/etc/iotedge/configedge.sh 'HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}'&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;code&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;ProvisioningState/succeeded&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;displayStatus&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Provisioning succeeded&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;level&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Info&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;message&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Enable succeeded: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[stdout]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; Wed May 22 13:24:14 UTC 2019 Connection string set to HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[stderr]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;time&quot;&lt;/span&gt;: null
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can now check if IoT Edge is running by SSHing on the machine and executing &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl status iotedge&lt;/code&gt;
+&lt;strong&gt;Interesting Commands:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;journalctl -u iotedge&lt;/code&gt; - Check logs, &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo iotedge list&lt;/code&gt; - Show modules running&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;creating-our-edge-devices-echo-module&quot;&gt;Creating our Edge Device’s Echo Module&lt;/h2&gt;
+
+&lt;p&gt;For testing purposes, we want to create a small container that echos the current time every 2 seconds to IoT Hub. To do this we follow a few steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Command Palette (ctrl + p):&lt;/strong&gt; Azure: Sign In&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Command Palette (ctrl + p):&lt;/strong&gt; Azure IoT Edge: New IoT Edge solution
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Path:&lt;/strong&gt; /home/xavier/iot-edge/&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solution:&lt;/strong&gt; EdgeSolutionCameraFilter&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Module Template:&lt;/strong&gt; C# Module&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Module Name:&lt;/strong&gt; EchoModule (our demo container for now)&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Docker Repository:&lt;/strong&gt; xavierregistry.azurecr.io/echomodule&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: for more information and details, check &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module&lt;/a&gt; which goes through the steps of creating a temperature model.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note 2: I didn’t have docker installed on my machine. We can however easily work around this by utilizing a remote Linux VM Machine and use &lt;a href=&quot;https://code.visualstudio.com/docs/remote/remote-overview&quot;&gt;VS Code Remote-SSH&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Once we did that, we will see the following boilerplate code created once we open our folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This boilerplate code creates a module that will play back our input on the output channel. To make this clearer, I renamed &lt;code class=&quot;highlighter-rouge&quot;&gt;input1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;input-echo&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;output1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;output-echo&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another thing I did is to add a timer that will send a message every 30 seconds to make it clear that it is actually doing something and that we don’t necessarily have to send something to it ;) The code I used for that:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Register a Timer that will send every X seconds&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Elapsed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ElapsedEventHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ElapsedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UTF8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetBytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;Sending event at &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SendEventAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Interval&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Every 30 seconds&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Enabled&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A last thing we now have to do is to remove a few lines from our &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.debug.json&lt;/code&gt; file in the root folder:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sensorToEchoModule&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/modules/EchoModule/inputs/input1&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And some lines that deploy another module that we don’t need&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tempSensor&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we are ready to build, publish and finally deploy our edge module.&lt;/p&gt;
+
+&lt;h2 id=&quot;building-publishing--deploying-the-edge-module&quot;&gt;Building, Publishing &amp;amp; Deploying the Edge Module&lt;/h2&gt;
+
+&lt;h3 id=&quot;building-and-publishing-our-edge-module&quot;&gt;Building and Publishing our Edge Module&lt;/h3&gt;
+
+&lt;p&gt;We can now easily build and publish our Edge Module by right-clicking our &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and selecting “Build and Push Iot Edge Solution”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; For me this failed due to permission issues on my Linux machine, however when you have the terminal open you can just press the up arrow and add &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; in the front. 
+&lt;strong&gt;Hint:&lt;/strong&gt; ctrl + a jumps to the beginning of a line&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This will now build and push our solution, resulting in:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Docker container is building&lt;/span&gt;
+Step 1/12 : FROM microsoft/dotnet:2.1-sdk AS build-env
+2.1-sdk: Pulling from microsoft/dotnet
+c5e155d5a1d1: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;221d80d00ae9: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;4250b3117dca: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;3b7ca19181b2: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;5980daa97e3c: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;7cbae962589c: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;4ab425e558b6: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;Digest: sha256:481a526515bd95f7ecbe866b99ddac6130da3402e8e4fb09712123393d3f1475
+Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;microsoft/dotnet:2.1-sdk
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 511c1f563ce6
+Step 2/12 : WORKDIR /app
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;ed3388ecf107
+Removing intermediate container ed3388ecf107
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; e8033981828f
+Step 3/12 : COPY &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.csproj ./
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 4614b845cc5d
+Step 4/12 : RUN dotnet restore &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;2db5ed302e26  Restore completed &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;3.24 sec &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /app/EchoModule.csproj.
+Removing intermediate container 2db5ed302e26
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; b74b9ac5490b
+Step 5/12 : COPY &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; ./
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 8132d7ecea0d
+ Step 6/12 : RUN dotnet publish &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; Release &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; out
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;62098984d63d
+Microsoft &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;R&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Build Engine version 16.1.76+g14b0a930a7 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; .NET Core
+Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Microsoft Corporation. All rights reserved.
+
+  Restore completed &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;485.11 ms &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /app/EchoModule.csproj.
+  EchoModule -&amp;gt; /app/bin/Release/netcoreapp2.1/EchoModule.dll
+  EchoModule -&amp;gt; /app/out/
+Removing intermediate container 62098984d63d
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 46899da4cedb
+Step 7/12 : FROM microsoft/dotnet:2.1-runtime-stretch-slim
+2.1-runtime-stretch-slim: Pulling from microsoft/dotnet
+743f2d6c1f65: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;074da88b8de0: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;ac831735b47a: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;625946e33cc4: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;Digest: sha256:5ff2b0f6e69b44f6404d46445be34408551331429d5a84b667cfee49ebd8117d
+Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;microsoft/dotnet:2.1-runtime-stretch-slim
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; f7da44fabfad
+Step 8/12 : WORKDIR /app
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;b999e9d179aa
+Removing intermediate container b999e9d179aa
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 247b2ac0a988
+Step 9/12 : COPY &lt;span class=&quot;nt&quot;&gt;--from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;build-env /app/out ./
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ef30f581b39d
+Step 10/12 : RUN useradd &lt;span class=&quot;nt&quot;&gt;-ms&lt;/span&gt; /bin/bash moduleuser
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;172a5e40a83e
+Removing intermediate container 172a5e40a83e
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; dc3691450b75
+Step 11/12 : USER moduleuser
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;c71d5ab2fc77
+Removing intermediate container c71d5ab2fc77
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; d4798c0654e7
+Step 12/12 : ENTRYPOINT &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dotnet&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;EchoModule.dll&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;547f0facbdd8
+Removing intermediate container 547f0facbdd8
+ &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 114a7cc96b50
+Successfully built 114a7cc96b50
+Successfully tagged xavierregistry.azurecr.io/echomodule:0.0.1-amd64
+
+&lt;span class=&quot;c&quot;&gt;# Pushing it&lt;/span&gt;
+The push refers to repository &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavierregistry.azurecr.io/echomodule]
+11e1e4b905fe: Pushed 
+a0d529ad3f07: Pushed 
+f081219e5aa6: Pushed 
+be1595c6dfc4: Pushed 
+ecf7942d9af2: Pushed 
+ea4e5356527d: Pushed 
+6270adb5794c: Pushed 
+0.0.1-amd64: digest: sha256:7021323942c2323adb48d17ec73b00e69ec19216c816de59e2eb6e9a0b3f682c size: 1789
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;deploying-our-edge-module&quot;&gt;Deploying our Edge Module&lt;/h3&gt;
+
+&lt;p&gt;Now that our module is created and pushed to our repository, we can now push it to our Edge Module. For this, simply right-click on our device and select “Create Deployment for Single Device”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will open up our output and show:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Edge] Start deployment to device &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1]
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Edge] Deployment succeeded.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When we open up our device now, we can see that under modules we have an extra module deployed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;testing-our-deployment&quot;&gt;Testing our Deployment&lt;/h2&gt;
+
+&lt;p&gt;To monitor our device, we can now go to our devices and select “Start Monitoring Built-In Event Endpoint” which will open a logger for us. When we did this, we will now after a few seconds see:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5:59:27 PM] Message received from &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1/EchoModule]:
+&lt;span class=&quot;s2&quot;&gt;&quot;Sending event at 05/24/2019 17:59&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For our Echo module, we can now send a C2D message (Cloud to Device), we do this by Right-Clicking our device again and selecting “Send D2C Message to IoTHub” and entering our message.&lt;/p&gt;
+
+&lt;p&gt;When everything goes well we will now see the following in our Device Event Log:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;D2CMessage] Sending message to &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoT Hub] ...
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;6:02:36 PM] Message received from &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1]:
+&lt;span class=&quot;s2&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We now created our first initial module, so let’s get started for real now and work on &lt;a href=&quot;/iot-edge-part2&quot;&gt;creating our AI Edge Module in Part 2&lt;/a&gt;!&lt;/p&gt;
+</description>
+        
+        <pubDate>Mon, 20 May 2019 09:00:00 +0000</pubDate>
+        <link>
+        /iot-edge-part1</link>
+        <guid isPermaLink="true">/iot-edge-part1</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Automatically create an AI model for your dataset using Azure AutoML</title>
         
           <description>&lt;p&gt;An annoying part in working with classification, regression or other AI algorithms is that you always need to write a lot of code, prepare your data and do other steps before you are able to get results out of it.&lt;/p&gt;

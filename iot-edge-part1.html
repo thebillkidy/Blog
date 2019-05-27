@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/iot-edge-part1" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" />
+    <meta property="og:description" content="This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with" />
+    <meta property="og:url" content="/iot-edge-part1" />
+    <meta property="og:image" content="/assets/images/covers/iot.jpg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2019-05-20T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2019-05-20T09:00:00+00:00" />
+    <meta property="article:tag" content="Azure" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" />
+    <meta name="twitter:description" content="This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/iot.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Azure" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/iot-edge-part1",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/iot.jpg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/iot-edge-part1"
+    },
+    "description": "This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+            <a class="subscribe-button" href="#subscribe">Subscribe</a>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="20 May 2019">20 May 2019</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/azure/'>AZURE</a>,
+                            
+                        
+                            
+                               <a href='/tag/coding-javascript/'>CODING-JAVASCRIPT</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/iot.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</h1>
+                    <!-- > This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. -->
+
+<blockquote>
+  <p>This is Part 1 in the Iot Edge series, view the <a href="/iot-edge">main article</a>. Part 2 is currently under construction and will follow soon.</p>
+</blockquote>
+
+<p><img src="/assets/images/posts/iot-edge/architecture2.png" alt="/assets/images/posts/iot-edge/architecture2.png" /></p>
+
+<p>Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with them. In this first part we will be mainly focusing on doing just that - connecting our devices and sending data to our IoT Hub resource.</p>
+
+<p>Therefor in this Part we have the following <strong>prerequisities:</strong></p>
+
+<blockquote>
+  <p>Note for my variables I used the following:</p>
+  <ul>
+    <li>YOUR_IOTHUB_NAME = xavier-iothub</li>
+    <li>YOUR_DEVICE_ID = xavier-device-1</li>
+    <li>YOUR_EDGE_VM = xavier-edge-1</li>
+  </ul>
+</blockquote>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>IoT Hub - Connect and manage your devices
+    <ul>
+      <li><code class="highlighter-rouge">az iot hub create --resource-group DEMO-IoTEdge --name {YOUR_IOTHUB_NAME} --sku F1</code> will create a <em>free</em> iot hub (limits: 8k messages per day and 500 registered devices)</li>
+    </ul>
+  </li>
+  <li>Azure Shell + IoT Cli Extension
+    <ul>
+      <li>Note: Easy way is utilizing <a href="https://shell.azure.com">https://shell.azure.com</a> and run <code class="highlighter-rouge">az extension add --name azure-cli-iot-ext</code></li>
+    </ul>
+  </li>
+  <li>Azure Edge Runtime on the device
+    <ul>
+      <li>Linux x64: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux</li>
+      <li>Linux ARM: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm</li>
+    </ul>
+  </li>
+  <li>An ARM IoT Device (we use ARM because it might give compatibility issues, but we will most likely have ARM devices in the field)</li>
+</ul>
+
+<h2 id="registering-a-device">Registering a Device</h2>
+
+<h3 id="creating-a-simulation-device">Creating a simulation device</h3>
+
+<p>Checking <a href="https://docs.microsoft.com/en-us/azure/iot-edge/support#operating-systems">IoT Edge Supported Devices</a> showed me that Ubuntu 18.04 is supported on ARM. However since I didn’t have access to a ARM device on the moment of writing, I went with deploying a VM on Azure, which is easily done through the marketplace: <a href="https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu">https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az vm create <span class="nt">--resource-group</span> DEMO-IoTEdge <span class="nt">--name</span> xavier-edge-1 <span class="nt">--image</span> microsoft_iot_edge:iot_edge_vm_ubuntu:ubuntu_1604_edgeruntimeonly:latest <span class="nt">--admin-username</span> xavier <span class="nt">--ssh-key-values</span> <span class="s2">"YOUR_SSH_KEY"</span> <span class="nt">--size</span> Standard_B1ms
+</code></pre></div></div>
+
+<blockquote>
+  <p>Note: if you are installing on an ARM, feel free to follow the guide at: <a href="https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm">https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm</a></p>
+</blockquote>
+
+<h3 id="creating-an-iot-edge-device-id">Creating an IoT Edge Device ID</h3>
+
+<p>Once our prerequisites are done, we can start adding our devices. For this run: <code class="highlighter-rouge">az iot hub device-identity create --hub-name {YOUR_IOTHUB_NAME} --device-id {YOUR_DEVICE_ID} --edge-enabled</code> which will create an edge-enabled device. This will return something like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"symmetricKey"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"primaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secondaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sas"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"x509Thumbprint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"primaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secondaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"iotEdge"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"cloudToDeviceMessageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"connectionState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disconnected"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"connectionStateUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xavier-device-1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deviceScope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ms-azure-iot-edge://xavier-device-1-{ID}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"etag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ETAG}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"generationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ID}"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastActivityTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"statusReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"statusUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="connecting-our-iot-edge-device-to-iot-hub">Connecting our IoT Edge Device to IoT Hub</h2>
+
+<p>Once we deployed this VM, we can now configure our IoT Edge by getting our IoT Hub connection string and running a shell command which is available in the image.</p>
+
+<p>To get our connection string we can run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az iot hub device-identity show-connection-string <span class="nt">--device-id</span> <span class="o">{</span>YOUR_DEVICE_ID<span class="o">}</span> <span class="nt">--hub-name</span> <span class="o">{</span>YOUR_IOTHUB_NAME<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Which will return something such as:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"connectionString"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HostName={YOUR_IOTHUB}.azure-devices.net;DeviceId={YOUR_DEVICE_ID};SharedAccessKey={ACCESS_KEY}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now we can run the following script which was pre-deployed on our Edge Device through the Marketplace image, that will configure our edge device:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az vm run-command invoke <span class="nt">-g</span> Demo-IoTEdge <span class="nt">-n</span> <span class="o">{</span>YOUR_EDGE_VM<span class="o">}</span> <span class="nt">--command-id</span> RunShellScript <span class="nt">--script</span> <span class="s2">"/etc/iotedge/configedge.sh '{YOUR_DEVICE_CONNECTION_STRING}'"</span>
+</code></pre></div></div>
+
+<p>Which should show the following when executed successfully:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xavier@Azure:~<span class="nv">$ </span>az vm run-command invoke <span class="nt">-g</span> Demo-IoTEdge <span class="nt">-n</span> xavier-edge-1 <span class="nt">--command-id</span> RunShellScript <span class="nt">--script</span> <span class="s2">"/etc/iotedge/configedge.sh 'HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}'"</span>
+<span class="o">{</span>
+  <span class="s2">"value"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"code"</span>: <span class="s2">"ProvisioningState/succeeded"</span>,
+      <span class="s2">"displayStatus"</span>: <span class="s2">"Provisioning succeeded"</span>,
+      <span class="s2">"level"</span>: <span class="s2">"Info"</span>,
+      <span class="s2">"message"</span>: <span class="s2">"Enable succeeded: </span><span class="se">\n</span><span class="s2">[stdout]</span><span class="se">\n</span><span class="s2"> Wed May 22 13:24:14 UTC 2019 Connection string set to HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}</span><span class="se">\n\n</span><span class="s2">[stderr]</span><span class="se">\n</span><span class="s2">"</span>,
+      <span class="s2">"time"</span>: null
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Note:</strong> You can now check if IoT Edge is running by SSHing on the machine and executing <code class="highlighter-rouge">sudo systemctl status iotedge</code>
+<strong>Interesting Commands:</strong> <code class="highlighter-rouge">journalctl -u iotedge</code> - Check logs, <code class="highlighter-rouge">sudo iotedge list</code> - Show modules running</p>
+</blockquote>
+
+<h2 id="creating-our-edge-devices-echo-module">Creating our Edge Device’s Echo Module</h2>
+
+<p>For testing purposes, we want to create a small container that echos the current time every 2 seconds to IoT Hub. To do this we follow a few steps:</p>
+
+<ol>
+  <li><strong>Command Palette (ctrl + p):</strong> Azure: Sign In</li>
+  <li><strong>Command Palette (ctrl + p):</strong> Azure IoT Edge: New IoT Edge solution
+    <ul>
+      <li><strong>Path:</strong> /home/xavier/iot-edge/</li>
+      <li><strong>Solution:</strong> EdgeSolutionCameraFilter</li>
+      <li><strong>Module Template:</strong> C# Module</li>
+      <li><strong>Module Name:</strong> EchoModule (our demo container for now)</li>
+      <li><strong>Docker Repository:</strong> xavierregistry.azurecr.io/echomodule</li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>Note: for more information and details, check <a href="https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module">https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module</a> which goes through the steps of creating a temperature model.</p>
+</blockquote>
+
+<blockquote>
+  <p>Note 2: I didn’t have docker installed on my machine. We can however easily work around this by utilizing a remote Linux VM Machine and use <a href="https://code.visualstudio.com/docs/remote/remote-overview">VS Code Remote-SSH</a></p>
+</blockquote>
+
+<p>Once we did that, we will see the following boilerplate code created once we open our folder.</p>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation.png" /></p>
+
+<p>This boilerplate code creates a module that will play back our input on the output channel. To make this clearer, I renamed <code class="highlighter-rouge">input1</code> to <code class="highlighter-rouge">input-echo</code> and <code class="highlighter-rouge">output1</code> to <code class="highlighter-rouge">output-echo</code>.</p>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png" /></p>
+
+<p>Another thing I did is to add a timer that will send a message every 30 seconds to make it clear that it is actually doing something and that we don’t necessarily have to send something to it ;) The code I used for that:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Register a Timer that will send every X seconds</span>
+<span class="kt">var</span> <span class="n">myTimer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="nf">Timer</span><span class="p">();</span>
+<span class="n">myTimer</span><span class="p">.</span><span class="n">Elapsed</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="nf">ElapsedEventHandler</span><span class="p">((</span><span class="kt">object</span> <span class="n">source</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="n">ElapsedEventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kt">var</span> <span class="n">now</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s">"g"</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">message</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Message</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="nf">GetBytes</span><span class="p">(</span><span class="s">$"Sending event at </span><span class="p">{</span><span class="n">now</span><span class="p">}</span><span class="s">"</span><span class="p">));</span>
+    <span class="n">ioTHubModuleClient</span><span class="p">.</span><span class="nf">SendEventAsync</span><span class="p">(</span><span class="s">"output"</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="n">myTimer</span><span class="p">.</span><span class="n">Interval</span> <span class="p">=</span> <span class="m">30</span> <span class="p">*</span> <span class="m">1000</span><span class="p">;</span> <span class="c1">// Every 30 seconds</span>
+<span class="n">myTimer</span><span class="p">.</span><span class="n">Enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png" /></p>
+
+<p>A last thing we now have to do is to remove a few lines from our <code class="highlighter-rouge">deployment.template.json</code> and <code class="highlighter-rouge">deployment.template.debug.json</code> file in the root folder:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"sensorToEchoModule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(</span><span class="se">\"</span><span class="s2">/modules/EchoModule/inputs/input1</span><span class="se">\"</span><span class="s2">)"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And some lines that deploy another module that we don’t need</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"tempSensor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{}"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now we are ready to build, publish and finally deploy our edge module.</p>
+
+<h2 id="building-publishing--deploying-the-edge-module">Building, Publishing &amp; Deploying the Edge Module</h2>
+
+<h3 id="building-and-publishing-our-edge-module">Building and Publishing our Edge Module</h3>
+
+<p>We can now easily build and publish our Edge Module by right-clicking our <code class="highlighter-rouge">deployment.template.json</code> and selecting “Build and Push Iot Edge Solution”</p>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png" /></p>
+
+<blockquote>
+  <p><strong>Note:</strong> For me this failed due to permission issues on my Linux machine, however when you have the terminal open you can just press the up arrow and add <code class="highlighter-rouge">sudo</code> in the front. 
+<strong>Hint:</strong> ctrl + a jumps to the beginning of a line</p>
+</blockquote>
+
+<p>This will now build and push our solution, resulting in:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Docker container is building</span>
+Step 1/12 : FROM microsoft/dotnet:2.1-sdk AS build-env
+2.1-sdk: Pulling from microsoft/dotnet
+c5e155d5a1d1: Pull <span class="nb">complete 
+</span>221d80d00ae9: Pull <span class="nb">complete 
+</span>4250b3117dca: Pull <span class="nb">complete 
+</span>3b7ca19181b2: Pull <span class="nb">complete 
+</span>5980daa97e3c: Pull <span class="nb">complete 
+</span>7cbae962589c: Pull <span class="nb">complete 
+</span>4ab425e558b6: Pull <span class="nb">complete 
+</span>Digest: sha256:481a526515bd95f7ecbe866b99ddac6130da3402e8e4fb09712123393d3f1475
+Status: Downloaded newer image <span class="k">for </span>microsoft/dotnet:2.1-sdk
+ <span class="nt">---</span><span class="o">&gt;</span> 511c1f563ce6
+Step 2/12 : WORKDIR /app
+ <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>ed3388ecf107
+Removing intermediate container ed3388ecf107
+ <span class="nt">---</span><span class="o">&gt;</span> e8033981828f
+Step 3/12 : COPY <span class="k">*</span>.csproj ./
+ <span class="nt">---</span><span class="o">&gt;</span> 4614b845cc5d
+Step 4/12 : RUN dotnet restore <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>2db5ed302e26  Restore completed <span class="k">in </span>3.24 sec <span class="k">for</span> /app/EchoModule.csproj.
+Removing intermediate container 2db5ed302e26
+ <span class="nt">---</span><span class="o">&gt;</span> b74b9ac5490b
+Step 5/12 : COPY <span class="nb">.</span> ./
+ <span class="nt">---</span><span class="o">&gt;</span> 8132d7ecea0d
+ Step 6/12 : RUN dotnet publish <span class="nt">-c</span> Release <span class="nt">-o</span> out
+ <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>62098984d63d
+Microsoft <span class="o">(</span>R<span class="o">)</span> Build Engine version 16.1.76+g14b0a930a7 <span class="k">for</span> .NET Core
+Copyright <span class="o">(</span>C<span class="o">)</span> Microsoft Corporation. All rights reserved.
+
+  Restore completed <span class="k">in </span>485.11 ms <span class="k">for</span> /app/EchoModule.csproj.
+  EchoModule -&gt; /app/bin/Release/netcoreapp2.1/EchoModule.dll
+  EchoModule -&gt; /app/out/
+Removing intermediate container 62098984d63d
+ <span class="nt">---</span><span class="o">&gt;</span> 46899da4cedb
+Step 7/12 : FROM microsoft/dotnet:2.1-runtime-stretch-slim
+2.1-runtime-stretch-slim: Pulling from microsoft/dotnet
+743f2d6c1f65: Pull <span class="nb">complete 
+</span>074da88b8de0: Pull <span class="nb">complete 
+</span>ac831735b47a: Pull <span class="nb">complete 
+</span>625946e33cc4: Pull <span class="nb">complete 
+</span>Digest: sha256:5ff2b0f6e69b44f6404d46445be34408551331429d5a84b667cfee49ebd8117d
+Status: Downloaded newer image <span class="k">for </span>microsoft/dotnet:2.1-runtime-stretch-slim
+ <span class="nt">---</span><span class="o">&gt;</span> f7da44fabfad
+Step 8/12 : WORKDIR /app
+ <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>b999e9d179aa
+Removing intermediate container b999e9d179aa
+ <span class="nt">---</span><span class="o">&gt;</span> 247b2ac0a988
+Step 9/12 : COPY <span class="nt">--from</span><span class="o">=</span>build-env /app/out ./
+ <span class="nt">---</span><span class="o">&gt;</span> ef30f581b39d
+Step 10/12 : RUN useradd <span class="nt">-ms</span> /bin/bash moduleuser
+ <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>172a5e40a83e
+Removing intermediate container 172a5e40a83e
+ <span class="nt">---</span><span class="o">&gt;</span> dc3691450b75
+Step 11/12 : USER moduleuser
+ <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>c71d5ab2fc77
+Removing intermediate container c71d5ab2fc77
+ <span class="nt">---</span><span class="o">&gt;</span> d4798c0654e7
+Step 12/12 : ENTRYPOINT <span class="o">[</span><span class="s2">"dotnet"</span>, <span class="s2">"EchoModule.dll"</span><span class="o">]</span>
+ <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>547f0facbdd8
+Removing intermediate container 547f0facbdd8
+ <span class="nt">---</span><span class="o">&gt;</span> 114a7cc96b50
+Successfully built 114a7cc96b50
+Successfully tagged xavierregistry.azurecr.io/echomodule:0.0.1-amd64
+
+<span class="c"># Pushing it</span>
+The push refers to repository <span class="o">[</span>xavierregistry.azurecr.io/echomodule]
+11e1e4b905fe: Pushed 
+a0d529ad3f07: Pushed 
+f081219e5aa6: Pushed 
+be1595c6dfc4: Pushed 
+ecf7942d9af2: Pushed 
+ea4e5356527d: Pushed 
+6270adb5794c: Pushed 
+0.0.1-amd64: digest: sha256:7021323942c2323adb48d17ec73b00e69ec19216c816de59e2eb6e9a0b3f682c size: 1789
+</code></pre></div></div>
+
+<h3 id="deploying-our-edge-module">Deploying our Edge Module</h3>
+
+<p>Now that our module is created and pushed to our repository, we can now push it to our Edge Module. For this, simply right-click on our device and select “Create Deployment for Single Device”</p>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-deploy.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-deploy.png" /></p>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png" /></p>
+
+<p>This will open up our output and show:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Edge] Start deployment to device <span class="o">[</span>xavier-device-1]
+<span class="o">[</span>Edge] Deployment succeeded.
+</code></pre></div></div>
+
+<p>When we open up our device now, we can see that under modules we have an extra module deployed.</p>
+
+<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png" /></p>
+
+<h2 id="testing-our-deployment">Testing our Deployment</h2>
+
+<p>To monitor our device, we can now go to our devices and select “Start Monitoring Built-In Event Endpoint” which will open a logger for us. When we did this, we will now after a few seconds see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>IoTHubMonitor] <span class="o">[</span>5:59:27 PM] Message received from <span class="o">[</span>xavier-device-1/EchoModule]:
+<span class="s2">"Sending event at 05/24/2019 17:59"</span>
+</code></pre></div></div>
+
+<p>For our Echo module, we can now send a C2D message (Cloud to Device), we do this by Right-Clicking our device again and selecting “Send D2C Message to IoTHub” and entering our message.</p>
+
+<p>When everything goes well we will now see the following in our Device Event Log:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>D2CMessage] Sending message to <span class="o">[</span>IoT Hub] ...
+<span class="o">[</span>IoTHubMonitor] <span class="o">[</span>6:02:36 PM] Message received from <span class="o">[</span>xavier-device-1]:
+<span class="s2">"Hello World"</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We now created our first initial module, so let’s get started for real now and work on <a href="/iot-edge-part2">creating our AI Edge Module in Part 2</a>!</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+                <section class="subscribe-form">
+                    <h3 class="subscribe-form-title">Subscribe</h3>
+                    <p>Get the latest posts delivered right to your inbox</p>
+                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+                </section>
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/iot-edge-part1';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/azure/">Azure</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge">Creating an Internet Of Things (IoT) Edge Deployment</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/automl-interface-telco-churn-prediction">Automatically create an AI model for your dataset using Azure AutoML</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/azure-data-lake-gen-2-browser">Creating an Azure Data Lake Gen 2 File Browser for the Web</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/azure/">
+                                
+                                    See all 4 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/automl-interface-telco-churn-prediction">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/ai.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/automl-interface-telco-churn-prediction">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Azure</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-python</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Automatically create an AI model for your dataset using Azure AutoML</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>An annoying part in working with classification, regression or other AI algorithms is that you always need to write a lot of code, prepare your data and do other steps before you are</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/iot-edge">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/iot.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/iot-edge">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Azure</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-javascript</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Creating an Internet Of Things (IoT) Edge Deployment</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Part+1+-+Manage%2C+Connect+and+Deploy+our+simulators+to+our+Edge+Devices+with+IoT+Hub&amp;url=https://thebillkidy.github.io/iot-edge-part1"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/iot-edge-part1"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/iot-edge-part1&title=Part+1+-+Manage%2C+Connect+and+Deploy+our+simulators+to+our+Edge+Devices+with+IoT+Hub&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                <h1 class="subscribe-overlay-title">Subscribe</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
+    </div>
+    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>
