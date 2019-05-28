@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/infrastructure.jpg'
 navigation: True
 title: Big Data Platform Comparisons
-date: 2019-05-28 09:00:00
+date: 2019-05-27 09:00:00
 tags: azure big-data
 class: post-template
 subclass: 'post'
