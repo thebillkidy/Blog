@@ -8,6 +8,218 @@
     
       
       <item>
+        <title>Big Data Platform Comparisons</title>
+        
+          <description>&lt;p&gt;Chosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
+
+&lt;p&gt;This is the reason that I decided to create a comparison of the different Big Data platforms from a &lt;strong&gt;Microsoft&lt;/strong&gt; perspective.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; This will also include a lot of assumptions to make the comparison as fair as possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The products that we will be covering are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/databricks/&quot;&gt;Azure Databricks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/hdinsight/&quot;&gt;HDInsight&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/machine-learning-service/&quot;&gt;Machine Learning Services&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hortonworks.com/open-source/cloudbreak/&quot;&gt;Cloudera Cloudbreak (old Hortonworks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/tree/master/resource-managers/kubernetes&quot;&gt;Apache Spark on Kubernetes (K8S)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;assumptions&quot;&gt;Assumptions&lt;/h2&gt;
+
+&lt;p&gt;As in any comparison, some assumptions were made. In this case the following assumptions were made:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1 Web Node was utilized where a web interface is required
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dv3-series-1&quot;&gt;D2v3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Cloudera Cloudbreak&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2 Head Nodes were utilized where required for HA purposes
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#av2-series&quot;&gt;A3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; HDInsight, Cloudera Cloudbreak&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3 Worker Nodes were utilized
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-memory#dsv2-series-11-15&quot;&gt;D13v2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;No Data Disks were selected&lt;/li&gt;
+  &lt;li&gt;For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo)
+    &lt;ul&gt;
+      &lt;li&gt;Note: 8h pricing is also included in others, but has been wrapped with &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; for clarity reasons. They can pause but extra work will be required to support this.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comparison-matrix&quot;&gt;Comparison Matrix&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;-&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Spark on K8S&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Azure Databricks&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;HDInsight&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Cloudera Cloudbreak&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Azure Machine Learning Services&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Multi Cloud&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes &lt;em&gt;(1)&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Deployment Model&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IaaS / Half PaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS (with full cluster control)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Auto Scale&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (will require manual configuration)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (preview)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (on Machine Learning Compute or Databricks)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Compute Pause Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes and can be automated)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes, and can be automated)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Language Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java, &lt;a href=&quot;https://github.com/dotnet/spark&quot;&gt;.NET&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Python &amp;amp; REST&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Notebook Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Scheduling Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, Through Platform or SDK integration&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Tooling Re-training Required&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Server management through K8S&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Databricks Interface&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components &amp;amp; Cloudbreak Interface&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;SDK Interface OR GUI Interface in Azure Portal&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Extensibility&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Performance Gain Out-Of-The-Box&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;40%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;N/A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Cost&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $1,662.21&lt;br /&gt;(8h: $546.48)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,409.00&lt;br /&gt;8h: $803,88&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,084.00&lt;br /&gt;(8h: $685.15)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,100.36&lt;br /&gt;8h: $749.43&lt;br /&gt;+$375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Depends on K8S, HDI, Databricks VMs implementation&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;(1):&lt;/strong&gt; Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(2):&lt;/strong&gt; Databricks offers an out of the box performance increase - see: &lt;a href=&quot;https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html&quot;&gt;website1&lt;/a&gt; and &lt;a href=&quot;https://github.com/databricks/benchmarks&quot;&gt;website2&lt;/a&gt; for more details&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of $1.500 per license for only the worker nodes (so 3 worker nodes * $1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;More references can be found for the following products at these links:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HDInsight
+    &lt;ul&gt;
+      &lt;li&gt;AutoScale: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Jupyter Notebook: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Job Scheduling: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Spark on K8S
+    &lt;ul&gt;
+      &lt;li&gt;Autoscale &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cloudbreak
+    &lt;ul&gt;
+      &lt;li&gt;Autoscale: &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Notebooks: &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Azure Machine Learning Services
+    &lt;ul&gt;
+      &lt;li&gt;Compute Environments: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        
+        <pubDate>Tue, 28 May 2019 09:00:00 +0000</pubDate>
+        <link>
+        /big-data-platforms-comparison</link>
+        <guid isPermaLink="true">/big-data-platforms-comparison</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Creating an Internet Of Things (IoT) Edge Deployment</title>
         
           <description>&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;

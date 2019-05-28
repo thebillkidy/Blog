@@ -1,4 +1,201 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-05-27T19:02:30+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title><link href="/iot-edge-part1" rel="alternate" type="text/html" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" /><published>2019-05-20T09:00:00+00:00</published><updated>2019-05-20T09:00:00+00:00</updated><id>/iot-edge-part1</id><content type="html" xml:base="/iot-edge-part1">&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-05-28T09:00:51+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Big Data Platform Comparisons</title><link href="/big-data-platforms-comparison" rel="alternate" type="text/html" title="Big Data Platform Comparisons" /><published>2019-05-28T09:00:00+00:00</published><updated>2019-05-28T09:00:00+00:00</updated><id>/big-data-platforms-comparison</id><content type="html" xml:base="/big-data-platforms-comparison">&lt;p&gt;Chosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
+
+&lt;p&gt;This is the reason that I decided to create a comparison of the different Big Data platforms from a &lt;strong&gt;Microsoft&lt;/strong&gt; perspective.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; This will also include a lot of assumptions to make the comparison as fair as possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The products that we will be covering are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/databricks/&quot;&gt;Azure Databricks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/hdinsight/&quot;&gt;HDInsight&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/machine-learning-service/&quot;&gt;Machine Learning Services&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hortonworks.com/open-source/cloudbreak/&quot;&gt;Cloudera Cloudbreak (old Hortonworks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/tree/master/resource-managers/kubernetes&quot;&gt;Apache Spark on Kubernetes (K8S)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;assumptions&quot;&gt;Assumptions&lt;/h2&gt;
+
+&lt;p&gt;As in any comparison, some assumptions were made. In this case the following assumptions were made:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1 Web Node was utilized where a web interface is required
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dv3-series-1&quot;&gt;D2v3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Cloudera Cloudbreak&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2 Head Nodes were utilized where required for HA purposes
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#av2-series&quot;&gt;A3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; HDInsight, Cloudera Cloudbreak&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3 Worker Nodes were utilized
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-memory#dsv2-series-11-15&quot;&gt;D13v2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;No Data Disks were selected&lt;/li&gt;
+  &lt;li&gt;For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo)
+    &lt;ul&gt;
+      &lt;li&gt;Note: 8h pricing is also included in others, but has been wrapped with &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; for clarity reasons. They can pause but extra work will be required to support this.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comparison-matrix&quot;&gt;Comparison Matrix&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;-&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Spark on K8S&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Azure Databricks&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;HDInsight&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Cloudera Cloudbreak&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Azure Machine Learning Services&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Multi Cloud&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes &lt;em&gt;(1)&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Deployment Model&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IaaS / Half PaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS (with full cluster control)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Auto Scale&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (will require manual configuration)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (preview)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (on Machine Learning Compute or Databricks)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Compute Pause Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes and can be automated)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes, and can be automated)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Language Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java, &lt;a href=&quot;https://github.com/dotnet/spark&quot;&gt;.NET&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Python &amp;amp; REST&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Notebook Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Scheduling Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, Through Platform or SDK integration&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Tooling Re-training Required&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Server management through K8S&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Databricks Interface&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components &amp;amp; Cloudbreak Interface&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;SDK Interface OR GUI Interface in Azure Portal&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Extensibility&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Performance Gain Out-Of-The-Box&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;40%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;N/A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Cost&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $1,662.21&lt;br /&gt;(8h: $546.48)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,409.00&lt;br /&gt;8h: $803,88&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,084.00&lt;br /&gt;(8h: $685.15)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,100.36&lt;br /&gt;8h: $749.43&lt;br /&gt;+$375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Depends on K8S, HDI, Databricks VMs implementation&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;(1):&lt;/strong&gt; Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(2):&lt;/strong&gt; Databricks offers an out of the box performance increase - see: &lt;a href=&quot;https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html&quot;&gt;website1&lt;/a&gt; and &lt;a href=&quot;https://github.com/databricks/benchmarks&quot;&gt;website2&lt;/a&gt; for more details&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of $1.500 per license for only the worker nodes (so 3 worker nodes * $1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;More references can be found for the following products at these links:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HDInsight
+    &lt;ul&gt;
+      &lt;li&gt;AutoScale: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Jupyter Notebook: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Job Scheduling: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Spark on K8S
+    &lt;ul&gt;
+      &lt;li&gt;Autoscale &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cloudbreak
+    &lt;ul&gt;
+      &lt;li&gt;Autoscale: &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Notebooks: &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Azure Machine Learning Services
+    &lt;ul&gt;
+      &lt;li&gt;Compute Environments: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="big-data" /><summary type="html">Chosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads. This is the reason that I decided to create a comparison of the different Big Data platforms from a Microsoft perspective. Note: I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in. Note 2: This will also include a lot of assumptions to make the comparison as fair as possible. The products that we will be covering are: Azure Databricks HDInsight Machine Learning Services Cloudera Cloudbreak (old Hortonworks) Apache Spark on Kubernetes (K8S) Note: I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service. Assumptions As in any comparison, some assumptions were made. In this case the following assumptions were made: 1 Web Node was utilized where a web interface is required Size: D2v3 Solutions: Cloudera Cloudbreak 2 Head Nodes were utilized where required for HA purposes Size: A3 Solutions: HDInsight, Cloudera Cloudbreak 3 Worker Nodes were utilized Size: D13v2 Solutions: Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S) No Data Disks were selected For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo) Note: 8h pricing is also included in others, but has been wrapped with () for clarity reasons. They can pause but extra work will be required to support this. Comparison Matrix - Spark on K8S Azure Databricks HDInsight Cloudera Cloudbreak Azure Machine Learning Services Multi Cloud Yes Yes No Yes Yes (1) Deployment Model IaaS / Half PaaS PaaS PaaS (with full cluster control) IaaS PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S Auto Scale Yes (will require manual configuration) Yes Yes (preview) Yes Yes (on Machine Learning Compute or Databricks) Compute Pause Support No (but scale-down yes and can be automated) Yes No (but scale-down yes, and can be automated) Yes Yes Language Support Scala, Python, R, SQL, Java, .NET Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Python &amp;amp; REST Notebook Support No Yes Yes Yes Yes Scheduling Support No Yes Yes, through Oozie Yes, through Oozie Yes, Through Platform or SDK integration Tooling Re-training Required Server management through K8S Databricks Interface HDP Components HDP Components &amp;amp; Cloudbreak Interface SDK Interface OR GUI Interface in Azure Portal Extensibility No No Yes Yes Yes Performance Gain Out-Of-The-Box 0% 40% 0% 0% N/A Cost 24h: $1,662.21(8h: $546.48) 24h: $2,409.008h: $803,88Note: perf increase added (2) 24h: $2,084.00(8h: $685.15) 24h: $2,100.368h: $749.43+$375 license cost (3) / mo Depends on K8S, HDI, Databricks VMs implementation Notes: (1): Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it. (2): Databricks offers an out of the box performance increase - see: website1 and website2 for more details (3): For enterprise support, licenses are required. See this website for more information. For our comparison, we took a price of $1.500 per license for only the worker nodes (so 3 worker nodes * $1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative! References More references can be found for the following products at these links: HDInsight AutoScale: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters Jupyter Notebook: https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels Job Scheduling: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs Spark on K8S Autoscale https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler and https://github.com/kedacore/keda Cloudbreak Autoscale: https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html Notebooks: https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html Azure Machine Learning Services Compute Environments: https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets</summary></entry><entry><title type="html">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title><link href="/iot-edge-part1" rel="alternate" type="text/html" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" /><published>2019-05-20T09:00:00+00:00</published><updated>2019-05-20T09:00:00+00:00</updated><id>/iot-edge-part1</id><content type="html" xml:base="/iot-edge-part1">&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;This is Part 1 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt;. Part 2 is currently under construction and will follow soon.&lt;/p&gt;
@@ -1512,54 +1709,4 @@ cx + dy
   &lt;li&gt;$z = \mid z \mid * (cos(\theta) + i*sin(\theta))$&lt;/li&gt;
   &lt;li&gt;$\mid z \mid = \sqrt{x^2 + y^2}$&lt;/li&gt;
   &lt;li&gt;$\theta = tg^{-1}(\frac{y}{x})$&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing. Basic Concepts Most often used in Quantum Computing are the so called “Ket” vectors, which are a representation of the “Dirac Notation”. These vectors can look like: $&amp;lt;\phi|\psi&amp;gt;$ where we have several elements: &amp;lt; x = Our “bra”, mostly representing a row vector | = Action of a linear functional on a vector or the scalar product of vectors y &amp;gt; = our “ket”, mostly representing a column vector Matrices A matrix is a rectangular scheme of numbers with m rows and x columns. It is an easy way to calculate formulas that are represented in some sort of structure. Most commonly used in Quantum Computing is the need for being able to Multiply these matrices. However to be able to multiple these matrices, we first need to look if the base requirement of the columns of matrix a being equal to the rows of matrix b is met. Once that is done, we can start multiplying them. To multiple those, we then take every row and multiply it with every column, taking the sum of the results. Example: Notice that our first matrix is a 2 x 2 matrix, and our second one is a 2 x 1 –&amp;gt; 2 x 2 &amp;amp; 2 x 1, the insides 2’s have to be equal. Putting this into practice: Complex Numbers Complex numbers are written by $i$, they solve the fundamental problem of $\sqrt{-1}$ which is impossible to solve, stating it as a new symbol $i$. We can visualize complex numbers by using a circle of unit length 1, generating an Imaginary axis and a Real axis. Where we can find the following statements: $z = x + y*i$ $z= e^{j\theta}$ $z = \mid z \mid * (cos(\theta) + i*sin(\theta))$ $\mid z \mid = \sqrt{x^2 + y^2}$ $\theta = tg^{-1}(\frac{y}{x})$</summary></entry><entry><title type="html">Using secrets to hide passwords and other confidential information in Databricks</title><link href="/databricks-using-secrets" rel="alternate" type="text/html" title="Using secrets to hide passwords and other confidential information in Databricks" /><published>2019-01-10T09:00:00+00:00</published><updated>2019-01-10T09:00:00+00:00</updated><id>/databricks-using-secrets</id><content type="html" xml:base="/databricks-using-secrets">&lt;p&gt;A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs.&lt;/p&gt;
-
-&lt;h2 id=&quot;installing-databricks-cli&quot;&gt;Installing Databricks CLI&lt;/h2&gt;
-
-&lt;p&gt;Luckily Databricks allows us just this. But before we can get started, we first have to configure our CLI tool of Databricks. For my example, I have decided to work with &lt;strong&gt;token authentication&lt;/strong&gt; seeing that I login through AAD.&lt;/p&gt;
-
-&lt;p&gt;To configure a Token for your Databricks account, login to the portal and go to: User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token and fill in a comment and a lifetime. (Note: you can leave lifetime empty, making a token for indefinite use).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/databricks-secrets/creating-user-token.png&quot; alt=&quot;/assets/images/posts/databricks-secrets/creating-user-token.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/databricks-secrets/creating-user-token-generated.png&quot; alt=&quot;/assets/images/posts/databricks-secrets/creating-user-token-generated.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We can now start installing our CLI and configure our account in it by using the token.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install the Databricks CLI&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;databricks-cli
-databricks configure &lt;span class=&quot;nt&quot;&gt;--token&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Log in on our Databricks account with a token&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# --- Details ---&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Host: &amp;lt;YOUR_HOST&amp;gt; # For Azure this could be: https://&amp;lt;REGION&amp;gt;.azuredatabricks.net e.g. https://westeurope.azuredatabricks.net&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Token: &amp;lt;TOKEN&amp;gt; # Our generated token in User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token (Name = Databricks-CLI)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;creating-a-secret&quot;&gt;Creating a secret&lt;/h2&gt;
-
-&lt;p&gt;Once we did that, we can actually start creating a secret. Open up your favorite terminal and run the following commands:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create our secret in a new scope&lt;/span&gt;
-databricks secrets create-scope &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; &amp;lt;SECRET_SCOPE&amp;gt;
-databricks secrets put &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; XAVIER &lt;span class=&quot;nt&quot;&gt;--key&lt;/span&gt; &amp;lt;KEY_NAME&amp;gt; &lt;span class=&quot;c&quot;&gt;# Save the secret&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# -&amp;gt; Input Password in the editor that opens and close it&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Show our scopes&lt;/span&gt;
-databricks secrets list &lt;span class=&quot;nt&quot;&gt;--scope&lt;/span&gt; &amp;lt;SECRET_SCOPE&amp;gt; &lt;span class=&quot;c&quot;&gt;# Shows Scopes&lt;/span&gt;
-dbutils.secrets.get&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;KEY_NAME&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Congratulations! Your first secret has been created and can now be utilized in your notebooks with the &lt;code class=&quot;highlighter-rouge&quot;&gt;dbutils&lt;/code&gt; command:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dbutils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secrets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;KEY_NAME&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html&quot;&gt;https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html&quot;&gt;https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret&quot;&gt;https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="databricks" /><summary type="html">A common something that you want to do in Databricks is hide your passwords and other confidential information in it, because else it will all be visible within your notebooks and logs. Installing Databricks CLI Luckily Databricks allows us just this. But before we can get started, we first have to configure our CLI tool of Databricks. For my example, I have decided to work with token authentication seeing that I login through AAD. To configure a Token for your Databricks account, login to the portal and go to: User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token and fill in a comment and a lifetime. (Note: you can leave lifetime empty, making a token for indefinite use). We can now start installing our CLI and configure our account in it by using the token. # Install the Databricks CLI sudo pip install databricks-cli databricks configure --token # Log in on our Databricks account with a token # --- Details --- # Host: &amp;lt;YOUR_HOST&amp;gt; # For Azure this could be: https://&amp;lt;REGION&amp;gt;.azuredatabricks.net e.g. https://westeurope.azuredatabricks.net # Token: &amp;lt;TOKEN&amp;gt; # Our generated token in User Settings -&amp;gt; Access Token -&amp;gt; Generate New Token (Name = Databricks-CLI) Creating a secret Once we did that, we can actually start creating a secret. Open up your favorite terminal and run the following commands: # Create our secret in a new scope databricks secrets create-scope --scope &amp;lt;SECRET_SCOPE&amp;gt; databricks secrets put --scope XAVIER --key &amp;lt;KEY_NAME&amp;gt; # Save the secret # -&amp;gt; Input Password in the editor that opens and close it # Show our scopes databricks secrets list --scope &amp;lt;SECRET_SCOPE&amp;gt; # Shows Scopes dbutils.secrets.get(&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;, &quot;&amp;lt;KEY_NAME&amp;gt;&quot;) Congratulations! Your first secret has been created and can now be utilized in your notebooks with the dbutils command: String password = dbutils.secrets.get(&quot;&amp;lt;SECRET_SCOPE&amp;gt;&quot;, &quot;&amp;lt;KEY_NAME&amp;gt;&quot;) References https://docs.azuredatabricks.net/user-guide/dev-tools/databricks-cli.html https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html https://docs.databricks.com/user-guide/secrets/secrets.html#create-a-secret</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum requires a lot of Linear Algebra, so much even that it’s very interesting to have a quick reminder about it. In here I will explain the basics of Linear Algebra that are needed to work with Quantum Computing. Basic Concepts Most often used in Quantum Computing are the so called “Ket” vectors, which are a representation of the “Dirac Notation”. These vectors can look like: $&amp;lt;\phi|\psi&amp;gt;$ where we have several elements: &amp;lt; x = Our “bra”, mostly representing a row vector | = Action of a linear functional on a vector or the scalar product of vectors y &amp;gt; = our “ket”, mostly representing a column vector Matrices A matrix is a rectangular scheme of numbers with m rows and x columns. It is an easy way to calculate formulas that are represented in some sort of structure. Most commonly used in Quantum Computing is the need for being able to Multiply these matrices. However to be able to multiple these matrices, we first need to look if the base requirement of the columns of matrix a being equal to the rows of matrix b is met. Once that is done, we can start multiplying them. To multiple those, we then take every row and multiply it with every column, taking the sum of the results. Example: Notice that our first matrix is a 2 x 2 matrix, and our second one is a 2 x 1 –&amp;gt; 2 x 2 &amp;amp; 2 x 1, the insides 2’s have to be equal. Putting this into practice: Complex Numbers Complex numbers are written by $i$, they solve the fundamental problem of $\sqrt{-1}$ which is impossible to solve, stating it as a new symbol $i$. We can visualize complex numbers by using a circle of unit length 1, generating an Imaginary axis and a Real axis. Where we can find the following statements: $z = x + y*i$ $z= e^{j\theta}$ $z = \mid z \mid * (cos(\theta) + i*sin(\theta))$ $\mid z \mid = \sqrt{x^2 + y^2}$ $\theta = tg^{-1}(\frac{y}{x})$</summary></entry></feed>
