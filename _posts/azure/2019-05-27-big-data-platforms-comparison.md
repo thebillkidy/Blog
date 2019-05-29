@@ -60,7 +60,7 @@ As in any comparison, some assumptions were made. In this case the following ass
 |**Tooling Re-training Required**|Server management through K8S|Databricks Interface|HDP Components|HDP Components & Cloudbreak Interface|SDK Interface OR GUI Interface in Azure Portal|
 |**Extensibility**|No|No|Yes|Yes|Yes|
 |**Performance Gain Out-Of-The-Box**|0%|40%|0%|0%|N/A|
-|**Cost**|24h: $1,662.21<br />(8h: $546.48)|24h: $2,409.00<br />8h: $803,88<br />Note: perf increase added *(2)*|24h: $2,084.00<br />(8h: $685.15)|24h: $2,100.36<br />8h: $749.43<br />+$375 license cost *(3)* / mo|Depends on K8S, HDI, Databricks VMs implementation|
+|**Cost**|24h: \$1,662.21<br />(8h: \$546.48)|24h: \$2,409.00<br />8h: \$803,88<br />Note: perf increase added *(2)*|24h: \$2,084.00<br />(8h: \$685.15)|24h: \$2,100.36<br />8h: \$749.43<br />+\$375 license cost *(3)* / mo|Depends on K8S, HDI, Databricks VMs implementation|
 
 **Notes:**
 * **(1):** Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.
