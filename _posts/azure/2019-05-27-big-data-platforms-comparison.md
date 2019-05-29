@@ -65,7 +65,7 @@ As in any comparison, some assumptions were made. In this case the following ass
 **Notes:**
 * **(1):** Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.
 * **(2):** Databricks offers an out of the box performance increase - see: [website1](https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html) and [website2](https://github.com/databricks/benchmarks) for more details
-* **(3):** For enterprise support, licenses are required. See [this website](https://hortonworks.com/services/support/enterprise/) for more information. For our comparison, we took a price of $1.500 per license for only the worker nodes (so 3 worker nodes * $1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!
+* **(3):** For enterprise support, licenses are required. See [this website](https://hortonworks.com/services/support/enterprise/) for more information. For our comparison, we took a price of \$1.500 per license for only the worker nodes (so 3 worker nodes * \$1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!
 
 ## References
 
