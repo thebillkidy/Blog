@@ -60,12 +60,12 @@ As in any comparison, some assumptions were made. In this case the following ass
 |**Tooling Re-training Required**|Server management through K8S|Databricks Interface|HDP Components|HDP Components & Cloudbreak Interface|SDK Interface OR GUI Interface in Azure Portal|
 |**Extensibility**|No|No|Yes|Yes|Yes|
 |**Performance Gain Out-Of-The-Box**|0%|40%|0%|0%|N/A|
-|**Cost**|24h: $\$$1,662.21<br />(8h: $\$$546.48)|24h: &#36;2,409.00<br />8h: &#36;803,88<br />Note: perf increase added *(2)*|24h: &#36;2,084.00<br />(8h: &#36;685.15)|24h: &#36;2,100.36<br />8h: &#36;749.43<br />+&#36;375 license cost *(3)* / mo|Depends on K8S, HDI, Databricks VMs implementation|
+|**Cost**|24h: \$1,662.21<br />(8h: \$546.48)|24h: \$2,409.00<br />8h: \$803,88<br />Note: perf increase added *(2)*|24h: \$2,084.00<br />(8h: \$685.15)|24h: \$2,100.36<br />8h: \$749.43<br />+\$375 license cost *(3)* / mo|Depends on K8S, HDI, Databricks VMs implementation|
 
 **Notes:**
 * **(1):** Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.
 * **(2):** Databricks offers an out of the box performance increase - see: [website1](https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html) and [website2](https://github.com/databricks/benchmarks) for more details
-* **(3):** For enterprise support, licenses are required. See [this website](https://hortonworks.com/services/support/enterprise/) for more information. For our comparison, we took a price of &#36;1.500 per license for only the worker nodes (so 3 worker nodes * &#36;1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!
+* **(3):** For enterprise support, licenses are required. See [this website](https://hortonworks.com/services/support/enterprise/) for more information. For our comparison, we took a price of \$1.500 per license for only the worker nodes (so 3 worker nodes * \$1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!
 
 ## References
 
