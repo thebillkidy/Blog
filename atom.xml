@@ -163,10 +163,10 @@
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;&lt;strong&gt;Cost&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: $1,662.21&lt;br /&gt;(8h: $546.48)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,409.00&lt;br /&gt;8h: $803,88&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,084.00&lt;br /&gt;(8h: $685.15)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: $2,100.36&lt;br /&gt;8h: $749.43&lt;br /&gt;+$375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: &lt;span&gt;$&lt;/span&gt;1,662.21&lt;br /&gt;(8h: &lt;span&gt;$&lt;/span&gt;546.48)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: &lt;span&gt;$&lt;/span&gt;2,409.00&lt;br /&gt;8h: &lt;span&gt;$&lt;/span&gt;803,88&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: &lt;span&gt;$&lt;/span&gt;2,084.00&lt;br /&gt;(8h: &lt;span&gt;$&lt;/span&gt;685.15)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: &lt;span&gt;$&lt;/span&gt;2,100.36&lt;br /&gt;8h: &lt;span&gt;$&lt;/span&gt;749.43&lt;br /&gt;+&lt;span&gt;$&lt;/span&gt;375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;Depends on K8S, HDI, Databricks VMs implementation&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -176,7 +176,7 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;(1):&lt;/strong&gt; Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;(2):&lt;/strong&gt; Databricks offers an out of the box performance increase - see: &lt;a href=&quot;https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html&quot;&gt;website1&lt;/a&gt; and &lt;a href=&quot;https://github.com/databricks/benchmarks&quot;&gt;website2&lt;/a&gt; for more details&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of $1.500 per license for only the worker nodes (so 3 worker nodes * $1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of &lt;span&gt;$&lt;/span&gt;1.500 per license for only the worker nodes (so 3 worker nodes * &lt;span&gt;$&lt;/span&gt;1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
