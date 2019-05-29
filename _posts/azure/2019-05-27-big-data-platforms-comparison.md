@@ -11,7 +11,7 @@ subclass: 'post'
 author: xavier
 ---
 
-Chosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.
+Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.
 
 This is the reason that I decided to create a comparison of the different Big Data platforms from a **Microsoft** perspective.
 
@@ -60,31 +60,28 @@ As in any comparison, some assumptions were made. In this case the following ass
 |**Tooling Re-training Required**|Server management through K8S|Databricks Interface|HDP Components|HDP Components & Cloudbreak Interface|SDK Interface OR GUI Interface in Azure Portal|
 |**Extensibility**|No|No|Yes|Yes|Yes|
 |**Performance Gain Out-Of-The-Box**|0%|40%|0%|0%|N/A|
-|**Cost**|24h: \$1,662.21<br />(8h: \$546.48)|24h: \$2,409.00<br />8h: \$803,88<br />Note: perf increase added *(2)*|24h: \$2,084.00<br />(8h: \$685.15)|24h: \$2,100.36<br />8h: \$749.43<br />+\$375 license cost *(3)* / mo|Depends on K8S, HDI, Databricks VMs implementation|
+|**Cost**|24h: &#36;1,662.21<br />(8h: &#36;546.48)|24h: &#36;2,409.00<br />8h: &#36;803,88<br />Note: perf increase added *(2)*|24h: &#36;2,084.00<br />(8h: &#36;685.15)|24h: &#36;2,100.36<br />8h: &#36;749.43<br />+&#36;375 license cost *(3)* / mo|Depends on K8S, HDI, Databricks VMs implementation|
 
 **Notes:**
 * **(1):** Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.
 * **(2):** Databricks offers an out of the box performance increase - see: [website1](https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html) and [website2](https://github.com/databricks/benchmarks) for more details
-* **(3):** For enterprise support, licenses are required. See [this website](https://hortonworks.com/services/support/enterprise/) for more information. For our comparison, we took a price of \$1.500 per license for only the worker nodes (so 3 worker nodes * \$1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!
+* **(3):** For enterprise support, licenses are required. See [this website](https://hortonworks.com/services/support/enterprise/) for more information. For our comparison, we took a price of &#36;1.500 per license for only the worker nodes (so 3 worker nodes * &#36;1.500 / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!
 
 ## References
 
 More references can be found for the following products at these links:
 
-* HDInsight
-  * AutoScale: [https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters)
-  * Jupyter Notebook: [https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels](https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels)
-  * Job Scheduling: [https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs)
+**HDInsight**
+  * **AutoScale:** [https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters)
+  * **Jupyter Notebook:** [https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels](https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels)
+  * **Job Scheduling:** [https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs)
 
-* Spark on K8S
-  * Autoscale [https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler) and [https://github.com/kedacore/keda](https://github.com/kedacore/keda)
+**Spark on K8S**
+  * **Autoscale:** [https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler](https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler) and [https://github.com/kedacore/keda](https://github.com/kedacore/keda)
 
-* Cloudbreak
-  * Autoscale: [https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html](https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html)
-  * Notebooks: [https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html](https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html)
+**Cloudbreak**
+  * **Autoscale:** [https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html](https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html)
+  * **Notebooks:** [https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html](https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html)
 
-* Azure Machine Learning Services
-  * Compute Environments: [https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets)
-
-
-
+**Azure Machine Learning Services**
+  * **Compute Environments:** [https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets)
