@@ -10,7 +10,7 @@
       <item>
         <title>Big Data Platform Comparisons</title>
         
-          <description>&lt;p&gt;Chosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
+          <description>&lt;p&gt;Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
 
 &lt;p&gt;This is the reason that I decided to create a comparison of the different Big Data platforms from a &lt;strong&gt;Microsoft&lt;/strong&gt; perspective.&lt;/p&gt;
 
@@ -183,32 +183,28 @@
 
 &lt;p&gt;More references can be found for the following products at these links:&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;HDInsight&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;HDInsight
-    &lt;ul&gt;
-      &lt;li&gt;AutoScale: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Jupyter Notebook: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Job Scheduling: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Spark on K8S
-    &lt;ul&gt;
-      &lt;li&gt;Autoscale &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Cloudbreak
-    &lt;ul&gt;
-      &lt;li&gt;Autoscale: &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;Notebooks: &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Azure Machine Learning Services
-    &lt;ul&gt;
-      &lt;li&gt;Compute Environments: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;AutoScale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Jupyter Notebook:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Job Scheduling:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;strong&gt;Spark on K8S&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Cloudbreak&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Notebooks:&lt;/strong&gt; &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Azure Machine Learning Services&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Compute Environments:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         
         <pubDate>Mon, 27 May 2019 09:00:00 +0000</pubDate>
