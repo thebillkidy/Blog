@@ -225,7 +225,7 @@
 &lt;p&gt;&lt;strong&gt;Interesting use cases&lt;/strong&gt; for example are:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Image processing from live video feeds (drones, street cameras, train tracks, …)
+  &lt;li&gt;Image processing from live video feeds (drones, street cameras, …)
     &lt;ul&gt;
       &lt;li&gt;Just think about streaming at 24fps, including your model inference and including the network round-trip&lt;/li&gt;
     &lt;/ul&gt;
