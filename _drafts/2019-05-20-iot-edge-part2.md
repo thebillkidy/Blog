@@ -40,9 +40,28 @@ As we learned in [part 1](/iot-edge-part1) we set up a new IoT Edge solution wit
 * **Module Name:** ModuleSimulatorCar
 * **Docker Repository:** `xavierregistry.azurecr.io/module-simulator-car`
 
-For the data itself I found an excellent repository at: [https://github.com/cloudpose/smartphone_driving_dataset](https://github.com/cloudpose/smartphone_driving_dataset) which includes some CSV files as well as the images captured from the car. The images will be utilized in our Video Simulator, while we will send the CSV files in this simulator.
+For the code itself, we will start off with finding our dataset of points that we want our simulator to use. We will then send off each of these datapoints every second as our simulation.
 
 > **Note:** In real-life you would not use a simulator but just use a module to capture your Video Feed/CAN Dongle/USB/... connected to the device
+
+Luckily an excellent repository exist on GitHub that contains an interesting dataset for car datapoints that are comparable to a CAN bus: [https://github.com/cloudpose/smartphone_driving_dataset](https://github.com/cloudpose/smartphone_driving_dataset) 
+
+This dataset (`dataset_car.csv`) has the following fields:
+
+* Time
+* Seconds
+* Latitude / Y Position (Degrees)
+* Longitude / X Position (Degrees)
+* Distance (Miles)
+* Speed (MPH)
+* Steering Angle
+* Throttle Position
+* Engine RPM
+* Lateral Gs
+* Acceleration Gs
+
+For the actual code:
+
 
 
 
