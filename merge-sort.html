@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -291,8 +289,8 @@ into the {body} of the default.hbs template -->
   <span class="n">vector</span><span class="o">::</span><span class="n">iterator</span> <span class="n">middle</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
 
   <span class="c1">// Create our 2 sub arrays</span>
-  <span class="n">vector</span> <span class="n">left</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">middle</span><span class="p">);</span>
-  <span class="n">vector</span> <span class="n">right</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+  <span class="n">vector</span> <span class="nf">left</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">middle</span><span class="p">);</span>
+  <span class="n">vector</span> <span class="nf">right</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 
   <span class="c1">// Recursively call MergeSort again, needed for the left and right</span>
   <span class="n">merge_sort</span><span class="p">(</span><span class="n">left</span><span class="p">);</span>
@@ -300,7 +298,7 @@ into the {body} of the default.hbs template -->
 
   <span class="c1">// Merge the left and the right array</span>
   <span class="n">merge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="err">}</span>
 </code></pre></div></div>
 
 <h2 id="155-benchmark">1.5.5. Benchmark</h2>
@@ -352,22 +350,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -872,26 +854,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

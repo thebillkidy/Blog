@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -184,29 +182,29 @@ into the {body} of the default.hbs template -->
 
 <span class="k">import</span> <span class="nn">scala.io.Source</span>
 
-<span class="k">val</span> <span class="n">host</span> <span class="k">=</span> <span class="s">"&lt;YOUR_SMTP&gt;"</span>
-<span class="k">val</span> <span class="n">port</span> <span class="k">=</span> <span class="s">"587"</span>
+<span class="k">val</span> <span class="nv">host</span> <span class="k">=</span> <span class="s">"&lt;YOUR_SMTP&gt;"</span>
+<span class="k">val</span> <span class="nv">port</span> <span class="k">=</span> <span class="s">"587"</span>
 
-<span class="k">val</span> <span class="n">address</span> <span class="k">=</span> <span class="s">"&lt;YOUR_EMAIL&gt;"</span>
-<span class="k">val</span> <span class="n">username</span> <span class="k">=</span> <span class="s">"&lt;YOUR_USERNAME&gt;"</span>
-<span class="k">val</span> <span class="n">password</span> <span class="k">=</span> <span class="n">dbutils</span><span class="o">.</span><span class="n">secrets</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"&lt;SECRET_SCOPE&gt;"</span><span class="o">,</span> <span class="s">"EMAIL_SMTP_PASSWORD"</span><span class="o">)</span> 
+<span class="k">val</span> <span class="nv">address</span> <span class="k">=</span> <span class="s">"&lt;YOUR_EMAIL&gt;"</span>
+<span class="k">val</span> <span class="nv">username</span> <span class="k">=</span> <span class="s">"&lt;YOUR_USERNAME&gt;"</span>
+<span class="k">val</span> <span class="nv">password</span> <span class="k">=</span> <span class="nv">dbutils</span><span class="o">.</span><span class="py">secrets</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"&lt;SECRET_SCOPE&gt;"</span><span class="o">,</span> <span class="s">"EMAIL_SMTP_PASSWORD"</span><span class="o">)</span> 
 
-<span class="k">def</span> <span class="n">sendEmail</span><span class="o">(</span><span class="n">mailSubject</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">mailContent</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="n">properties</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Properties</span><span class="o">()</span>
-    <span class="n">properties</span><span class="o">.</span><span class="n">put</span><span class="o">(</span><span class="s">"mail.smtp.port"</span><span class="o">,</span> <span class="n">port</span><span class="o">)</span>
-    <span class="n">properties</span><span class="o">.</span><span class="n">put</span><span class="o">(</span><span class="s">"mail.smtp.auth"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">)</span>
-    <span class="n">properties</span><span class="o">.</span><span class="n">put</span><span class="o">(</span><span class="s">"mail.smtp.starttls.enable"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">)</span>
+<span class="k">def</span> <span class="nf">sendEmail</span><span class="o">(</span><span class="n">mailSubject</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">mailContent</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="nv">properties</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Properties</span><span class="o">()</span>
+    <span class="nv">properties</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="s">"mail.smtp.port"</span><span class="o">,</span> <span class="n">port</span><span class="o">)</span>
+    <span class="nv">properties</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="s">"mail.smtp.auth"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">)</span>
+    <span class="nv">properties</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="s">"mail.smtp.starttls.enable"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">)</span>
 
-    <span class="k">val</span> <span class="n">session</span> <span class="k">=</span> <span class="nc">Session</span><span class="o">.</span><span class="n">getDefaultInstance</span><span class="o">(</span><span class="n">properties</span><span class="o">,</span> <span class="kc">null</span><span class="o">)</span>
-    <span class="k">val</span> <span class="n">message</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">MimeMessage</span><span class="o">(</span><span class="n">session</span><span class="o">)</span>
-    <span class="n">message</span><span class="o">.</span><span class="n">addRecipient</span><span class="o">(</span><span class="nc">Message</span><span class="o">.</span><span class="nc">RecipientType</span><span class="o">.</span><span class="nc">TO</span><span class="o">,</span> <span class="k">new</span> <span class="nc">InternetAddress</span><span class="o">(</span><span class="n">address</span><span class="o">));</span>
-    <span class="n">message</span><span class="o">.</span><span class="n">setSubject</span><span class="o">(</span><span class="n">mailSubject</span><span class="o">)</span>
-    <span class="n">message</span><span class="o">.</span><span class="n">setContent</span><span class="o">(</span><span class="n">mailContent</span><span class="o">,</span> <span class="s">"text/html"</span><span class="o">)</span>
+    <span class="k">val</span> <span class="nv">session</span> <span class="k">=</span> <span class="nv">Session</span><span class="o">.</span><span class="py">getDefaultInstance</span><span class="o">(</span><span class="n">properties</span><span class="o">,</span> <span class="kc">null</span><span class="o">)</span>
+    <span class="k">val</span> <span class="nv">message</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">MimeMessage</span><span class="o">(</span><span class="n">session</span><span class="o">)</span>
+    <span class="nv">message</span><span class="o">.</span><span class="py">addRecipient</span><span class="o">(</span><span class="nv">Message</span><span class="o">.</span><span class="py">RecipientType</span><span class="o">.</span><span class="py">TO</span><span class="o">,</span> <span class="k">new</span> <span class="nc">InternetAddress</span><span class="o">(</span><span class="n">address</span><span class="o">));</span>
+    <span class="nv">message</span><span class="o">.</span><span class="py">setSubject</span><span class="o">(</span><span class="n">mailSubject</span><span class="o">)</span>
+    <span class="nv">message</span><span class="o">.</span><span class="py">setContent</span><span class="o">(</span><span class="n">mailContent</span><span class="o">,</span> <span class="s">"text/html"</span><span class="o">)</span>
 
 
-    <span class="k">val</span> <span class="n">transport</span> <span class="k">=</span> <span class="n">session</span><span class="o">.</span><span class="n">getTransport</span><span class="o">(</span><span class="s">"smtp"</span><span class="o">)</span>
-    <span class="n">transport</span><span class="o">.</span><span class="n">connect</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
-    <span class="n">transport</span><span class="o">.</span><span class="n">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="n">getAllRecipients</span><span class="o">)</span>
+    <span class="k">val</span> <span class="nv">transport</span> <span class="k">=</span> <span class="nv">session</span><span class="o">.</span><span class="py">getTransport</span><span class="o">(</span><span class="s">"smtp"</span><span class="o">)</span>
+    <span class="nv">transport</span><span class="o">.</span><span class="py">connect</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+    <span class="nv">transport</span><span class="o">.</span><span class="py">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="nv">message</span><span class="o">.</span><span class="py">getAllRecipients</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -214,22 +212,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -665,26 +647,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

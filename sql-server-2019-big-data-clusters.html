@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -203,7 +201,7 @@ into the {body} of the default.hbs template -->
 
 <span class="c"># Modify Sources</span>
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>apt-transport-https lsb-release software-properties-common <span class="nt">-y</span>
-<span class="nv">AZ_REPO</span><span class="o">=</span><span class="k">$(</span>lsb_release <span class="nt">-cs</span><span class="k">)</span>
+<span class="nv">AZ_REPO</span><span class="o">=</span><span class="si">$(</span>lsb_release <span class="nt">-cs</span><span class="si">)</span>
 <span class="nb">echo</span> <span class="s2">"deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ </span><span class="nv">$AZ_REPO</span><span class="s2"> main"</span> | <span class="se">\</span>
     <span class="nb">sudo tee</span> /etc/apt/sources.list.d/azure-cli.list
 
@@ -356,22 +354,6 @@ kubectl get service service-proxy-lb <span class="nt">-n</span> &lt;CLUSTER_NAME
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -832,26 +814,6 @@ kubectl get service service-proxy-lb <span class="nt">-n</span> &lt;CLUSTER_NAME
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

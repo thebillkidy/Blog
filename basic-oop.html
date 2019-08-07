@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -250,7 +248,7 @@ into the {body} of the default.hbs template -->
   <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="s">"Outline: "</span> <span class="o">&lt;&lt;</span> <span class="n">f</span><span class="p">.</span><span class="n">get_outline</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="p">};</span>
+<span class="err">}</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h3 id="rectangle-class">Rectangle class</h3>
@@ -264,12 +262,12 @@ into the {body} of the default.hbs template -->
 <p><strong>Implementation:</strong></p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Rectangle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Figure</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Rectangle</span><span class="p">(</span><span class="kt">int</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_length</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="n">m_width</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="p">{};</span>
   <span class="kt">double</span> <span class="n">get_surface</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_length</span> <span class="o">*</span> <span class="n">m_width</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">double</span> <span class="n">get_outline</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_length</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">m_width</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
   <span class="kt">int</span> <span class="n">m_length</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">m_width</span><span class="p">;</span>
 <span class="p">};</span>
@@ -282,7 +280,7 @@ into the {body} of the default.hbs template -->
 <p><strong>Implementation:</strong></p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Square</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Rectangle</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Square</span><span class="p">(</span><span class="kt">int</span> <span class="n">side</span><span class="p">)</span> <span class="o">:</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">side</span><span class="p">)</span> <span class="p">{};</span>
 <span class="p">};</span>
 </code></pre></div></div>
@@ -294,12 +292,12 @@ into the {body} of the default.hbs template -->
 <p><strong>Implementation:</strong></p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Circle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Figure</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Circle</span><span class="p">(</span><span class="kt">int</span> <span class="n">radius</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_radius</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span> <span class="p">{};</span>
   <span class="kt">double</span> <span class="n">get_surface</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="n">m_radius</span> <span class="o">*</span> <span class="n">m_radius</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">double</span> <span class="n">get_outline</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="n">m_radius</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
   <span class="kt">int</span> <span class="n">m_radius</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre></div></div>
@@ -336,7 +334,7 @@ Outline: 16
 <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">Figure</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="k">explicit</span> <span class="n">Figure</span><span class="p">()</span> <span class="p">{};</span>
   <span class="k">virtual</span> <span class="kt">double</span> <span class="n">get_surface</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">virtual</span> <span class="kt">double</span> <span class="n">get_outline</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -349,28 +347,28 @@ Outline: 16
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">Rectangle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Figure</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Rectangle</span><span class="p">(</span><span class="kt">int</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">width</span><span class="p">)</span> <span class="o">:</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">m_length</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="n">m_width</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="p">{};</span>
   <span class="kt">double</span> <span class="n">get_surface</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_length</span> <span class="o">*</span> <span class="n">m_width</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">double</span> <span class="n">get_outline</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_length</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">m_width</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
   <span class="kt">int</span> <span class="n">m_length</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">m_width</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">Square</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Rectangle</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Square</span><span class="p">(</span><span class="kt">int</span> <span class="n">side</span><span class="p">)</span> <span class="o">:</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">side</span><span class="p">)</span> <span class="p">{};</span>
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">Circle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Figure</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Circle</span><span class="p">(</span><span class="kt">int</span> <span class="n">radius</span><span class="p">)</span> <span class="o">:</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">m_radius</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span> <span class="p">{};</span>
   <span class="kt">double</span> <span class="n">get_surface</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="n">m_radius</span> <span class="o">*</span> <span class="n">m_radius</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">double</span> <span class="n">get_outline</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="n">m_radius</span><span class="p">;</span> <span class="p">}</span>
 
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
   <span class="kt">int</span> <span class="n">m_radius</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -392,22 +390,6 @@ Outline: 16
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -983,26 +965,6 @@ Outline: 16
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

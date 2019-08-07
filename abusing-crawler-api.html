@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -197,28 +195,28 @@ into the {body} of the default.hbs template -->
 
 <p>Quickly writing up a script that consumes the Bing Search API gives us:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">node-fetch</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="c1">// Based on https://github.com/Microsoft/BotFramework-Samples/blob/master/StackOverflow-Bot/StackBot/lib/bingsearchclient.js</span>
 <span class="kd">class</span> <span class="nx">BingSearchClient</span> <span class="p">{</span>
     <span class="kd">constructor</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">key</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'bingSearchKey is required'</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">key</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">bingSearchKey is required</span><span class="dl">'</span><span class="p">);</span>
     
         <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchKey</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchCount</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchMkt</span> <span class="o">=</span> <span class="s2">"en-us"</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchBaseUrl</span> <span class="o">=</span> <span class="s2">"https://api.cognitive.microsoft.com/bing/v7.0/search"</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchMkt</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">en-us</span><span class="dl">"</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchBaseUrl</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://api.cognitive.microsoft.com/bing/v7.0/search</span><span class="dl">"</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchMaxSearchStringSize</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="kd">get</span><span class="p">(</span><span class="nx">search</span><span class="p">,</span> <span class="nx">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> 
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">search</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'Search text is required'</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">search</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Search text is required</span><span class="dl">'</span><span class="p">);</span>
             <span class="nx">cb</span> <span class="o">=</span> <span class="nx">cb</span> <span class="o">||</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{});</span>
         
             <span class="kd">const</span> <span class="nx">searchText</span> <span class="o">=</span> <span class="nx">search</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchMaxSearchStringSize</span><span class="p">).</span><span class="nx">trim</span><span class="p">();</span>
         
-            <span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchBaseUrl</span> <span class="o">+</span> <span class="s2">"?"</span>
+            <span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchBaseUrl</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">?</span><span class="dl">"</span>
                 <span class="o">+</span> <span class="s2">`q=</span><span class="p">${</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">searchText</span><span class="p">)}</span><span class="s2">`</span>
                 <span class="o">+</span> <span class="s2">`&amp;count=</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">bingSearchCount</span><span class="p">}</span><span class="s2">`</span>
                 <span class="c1">//+ `&amp;mkt=${this.bingSearchMkt}`</span>
@@ -226,9 +224,9 @@ into the {body} of the default.hbs template -->
 
             <span class="k">try</span> <span class="p">{</span>
                 <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
-                    <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
+                    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
                     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s2">"Ocp-Apim-Subscription-Key"</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchKey</span>
+                        <span class="dl">"</span><span class="s2">Ocp-Apim-Subscription-Key</span><span class="dl">"</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">bingSearchKey</span>
                     <span class="p">}</span>
                 <span class="p">})</span>
                 <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
@@ -267,14 +265,14 @@ into the {body} of the default.hbs template -->
 
 <p>The code that does all of this is:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">HashSetAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../../../API/HashSet'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">HashSetAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../../API/HashSet</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">hashSet</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HashSetAPI</span><span class="p">();</span>
 
-<span class="kd">const</span> <span class="nx">Queue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'bull'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">discoverUsersLinkedInQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Queue</span><span class="p">(</span><span class="s1">'discover-users-linkedin'</span><span class="p">,</span> <span class="s1">'redis://127.0.0.1:6379'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Queue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">bull</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">discoverUsersLinkedInQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Queue</span><span class="p">(</span><span class="dl">'</span><span class="s1">discover-users-linkedin</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">redis://127.0.0.1:6379</span><span class="dl">'</span><span class="p">);</span>
 
-<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../../../config'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">BingSearchClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../../../API/BingSearchClient'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../../config</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">BingSearchClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../../API/BingSearchClient</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">bingSearchClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BingSearchClient</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">bingSearch</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">LIMIT_DUPLICATE_USERS_PER_PAGE</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
@@ -288,7 +286,7 @@ into the {body} of the default.hbs template -->
   <span class="kd">const</span> <span class="nx">companyName</span> <span class="o">=</span> <span class="nx">job</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
 
   <span class="c1">// Get our previous object our init a new blank one</span>
-  <span class="kd">let</span> <span class="nx">peopleMap</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">hashSet</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">companyName</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">peopleMap</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">hashSet</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">companyName</span><span class="p">);</span>
   <span class="nx">peopleMap</span> <span class="o">=</span> <span class="nx">peopleMap</span> <span class="o">||</span> <span class="p">{</span> 
     <span class="na">people</span><span class="p">:</span> <span class="p">{},</span> 
     <span class="na">wrongResults</span><span class="p">:</span> <span class="p">[],</span> <span class="c1">// Set of objects containing the wrong results for further analysis</span>
@@ -317,21 +315,21 @@ into the {body} of the default.hbs template -->
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`[Discoverer] Done discovering </span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
 
     <span class="nx">peopleMap</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">isDone</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="kr">await</span> <span class="nx">hashSet</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">);</span>
+    <span class="k">await</span> <span class="nx">hashSet</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="nx">done</span><span class="p">();</span>
   <span class="p">}</span>
 
   <span class="c1">// Download page</span>
-  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">bingSearchClient</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s2">`site:linkedin.com "</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2"> | LinkedIn"`</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">offset</span><span class="p">);</span>
-  <span class="kd">const</span> <span class="nx">parsed</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">parseLinkedInPage</span><span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">webPages</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bingSearchClient</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s2">`site:linkedin.com "</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2"> | LinkedIn"`</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">offset</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">parsed</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">parseLinkedInPage</span><span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">webPages</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">);</span>
 
   <span class="c1">// Store results</span>
-  <span class="kr">await</span> <span class="nx">hashSet</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">parsed</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">hashSet</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">parsed</span><span class="p">);</span>
 
   <span class="c1">// Put back on queue for further exploration</span>
   <span class="nx">discoverUsersLinkedInQueue</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="nx">companyName</span><span class="p">,</span> <span class="na">isExploring</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'[Discoverer] Adding result back for more exploration'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">[Discoverer] Adding result back for more exploration</span><span class="dl">'</span><span class="p">);</span>
   <span class="nx">done</span><span class="p">();</span>
 <span class="p">});</span>
 
@@ -343,7 +341,7 @@ into the {body} of the default.hbs template -->
  * @return {object} { people: {}, meta: { offset, duplicates } }
  */</span>
 <span class="kd">const</span> <span class="nx">parseLinkedInPage</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">companyName</span><span class="p">,</span> <span class="nx">pages</span><span class="p">,</span> <span class="nx">peopleMap</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">usernameRegex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">'linkedin.com</span><span class="err">\\</span><span class="s1">/in</span><span class="err">\\</span><span class="s1">/([a-zA-Z0-9</span><span class="err">\\</span><span class="s1">-]*)'</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">);</span> <span class="c1">// [1] gives username on LinkedIn from the URL</span>
+  <span class="kd">const</span> <span class="nx">usernameRegex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">linkedin.com</span><span class="se">\\</span><span class="s1">/in</span><span class="se">\\</span><span class="s1">/([a-zA-Z0-9</span><span class="se">\\</span><span class="s1">-]*)</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// [1] gives username on LinkedIn from the URL</span>
 
   <span class="c1">// Filter pages that are as we wanted it (correct information)</span>
   <span class="c1">// This means we will loop over all results twice</span>
@@ -416,7 +414,7 @@ into the {body} of the default.hbs template -->
   <span class="kd">let</span> <span class="nx">title</span><span class="p">;</span>
   <span class="kd">let</span> <span class="nx">role</span><span class="p">;</span>
 
-  <span class="kd">const</span> <span class="nx">titleRegex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`^(.*) - (.*) - </span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2"> \\| LinkedIn$`</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">);</span> <span class="c1">// [1] gives name, [2] gives role</span>
+  <span class="kd">const</span> <span class="nx">titleRegex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`^(.*) - (.*) - </span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2"> \\| LinkedIn$`</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// [1] gives name, [2] gives role</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">titleRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">))</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">titleRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">);</span>
@@ -426,7 +424,7 @@ into the {body} of the default.hbs template -->
   <span class="p">}</span>
 
   <span class="c1">// NOTE: – is a special character!</span>
-  <span class="kd">const</span> <span class="nx">titleRegex2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`^(.*) – (.*) – </span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2"> \\| LinkedIn$`</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">);</span> <span class="c1">// [1] gives name, [2] gives role</span>
+  <span class="kd">const</span> <span class="nx">titleRegex2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`^(.*) – (.*) – </span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2"> \\| LinkedIn$`</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// [1] gives name, [2] gives role</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">titleRegex2</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">))</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">titleRegex2</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">);</span>
@@ -438,7 +436,7 @@ into the {body} of the default.hbs template -->
   <span class="c1">// Extracts name and role from results as in:</span>
   <span class="c1">// Randy Street - Executive Director Product ... - LinkedIn</span>
   <span class="c1">// Keith Moody - Director, Analytics COE - LinkedIn</span>
-  <span class="kd">const</span> <span class="nx">titleRegex3</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`(.*) - (.*) .* - LinkedIn`</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">);</span> <span class="c1">// [1] gives name, [2] gives role</span>
+  <span class="kd">const</span> <span class="nx">titleRegex3</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`(.*) - (.*) .* - LinkedIn`</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// [1] gives name, [2] gives role</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">titleRegex3</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">))</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">titleRegex3</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">);</span>
@@ -450,7 +448,7 @@ into the {body} of the default.hbs template -->
   <span class="c1">// Extracts name and role from results as in:</span>
   <span class="c1">// Cameron Ahler - Executive Director, Enterprise ...</span>
   <span class="c1">// NOTE: This is a very broad matching, which is why the first already pre-return the result</span>
-  <span class="kd">const</span> <span class="nx">titleRegex4</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`(.*) - (.*)\\s\\.\\.\\.`</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">titleRegex4</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">`(.*) - (.*)\\s\\.\\.\\.`</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">titleRegex4</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">))</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">titleRegex4</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">webpageTitle</span><span class="p">);</span>
@@ -466,7 +464,7 @@ into the {body} of the default.hbs template -->
 <span class="p">}</span>
 
 <span class="kd">const</span> <span class="nx">extractUsernameFromUrl</span> <span class="o">=</span> <span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">usernameRegex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">'linkedin.com</span><span class="err">\\</span><span class="s1">/in</span><span class="err">\\</span><span class="s1">/([a-zA-Z0-9</span><span class="err">\\</span><span class="s1">-</span><span class="err">\\</span><span class="s1">%]*)'</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">);</span> <span class="c1">// [1] gives username on LinkedIn from the URL</span>
+  <span class="kd">const</span> <span class="nx">usernameRegex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">linkedin.com</span><span class="se">\\</span><span class="s1">/in</span><span class="se">\\</span><span class="s1">/([a-zA-Z0-9</span><span class="se">\\</span><span class="s1">-</span><span class="se">\\</span><span class="s1">%]*)</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">i</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// [1] gives username on LinkedIn from the URL</span>
   <span class="kd">let</span> <span class="nx">username</span><span class="p">;</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">usernameRegex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">url</span><span class="p">))</span> <span class="p">{</span>
@@ -491,9 +489,9 @@ into the {body} of the default.hbs template -->
 
 <p><strong>Server.js</strong></p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'koa'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">indexRoutes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./routes/index'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">companyRoutes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./routes/company'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">koa</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">indexRoutes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/index</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">companyRoutes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/company</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Koa</span><span class="p">();</span>
 <span class="kd">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3001</span><span class="p">;</span>
@@ -508,16 +506,16 @@ into the {body} of the default.hbs template -->
 
 <p><strong>routes/company.js</strong></p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'koa-router'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">koa-router</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">();</span>
 
-<span class="kd">const</span> <span class="nx">Queue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'bull'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">discoverUsersLinkedInQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Queue</span><span class="p">(</span><span class="s1">'discover-users-linkedin'</span><span class="p">,</span> <span class="s1">'redis://127.0.0.1:6379'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Queue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">bull</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">discoverUsersLinkedInQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Queue</span><span class="p">(</span><span class="dl">'</span><span class="s1">discover-users-linkedin</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">redis://127.0.0.1:6379</span><span class="dl">'</span><span class="p">);</span>
 
-<span class="kd">const</span> <span class="nx">Redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../../API/Redis'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../../API/Redis</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">redis</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Redis</span><span class="p">();</span>
 
-<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/company/:company/start'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/company/:company/start</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">companyName</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">company</span><span class="p">;</span>
   <span class="nx">discoverUsersLinkedInQueue</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span> <span class="na">name</span><span class="p">:</span> <span class="nx">companyName</span> <span class="p">});</span>
 
@@ -527,9 +525,9 @@ into the {body} of the default.hbs template -->
   <span class="p">};</span>
 <span class="p">});</span>
 
-<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/company/:company/check-status'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/company/:company/check-status</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">companyName</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">company</span><span class="p">;</span>
-  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">redis</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">companyName</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">redis</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">companyName</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="p">{</span>
@@ -546,14 +544,14 @@ into the {body} of the default.hbs template -->
   <span class="p">}</span>
 <span class="p">});</span>
 
-<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/company/:company'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/company/:company</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">companyName</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">company</span><span class="p">;</span>
-  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">redis</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">companyName</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">redis</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">companyName</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="na">message</span><span class="p">:</span> <span class="s1">'result is undefined, start a new crawling process first'</span>
+      <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">result is undefined, start a new crawling process first</span><span class="dl">'</span>
     <span class="p">};</span>
 
     <span class="k">return</span><span class="p">;</span>
@@ -564,7 +562,7 @@ into the {body} of the default.hbs template -->
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">result</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">isDone</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="na">message</span><span class="p">:</span> <span class="s1">'crawler is busy'</span>
+      <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">crawler is busy</span><span class="dl">'</span>
     <span class="p">};</span>
 
     <span class="k">return</span><span class="p">;</span>
@@ -582,9 +580,9 @@ into the {body} of the default.hbs template -->
 
 <p>Putting it in the <code class="highlighter-rouge">pages/company.js</code> allowed me to quickly access it on the frontend.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">fetch</span> <span class="k">from</span> <span class="s1">'isomorphic-unfetch'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">withRouter</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'next/router'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">fetch</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">isomorphic-unfetch</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">withRouter</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">Index</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -639,15 +637,15 @@ into the {body} of the default.hbs template -->
   <span class="nx">renderNotLoaded</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Quick and dirty check for loaded result</span>
     <span class="kd">const</span> <span class="nx">companyName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">company</span><span class="p">;</span>
-    <span class="kd">let</span> <span class="kr">int</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">/check-status`</span><span class="p">);</span>
-      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">int</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">/check-status`</span><span class="p">);</span>
+      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
 
       <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">isDone</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">clearInterval</span><span class="p">(</span><span class="kr">int</span><span class="p">);</span>
+        <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">int</span><span class="p">);</span>
 
-        <span class="kd">const</span> <span class="nx">res2</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
-        <span class="kd">const</span> <span class="nx">data2</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">res2</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">res2</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">data2</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res2</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
           <span class="na">isLoading</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -663,13 +661,13 @@ into the {body} of the default.hbs template -->
 <span class="nx">Index</span><span class="p">.</span><span class="nx">getInitialProps</span> <span class="o">=</span> <span class="k">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">companyName</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">company</span><span class="p">;</span>
 
-  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
 
   <span class="c1">// If not found, we need to poll, start the process in bg</span>
-  <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">/start`</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">`http://127.0.0.1:3001/company/</span><span class="p">${</span><span class="nx">companyName</span><span class="p">}</span><span class="s2">/start`</span><span class="p">);</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
     
     <span class="k">return</span> <span class="p">{</span>
       <span class="na">isLoaded</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -693,7 +691,7 @@ into the {body} of the default.hbs template -->
 
 <h3 id="hashsetjs">HashSet.js</h3>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'redis'</span><span class="p">);</span> <span class="c1">// Note: Should become a permanent storage later, now in memory</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">redis</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// Note: Should become a permanent storage later, now in memory</span>
 <span class="kd">const</span> <span class="nx">redisClient</span> <span class="o">=</span> <span class="nx">redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">();</span>
 
 <span class="kd">class</span> <span class="nx">HashSet</span> <span class="p">{</span>
@@ -723,7 +721,7 @@ into the {body} of the default.hbs template -->
 
 <h3 id="redisjs">Redis.js</h3>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'redis'</span><span class="p">);</span> <span class="c1">// Note: Should become a permanent storage later, now in memory</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">redis</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">redis</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// Note: Should become a permanent storage later, now in memory</span>
 
 <span class="kd">class</span> <span class="nx">Redis</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
@@ -750,22 +748,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -1345,26 +1327,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -229,31 +227,31 @@ into the {body} of the default.hbs template -->
 <p>Once our prerequisites are done, we can start adding our devices. For this run: <code class="highlighter-rouge">az iot hub device-identity create --hub-name {YOUR_IOTHUB_NAME} --device-id {YOUR_DEVICE_ID} --edge-enabled</code> which will create an edge-enabled device. This will return something like this:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"symmetricKey"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"primaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"secondaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="w">
+  </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"symmetricKey"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"primaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"secondaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sas"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"x509Thumbprint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"primaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"secondaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sas"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"x509Thumbprint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"primaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"secondaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"iotEdge"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="nl">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"iotEdge"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"cloudToDeviceMessageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"connectionState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disconnected"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"connectionStateUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xavier-device-1"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deviceScope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ms-azure-iot-edge://xavier-device-1-{ID}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"etag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ETAG}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"generationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ID}"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"lastActivityTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"statusReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"statusUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="w">
+  </span><span class="nl">"cloudToDeviceMessageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"connectionState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disconnected"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"connectionStateUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"deviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xavier-device-1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"deviceScope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ms-azure-iot-edge://xavier-device-1-{ID}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"etag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ETAG}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"generationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ID}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastActivityTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"statusReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"statusUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
@@ -269,7 +267,7 @@ into the {body} of the default.hbs template -->
 <p>Which will return something such as:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"connectionString"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HostName={YOUR_IOTHUB}.azure-devices.net;DeviceId={YOUR_DEVICE_ID};SharedAccessKey={ACCESS_KEY}"</span><span class="w">
+  </span><span class="nl">"connectionString"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HostName={YOUR_IOTHUB}.azure-devices.net;DeviceId={YOUR_DEVICE_ID};SharedAccessKey={ACCESS_KEY}"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
@@ -349,21 +347,21 @@ into the {body} of the default.hbs template -->
 
 <p>A last thing we now have to do is to remove a few lines from our <code class="highlighter-rouge">deployment.template.json</code> and <code class="highlighter-rouge">deployment.template.debug.json</code> file in the root folder:</p>
 
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"sensorToEchoModule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(</span><span class="se">\"</span><span class="s2">/modules/EchoModule/inputs/input1</span><span class="se">\"</span><span class="s2">)"</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"sensorToEchoModule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(</span><span class="se">\"</span><span class="s2">/modules/EchoModule/inputs/input1</span><span class="se">\"</span><span class="s2">)"</span><span class="w">
 </span></code></pre></div></div>
 
 <p>And some lines that deploy another module that we don’t need</p>
 
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"tempSensor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{}"</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"tempSensor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{}"</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">},</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
 </span></code></pre></div></div>
 
 <p>Now we are ready to build, publish and finally deploy our edge module.</p>
@@ -502,22 +500,6 @@ ea4e5356527d: Pushed
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -977,26 +959,6 @@ ea4e5356527d: Pushed
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

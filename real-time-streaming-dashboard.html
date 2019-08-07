@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -283,18 +281,18 @@ into the {body} of the default.hbs template -->
 </span><span class="k">import</span> <span class="nn">org.apache.spark.eventhubs.</span><span class="o">{</span> <span class="nc">ConnectionStringBuilder</span><span class="o">,</span> <span class="nc">EventHubsConf</span><span class="o">,</span> <span class="nc">EventPosition</span><span class="o">,</span> <span class="nc">EventHubsUtils</span> <span class="o">}</span>
 
 <span class="c1">// Connect to EventHub
-</span><span class="k">val</span> <span class="n">connectionString</span> <span class="k">=</span> <span class="nc">ConnectionStringBuilder</span><span class="o">(</span><span class="s">"Endpoint=&lt;your_connection_string&gt;"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">setEventHubName</span><span class="o">(</span><span class="s">"&lt;your_eh_name&gt;"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">build</span><span class="o">();</span>
+</span><span class="k">val</span> <span class="nv">connectionString</span> <span class="k">=</span> <span class="nc">ConnectionStringBuilder</span><span class="o">(</span><span class="s">"Endpoint=&lt;your_connection_string&gt;"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">setEventHubName</span><span class="o">(</span><span class="s">"&lt;your_eh_name&gt;"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">build</span><span class="o">();</span>
 
-<span class="k">val</span> <span class="n">eventHubsConf</span> <span class="k">=</span> <span class="nc">EventHubsConf</span><span class="o">(</span><span class="n">connectionString</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">setStartingPosition</span><span class="o">(</span><span class="nc">EventPosition</span><span class="o">.</span><span class="n">fromEndOfStream</span><span class="o">);</span>
+<span class="k">val</span> <span class="nv">eventHubsConf</span> <span class="k">=</span> <span class="nc">EventHubsConf</span><span class="o">(</span><span class="n">connectionString</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">setStartingPosition</span><span class="o">(</span><span class="nv">EventPosition</span><span class="o">.</span><span class="py">fromEndOfStream</span><span class="o">);</span>
 
 <span class="c1">// eventHubs is a org.apache.spark.sql.DataFrame object
-</span><span class="k">val</span> <span class="n">eventHubs</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">readStream</span>
-  <span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">"eventhubs"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">options</span><span class="o">(</span><span class="n">eventHubsConf</span><span class="o">.</span><span class="n">toMap</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">load</span><span class="o">();</span>
+</span><span class="k">val</span> <span class="nv">eventHubs</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span>
+  <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"eventhubs"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">options</span><span class="o">(</span><span class="nv">eventHubsConf</span><span class="o">.</span><span class="py">toMap</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">load</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>If we now run this cell, we will see our variables initialized.</p>
@@ -304,7 +302,7 @@ into the {body} of the default.hbs template -->
 <p>To see the schema of the EventHub data coming in, we can utilize the printSchema method:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Print schema of our stream
-</span><span class="n">eventHubs</span><span class="o">.</span><span class="n">printSchema</span><span class="o">()</span>
+</span><span class="nv">eventHubs</span><span class="o">.</span><span class="py">printSchema</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>Here we see a field called <code class="highlighter-rouge">body</code> which contains our EventHub events data, but in a binary format. We thus have to parse this towards our original JSON format, together with correctly casting the variables.</p>
@@ -313,33 +311,33 @@ into the {body} of the default.hbs template -->
 </span><span class="k">import</span> <span class="nn">org.apache.spark.sql.functions._</span>
 
 <span class="c1">// Our JSON Schema
-</span><span class="k">val</span> <span class="n">jsonSchema</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StructType</span><span class="o">()</span>
-  <span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="s">"sensor"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="s">"temperatureValue"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="s">"humidityValue"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">add</span><span class="o">(</span><span class="s">"createdAt"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">jsonSchema</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StructType</span><span class="o">()</span>
+  <span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="s">"sensor"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="s">"temperatureValue"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="s">"humidityValue"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="s">"createdAt"</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">)</span>
 
 <span class="c1">// Convert our EventHub data, where the body contains our message and which we decode the JSON
-</span><span class="k">val</span> <span class="n">messages</span> <span class="k">=</span> <span class="n">eventHubs</span>
+</span><span class="k">val</span> <span class="nv">messages</span> <span class="k">=</span> <span class="n">eventHubs</span>
   <span class="c1">// Parse our columns from what EventHub gives us (which is the data we are sending, plus metadata such as offset, enqueueTime, ...)
-</span>  <span class="o">.</span><span class="n">withColumn</span><span class="o">(</span><span class="s">"Offset"</span><span class="o">,</span> <span class="n">$</span><span class="s">"offset"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="nc">LongType</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">withColumn</span><span class="o">(</span><span class="s">"Time (readable)"</span><span class="o">,</span> <span class="n">$</span><span class="s">"enqueuedTime"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="nc">TimestampType</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">withColumn</span><span class="o">(</span><span class="s">"Timestamp"</span><span class="o">,</span> <span class="n">$</span><span class="s">"enqueuedTime"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="nc">LongType</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">withColumn</span><span class="o">(</span><span class="s">"Body"</span><span class="o">,</span> <span class="n">$</span><span class="s">"body"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="nc">StringType</span><span class="o">))</span>
+</span>  <span class="o">.</span><span class="py">withColumn</span><span class="o">(</span><span class="s">"Offset"</span><span class="o">,</span> <span class="n">$</span><span class="s">"offset"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="nc">LongType</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">withColumn</span><span class="o">(</span><span class="s">"Time (readable)"</span><span class="o">,</span> <span class="n">$</span><span class="s">"enqueuedTime"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="nc">TimestampType</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">withColumn</span><span class="o">(</span><span class="s">"Timestamp"</span><span class="o">,</span> <span class="n">$</span><span class="s">"enqueuedTime"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="nc">LongType</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">withColumn</span><span class="o">(</span><span class="s">"Body"</span><span class="o">,</span> <span class="n">$</span><span class="s">"body"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="nc">StringType</span><span class="o">))</span>
   <span class="c1">// Select them so we can play with them
-</span>  <span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">"Offset"</span><span class="o">,</span> <span class="s">"Time (readable)"</span><span class="o">,</span> <span class="s">"Timestamp"</span><span class="o">,</span> <span class="s">"Body"</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="s">"Offset"</span><span class="o">,</span> <span class="s">"Time (readable)"</span><span class="o">,</span> <span class="s">"Timestamp"</span><span class="o">,</span> <span class="s">"Body"</span><span class="o">)</span>
   <span class="c1">// Parse the "Body" column as a JSON Schema which we defined above
-</span>  <span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="n">from_json</span><span class="o">(</span><span class="n">$</span><span class="s">"Body"</span><span class="o">,</span> <span class="n">jsonSchema</span><span class="o">)</span> <span class="n">as</span> <span class="s">"sensors"</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="nf">from_json</span><span class="o">(</span><span class="n">$</span><span class="s">"Body"</span><span class="o">,</span> <span class="n">jsonSchema</span><span class="o">)</span> <span class="n">as</span> <span class="s">"sensors"</span><span class="o">)</span>
   <span class="c1">// Now select the values from our JSON Structure and cast them manually to avoid problems
-</span>  <span class="o">.</span><span class="n">select</span><span class="o">(</span>
-    <span class="n">$</span><span class="s">"sensors.sensor"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="s">"string"</span><span class="o">),</span>
-    <span class="n">$</span><span class="s">"sensors.createdAt"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">),</span> 
-    <span class="n">$</span><span class="s">"sensors.temperatureValue"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="s">"double"</span><span class="o">)</span> <span class="n">as</span> <span class="s">"tempVal"</span><span class="o">,</span> 
-    <span class="n">$</span><span class="s">"sensors.humidityValue"</span><span class="o">.</span><span class="n">cast</span><span class="o">(</span><span class="s">"double"</span><span class="o">)</span> <span class="n">as</span> <span class="s">"humVal"</span>
+</span>  <span class="o">.</span><span class="py">select</span><span class="o">(</span>
+    <span class="n">$</span><span class="s">"sensors.sensor"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="s">"string"</span><span class="o">),</span>
+    <span class="n">$</span><span class="s">"sensors.createdAt"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">),</span> 
+    <span class="n">$</span><span class="s">"sensors.temperatureValue"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="s">"double"</span><span class="o">)</span> <span class="n">as</span> <span class="s">"tempVal"</span><span class="o">,</span> 
+    <span class="n">$</span><span class="s">"sensors.humidityValue"</span><span class="o">.</span><span class="py">cast</span><span class="o">(</span><span class="s">"double"</span><span class="o">)</span> <span class="n">as</span> <span class="s">"humVal"</span>
   <span class="o">)</span>
 
 <span class="c1">// Print the schema to know what we are working with
-</span><span class="n">messages</span><span class="o">.</span><span class="n">printSchema</span><span class="o">()</span>
+</span><span class="nv">messages</span><span class="o">.</span><span class="py">printSchema</span><span class="o">()</span>
 </code></pre></div></div>
 
 <blockquote>
@@ -349,14 +347,14 @@ into the {body} of the default.hbs template -->
 <p>As a debug method, we can now write our stream to memory and see if everything is coming in successfully:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Display the stream
-</span><span class="k">val</span> <span class="n">messagesStream</span> <span class="k">=</span> <span class="n">messages</span><span class="o">.</span><span class="n">writeStream</span>
-  <span class="o">.</span><span class="n">outputMode</span><span class="o">(</span><span class="s">"append"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">"memory"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">option</span><span class="o">(</span><span class="s">"truncate"</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">queryName</span><span class="o">(</span><span class="s">"streamData"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">start</span><span class="o">()</span>
+</span><span class="k">val</span> <span class="nv">messagesStream</span> <span class="k">=</span> <span class="nv">messages</span><span class="o">.</span><span class="py">writeStream</span>
+  <span class="o">.</span><span class="py">outputMode</span><span class="o">(</span><span class="s">"append"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"memory"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"truncate"</span><span class="o">,</span> <span class="kc">false</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">queryName</span><span class="o">(</span><span class="s">"streamData"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="n">display</span><span class="o">(</span><span class="n">messages</span><span class="o">)</span>
+<span class="nf">display</span><span class="o">(</span><span class="n">messages</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h4 id="sending-our-parsed-events-to-influxdb">Sending our parsed events to InfluxDB</h4>
@@ -382,7 +380,7 @@ com.github.fsanaulla:chronicler-spark-structured-streaming
 <span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
 
-<span class="k">implicit</span> <span class="k">lazy</span> <span class="k">val</span> <span class="n">influxConf</span><span class="k">:</span> <span class="kt">InfluxConfig</span> <span class="o">=</span> <span class="nc">InfluxConfig</span><span class="o">(</span><span class="s">"&lt;host&gt;"</span><span class="o">,</span> <span class="mi">8086</span><span class="o">,</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">InfluxCredentials</span><span class="o">(</span><span class="s">"&lt;user&gt;"</span><span class="o">,</span> <span class="s">"&lt;pass&gt;"</span><span class="o">)),</span> <span class="n">gzipped</span> <span class="k">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="k">implicit</span> <span class="k">lazy</span> <span class="k">val</span> <span class="nv">influxConf</span><span class="k">:</span> <span class="kt">InfluxConfig</span> <span class="o">=</span> <span class="nc">InfluxConfig</span><span class="o">(</span><span class="s">"&lt;host&gt;"</span><span class="o">,</span> <span class="mi">8086</span><span class="o">,</span> <span class="nc">Some</span><span class="o">(</span><span class="nc">InfluxCredentials</span><span class="o">(</span><span class="s">"&lt;user&gt;"</span><span class="o">,</span> <span class="s">"&lt;pass&gt;"</span><span class="o">)),</span> <span class="n">gzipped</span> <span class="k">=</span> <span class="kc">false</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Whereafter we can send our Events to InfluxDB by defining a writer that defines how we serialize our events in the tag and field format InfluxDB requires, and starting our stream with the <code class="highlighter-rouge">.saveToInflux</code> and <code class="highlighter-rouge">.start</code>.</p>
@@ -398,28 +396,28 @@ com.github.fsanaulla:chronicler-spark-structured-streaming
 <span class="c1">//case class Entity(@tag sensor: String, @field createdAt: Int, @field tempVal: Double, @field humVal: Double)
 //implicit val wr: InfluxWriter[Entity] = Macros.writer[Entity]
 </span>
-<span class="k">implicit</span> <span class="k">val</span> <span class="n">wr</span><span class="k">:</span> <span class="kt">InfluxWriter</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">InfluxWriter</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="o">{</span>
-   <span class="k">override</span> <span class="k">def</span> <span class="n">write</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Row</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
-     <span class="k">val</span> <span class="n">sb</span> <span class="k">=</span> <span class="nc">StringBuilder</span><span class="o">.</span><span class="n">newBuilder</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">wr</span><span class="k">:</span> <span class="kt">InfluxWriter</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">InfluxWriter</span><span class="o">[</span><span class="kt">Row</span><span class="o">]</span> <span class="o">{</span>
+   <span class="k">override</span> <span class="k">def</span> <span class="nf">write</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Row</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
+     <span class="k">val</span> <span class="nv">sb</span> <span class="k">=</span> <span class="nv">StringBuilder</span><span class="o">.</span><span class="py">newBuilder</span>
      
      <span class="c1">// Query looks like: &lt;tags&gt; &lt;fields&gt; &lt;timestamp RFC3339&gt;
-</span>     <span class="n">sb</span><span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="n">s</span><span class="s">"sensor=${o(0)}"</span><span class="o">)</span>
-       <span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="s">" "</span><span class="o">)</span> 
-       <span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="s">"tempVal="</span><span class="o">)</span>
-       <span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="n">o</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span>
-       <span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="s">","</span><span class="o">)</span>
-       <span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="s">"humVal="</span><span class="o">)</span>
-       <span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="n">o</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span>
+</span>     <span class="nv">sb</span><span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="n">s</span><span class="s">"sensor=${o(0)}"</span><span class="o">)</span>
+       <span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="s">" "</span><span class="o">)</span> 
+       <span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="s">"tempVal="</span><span class="o">)</span>
+       <span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="nf">o</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span>
+       <span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="s">","</span><span class="o">)</span>
+       <span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="s">"humVal="</span><span class="o">)</span>
+       <span class="o">.</span><span class="py">append</span><span class="o">(</span><span class="nf">o</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span>
      
-     <span class="n">sb</span><span class="o">.</span><span class="n">toString</span><span class="o">()</span>
+     <span class="nv">sb</span><span class="o">.</span><span class="py">toString</span><span class="o">()</span>
    <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="c1">// Create our stream
-</span><span class="k">val</span> <span class="n">stream</span> <span class="k">=</span> <span class="n">messages</span>
-  <span class="o">.</span><span class="n">writeStream</span> <span class="c1">// Create a WriteStream
-</span>  <span class="o">.</span><span class="n">saveToInflux</span><span class="o">(</span><span class="s">"myMetrics"</span><span class="o">,</span> <span class="s">"myValues"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">start</span><span class="o">()</span>
+</span><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="n">messages</span>
+  <span class="o">.</span><span class="py">writeStream</span> <span class="c1">// Create a WriteStream
+</span>  <span class="o">.</span><span class="py">saveToInflux</span><span class="o">(</span><span class="s">"myMetrics"</span><span class="o">,</span> <span class="s">"myValues"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 </code></pre></div></div>
 
 <h4 id="creating-our-dashboards">Creating our dashboards</h4>
@@ -450,8 +448,8 @@ com.github.fsanaulla:chronicler-spark-structured-streaming
 
 <p>As a last point, I would like to include the script that I used to send mock data towards my EventHub:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">eventHubClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'azure-event-hubs'</span><span class="p">).</span><span class="nx">Client</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./config.js'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">eventHubClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">azure-event-hubs</span><span class="dl">'</span><span class="p">).</span><span class="nx">Client</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./config.js</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="c1">// Init Client</span>
 <span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">eventHubClient</span><span class="p">.</span><span class="nx">fromConnectionString</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">getConnectionString</span><span class="p">(),</span> <span class="nx">config</span><span class="p">.</span><span class="nx">eventHub</span><span class="p">);</span>
@@ -478,12 +476,12 @@ com.github.fsanaulla:chronicler-spark-structured-streaming
 <p>with the config containing</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">eventHubUrl</span><span class="p">:</span> <span class="s2">"&lt;your_url&gt;"</span><span class="p">,</span> <span class="c1">// no protocol included</span>
-  <span class="na">eventHubSharedAccessKeyName</span><span class="p">:</span> <span class="s2">"RootManageSharedAccessKey"</span><span class="p">,</span>
-  <span class="na">eventHubSharedAccessKey</span><span class="p">:</span> <span class="s2">"&lt;your_key&gt;"</span><span class="p">,</span>
+  <span class="na">eventHubUrl</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;your_url&gt;</span><span class="dl">"</span><span class="p">,</span> <span class="c1">// no protocol included</span>
+  <span class="na">eventHubSharedAccessKeyName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">RootManageSharedAccessKey</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">eventHubSharedAccessKey</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;your_key&gt;</span><span class="dl">"</span><span class="p">,</span>
   <span class="c1">// This is the EventHub name (go to eventhub -&gt; Event Hubs -&gt; &lt;Names&gt;)</span>
-  <span class="na">eventHub</span><span class="p">:</span> <span class="s2">"&lt;your_eh&gt;"</span><span class="p">,</span>
-  <span class="na">eventHubPath</span><span class="p">:</span> <span class="s2">"&lt;your_eh_namespace&gt;"</span><span class="p">,</span>
+  <span class="na">eventHub</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;your_eh&gt;</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">eventHubPath</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;your_eh_namespace&gt;</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
@@ -496,22 +494,6 @@ com.github.fsanaulla:chronicler-spark-structured-streaming
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -972,26 +954,6 @@ com.github.fsanaulla:chronicler-spark-structured-streaming
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

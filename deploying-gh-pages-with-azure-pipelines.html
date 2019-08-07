@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -256,37 +254,37 @@ into the {body} of the default.hbs template -->
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Master'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git rm -rf .; git clean -fxd;</span>
-    <span class="no">touch .nojekyll;</span>
-    <span class="no">touch README.md;</span>
-    <span class="no">echo "# My Blog" &gt;&gt; README.md;</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git rm -rf .; git clean -fxd;</span>
+    <span class="s">touch .nojekyll;</span>
+    <span class="s">touch README.md;</span>
+    <span class="s">echo "# My Blog" &gt;&gt; README.md;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Clean</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">git config --global user.email "xavier.geerinck@gmail.com";</span>
-    <span class="no">git config --global user.name "Xavier Geerinck";</span>
+    <span class="s">git config --global user.email "xavier.geerinck@gmail.com";</span>
+    <span class="s">git config --global user.name "Xavier Geerinck";</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Configure</span><span class="nv"> </span><span class="s">Git</span><span class="nv"> </span><span class="s">User'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cp</span><span class="nv"> </span><span class="s">-a</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)/.</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath)'</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">Artifact</span><span class="nv"> </span><span class="s">Files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cleaned</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git add --all;</span>
-    <span class="no">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git add --all;</span>
+    <span class="s">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">Commit'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git checkout master;</span>
-    <span class="no">git merge azure-pipelines-build;</span>
-    <span class="no">git branch -d azure-pipelines-build;</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git checkout master;</span>
+    <span class="s">git merge azure-pipelines-build;</span>
+    <span class="s">git branch -d azure-pipelines-build;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Merge</span><span class="nv"> </span><span class="s">azure-pipelines-build</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">master'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git push origin master;</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git push origin master;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
 </code></pre></div></div>
 
@@ -321,64 +319,64 @@ into the {body} of the default.hbs template -->
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Master'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git rm -rf .; git clean -fxd;</span>
-    <span class="no">touch .nojekyll;</span>
-    <span class="no">touch README.md;</span>
-    <span class="no">echo "# My Blog" &gt;&gt; README.md;</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git rm -rf .; git clean -fxd;</span>
+    <span class="s">touch .nojekyll;</span>
+    <span class="s">touch README.md;</span>
+    <span class="s">echo "# My Blog" &gt;&gt; README.md;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Clean</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">git config --global user.email "xavier.geerinck@gmail.com";</span>
-    <span class="no">git config --global user.name "Xavier Geerinck";</span>
+    <span class="s">git config --global user.email "xavier.geerinck@gmail.com";</span>
+    <span class="s">git config --global user.name "Xavier Geerinck";</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Configure</span><span class="nv"> </span><span class="s">Git</span><span class="nv"> </span><span class="s">User'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cp</span><span class="nv"> </span><span class="s">-a</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)/.</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath)'</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">Artifact</span><span class="nv"> </span><span class="s">Files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cleaned</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git add --all;</span>
-    <span class="no">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git add --all;</span>
+    <span class="s">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">Commit'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git checkout master;</span>
-    <span class="no">git merge azure-pipelines-build;</span>
-    <span class="no">git branch -d azure-pipelines-build;</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git checkout master;</span>
+    <span class="s">git merge azure-pipelines-build;</span>
+    <span class="s">git branch -d azure-pipelines-build;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Merge</span><span class="nv"> </span><span class="s">azure-pipelines-build</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">master'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="no">cd $(Build.Repository.LocalPath);</span>
-    <span class="no">git push origin master;</span>
+    <span class="s">cd $(Build.Repository.LocalPath);</span>
+    <span class="s">git push origin master;</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
 
 <span class="c1"># Note: github_pat should be configured as an environment variable in devops</span>
 <span class="c1">#   -&gt; create github pat here: https://github.com/settings/tokens</span>
 <span class="c1">#   -&gt; Create environment variable in dev.azure.com under pipelines -&gt; edit (right top) -&gt; variables (right top triple dots) -&gt; called github_pat -&gt; click the lock</span>
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
-    <span class="no">gh_user="thebillkidy";</span>
-    <span class="no">gh_pass=$(github_pat);</span>
-    <span class="no">gh_repo="thebillkidy.github.io";</span>
-    <span class="no">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+    <span class="s">gh_user="thebillkidy";</span>
+    <span class="s">gh_pass=$(github_pat);</span>
+    <span class="s">gh_repo="thebillkidy.github.io";</span>
+    <span class="s">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
 
-    <span class="no">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \</span>
-    <span class="no">-X POST \</span>
-    <span class="no">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
-    <span class="no">-H "Authorization: Basic ${auth_pass}"</span>
+    <span class="s">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \</span>
+    <span class="s">-X POST \</span>
+    <span class="s">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
+    <span class="s">-H "Authorization: Basic ${auth_pass}"</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[GitHub]</span><span class="nv"> </span><span class="s">Trigger</span><span class="nv"> </span><span class="s">Page</span><span class="nv"> </span><span class="s">Build'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
-    <span class="no">gh_user="thebillkidy";</span>
-    <span class="no">gh_pass=$(github_pat);</span>
-    <span class="no">gh_repo="thebillkidy.github.io";</span>
-    <span class="no">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+    <span class="s">gh_user="thebillkidy";</span>
+    <span class="s">gh_pass=$(github_pat);</span>
+    <span class="s">gh_repo="thebillkidy.github.io";</span>
+    <span class="s">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
 
-    <span class="no">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \</span>
-    <span class="no">-X GET \</span>
-    <span class="no">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
-    <span class="no">-H "Authorization: Basic $auth_pass"</span>
+    <span class="s">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \</span>
+    <span class="s">-X GET \</span>
+    <span class="s">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
+    <span class="s">-H "Authorization: Basic $auth_pass"</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[GitHub]</span><span class="nv"> </span><span class="s">Get</span><span class="nv"> </span><span class="s">Page</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Status'</span>
 </code></pre></div></div>
 
@@ -392,22 +390,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -853,26 +835,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

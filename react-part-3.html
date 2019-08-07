@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -207,9 +205,9 @@ into the {body} of the default.hbs template -->
 
 <p>We are finally at the part of writing a component, it has been a long way but now the real work starts. Writing the component. Let us first start by defining the structure of the TodoList.js part. It will exist out of the Add box and the Overview box. So, add 2 elements <code class="highlighter-rouge">&lt;TodoListAdd /&gt;</code> and <code class="highlighter-rouge">&lt;TodoListItems /&gt;</code> which will show our items. Your class will look like this then:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListAdd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListItems</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -218,7 +216,7 @@ into the {body} of the default.hbs template -->
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoList</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="o">/&gt;</span>
         <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="o">/&gt;</span>
       <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
@@ -241,10 +239,10 @@ into the {body} of the default.hbs template -->
 
 <p>You will get this:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListAdd"</span><span class="o">&gt;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListAdd</span><span class="dl">"</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleOnSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">"input_todo"</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"submit"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">ref</span><span class="o">=</span><span class="dl">"</span><span class="s2">input_todo</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span> <span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span></code></pre></div></div>
@@ -271,7 +269,7 @@ into the {body} of the default.hbs template -->
 
 <p>The resulting class looks like this:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoListAdd</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -287,10 +285,10 @@ into the {body} of the default.hbs template -->
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListAdd"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListAdd</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">form</span> <span class="nx">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleOnSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;</span>
-          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">"input_todo"</span> <span class="o">/&gt;</span>
-          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"submit"</span> <span class="o">/&gt;</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">ref</span><span class="o">=</span><span class="dl">"</span><span class="s2">input_todo</span><span class="dl">"</span> <span class="o">/&gt;</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span> <span class="o">/&gt;</span>
         <span class="o">&lt;</span><span class="sr">/form</span><span class="err">&gt;
 </span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">);</span>
@@ -316,8 +314,8 @@ into the {body} of the default.hbs template -->
 
 <h4 id="todolistitemsjs">TodoListItems.js</h4>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListItem</span> <span class="k">from</span> <span class="s1">'./TodoListItem'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItem</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListItem</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoListItems</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -328,7 +326,7 @@ into the {body} of the default.hbs template -->
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItems"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListItems</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="p">{</span>
           <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="k">return</span> <span class="o">&lt;</span><span class="nx">TodoListItem</span> <span class="nx">item</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
@@ -352,7 +350,7 @@ into the {body} of the default.hbs template -->
 
 <h4 id="todolistitemjs">TodoListItem.js</h4>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoListItem</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -363,7 +361,7 @@ into the {body} of the default.hbs template -->
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">item</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItem"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListItem</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="p">{</span><span class="nx">item</span><span class="p">}</span>
       <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">);</span>
@@ -375,7 +373,7 @@ into the {body} of the default.hbs template -->
 <span class="p">}</span>
 
 <span class="nx">TodoListItem</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">item</span><span class="p">:</span> <span class="s2">""</span>
+  <span class="na">item</span><span class="p">:</span> <span class="dl">""</span>
 <span class="p">}</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListItem</span><span class="p">;</span>
@@ -385,9 +383,9 @@ into the {body} of the default.hbs template -->
 
 <p>For a quick test of what we have now works, just change the content of your <code class="highlighter-rouge">TodoList.js</code> file to this:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListAdd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListItems</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -395,13 +393,13 @@ into the {body} of the default.hbs template -->
   <span class="p">}</span>
 
   <span class="nx">_handleAddSubmit</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Received item: '</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Received item: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
   <span class="p">}</span>
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">"test1"</span><span class="p">,</span> <span class="s2">"test2"</span><span class="p">,</span> <span class="s2">"test3"</span><span class="p">,</span> <span class="s2">"test4"</span> <span class="p">];</span>
+    <span class="kd">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[</span> <span class="dl">"</span><span class="s2">test1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">test2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">test3</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">test4</span><span class="dl">"</span> <span class="p">];</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoList</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="nx">handleOnSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleAddSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
 </span>        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="nx">items</span><span class="o">=</span><span class="p">{</span><span class="nx">items</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
 </span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
@@ -420,10 +418,10 @@ into the {body} of the default.hbs template -->
 
 <p>Let us finish this adding now. For that to happen, we will first have to convert our TodoList to work with states. So replace the content with this:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">update</span> <span class="k">from</span> <span class="s1">'react/lib/update'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">update</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react/lib/update</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListAdd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListItems</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -448,7 +446,7 @@ into the {body} of the default.hbs template -->
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoList</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="nx">handleOnSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleAddSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
 </span>        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="nx">items</span><span class="o">=</span><span class="p">{</span><span class="nx">items</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
 </span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
@@ -471,7 +469,7 @@ into the {body} of the default.hbs template -->
 
 <h4 id="todoitemjs">TodoItem.js</h4>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoListItem</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -495,12 +493,12 @@ into the {body} of the default.hbs template -->
 
 
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItem"</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItem-Check"</span><span class="o">&gt;</span>
-          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"checkbox"</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">"is_checked"</span> <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleCheckItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListItem</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListItem-Check</span><span class="dl">"</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">checkbox</span><span class="dl">"</span> <span class="nx">ref</span><span class="o">=</span><span class="dl">"</span><span class="s2">is_checked</span><span class="dl">"</span> <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">}</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleCheckItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
 </span>        <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>        <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleRemoveItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"fa fa-remove"</span><span class="o">&gt;&lt;</span><span class="sr">/i&gt;&lt;/</span><span class="nx">button</span><span class="o">&gt;</span>
+</span>        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleRemoveItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">fa fa-remove</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/i&gt;&lt;/</span><span class="nx">button</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">);</span>
   <span class="p">}</span>
@@ -513,7 +511,7 @@ into the {body} of the default.hbs template -->
 <span class="p">}</span>
 
 <span class="nx">TodoListItem</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">item</span><span class="p">:</span> <span class="s2">""</span>
+  <span class="na">item</span><span class="p">:</span> <span class="dl">""</span>
 <span class="p">}</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">TodoListItem</span><span class="p">;</span>
@@ -521,8 +519,8 @@ into the {body} of the default.hbs template -->
 
 <h4 id="todolistitemsjs-1">TodoListItems.js</h4>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListItem</span> <span class="k">from</span> <span class="s1">'./TodoListItem'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItem</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListItem</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoListItems</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -534,7 +532,7 @@ into the {body} of the default.hbs template -->
     <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoListItems"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoListItems</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="p">{</span>
           <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="k">return</span> <span class="o">&lt;</span><span class="nx">TodoListItem</span> <span class="nx">item</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">.</span><span class="nx">key</span><span class="p">}</span> <span class="nx">onRemoveItem</span><span class="o">=</span><span class="p">{</span><span class="nx">onRemoveItem</span><span class="p">}</span> <span class="nx">onCheckItem</span><span class="o">=</span><span class="p">{</span><span class="nx">onCheckItem</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
@@ -560,11 +558,11 @@ into the {body} of the default.hbs template -->
 
 <p>and <strong>TodoList.js</strong></p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">update</span> <span class="k">from</span> <span class="s1">'react/lib/update'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="s1">'./TodoListAdd'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="s1">'./TodoListItems'</span><span class="p">;</span>
-<span class="k">import</span> <span class="s1">'./TodoList.css'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">update</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react/lib/update</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListAdd</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListAdd</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TodoListItems</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./TodoListItems</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">./TodoList.css</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TodoList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -587,7 +585,7 @@ into the {body} of the default.hbs template -->
           <span class="na">value</span><span class="p">:</span> <span class="nx">value</span><span class="p">,</span>
 
           <span class="c1">// Set initial key based on the id and the check state</span>
-          <span class="na">key</span><span class="p">:</span> <span class="s2">"key_"</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">id_counter</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="kc">false</span>
+          <span class="na">key</span><span class="p">:</span> <span class="dl">"</span><span class="s2">key_</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">id_counter</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">_</span><span class="dl">"</span> <span class="o">+</span> <span class="kc">false</span>
         <span class="p">}]</span>
       <span class="p">}),</span>
       <span class="na">id_counter</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">id_counter</span> <span class="o">+</span> <span class="mi">1</span>
@@ -612,7 +610,7 @@ into the {body} of the default.hbs template -->
           <span class="nx">i</span><span class="p">.</span><span class="nx">isChecked</span> <span class="o">=</span> <span class="o">!</span><span class="nx">item</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">;</span>
 
           <span class="c1">// Change key since it has been checked!</span>
-          <span class="nx">i</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="s2">"key_"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s2">"_"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">;</span>
+          <span class="nx">i</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">key_</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">_</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span><span class="p">.</span><span class="nx">isChecked</span><span class="p">;</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">i</span><span class="p">;</span>
@@ -624,7 +622,7 @@ into the {body} of the default.hbs template -->
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
 
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TodoList"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TodoList</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">TodoListAdd</span> <span class="nx">handleOnSubmit</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_handleAddSubmit</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
 </span>        <span class="o">&lt;</span><span class="nx">TodoListItems</span> <span class="nx">items</span><span class="o">=</span><span class="p">{</span><span class="nx">items</span><span class="p">}</span> <span class="nx">onRemoveItem</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_onRemoveItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span> <span class="nx">onCheckItem</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_onCheckItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="sr">/</span><span class="err">&gt;
 </span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
@@ -731,22 +729,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -1326,26 +1308,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

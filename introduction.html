@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -234,12 +232,12 @@ into the {body} of the default.hbs template -->
 <span class="cp">#include
 </span>
 <span class="k">class</span> <span class="nc">Chrono</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="n">Chrono</span><span class="p">();</span>
   <span class="kt">void</span> <span class="n">start</span><span class="p">();</span>
   <span class="kt">void</span> <span class="n">stop</span><span class="p">();</span>
   <span class="kt">double</span> <span class="n">tijd</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
   <span class="kt">clock_t</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -276,7 +274,7 @@ into the {body} of the default.hbs template -->
 </span>
 <span class="k">template</span>
 <span class="k">class</span> <span class="nc">Sortmethod</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="k">virtual</span> <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="n">vector</span> <span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -285,7 +283,7 @@ into the {body} of the default.hbs template -->
 */</span>
 <span class="k">template</span>
 <span class="k">class</span> <span class="nc">STLSort</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Sortmethod</span><span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="n">vector</span> <span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -299,7 +297,7 @@ into the {body} of the default.hbs template -->
 */</span>
 <span class="k">template</span>
 <span class="k">class</span> <span class="nc">MergeSort</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Sortmethod</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
   <span class="kt">void</span> <span class="k">operator</span><span class="p">()(</span><span class="n">vector</span> <span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 <span class="p">};</span>
 
@@ -329,7 +327,7 @@ into the {body} of the default.hbs template -->
 </span>
 <span class="k">template</span>
 <span class="k">class</span> <span class="nc">Sortvector</span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
+<span class="nl">public:</span>
 <span class="n">Sortvector</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
 
 <span class="n">Sortvector</span><span class="p">(</span><span class="k">const</span> <span class="n">Sortvector</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
@@ -357,7 +355,7 @@ into the {body} of the default.hbs template -->
 <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">private</span><span class="o">:</span>
+<span class="nl">private:</span>
 <span class="n">vector</span> <span class="n">tab</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="n">schrijf</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">os</span><span class="p">)</span><span class="k">const</span><span class="p">;</span>
@@ -438,7 +436,7 @@ into the {body} of the default.hbs template -->
 <span class="p">}</span>
 
 <span class="k">template</span>
-<span class="kt">void</span> <span class="n">meet</span><span class="p">(</span><span class="kt">int</span> <span class="n">kortste</span><span class="p">,</span> <span class="kt">int</span> <span class="n">langste</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sorteermethode</span> <span class="o">&amp;</span> <span class="n">sm</span><span class="p">,</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="nf">meet</span><span class="p">(</span><span class="kt">int</span> <span class="n">kortste</span><span class="p">,</span> <span class="kt">int</span> <span class="n">langste</span><span class="p">,</span> <span class="k">const</span> <span class="n">Sorteermethode</span> <span class="o">&amp;</span> <span class="n">sm</span><span class="p">,</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">)</span> <span class="p">{</span>
 <span class="kt">int</span> <span class="n">lengte</span> <span class="o">=</span> <span class="n">kortste</span><span class="p">;</span>
 
 <span class="c1">// Print header</span>
@@ -508,22 +506,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -1028,26 +1010,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

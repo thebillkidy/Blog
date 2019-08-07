@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -192,10 +190,10 @@ into the {body} of the default.hbs template -->
 
 <p>Which is important for further processing. Once these tweets are mapped to the correct format, I then save them as a <code class="highlighter-rouge">.json</code> file and as a <code class="highlighter-rouge">.csv</code> file. The <code class="highlighter-rouge">.csv</code> file however needs a correct translation which can be easily coded in a few lines like this:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">csv</span> <span class="o">=</span> <span class="s2">"user,user_followers,user_favourites,tweet,tweet_created_at"</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">csv</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">user,user_followers,user_favourites,tweet,tweet_created_at</span><span class="dl">"</span><span class="p">;</span>
 <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'tweets'</span><span class="p">].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">tweet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">csv</span> <span class="o">+=</span> <span class="s2">`\n</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'screen_name'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'followers'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'favourites'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="s1">'text'</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/,/g</span><span class="p">,</span> <span class="s1">''</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\n</span><span class="sr">/g</span><span class="p">,</span> <span class="s1">''</span><span class="p">)}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="s1">'created_at'</span><span class="p">]}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">tweets</span><span class="dl">'</span><span class="p">].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">tweet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">csv</span> <span class="o">+=</span> <span class="s2">`\n</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">screen_name</span><span class="dl">'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">followers</span><span class="dl">'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">favourites</span><span class="dl">'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="dl">'</span><span class="s1">text</span><span class="dl">'</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/,/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\n</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">)}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="dl">'</span><span class="s1">created_at</span><span class="dl">'</span><span class="p">]}</span><span class="s2">`</span><span class="p">;</span>
     <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -206,9 +204,9 @@ into the {body} of the default.hbs template -->
 
 <p><strong>index.js</strong></p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">Twitter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'twitter'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./config'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Twitter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">twitter</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./config</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Twitter</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">twitter</span><span class="p">);</span>
 
@@ -219,8 +217,8 @@ into the {body} of the default.hbs template -->
 <span class="kd">const</span> <span class="nx">tweetsToFetch</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">users</span> <span class="o">=</span> <span class="p">[</span> 
-  <span class="s1">'MSEurope'</span><span class="p">,</span>
-  <span class="s1">'XavierGeerinck'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">MSEurope</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">XavierGeerinck</span><span class="dl">'</span><span class="p">,</span>
 <span class="p">];</span>
 
 <span class="kd">const</span> <span class="nx">getTweets</span> <span class="o">=</span> <span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -229,7 +227,7 @@ into the {body} of the default.hbs template -->
     <span class="na">count</span><span class="p">:</span> <span class="nx">tweetsToFetch</span>
   <span class="p">};</span>
 
-  <span class="nx">client</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'statuses/user_timeline'</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">tweets</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">client</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">statuses/user_timeline</span><span class="dl">'</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">tweets</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
     <span class="p">}</span>
@@ -246,14 +244,14 @@ into the {body} of the default.hbs template -->
   <span class="c1">// Get tweets</span>
   <span class="nx">users</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">promises</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getTweets</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+      <span class="kd">const</span> <span class="nx">tweets</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getTweets</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
       <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tweets</span><span class="p">;</span>
       <span class="nx">tweetCount</span> <span class="o">+=</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
       <span class="nx">resolve</span><span class="p">();</span>
     <span class="p">}));</span>
   <span class="p">});</span>
 
-  <span class="kr">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
   
   <span class="c1">// Manipulate tweets, we want to store the text, date posted and metadata about the user</span>
   <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{};</span>
@@ -268,33 +266,33 @@ into the {body} of the default.hbs template -->
       <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="p">}</span>
 
-    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'tweets'</span><span class="p">]</span> <span class="o">=</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">tweet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">tweets</span><span class="dl">'</span><span class="p">]</span> <span class="o">=</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">tweet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
       <span class="na">created_at</span><span class="p">:</span> <span class="nx">tweet</span><span class="p">.</span><span class="nx">created_at</span><span class="p">,</span>
       <span class="na">text</span><span class="p">:</span> <span class="nx">tweet</span><span class="p">.</span><span class="nx">text</span>
     <span class="p">}));</span>
     
-    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="na">id</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'user'</span><span class="p">][</span><span class="s1">'id_str'</span><span class="p">],</span>
-      <span class="na">name</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'user'</span><span class="p">][</span><span class="s1">'name'</span><span class="p">],</span>
-      <span class="na">screen_name</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'user'</span><span class="p">][</span><span class="s1">'screen_name'</span><span class="p">],</span>
-      <span class="na">description</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'user'</span><span class="p">][</span><span class="s1">'description'</span><span class="p">],</span>
-      <span class="na">followers</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'user'</span><span class="p">][</span><span class="s1">'followers_count'</span><span class="p">],</span>
-      <span class="na">favourites</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'user'</span><span class="p">][</span><span class="s1">'favourites_count'</span><span class="p">],</span>
+    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">id</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">id_str</span><span class="dl">'</span><span class="p">],</span>
+      <span class="na">name</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">],</span>
+      <span class="na">screen_name</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">screen_name</span><span class="dl">'</span><span class="p">],</span>
+      <span class="na">description</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">description</span><span class="dl">'</span><span class="p">],</span>
+      <span class="na">followers</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">followers_count</span><span class="dl">'</span><span class="p">],</span>
+      <span class="na">favourites</span><span class="p">:</span> <span class="nx">allTweets</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">favourites_count</span><span class="dl">'</span><span class="p">],</span>
     <span class="p">}</span>
   <span class="p">})</span>
 
   <span class="c1">// Save as JSON</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="s1">'./results.json'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">),</span> <span class="s1">'utf8'</span><span class="p">);</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="dl">'</span><span class="s1">./results.json</span><span class="dl">'</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">),</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">);</span>
 
   <span class="c1">// Also write as a CSV as in &lt;user&gt;,&lt;user_followers&gt;,&lt;user_favourites&gt;,&lt;tweet&gt;,&lt;tweet_created_at&gt;</span>
-  <span class="kd">let</span> <span class="nx">csv</span> <span class="o">=</span> <span class="s2">"user,user_followers,user_favourites,tweet,tweet_created_at"</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">csv</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">user,user_followers,user_favourites,tweet,tweet_created_at</span><span class="dl">"</span><span class="p">;</span>
   <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">result</span><span class="p">).</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'tweets'</span><span class="p">].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">tweet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nx">csv</span> <span class="o">+=</span> <span class="s2">`\n</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'screen_name'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'followers'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="s1">'metadata'</span><span class="p">][</span><span class="s1">'favourites'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="s1">'text'</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/,/g</span><span class="p">,</span> <span class="s1">''</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\n</span><span class="sr">/g</span><span class="p">,</span> <span class="s1">''</span><span class="p">)}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="s1">'created_at'</span><span class="p">]}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">tweets</span><span class="dl">'</span><span class="p">].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">tweet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">csv</span> <span class="o">+=</span> <span class="s2">`\n</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">screen_name</span><span class="dl">'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">followers</span><span class="dl">'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">result</span><span class="p">[</span><span class="nx">user</span><span class="p">][</span><span class="dl">'</span><span class="s1">metadata</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">favourites</span><span class="dl">'</span><span class="p">]}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="dl">'</span><span class="s1">text</span><span class="dl">'</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/,/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\n</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">''</span><span class="p">)}</span><span class="s2">,</span><span class="p">${</span><span class="nx">tweet</span><span class="p">[</span><span class="dl">'</span><span class="s1">created_at</span><span class="dl">'</span><span class="p">]}</span><span class="s2">`</span><span class="p">;</span>
     <span class="p">});</span>
   <span class="p">});</span>
   
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="s1">'./results.csv'</span><span class="p">,</span> <span class="nx">csv</span><span class="p">);</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="dl">'</span><span class="s1">./results.csv</span><span class="dl">'</span><span class="p">,</span> <span class="nx">csv</span><span class="p">);</span>
 
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`DONE, saved </span><span class="p">${</span><span class="nx">tweetCount</span><span class="p">}</span><span class="s2"> tweets`</span><span class="p">);</span>
 <span class="p">};</span>
@@ -306,10 +304,10 @@ into the {body} of the default.hbs template -->
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">twitter</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">consumer_key</span><span class="p">:</span> <span class="s1">'&lt;your_consumer_key&gt;'</span><span class="p">,</span>
-    <span class="na">consumer_secret</span><span class="p">:</span> <span class="s1">'&lt;your_consumer_secret&gt;'</span><span class="p">,</span>
-    <span class="na">access_token_key</span><span class="p">:</span> <span class="s1">'&lt;your_access_token&gt;'</span><span class="p">,</span>
-    <span class="na">access_token_secret</span><span class="p">:</span> <span class="s1">'&lt;your_access_token_secret&gt;'</span>
+    <span class="na">consumer_key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;your_consumer_key&gt;</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">consumer_secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;your_consumer_secret&gt;</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">access_token_key</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;your_access_token&gt;</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">access_token_secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;your_access_token_secret&gt;</span><span class="dl">'</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -318,22 +316,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -905,26 +887,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

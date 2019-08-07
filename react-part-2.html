@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -178,96 +176,96 @@ into the {body} of the default.hbs template -->
 
 <p>Start by creating a file called <code class="highlighter-rouge">webpack.config.js</code> in your root folder and paste the following content into it:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'webpack'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">node_modules_dir</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'node_modules'</span><span class="p">);</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">webpack</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">node_modules_dir</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">node_modules</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">AUTOPREFIXER_BROWSERS</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="s1">'Android 2.3'</span><span class="p">,</span>
-  <span class="s1">'Android &gt;= 4'</span><span class="p">,</span>
-  <span class="s1">'Chrome &gt;= 20'</span><span class="p">,</span>
-  <span class="s1">'Firefox &gt;= 24'</span><span class="p">,</span>
-  <span class="s1">'Explorer &gt;= 8'</span><span class="p">,</span>
-  <span class="s1">'iOS &gt;= 6'</span><span class="p">,</span>
-  <span class="s1">'Opera &gt;= 12'</span><span class="p">,</span>
-  <span class="s1">'Safari &gt;= 6'</span>
+  <span class="dl">'</span><span class="s1">Android 2.3</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Android &gt;= 4</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Chrome &gt;= 20</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Firefox &gt;= 24</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Explorer &gt;= 8</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">iOS &gt;= 6</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Opera &gt;= 12</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Safari &gt;= 6</span><span class="dl">'</span>
 <span class="p">];</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">entry</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">app</span><span class="p">:</span> <span class="p">[</span><span class="s1">'webpack/hot/dev-server'</span><span class="p">,</span> <span class="s1">'webpack-dev-server/client?http://localhost:8080'</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">'src/index.js'</span><span class="p">)],</span>
+    <span class="na">app</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">webpack/hot/dev-server</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">webpack-dev-server/client?http://localhost:8080</span><span class="dl">'</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">'</span><span class="s1">src/index.js</span><span class="dl">'</span><span class="p">)],</span>
   <span class="p">},</span>
   <span class="na">output</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">path</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">'production'</span> <span class="p">?</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'dist'</span><span class="p">)</span> <span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'build'</span><span class="p">),</span>
-    <span class="na">filename</span><span class="p">:</span> <span class="s1">'bundle.js'</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">production</span><span class="dl">'</span> <span class="p">?</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">dist</span><span class="dl">'</span><span class="p">)</span> <span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">build</span><span class="dl">'</span><span class="p">),</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bundle.js</span><span class="dl">'</span>
   <span class="p">},</span>
   <span class="na">module</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">noParse</span><span class="p">:</span> <span class="p">[],</span>
     <span class="na">loaders</span><span class="p">:</span> <span class="p">[{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.jsx</span><span class="se">?</span><span class="sr">$/</span><span class="p">,</span>
         <span class="na">exclude</span><span class="p">:</span> <span class="p">[</span><span class="nx">node_modules_dir</span><span class="p">],</span>
-        <span class="na">loaders</span><span class="p">:</span> <span class="p">[</span><span class="s1">'react-hot'</span><span class="p">,</span> <span class="s1">'babel'</span><span class="p">]</span>
+        <span class="na">loaders</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">react-hot</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">babel</span><span class="dl">'</span><span class="p">]</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.html$/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'file?name=[name].[ext]'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">file?name=[name].[ext]</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.css$/</span><span class="p">,</span>
         <span class="na">exclude</span><span class="p">:</span> <span class="p">[</span><span class="nx">node_modules_dir</span><span class="p">],</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'style-loader!css-loader!cssnext-loader'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">style-loader!css-loader!cssnext-loader</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.txt/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'file-loader?name=[path][name].[ext]'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">file-loader?name=[path][name].[ext]</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.gif/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=10000&amp;mimetype=image/gif'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=10000&amp;mimetype=image/gif</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.jpg/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=10000&amp;mimetype=image/jpg'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=10000&amp;mimetype=image/jpg</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.png/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=10000&amp;mimetype=image/png'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=10000&amp;mimetype=image/png</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.svg/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=10000&amp;mimetype=image/svg+xml'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=10000&amp;mimetype=image/svg+xml</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.eot/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=100000&amp;mimetype=application/vnd.ms-fontobject'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=100000&amp;mimetype=application/vnd.ms-fontobject</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.woff2/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=100000&amp;mimetype=application/font-woff2'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=100000&amp;mimetype=application/font-woff2</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.woff/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=100000&amp;mimetype=application/font-woff'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=100000&amp;mimetype=application/font-woff</span><span class="dl">'</span>
       <span class="p">},</span>
       <span class="p">{</span>
         <span class="na">test</span><span class="p">:</span> <span class="sr">/.ttf/</span><span class="p">,</span>
-        <span class="na">loader</span><span class="p">:</span> <span class="s1">'url-loader?limit=100000&amp;mimetype=application/font-ttf'</span>
+        <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">url-loader?limit=100000&amp;mimetype=application/font-ttf</span><span class="dl">'</span>
       <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">},</span>
   <span class="na">resolve</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">extensions</span><span class="p">:</span> <span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'.js'</span><span class="p">,</span> <span class="s1">'.jsx'</span><span class="p">],</span>
+    <span class="na">extensions</span><span class="p">:</span> <span class="p">[</span><span class="dl">''</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">.jsx</span><span class="dl">'</span><span class="p">],</span>
     <span class="na">alias</span><span class="p">:</span> <span class="p">{}</span>
   <span class="p">},</span>
   <span class="na">cssnext</span><span class="p">:</span> <span class="p">{},</span>
   <span class="na">postcss</span><span class="p">:</span> <span class="p">[</span>
-    <span class="nx">require</span><span class="p">(</span><span class="s1">'postcss-nested'</span><span class="p">)(),</span>
-    <span class="nx">require</span><span class="p">(</span><span class="s1">'cssnext'</span><span class="p">)(),</span>
-    <span class="nx">require</span><span class="p">(</span><span class="s1">'autoprefixer-core'</span><span class="p">)(</span><span class="nx">AUTOPREFIXER_BROWSERS</span><span class="p">)</span>
+    <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">postcss-nested</span><span class="dl">'</span><span class="p">)(),</span>
+    <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">cssnext</span><span class="dl">'</span><span class="p">)(),</span>
+    <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">autoprefixer-core</span><span class="dl">'</span><span class="p">)(</span><span class="nx">AUTOPREFIXER_BROWSERS</span><span class="p">)</span>
   <span class="p">],</span>
   <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
     <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
-      <span class="s2">"global.GENTLY"</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="dl">"</span><span class="s2">global.GENTLY</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
     <span class="p">})</span>
   <span class="p">],</span>
   <span class="na">node</span><span class="p">:</span> <span class="p">{</span>
@@ -283,48 +281,48 @@ into the {body} of the default.hbs template -->
 <p>The last file we will need to define before we will be able to start our environment is the <strong>package.json</strong> file.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tutorial_react_flux_hapi"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./src/index.js"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"autoprefixer-core"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"babel-core"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.8.23"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"babel-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.3.2"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"css-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.17.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cssnext"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.8.4"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cssnext-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.1"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"file-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.8.4"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"font-awesome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.4.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"jsx-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.13.2"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"normalize.css"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0.3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"postcss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.0.4"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"postcss-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.6.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"postcss-nested"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"react-hot-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.3.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"style-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.12.3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"url-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.5.6"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"webpack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.12.1"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"webpack-dev-server"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.10.1"</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tutorial_react_flux_hapi"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./src/index.js"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"autoprefixer-core"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^6.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"babel-core"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.8.23"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"babel-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.3.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"css-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.17.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cssnext"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.8.4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cssnext-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"file-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.8.4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"font-awesome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.4.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"jsx-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.13.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"normalize.css"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0.3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.0.4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcss-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.6.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcss-nested"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"react-hot-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.3.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"style-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.12.3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url-loader"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.5.6"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"webpack"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.12.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"webpack-dev-server"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.10.1"</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webpack-dev-server --devtool eval --progress --colors --content-base build --hot --inline"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"deploy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NODE_ENV=production webpack -p"</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webpack-dev-server --devtool eval --progress --colors --content-base build --hot --inline"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"deploy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NODE_ENV=production webpack -p"</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"babel-eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.0.5"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"babel-runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.8.20"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.3.5"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.1.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"eslint-plugin-react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.2.2"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"flux"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.0.3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"history"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.9.1"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.13.3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"react-bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.24.5"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"react-mixin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.7.0"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"react-router"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0-rc1"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"superagent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.4.0"</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"babel-eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.0.5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"babel-runtime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^5.8.20"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.3.5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eslint-plugin-react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.2.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"flux"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^2.0.3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"history"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.9.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"react"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.13.3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"react-bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^0.24.5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"react-mixin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.7.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"react-router"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0-rc1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"superagent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.4.0"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
@@ -347,8 +345,8 @@ into the {body} of the default.hbs template -->
 
 <h3 id="indexjs">index.js</h3>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">routes</span> <span class="k">from</span> <span class="s1">'./routes'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">routes</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./routes</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="c1">// Install the routes</span>
 <span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">routes</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
@@ -375,14 +373,14 @@ into the {body} of the default.hbs template -->
 
 <h3 id="routesjs">routes.js</h3>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react/addons'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">IndexRoute</span>  <span class="p">}</span> <span class="k">from</span> <span class="s1">'react-router'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="s1">'./components/App'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">TODOListPage</span> <span class="k">from</span> <span class="s1">'./components/pages/TODOList'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react/addons</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">IndexRoute</span>  <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/App</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">TODOListPage</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/pages/TODOList</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">routes</span> <span class="o">=</span> <span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">Router</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">"/"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="dl">"</span><span class="s2">/</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">IndexRoute</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">TODOListPage</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/Route</span><span class="err">&gt;
 </span>  <span class="o">&lt;</span><span class="sr">/Router</span><span class="err">&gt;
@@ -402,18 +400,18 @@ into the {body} of the default.hbs template -->
 <h3 id="packagejson">package.json</h3>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.0"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./App.js"</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"App"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./App.js"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <h3 id="appjs">App.js</h3>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">Router</span> <span class="k">from</span> <span class="s1">'react-router'</span><span class="p">;</span>
-<span class="k">import</span> <span class="s1">'./App.css'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">./App.css</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">RouteHandler</span> <span class="o">=</span> <span class="nx">Router</span><span class="p">.</span><span class="nx">RouteHandler</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
@@ -423,7 +421,7 @@ into the {body} of the default.hbs template -->
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"app"</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"App-Container"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">app</span><span class="dl">"</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">App-Container</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
       <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">);</span>
@@ -449,7 +447,7 @@ into the {body} of the default.hbs template -->
 
 <p>For now we can put a HELLO WORLD string into the component so that we are able to test if it is all working nicely just as we want to. For that make your TODOListPage component look like this:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PropTypes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">TODOList</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
@@ -458,7 +456,7 @@ into the {body} of the default.hbs template -->
 
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">"TODOList"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">TODOList</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="nx">HELLO</span> <span class="nx">WORLD</span>
       <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>    <span class="p">)</span>
@@ -476,22 +474,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -1067,26 +1049,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

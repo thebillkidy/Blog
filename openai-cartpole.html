@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -241,15 +239,15 @@ into the {body} of the default.hbs template -->
 <p>So in our CartPole example, let’s take a look at one of our state observations:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="err">done</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="err">info</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-  </span><span class="err">observation</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="err">done:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="err">info:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="err">observation:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="mf">0.10040040129814863</span><span class="p">,</span><span class="w">
     </span><span class="mf">0.5559659866710018</span><span class="p">,</span><span class="w">
     </span><span class="mf">-0.17649755837025902</span><span class="p">,</span><span class="w">
     </span><span class="mf">-1.1301794535568273</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="err">reward</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="err">reward:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
@@ -294,14 +292,14 @@ into the {body} of the default.hbs template -->
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  * For more information, check: https://gym.openai.com/docs/
  */</span>
-<span class="kd">const</span> <span class="nx">gym</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'../OpenAI-Gym/gym-http-api/binding-js/dist/lib/gymHTTPClient'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">Bucket</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./Bucket'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">gym</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../OpenAI-Gym/gym-http-api/binding-js/dist/lib/gymHTTPClient</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Bucket</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./Bucket</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">episodeCount</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">maxTimeSteps</span> <span class="o">=</span> <span class="mi">250</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">outDir</span> <span class="o">=</span> <span class="s2">"/tmp/random-agent/results"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">outDir</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">/tmp/random-agent/results</span><span class="dl">"</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">numTrials</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">envId</span> <span class="o">=</span> <span class="s2">"CartPole-v0"</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">gym</span><span class="p">.</span><span class="k">default</span><span class="p">(</span><span class="s2">"http://127.0.0.1:5000"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">envId</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">CartPole-v0</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">gym</span><span class="p">.</span><span class="k">default</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://127.0.0.1:5000</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="c1">// Parameter to enable debug</span>
 <span class="kd">const</span> <span class="nx">PRINT_DEBUG</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
@@ -315,15 +313,15 @@ into the {body} of the default.hbs template -->
 
   <span class="k">async</span> <span class="nx">initialize</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Create our environment</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">environment</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envCreate</span><span class="p">(</span><span class="nx">envId</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">environment</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envCreate</span><span class="p">(</span><span class="nx">envId</span><span class="p">);</span>
 
     <span class="c1">// Our ActionSpace</span>
     <span class="c1">// For CartPole-v0 this returns: { info: { n: 2, name: 'Discrete' } }</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envActionSpaceInfo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envActionSpaceInfo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
 
     <span class="c1">// Our ObservationSpace</span>
     <span class="c1">// For CartPole-v0 this returns: { info: { high: [XXX], low: [XXX], name: 'Box', shape: [ 4 ] } }</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envObservationSpaceInfo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envObservationSpaceInfo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
 
     <span class="c1">// Rebind our velocity and angular velocity parameters, the pole should stand still as much as possible</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">high</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
@@ -332,16 +330,16 @@ into the {body} of the default.hbs template -->
     <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">low</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">radians</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 
     <span class="c1">// Set our learning agent</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">agent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CartPoleAgent</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">[</span><span class="s2">"n"</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">agent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CartPoleAgent</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">actionSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">[</span><span class="dl">"</span><span class="s2">n</span><span class="dl">"</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="k">this</span><span class="p">.</span><span class="nx">observationSpaceInfo</span><span class="p">.</span><span class="nx">info</span><span class="p">);</span>
   <span class="p">}</span>
 
   <span class="k">async</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">oldObservation</span> <span class="o">=</span> <span class="p">[];</span>
 
-    <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">initialize</span><span class="p">();</span>
+    <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">initialize</span><span class="p">();</span>
 
     <span class="c1">// Start Monitoring</span>
-    <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envMonitorStart</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">,</span> <span class="nx">outDir</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envMonitorStart</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">,</span> <span class="nx">outDir</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
     <span class="c1">// For every episode</span>
     <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">episode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">episode</span> <span class="o">&lt;</span> <span class="nx">episodeCount</span><span class="p">;</span> <span class="nx">episode</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -349,7 +347,7 @@ into the {body} of the default.hbs template -->
       <span class="kd">let</span> <span class="nx">environment</span> <span class="o">=</span> <span class="p">{</span>
         <span class="na">done</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="na">info</span><span class="p">:</span> <span class="p">{},</span>
-        <span class="na">observation</span><span class="p">:</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envReset</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">),</span> <span class="c1">// envReset gives an initial observation</span>
+        <span class="na">observation</span><span class="p">:</span> <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envReset</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">),</span> <span class="c1">// envReset gives an initial observation</span>
         <span class="na">reward</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
       <span class="p">}</span>
 
@@ -358,7 +356,7 @@ into the {body} of the default.hbs template -->
       <span class="c1">// if t &gt;= maxTimeSteps, then we did not solve it fast enough</span>
       <span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
       <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">environment</span><span class="p">.</span><span class="nx">done</span> <span class="o">&amp;&amp;</span> <span class="nx">t</span> <span class="o">&lt;</span> <span class="nx">maxTimeSteps</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">environment</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">agent</span><span class="p">.</span><span class="nx">act</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">,</span> <span class="nx">episode</span><span class="p">,</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">observation</span><span class="p">);</span>
+        <span class="nx">environment</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">agent</span><span class="p">.</span><span class="nx">act</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">,</span> <span class="nx">episode</span><span class="p">,</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">observation</span><span class="p">);</span>
         <span class="nx">t</span><span class="o">++</span><span class="p">;</span>
       <span class="p">}</span>
 
@@ -366,7 +364,7 @@ into the {body} of the default.hbs template -->
     <span class="p">}</span>
 
     <span class="c1">// Stop Monitoring</span>
-    <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envMonitorClose</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
+    <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envMonitorClose</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">environment</span><span class="p">.</span><span class="nx">instance_id</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">outDir</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -493,7 +491,7 @@ into the {body} of the default.hbs template -->
     <span class="c1">// ========================================================</span>
     <span class="c1">// Choose an action</span>
     <span class="kd">const</span> <span class="nx">action</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">chooseAction</span><span class="p">(</span><span class="nx">stateIndex</span><span class="p">,</span> <span class="nx">epsilon</span><span class="p">);</span>
-    <span class="kd">let</span> <span class="nx">newEnvironment</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envStep</span><span class="p">(</span><span class="nx">instanceId</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// returns { done, info, observation, reward }</span>
+    <span class="kd">let</span> <span class="nx">newEnvironment</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">envStep</span><span class="p">(</span><span class="nx">instanceId</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// returns { done, info, observation, reward }</span>
     
     <span class="c1">// ========================================================</span>
     <span class="c1">// 3. Based on result of the action, update our Q value</span>
@@ -577,19 +575,19 @@ into the {body} of the default.hbs template -->
    * Help method to view some details about our algorithm
    */</span>
   <span class="nx">printDebug</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Buckets'</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">=======================================</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Buckets</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">=======================================</span><span class="dl">'</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bucketArrays</span><span class="p">);</span>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Possible States'</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">=======================================</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Possible States</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">=======================================</span><span class="dl">'</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">states</span><span class="p">);</span>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Initial Q-Table'</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'======================================='</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">=======================================</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Initial Q-Table</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">=======================================</span><span class="dl">'</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">q</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -696,22 +694,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -1195,26 +1177,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->

@@ -126,8 +126,6 @@ into the {body} of the default.hbs template -->
             
         </div>
         
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        
     </div>
 </nav>
 
@@ -178,7 +176,7 @@ into the {body} of the default.hbs template -->
   <p>In the example below, we simulate real REST calls with a wait between each, showing how they will be out of order!</p>
 </blockquote>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'delay'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">delay</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">promises</span> <span class="o">=</span> <span class="p">[];</span>
@@ -186,7 +184,7 @@ into the {body} of the default.hbs template -->
     <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">promises</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="c1">// Delay between 0 and 500ms to simulate REST call</span>
-            <span class="kr">await</span> <span class="nx">delay</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
+            <span class="k">await</span> <span class="nx">delay</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Executing </span><span class="p">${</span><span class="nx">i</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
         <span class="p">}))</span>
     <span class="p">}</span>
@@ -203,14 +201,14 @@ into the {body} of the default.hbs template -->
   <p>Note: Make sure to run <code class="highlighter-rouge">npm install delay</code> before running the code below.</p>
 </blockquote>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'delay'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">delay</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="c1">// Init our calls array -&gt; in REST this would be URLs</span>
 <span class="kd">let</span> <span class="nx">calls</span> <span class="o">=</span> <span class="p">[];</span>
 <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">calls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="c1">// Delay between 0 and 500ms to simulate REST call</span>
-        <span class="kr">await</span> <span class="nx">delay</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
+        <span class="k">await</span> <span class="nx">delay</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Executing </span><span class="p">${</span><span class="nx">i</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
         <span class="nx">cb</span><span class="p">();</span>
     <span class="p">});</span>
@@ -237,13 +235,13 @@ into the {body} of the default.hbs template -->
         <span class="nx">callsToExecute</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">promises</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">i</span><span class="p">(</span><span class="nx">resolve</span><span class="p">))));</span>
 
         <span class="c1">// Wait for all our alls to be done</span>
-        <span class="kr">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
+        <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
 
         <span class="c1">// Throttle time</span>
-        <span class="kr">await</span> <span class="nx">delay</span><span class="p">(</span><span class="nx">rateLimitTime</span><span class="p">);</span>
+        <span class="k">await</span> <span class="nx">delay</span><span class="p">(</span><span class="nx">rateLimitTime</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Done!'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Done!</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="nx">start</span><span class="p">();</span>
@@ -253,7 +251,7 @@ into the {body} of the default.hbs template -->
 
 <p>Since we now made the basic Proof Of Concept, it is easy to transform this into a generic class that we can re-use throughout our different projects:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'delay'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">delay</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="cm">/**
  * Example usage:
@@ -301,10 +299,10 @@ into the {body} of the default.hbs template -->
             <span class="nx">callsToExecute</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">callIsDoneCallback</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">promises</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">callIsDoneCallback</span><span class="p">(</span><span class="nx">resolve</span><span class="p">))));</span>
 
             <span class="c1">// Wait for all our alls to be done</span>
-            <span class="kr">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
+            <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
 
             <span class="c1">// Throttle time @todo: this is not the exact time but an artificial time, we actually need the time between latest call and finish.</span>
-            <span class="kr">await</span> <span class="nx">delay</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">rateLimitDelay</span><span class="p">);</span>
+            <span class="k">await</span> <span class="nx">delay</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">rateLimitDelay</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -318,22 +316,6 @@ into the {body} of the default.hbs template -->
             </section>
 
             <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-                </section>
             
 
             <footer class="post-full-footer">
@@ -913,26 +895,6 @@ into the {body} of the default.hbs template -->
     </div>
 
     <!-- The big email subscribe modal content -->
-    
-        <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
-            <div class="subscribe-overlay-content">
-                
-                <h1 class="subscribe-overlay-title">Subscribe</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
-                <form action="https://brewr.us11.list-manage.com/subscribe/post?u=6fe5da233e3a03288914872d9&amp;id=31b5878f1c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
-
-    <div class="form-group">
-        <input class="subscribe-email required email" type="email" name="EMAIL" id="mce-EMAIL" placeholder="youremail@example.com" />
-    </div>
-    <button id="mc-embedded-subscribe" class="" type="submit"><span>Subscribe</span></button>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6fe5da233e3a03288914872d9_31b5878f1c" tabindex="-1" value=""></div>
-    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
-</form>
-
-            </div>
-        </div>
      
 
     <!-- highlight.js -->
