@@ -22,7 +22,6 @@ big-data:
 business:
   name: Business
   cover: assets/images/covers/business3.jpg
-  featured: true
 coding:
   name: Coding
   cover: assets/images/covers/coding.jpg
@@ -59,6 +58,10 @@ discrete-math:
 infrastructure:
   name: Infrastructure
   cover: /assets/images/covers/infrastructure.jpg
+iot:
+  name: IoT
+  cover: /assets/images/covers/iot.jpg
+  featured: true
 networking:
   name: Networking
   cover: /assets/images/covers/network.jpg

@@ -1,0 +1,1 @@
+TODO: Blog post regarding big data platform comparison
