@@ -216,6 +216,21 @@
     
       
       <item>
+        <title>Azure IoT Edge Simulator - Easily run and test your IoT Edge application</title>
+        
+          <description>&lt;p&gt;Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 20 May 2019 09:00:00 +0000</pubDate>
+        <link>
+        /iot-edge-simulator</link>
+        <guid isPermaLink="true">/iot-edge-simulator</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Creating an Internet Of Things (IoT) Edge Deployment</title>
         
           <description>&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
