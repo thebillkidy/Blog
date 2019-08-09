@@ -76,3 +76,8 @@ IoT Hub module client initialized.
 ```
 
 Of course you are also able to utilize this as debug, for that feel free to check this link on how to set this up for your IDE: [https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module#develop-your-module](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module#develop-your-module)
+
+## Sending Messages to our module
+
+Sending a message is now easy, once your code is running you are able to send messages by issueing a CURL request to the endpoint you received when starting the simulator (`curl --header "Content-Type: application/json" --request POST --data '{"inputName": "input1","data":"hello world"}' http://localhost:53000/api/v1/messages`)
+
