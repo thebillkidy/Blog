@@ -32,6 +32,8 @@ So let's get started!
 
 ### Module A - Car Simulator
 
+#### Initial Setup
+
 As we learned in [part 1](/iot-edge-part1) we set up a new IoT Edge solution with the following parameters:
 
 * **Path:** `/home/xavier/iot-edge`
@@ -60,7 +62,10 @@ This dataset (`dataset_car.csv`) has the following fields:
 * Lateral Gs
 * Acceleration Gs
 
-For the actual code:
+#### Coding
+
+We thus create a file called `/data/car.csv` containing the `dataset_car.csv` data in our project folder.
+
 
 
 
