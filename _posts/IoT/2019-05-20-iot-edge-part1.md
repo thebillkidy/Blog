@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/iot.jpg'
 navigation: True
 title: Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub
-date: 2019-05-20 09:00:00
+date: 2019-08-10 09:00:02
 tags: azure coding-javascript iot
 class: post-template
 subclass: 'post'

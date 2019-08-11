@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/iot.jpg'
 navigation: True
 title: Azure IoT Edge Simulator - Easily run and test your IoT Edge application
-date: 2019-05-20 09:00:00
+date: 2019-08-10 09:00:01
 tags: azure coding-javascript iot
 class: post-template
 subclass: 'post'
@@ -25,6 +25,15 @@ This article will explain you how you can do this for a `Dotnet Core` applicatio
   * Note 2: If you have to utilize `sudo`, first remove `iotedgehubdev` since it might be installed under `.local`
   * Note 3: Make sure `docker-compose` is also installed correctly (else if also under .local, reinstall with sudo)
 * A module, see part 1 for this: [iot-edge-part-1](/iot-edge-part1)
+
+## Tl;dr
+
+As a summary, you do the following:
+1.  `sudo iotedgehubdev start -i "input1"` - Start the IoT Edge simulator for a single module
+2. `cd <modulePath>` Navigate to your Module
+3. `env $(sudo iotedgehubdev modulecred | xargs) dotnet run` - Start the module and test it (or through debug)
+
+> Note: if when running the `env` command no output is appearing, make sure that you started the IoT Edge Simulator for a single module!
 
 ## Setting up the simulator
 
