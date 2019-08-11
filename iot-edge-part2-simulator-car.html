@@ -10,7 +10,7 @@
 
 
 
-    <title>Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title>
+    <title>Part 2 - Creating a Car Data simulator in IoT Edge</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -24,24 +24,24 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="My thoughts, tutorials and learnings" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/iot-edge-part1" />
+    <link rel="canonical" href="/iot-edge-part2-simulator-car" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" />
-    <meta property="og:description" content="This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with" />
-    <meta property="og:url" content="/iot-edge-part1" />
+    <meta property="og:title" content="Part 2 - Creating a Car Data simulator in IoT Edge" />
+    <meta property="og:description" content="This is Part 2 in the Iot Edge series, view the main article or go the part 1 to view the previous article. Recap and next steps In part 1 we created our cloud infrastructure, our initial device connected to it and afterwards wrote a simulator module that we pushed" />
+    <meta property="og:url" content="/iot-edge-part2-simulator-car" />
     <meta property="og:image" content="/assets/images/covers/iot.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2019-08-10T09:00:02+00:00" />
-    <meta property="article:modified_time" content="2019-08-10T09:00:02+00:00" />
+    <meta property="article:published_time" content="2019-08-10T09:00:03+00:00" />
+    <meta property="article:modified_time" content="2019-08-10T09:00:03+00:00" />
     <meta property="article:tag" content="Azure" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" />
-    <meta name="twitter:description" content="This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with" />
+    <meta name="twitter:title" content="Part 2 - Creating a Car Data simulator in IoT Edge" />
+    <meta name="twitter:description" content="This is Part 2 in the Iot Edge series, view the main article or go the part 1 to view the previous article. Recap and next steps In part 1 we created our cloud infrastructure, our initial device connected to it and afterwards wrote a simulator module that we pushed" />
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image" content="/assets/images/covers/iot.jpg" />
     <meta name="twitter:label1" content="Written by" />
@@ -62,7 +62,7 @@
         "name": "Xavier Geerinck - Blog",
         "logo": "/false"
     },
-    "url": "/iot-edge-part1",
+    "url": "/iot-edge-part2-simulator-car",
     "image": {
         "@type": "ImageObject",
         "url": "/assets/images/covers/iot.jpg",
@@ -71,14 +71,14 @@
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/iot-edge-part1"
+        "@id": "/iot-edge-part2-simulator-car"
     },
-    "description": "This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with"
+    "description": "This is Part 2 in the Iot Edge series, view the main article or go the part 1 to view the previous article. Recap and next steps In part 1 we created our cloud infrastructure, our initial device connected to it and afterwards wrote a simulator module that we pushed"
 }
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Part 2 - Creating a Car Data simulator in IoT Edge" href="/feed.xml" />
 
 
 
@@ -169,336 +169,254 @@ into the {body} of the default.hbs template -->
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</h1>
-                    <!-- > This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. -->
-
-<blockquote>
-  <p>This is Part 1 in the Iot Edge series, view the <a href="/iot-edge">main article</a>. Part 2 is currently under construction and will follow soon.</p>
+                        <h1 class="post-full-title">Part 2 - Creating a Car Data simulator in IoT Edge</h1>
+                    <blockquote>
+  <p>This is Part 2 in the Iot Edge series, view the <a href="/iot-edge">main article</a> or go the <a href="/iot-edge-part1">part 1</a> to view the previous article.</p>
 </blockquote>
 
 <p><img src="/assets/images/posts/iot-edge/architecture2.png" alt="/assets/images/posts/iot-edge/architecture2.png" /></p>
 
-<p>Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with them. In this first part we will be mainly focusing on doing just that - connecting our devices and sending data to our IoT Hub resource.</p>
+<h2 id="recap-and-next-steps">Recap and next steps</h2>
 
-<p>Therefor in this Part we have the following <strong>prerequisities:</strong></p>
+<p>In <a href="/iot-edge-part1">part 1</a> we created our cloud infrastructure, our initial device connected to it and afterwards wrote a simulator module that we pushed to the edge device, that will send us the time every 30 seconds</p>
 
-<blockquote>
-  <p>Note for my variables I used the following:</p>
-  <ul>
-    <li>YOUR_IOTHUB_NAME = xavier-iothub</li>
-    <li>YOUR_DEVICE_ID = xavier-device-1</li>
-    <li>YOUR_EDGE_VM = xavier-edge-1</li>
-  </ul>
-</blockquote>
+<p>What we want to do now is that we want to create 2 solutions as shown in our architecture that will simulate car data and video data. So let’s get started!</p>
 
-<h2 id="prerequisites">Prerequisites</h2>
+<h2 id="initial-setup">Initial Setup</h2>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>As we learned in <a href="/iot-edge-part1">part 1</a> we set up a new IoT Edge solution with the following parameters:</p>
 
 <ul>
-  <li>IoT Hub - Connect and manage your devices
-    <ul>
-      <li><code class="highlighter-rouge">az iot hub create --resource-group DEMO-IoTEdge --name {YOUR_IOTHUB_NAME} --sku F1</code> will create a <em>free</em> iot hub (limits: 8k messages per day and 500 registered devices)</li>
-    </ul>
-  </li>
-  <li>Azure Shell + IoT Cli Extension
-    <ul>
-      <li>Note: Easy way is utilizing <a href="https://shell.azure.com">https://shell.azure.com</a> and run <code class="highlighter-rouge">az extension add --name azure-cli-iot-ext</code></li>
-    </ul>
-  </li>
-  <li>Azure Edge Runtime on the device
-    <ul>
-      <li>Linux x64: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux</li>
-      <li>Linux ARM: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm</li>
-    </ul>
-  </li>
-  <li>An ARM IoT Device (we use ARM because it might give compatibility issues, but we will most likely have ARM devices in the field)</li>
+  <li><strong>Path:</strong> <code class="highlighter-rouge">/home/xavier/iot-edge</code></li>
+  <li><strong>Solution:</strong> EdgeSolutionCarFilter</li>
+  <li><strong>Module Template:</strong> C# Module</li>
+  <li><strong>Module Name:</strong> ModuleSimulatorCar</li>
+  <li><strong>Docker Repository:</strong> <code class="highlighter-rouge">xavierregistry.azurecr.io/module-simulator-car</code></li>
 </ul>
 
-<h2 id="registering-a-device">Registering a Device</h2>
+<h3 id="data-gathering">Data Gathering</h3>
 
-<h3 id="creating-a-simulation-device">Creating a simulation device</h3>
-
-<p>Checking <a href="https://docs.microsoft.com/en-us/azure/iot-edge/support#operating-systems">IoT Edge Supported Devices</a> showed me that Ubuntu 18.04 is supported on ARM. However since I didn’t have access to a ARM device on the moment of writing, I went with deploying a VM on Azure, which is easily done through the marketplace: <a href="https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu">https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu</a>.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az vm create <span class="nt">--resource-group</span> DEMO-IoTEdge <span class="nt">--name</span> xavier-edge-1 <span class="nt">--image</span> microsoft_iot_edge:iot_edge_vm_ubuntu:ubuntu_1604_edgeruntimeonly:latest <span class="nt">--admin-username</span> xavier <span class="nt">--ssh-key-values</span> <span class="s2">"YOUR_SSH_KEY"</span> <span class="nt">--size</span> Standard_B1ms
-</code></pre></div></div>
+<p>We start off with finding a dataset of points that we want our simulator to use. We will then send off each of these datapoints every second as our simulation.</p>
 
 <blockquote>
-  <p>Note: if you are installing on an ARM, feel free to follow the guide at: <a href="https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm">https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm</a></p>
+  <p><strong>Note:</strong> In real-life you would not use a simulator but just use a module to capture your Video Feed/CAN Dongle/USB/… connected to the device</p>
 </blockquote>
 
-<h3 id="creating-an-iot-edge-device-id">Creating an IoT Edge Device ID</h3>
+<p>Luckily an excellent repository exist on GitHub that contains an interesting dataset for car datapoints that are comparable to a CAN bus: <a href="https://github.com/cloudpose/smartphone_driving_dataset">https://github.com/cloudpose/smartphone_driving_dataset</a></p>
 
-<p>Once our prerequisites are done, we can start adding our devices. For this run: <code class="highlighter-rouge">az iot hub device-identity create --hub-name {YOUR_IOTHUB_NAME} --device-id {YOUR_DEVICE_ID} --edge-enabled</code> which will create an edge-enabled device. This will return something like this:</p>
+<p>This dataset (<code class="highlighter-rouge">dataset_car.csv</code>) has the following fields:</p>
+
+<ul>
+  <li>Time</li>
+  <li>Seconds</li>
+  <li>Latitude / Y Position (Degrees)</li>
+  <li>Longitude / X Position (Degrees)</li>
+  <li>Distance (Miles)</li>
+  <li>Speed (MPH)</li>
+  <li>Steering Angle</li>
+  <li>Throttle Position</li>
+  <li>Engine RPM</li>
+  <li>Lateral Gs</li>
+  <li>Acceleration Gs</li>
+</ul>
+
+<h2 id="coding-our-simulator">Coding our Simulator</h2>
+
+<h3 id="programcs">Program.cs</h3>
+
+<p>Start off by creating a new file called <code class="highlighter-rouge">car.csv</code> in a new <code class="highlighter-rouge">data</code> folder under your module (this is where <code class="highlighter-rouge">Program.cs</code> is located - e.g. <code class="highlighter-rouge">EdgeSolutionCarFilter/modules/ModuleSimulatorCar/data/car.csv</code>)</p>
+
+<p>Once this is done, adapt your <code class="highlighter-rouge">Program.cs</code> file to look like this for the <code class="highlighter-rouge">Init()</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">Init</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">MqttTransportSettings</span> <span class="n">mqttSetting</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MqttTransportSettings</span><span class="p">(</span><span class="n">TransportType</span><span class="p">.</span><span class="n">Mqtt_Tcp_Only</span><span class="p">);</span>
+    <span class="n">ITransportSettings</span><span class="p">[]</span> <span class="n">settings</span> <span class="p">=</span> <span class="p">{</span> <span class="n">mqttSetting</span> <span class="p">};</span>
+
+    <span class="c1">// Open a connection to the Edge runtime</span>
+    <span class="n">ModuleClient</span> <span class="n">ioTHubModuleClient</span> <span class="p">=</span> <span class="k">await</span> <span class="n">ModuleClient</span><span class="p">.</span><span class="nf">CreateFromEnvironmentAsync</span><span class="p">(</span><span class="n">settings</span><span class="p">);</span>
+    <span class="k">await</span> <span class="n">ioTHubModuleClient</span><span class="p">.</span><span class="nf">OpenAsync</span><span class="p">();</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"IoT Hub module client initialized."</span><span class="p">);</span>
+
+    <span class="c1">// Start our simulator</span>
+    <span class="c1">// Note: this is not async, we can run on the main thread</span>
+    <span class="nf">StartSimulator</span><span class="p">(</span><span class="n">ioTHubModuleClient</span><span class="p">,</span> <span class="s">"data/car.csv"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above will open our <code class="highlighter-rouge">IoT Edge Hub</code> connection through the <code class="highlighter-rouge">MQTT</code> transport layer, whereafter we start our simulator.</p>
+
+<blockquote>
+  <p>Note: This opens a connection to the <code class="highlighter-rouge">IoT Edge Hub</code>! Which is still locally running and not to cloud. It’s this Hub that will act as our kind of service bus and send the events to <code class="highlighter-rouge">IoT Hub</code> on Azure.</p>
+</blockquote>
+
+<p>With the Simulator code looking like:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">void</span> <span class="nf">StartSimulator</span><span class="p">(</span><span class="n">ModuleClient</span> <span class="n">ioTHubModuleClient</span><span class="p">,</span> <span class="kt">string</span> <span class="n">filePath</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">lineCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+    <span class="kt">string</span> <span class="n">line</span><span class="p">;</span>
+
+    <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">StreamReader</span> <span class="n">file</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="nf">StreamReader</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">((</span><span class="n">line</span> <span class="p">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">())</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Skip the first line -&gt; it's the header</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lineCount</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">lineCount</span><span class="p">++;</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Send message</span>
+        <span class="kt">var</span> <span class="n">now</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s">"g"</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[Simulator][</span><span class="p">{</span><span class="n">now</span><span class="p">}</span><span class="s">] </span><span class="p">{</span><span class="n">line</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">message</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Message</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="nf">GetBytes</span><span class="p">(</span><span class="n">line</span><span class="p">));</span>
+        <span class="n">ioTHubModuleClient</span><span class="p">.</span><span class="nf">SendEventAsync</span><span class="p">(</span><span class="s">"output"</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+
+        <span class="c1">// Sleep for a second and go to the next line</span>
+        <span class="n">lineCount</span><span class="p">++;</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">Threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">file</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span>
+
+    <span class="c1">// Loop infinitely</span>
+    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"[Simulator] Reached end of CSV file, restarting"</span><span class="p">);</span>
+    <span class="nf">StartSimulator</span><span class="p">(</span><span class="n">ioTHubModuleClient</span><span class="p">,</span> <span class="n">filePath</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This is a quite trivial simulator, just reading our CSV line by line and sending the lines to the IoT Edge Device Hub on the “output” channel. See the following link for the method doing this: <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.client.moduleclient.sendeventasync?view=azure-dotnet#Microsoft_Azure_Devices_Client_ModuleClient_SendEventAsync_System_String_Microsoft_Azure_Devices_Client_Message_">https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.client.moduleclient.sendeventasync?view=azure-dotnet</a></p>
+
+<p>When now testing this module, we see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xavier@PersonalVM:~/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar<span class="nv">$ </span><span class="nb">env</span> <span class="si">$(</span><span class="nb">sudo </span>iotedgehubdev modulecred | xargs<span class="si">)</span> dotnet run
+IoT Hub module client initialized.
+<span class="o">[</span>Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.005628,694.308316,30.327355999999998,-97.75596800000001,7.47,61.563,-0.3,13,2146,-0.0,-0.02
+<span class="o">[</span>Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.090666,694.393353,30.327336,-97.755969,7.47,61.51,-0.3,13,2145,-0.0,-0.02
+<span class="o">[</span>Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.190665,694.4933530000001,30.327312,-97.755969,7.48,61.448,-0.3,13,2144,-0.0,-0.02
+<span class="o">[</span>Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.247328,694.550016,30.327298,-97.755969,7.48,61.412,-0.3,13,2144,-0.0,-0.02
+</code></pre></div></div>
+
+<h3 id="deploying-our-simulator">Deploying our Simulator</h3>
+
+<p>So we can deploy this to our container registry as learned in the <a href="/iot-edge-part1">first part</a> with the following <code class="highlighter-rouge">deployment.template.json</code> file:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"authentication"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"symmetricKey"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"primaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"secondaryKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{MASKED}"</span><span class="w">
+  </span><span class="nl">"$schema-template"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modulesContent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"$edgeAgent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"properties.desired"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"schemaVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"runtime"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"minDockerVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1.25"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"loggingOptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"registryCredentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"xavierregistry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$CONTAINER_REGISTRY_USERNAME_xavierregistry"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$CONTAINER_REGISTRY_PASSWORD_xavierregistry"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xavierregistry.azurecr.io"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"systemModules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"edgeAgent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/azureiotedge-agent:1.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"edgeHub"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/azureiotedge-hub:1.0"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"HostConfig"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nl">"PortBindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"5671/tcp"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                      </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"HostPort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5671"</span><span class="w">
+                      </span><span class="p">}</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="nl">"8883/tcp"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                      </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"HostPort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8883"</span><span class="w">
+                      </span><span class="p">}</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="nl">"443/tcp"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                      </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"HostPort"</span><span class="p">:</span><span class="w"> </span><span class="s2">"443"</span><span class="w">
+                      </span><span class="p">}</span><span class="w">
+                    </span><span class="p">]</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"modules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"ModuleSimulatorCar"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${MODULES.ModuleSimulatorCar}"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sas"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"x509Thumbprint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"primaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"secondaryThumbprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="nl">"$edgeHub"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"properties.desired"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"schemaVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"routes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"ModuleSimulatorCarToIoTHub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FROM /messages/modules/ModuleSimulatorCar/outputs/* INTO $upstream"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"storeAndForwardConfiguration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"timeToLiveSecs"</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"iotEdge"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"cloudToDeviceMessageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"connectionState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disconnected"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"connectionStateUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xavier-device-1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deviceScope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ms-azure-iot-edge://xavier-device-1-{ID}"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"etag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ETAG}"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"generationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ID}"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"lastActivityTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"statusReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"statusUpdatedTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<h2 id="connecting-our-iot-edge-device-to-iot-hub">Connecting our IoT Edge Device to IoT Hub</h2>
-
-<p>Once we deployed this VM, we can now configure our IoT Edge by getting our IoT Hub connection string and running a shell command which is available in the image.</p>
-
-<p>To get our connection string we can run:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az iot hub device-identity show-connection-string <span class="nt">--device-id</span> <span class="o">{</span>YOUR_DEVICE_ID<span class="o">}</span> <span class="nt">--hub-name</span> <span class="o">{</span>YOUR_IOTHUB_NAME<span class="o">}</span>
-</code></pre></div></div>
-
-<p>Which will return something such as:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"connectionString"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HostName={YOUR_IOTHUB}.azure-devices.net;DeviceId={YOUR_DEVICE_ID};SharedAccessKey={ACCESS_KEY}"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Now we can run the following script which was pre-deployed on our Edge Device through the Marketplace image, that will configure our edge device:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>az vm run-command invoke <span class="nt">-g</span> Demo-IoTEdge <span class="nt">-n</span> <span class="o">{</span>YOUR_EDGE_VM<span class="o">}</span> <span class="nt">--command-id</span> RunShellScript <span class="nt">--script</span> <span class="s2">"/etc/iotedge/configedge.sh '{YOUR_DEVICE_CONNECTION_STRING}'"</span>
-</code></pre></div></div>
-
-<p>Which should show the following when executed successfully:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xavier@Azure:~<span class="nv">$ </span>az vm run-command invoke <span class="nt">-g</span> Demo-IoTEdge <span class="nt">-n</span> xavier-edge-1 <span class="nt">--command-id</span> RunShellScript <span class="nt">--script</span> <span class="s2">"/etc/iotedge/configedge.sh 'HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}'"</span>
-<span class="o">{</span>
-  <span class="s2">"value"</span>: <span class="o">[</span>
-    <span class="o">{</span>
-      <span class="s2">"code"</span>: <span class="s2">"ProvisioningState/succeeded"</span>,
-      <span class="s2">"displayStatus"</span>: <span class="s2">"Provisioning succeeded"</span>,
-      <span class="s2">"level"</span>: <span class="s2">"Info"</span>,
-      <span class="s2">"message"</span>: <span class="s2">"Enable succeeded: </span><span class="se">\n</span><span class="s2">[stdout]</span><span class="se">\n</span><span class="s2"> Wed May 22 13:24:14 UTC 2019 Connection string set to HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}</span><span class="se">\n\n</span><span class="s2">[stderr]</span><span class="se">\n</span><span class="s2">"</span>,
-      <span class="s2">"time"</span>: null
-    <span class="o">}</span>
-  <span class="o">]</span>
-<span class="o">}</span>
-</code></pre></div></div>
+<p>Now we can:</p>
 
 <blockquote>
-  <p><strong>Note:</strong> You can now check if IoT Edge is running by SSHing on the machine and executing <code class="highlighter-rouge">sudo systemctl status iotedge</code>
-<strong>Interesting Commands:</strong> <code class="highlighter-rouge">journalctl -u iotedge</code> - Check logs, <code class="highlighter-rouge">sudo iotedge list</code> - Show modules running</p>
+  <p><strong>Note:</strong> Make sure that you set the configuration in your <code class="highlighter-rouge">.env</code> file for the container registry (see <code class="highlighter-rouge">registryCredentials</code> in  <code class="highlighter-rouge">deployment.amd64.json</code> for the required keys)</p>
 </blockquote>
-
-<h2 id="creating-our-edge-devices-echo-module">Creating our Edge Device’s Echo Module</h2>
-
-<p>For testing purposes, we want to create a small container that echos the current time every 2 seconds to IoT Hub. To do this we follow a few steps:</p>
 
 <ol>
-  <li><strong>Command Palette (ctrl + p):</strong> Azure: Sign In</li>
-  <li><strong>Command Palette (ctrl + p):</strong> Azure IoT Edge: New IoT Edge solution
-    <ul>
-      <li><strong>Path:</strong> /home/xavier/iot-edge/</li>
-      <li><strong>Solution:</strong> EdgeSolutionCameraFilter</li>
-      <li><strong>Module Template:</strong> C# Module</li>
-      <li><strong>Module Name:</strong> EchoModule (our demo container for now)</li>
-      <li><strong>Docker Repository:</strong> xavierregistry.azurecr.io/echomodule</li>
-    </ul>
-  </li>
+  <li>Login to our container repository: <code class="highlighter-rouge">sudo docker login -u &lt;USERNAME&gt; -p &lt;PASSWORD&gt; &lt;LOGIN_SERVER&gt;</code></li>
+  <li>Right click on <code class="highlighter-rouge">deployment.template.json</code> and: <code class="highlighter-rouge">Build and Push IoT Edge Solution</code> which will initiate a <code class="highlighter-rouge">docker build  --rm -f "/home/xavier/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar/Dockerfile.amd64" -t xavierregistry.azurecr.io/module-simulator-car:0.0.1-amd64 "/home/xavier/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar" &amp;&amp; docker push xavierregistry.azurecr.io/module-simulator-car:0.0.1-amd64</code> command.</li>
+  <li>Right click on our device in the Azure IoT Hub Extension and click <code class="highlighter-rouge">Create Deployment for Single Device</code> and navigate to the path of our solution config deployment. E.g. <code class="highlighter-rouge">/EdgeSolutionCarFilter/config/deployment.amd64.json</code></li>
 </ol>
 
-<blockquote>
-  <p>Note: for more information and details, check <a href="https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module">https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module</a> which goes through the steps of creating a temperature model.</p>
-</blockquote>
+<p>When all of this is done, when we now open a demo reader for IoT Hub (see <a href="https://github.com/thebillkidy/PublicProjects/tree/master/JS/Azure/EventHub/Receiver">My PublicProjects</a> for an example) we see:</p>
 
-<blockquote>
-  <p>Note 2: I didn’t have docker installed on my machine. We can however easily work around this by utilizing a remote Linux VM Machine and use <a href="https://code.visualstudio.com/docs/remote/remote-overview">VS Code Remote-SSH</a></p>
-</blockquote>
-
-<p>Once we did that, we will see the following boilerplate code created once we open our folder.</p>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation.png" /></p>
-
-<p>This boilerplate code creates a module that will play back our input on the output channel. To make this clearer, I renamed <code class="highlighter-rouge">input1</code> to <code class="highlighter-rouge">input-echo</code> and <code class="highlighter-rouge">output1</code> to <code class="highlighter-rouge">output-echo</code>.</p>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png" /></p>
-
-<p>Another thing I did is to add a timer that will send a message every 30 seconds to make it clear that it is actually doing something and that we don’t necessarily have to send something to it ;) The code I used for that:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Register a Timer that will send every X seconds</span>
-<span class="kt">var</span> <span class="n">myTimer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="nf">Timer</span><span class="p">();</span>
-<span class="n">myTimer</span><span class="p">.</span><span class="n">Elapsed</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="nf">ElapsedEventHandler</span><span class="p">((</span><span class="kt">object</span> <span class="n">source</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="n">ElapsedEventArgs</span> <span class="n">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="kt">var</span> <span class="n">now</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s">"g"</span><span class="p">);</span>
-    <span class="kt">var</span> <span class="n">message</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Message</span><span class="p">(</span><span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">.</span><span class="nf">GetBytes</span><span class="p">(</span><span class="s">$"Sending event at </span><span class="p">{</span><span class="n">now</span><span class="p">}</span><span class="s">"</span><span class="p">));</span>
-    <span class="n">ioTHubModuleClient</span><span class="p">.</span><span class="nf">SendEventAsync</span><span class="p">(</span><span class="s">"output"</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="n">myTimer</span><span class="p">.</span><span class="n">Interval</span> <span class="p">=</span> <span class="m">30</span> <span class="p">*</span> <span class="m">1000</span><span class="p">;</span> <span class="c1">// Every 30 seconds</span>
-<span class="n">myTimer</span><span class="p">.</span><span class="n">Enabled</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>IoTHubMonitor] Start monitoring message arrived <span class="k">in </span>built-in endpoint <span class="k">for </span>device <span class="o">[</span>xavier-device-1] ...
+<span class="o">[</span>IoTHubMonitor] Created partition receiver <span class="o">[</span>0] <span class="k">for </span>consumerGroup <span class="o">[</span><span class="nv">$Default</span><span class="o">]</span>
+<span class="o">[</span>IoTHubMonitor] Created partition receiver <span class="o">[</span>1] <span class="k">for </span>consumerGroup <span class="o">[</span><span class="nv">$Default</span><span class="o">]</span>
+<span class="o">[</span>IoTHubMonitor] <span class="o">[</span>11:40:29 AM] Message received from <span class="o">[</span>xavier-device-1/ModuleSimulatorCar]:
+<span class="s2">"2018-04-08 10:31:38.515609,695.818296,30.326990000000002,-97.755974,7.5,60.625,-0.4,0,2119,-0.01,-0.04"</span>
 </code></pre></div></div>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png" /></p>
-
-<p>A last thing we now have to do is to remove a few lines from our <code class="highlighter-rouge">deployment.template.json</code> and <code class="highlighter-rouge">deployment.template.debug.json</code> file in the root folder:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"sensorToEchoModule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(</span><span class="se">\"</span><span class="s2">/modules/EchoModule/inputs/input1</span><span class="se">\"</span><span class="s2">)"</span><span class="w">
-</span></code></pre></div></div>
-
-<p>And some lines that deploy another module that we don’t need</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"tempSensor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{}"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="err">,</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Now we are ready to build, publish and finally deploy our edge module.</p>
-
-<h2 id="building-publishing--deploying-the-edge-module">Building, Publishing &amp; Deploying the Edge Module</h2>
-
-<h3 id="building-and-publishing-our-edge-module">Building and Publishing our Edge Module</h3>
-
-<p>We can now easily build and publish our Edge Module by right-clicking our <code class="highlighter-rouge">deployment.template.json</code> and selecting “Build and Push Iot Edge Solution”</p>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png" /></p>
 
 <blockquote>
-  <p><strong>Note:</strong> For me this failed due to permission issues on my Linux machine, however when you have the terminal open you can just press the up arrow and add <code class="highlighter-rouge">sudo</code> in the front. 
-<strong>Hint:</strong> ctrl + a jumps to the beginning of a line</p>
+  <p><strong>Note:</strong> In case you don’t see this, you should go and debug the solution. A good starting point here is to logon on your device and check the <code class="highlighter-rouge">docker logs</code> of the <code class="highlighter-rouge">edgeAgent</code> through <code class="highlighter-rouge">sudo docker logs edgeAgent</code>.</p>
 </blockquote>
 
-<p>This will now build and push our solution, resulting in:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Docker container is building</span>
-Step 1/12 : FROM microsoft/dotnet:2.1-sdk AS build-env
-2.1-sdk: Pulling from microsoft/dotnet
-c5e155d5a1d1: Pull <span class="nb">complete 
-</span>221d80d00ae9: Pull <span class="nb">complete 
-</span>4250b3117dca: Pull <span class="nb">complete 
-</span>3b7ca19181b2: Pull <span class="nb">complete 
-</span>5980daa97e3c: Pull <span class="nb">complete 
-</span>7cbae962589c: Pull <span class="nb">complete 
-</span>4ab425e558b6: Pull <span class="nb">complete 
-</span>Digest: sha256:481a526515bd95f7ecbe866b99ddac6130da3402e8e4fb09712123393d3f1475
-Status: Downloaded newer image <span class="k">for </span>microsoft/dotnet:2.1-sdk
- <span class="nt">---</span><span class="o">&gt;</span> 511c1f563ce6
-Step 2/12 : WORKDIR /app
- <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>ed3388ecf107
-Removing intermediate container ed3388ecf107
- <span class="nt">---</span><span class="o">&gt;</span> e8033981828f
-Step 3/12 : COPY <span class="k">*</span>.csproj ./
- <span class="nt">---</span><span class="o">&gt;</span> 4614b845cc5d
-Step 4/12 : RUN dotnet restore <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>2db5ed302e26  Restore completed <span class="k">in </span>3.24 sec <span class="k">for</span> /app/EchoModule.csproj.
-Removing intermediate container 2db5ed302e26
- <span class="nt">---</span><span class="o">&gt;</span> b74b9ac5490b
-Step 5/12 : COPY <span class="nb">.</span> ./
- <span class="nt">---</span><span class="o">&gt;</span> 8132d7ecea0d
- Step 6/12 : RUN dotnet publish <span class="nt">-c</span> Release <span class="nt">-o</span> out
- <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>62098984d63d
-Microsoft <span class="o">(</span>R<span class="o">)</span> Build Engine version 16.1.76+g14b0a930a7 <span class="k">for</span> .NET Core
-Copyright <span class="o">(</span>C<span class="o">)</span> Microsoft Corporation. All rights reserved.
-
-  Restore completed <span class="k">in </span>485.11 ms <span class="k">for</span> /app/EchoModule.csproj.
-  EchoModule -&gt; /app/bin/Release/netcoreapp2.1/EchoModule.dll
-  EchoModule -&gt; /app/out/
-Removing intermediate container 62098984d63d
- <span class="nt">---</span><span class="o">&gt;</span> 46899da4cedb
-Step 7/12 : FROM microsoft/dotnet:2.1-runtime-stretch-slim
-2.1-runtime-stretch-slim: Pulling from microsoft/dotnet
-743f2d6c1f65: Pull <span class="nb">complete 
-</span>074da88b8de0: Pull <span class="nb">complete 
-</span>ac831735b47a: Pull <span class="nb">complete 
-</span>625946e33cc4: Pull <span class="nb">complete 
-</span>Digest: sha256:5ff2b0f6e69b44f6404d46445be34408551331429d5a84b667cfee49ebd8117d
-Status: Downloaded newer image <span class="k">for </span>microsoft/dotnet:2.1-runtime-stretch-slim
- <span class="nt">---</span><span class="o">&gt;</span> f7da44fabfad
-Step 8/12 : WORKDIR /app
- <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>b999e9d179aa
-Removing intermediate container b999e9d179aa
- <span class="nt">---</span><span class="o">&gt;</span> 247b2ac0a988
-Step 9/12 : COPY <span class="nt">--from</span><span class="o">=</span>build-env /app/out ./
- <span class="nt">---</span><span class="o">&gt;</span> ef30f581b39d
-Step 10/12 : RUN useradd <span class="nt">-ms</span> /bin/bash moduleuser
- <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>172a5e40a83e
-Removing intermediate container 172a5e40a83e
- <span class="nt">---</span><span class="o">&gt;</span> dc3691450b75
-Step 11/12 : USER moduleuser
- <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>c71d5ab2fc77
-Removing intermediate container c71d5ab2fc77
- <span class="nt">---</span><span class="o">&gt;</span> d4798c0654e7
-Step 12/12 : ENTRYPOINT <span class="o">[</span><span class="s2">"dotnet"</span>, <span class="s2">"EchoModule.dll"</span><span class="o">]</span>
- <span class="nt">---</span><span class="o">&gt;</span> Running <span class="k">in </span>547f0facbdd8
-Removing intermediate container 547f0facbdd8
- <span class="nt">---</span><span class="o">&gt;</span> 114a7cc96b50
-Successfully built 114a7cc96b50
-Successfully tagged xavierregistry.azurecr.io/echomodule:0.0.1-amd64
-
-<span class="c"># Pushing it</span>
-The push refers to repository <span class="o">[</span>xavierregistry.azurecr.io/echomodule]
-11e1e4b905fe: Pushed 
-a0d529ad3f07: Pushed 
-f081219e5aa6: Pushed 
-be1595c6dfc4: Pushed 
-ecf7942d9af2: Pushed 
-ea4e5356527d: Pushed 
-6270adb5794c: Pushed 
-0.0.1-amd64: digest: sha256:7021323942c2323adb48d17ec73b00e69ec19216c816de59e2eb6e9a0b3f682c size: 1789
-</code></pre></div></div>
-
-<h3 id="deploying-our-edge-module">Deploying our Edge Module</h3>
-
-<p>Now that our module is created and pushed to our repository, we can now push it to our Edge Module. For this, simply right-click on our device and select “Create Deployment for Single Device”</p>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-deploy.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-deploy.png" /></p>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png" /></p>
-
-<p>This will open up our output and show:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Edge] Start deployment to device <span class="o">[</span>xavier-device-1]
-<span class="o">[</span>Edge] Deployment succeeded.
-</code></pre></div></div>
-
-<p>When we open up our device now, we can see that under modules we have an extra module deployed.</p>
-
-<p><img src="/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png" alt="/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png" /></p>
-
-<h2 id="testing-our-deployment">Testing our Deployment</h2>
-
-<p>To monitor our device, we can now go to our devices and select “Start Monitoring Built-In Event Endpoint” which will open a logger for us. When we did this, we will now after a few seconds see:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>IoTHubMonitor] <span class="o">[</span>5:59:27 PM] Message received from <span class="o">[</span>xavier-device-1/EchoModule]:
-<span class="s2">"Sending event at 05/24/2019 17:59"</span>
-</code></pre></div></div>
-
-<p>For our Echo module, we can now send a C2D message (Cloud to Device), we do this by Right-Clicking our device again and selecting “Send D2C Message to IoTHub” and entering our message.</p>
-
-<p>When everything goes well we will now see the following in our Device Event Log:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>D2CMessage] Sending message to <span class="o">[</span>IoT Hub] ...
-<span class="o">[</span>IoTHubMonitor] <span class="o">[</span>6:02:36 PM] Message received from <span class="o">[</span>xavier-device-1]:
-<span class="s2">"Hello World"</span>
-</code></pre></div></div>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>We now created our first initial module, so let’s get started for real now and work on <a href="/iot-edge-part2">creating our AI Edge Module in Part 2</a>!</p>
+<p>Congratulations, our Car Simulator is now finished!</p>
 
                 </div>
             </section>
@@ -539,7 +457,7 @@ ea4e5356527d: Pushed
                     <script>
                         var disqus_config = function () {
                             this.page.url = window.location.href;
-                            this.page.identifier = '/iot-edge-part1';
+                            this.page.identifier = '/iot-edge-part2-simulator-car';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -593,14 +511,14 @@ ea4e5356527d: Pushed
                                 
                                   
                                     
-                                        
-                                        
-                                            <li><a href="/iot-edge-part2-simulator-car">Part 2 - Creating a Car Data simulator in IoT Edge</a></li>
-                                        
-                                    
                                   
                                 
                                   
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part1">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</a></li>
+                                        
                                     
                                   
                                 
@@ -828,12 +746,12 @@ ea4e5356527d: Pushed
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/iot-edge-simulator">
+            <a class="post-card-image-link" href="/iot-edge-part1">
                 <div class="post-card-image" style="background-image: url(/assets/images/covers/iot.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/iot-edge-simulator">
+            <a class="post-card-content-link" href="/iot-edge-part1">
                 <header class="post-card-header">
                     
                         
@@ -851,10 +769,10 @@ ea4e5356527d: Pushed
                         
                     
 
-                    <h2 class="post-card-title">Azure IoT Edge Simulator - Easily run and test your IoT Edge application</h2>
+                    <h2 class="post-card-title">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons). When</p>
+                    <p>This is Part 1 in the Iot Edge series, view the main article. Part 2 is currently under construction and will follow soon. Looking at our architecture, we need to be able to</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -879,12 +797,12 @@ ea4e5356527d: Pushed
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/iot-edge-part2-simulator-car">
+            <a class="post-card-image-link" href="/iot-edge-part3-simulator-camera">
                 <div class="post-card-image" style="background-image: url(/assets/images/covers/iot.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/iot-edge-part2-simulator-car">
+            <a class="post-card-content-link" href="/iot-edge-part3-simulator-camera">
                 <header class="post-card-header">
                     
                         
@@ -902,10 +820,10 @@ ea4e5356527d: Pushed
                         
                     
 
-                    <h2 class="post-card-title">Part 2 - Creating a Car Data simulator in IoT Edge</h2>
+                    <h2 class="post-card-title">Part 3 - Creating a Car Camera simulator in IoT Edge</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>> This is Part 2 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 1](/iot-edge-part1) to view the previous article. ![/assets/images/posts/iot-edge/architecture2.png](/assets/images/posts/iot-edge/architecture2.png) ## Recap and next steps In [part 1](/iot-edge-part1)</p>
+                    <p>> This is Part 3 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2-simulator-car) to view the previous article. ![/assets/images/posts/iot-edge/architecture2.png](/assets/images/posts/iot-edge/architecture2.png) ## Recap and next steps In [part 2](/iot-edge-part2-simulator-car)</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -939,23 +857,23 @@ ea4e5356527d: Pushed
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</div>
+    <div class="floating-header-title">Part 2 - Creating a Car Data simulator in IoT Edge</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Part+1+-+Manage%2C+Connect+and+Deploy+our+simulators+to+our+Edge+Devices+with+IoT+Hub&amp;url=https://thebillkidy.github.io/iot-edge-part1"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Part+2+-+Creating+a+Car+Data+simulator+in+IoT+Edge&amp;url=https://thebillkidy.github.io/iot-edge-part2-simulator-car"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/iot-edge-part1"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/iot-edge-part2-simulator-car"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/iot-edge-part1&title=Part+1+-+Manage%2C+Connect+and+Deploy+our+simulators+to+our+Edge+Devices+with+IoT+Hub&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/iot-edge-part2-simulator-car&title=Part+2+-+Creating+a+Car+Data+simulator+in+IoT+Edge&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>

@@ -8,6 +8,85 @@
     
       
       <item>
+        <title>Part 3 - Creating a Car Camera simulator in IoT Edge</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;This is Part 3 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;part 2&lt;/a&gt; to view the previous article.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Aug 2019 09:00:04 +0000</pubDate>
+        <link>
+        /iot-edge-part3-simulator-camera</link>
+        <guid isPermaLink="true">/iot-edge-part3-simulator-camera</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Part 2 - Creating a Car Data simulator in IoT Edge</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;This is Part 2 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; to view the previous article.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Aug 2019 09:00:03 +0000</pubDate>
+        <link>
+        /iot-edge-part2-simulator-car</link>
+        <guid isPermaLink="true">/iot-edge-part2-simulator-car</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title>
+        
+          <description>&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Aug 2019 09:00:02 +0000</pubDate>
+        <link>
+        /iot-edge-part1</link>
+        <guid isPermaLink="true">/iot-edge-part1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Azure IoT Edge Simulator - Easily run and test your IoT Edge application</title>
+        
+          <description>&lt;p&gt;Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Aug 2019 09:00:01 +0000</pubDate>
+        <link>
+        /iot-edge-simulator</link>
+        <guid isPermaLink="true">/iot-edge-simulator</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Creating an Internet Of Things (IoT) Edge Deployment</title>
+        
+          <description>&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 10 Aug 2019 09:00:00 +0000</pubDate>
+        <link>
+        /iot-edge</link>
+        <guid isPermaLink="true">/iot-edge</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Big Data Platform Comparisons</title>
         
           <description>&lt;p&gt;Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
@@ -211,51 +290,6 @@
         <link>
         /big-data-platforms-comparison</link>
         <guid isPermaLink="true">/big-data-platforms-comparison</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Azure IoT Edge Simulator - Easily run and test your IoT Edge application</title>
-        
-          <description>&lt;p&gt;Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Mon, 20 May 2019 09:00:00 +0000</pubDate>
-        <link>
-        /iot-edge-simulator</link>
-        <guid isPermaLink="true">/iot-edge-simulator</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Creating an Internet Of Things (IoT) Edge Deployment</title>
-        
-          <description>&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Mon, 20 May 2019 09:00:00 +0000</pubDate>
-        <link>
-        /iot-edge</link>
-        <guid isPermaLink="true">/iot-edge</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title>
-        
-          <description>&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
-
-</description>
-        
-        <pubDate>Mon, 20 May 2019 09:00:00 +0000</pubDate>
-        <link>
-        /iot-edge-part1</link>
-        <guid isPermaLink="true">/iot-edge-part1</guid>
       </item>
       
     

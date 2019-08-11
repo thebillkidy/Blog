@@ -10,7 +10,7 @@
 
 
 
-    <title>Breadth First Search (BFS)</title>
+    <title>Part 3 - Creating a Car Camera simulator in IoT Edge</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -24,30 +24,30 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="My thoughts, tutorials and learnings" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/breadth-first-search-bfs" />
+    <link rel="canonical" href="/iot-edge-part3-simulator-camera" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Breadth First Search (BFS)" />
-    <meta property="og:description" content="Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as maze solving, maze generation, … Here I will explain how both these algorithms work and how their pseudocode works for the tree version and" />
-    <meta property="og:url" content="/breadth-first-search-bfs" />
-    <meta property="og:image" content="/assets/images/covers/algorithms2.jpg" />
+    <meta property="og:title" content="Part 3 - Creating a Car Camera simulator in IoT Edge" />
+    <meta property="og:description" content="This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article. Recap and next steps In part 2 we created our car data simulator that will send data points every second from a CSV file. Next up is" />
+    <meta property="og:url" content="/iot-edge-part3-simulator-camera" />
+    <meta property="og:image" content="/assets/images/covers/iot.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2015-06-05T13:00:06+00:00" />
-    <meta property="article:modified_time" content="2015-06-05T13:00:06+00:00" />
-    <meta property="article:tag" content="Algorithms" />
+    <meta property="article:published_time" content="2019-08-10T09:00:04+00:00" />
+    <meta property="article:modified_time" content="2019-08-10T09:00:04+00:00" />
+    <meta property="article:tag" content="Azure" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Breadth First Search (BFS)" />
-    <meta name="twitter:description" content="Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as maze solving, maze generation, … Here I will explain how both these algorithms work and how their pseudocode works for the tree version and" />
+    <meta name="twitter:title" content="Part 3 - Creating a Car Camera simulator in IoT Edge" />
+    <meta name="twitter:description" content="This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article. Recap and next steps In part 2 we created our car data simulator that will send data points every second from a CSV file. Next up is" />
     <meta name="twitter:url" content="/" />
-    <meta name="twitter:image" content="/assets/images/covers/algorithms2.jpg" />
+    <meta name="twitter:image" content="/assets/images/covers/iot.jpg" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
     <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="Algorithms" />
+    <meta name="twitter:data2" content="Azure" />
     <meta name="twitter:site" content="@XavierGeerinck" />
     <meta name="twitter:creator" content="@XavierGeerinck" />
     <meta property="og:image:width" content="1400" />
@@ -62,23 +62,23 @@
         "name": "Xavier Geerinck - Blog",
         "logo": "/false"
     },
-    "url": "/breadth-first-search-bfs",
+    "url": "/iot-edge-part3-simulator-camera",
     "image": {
         "@type": "ImageObject",
-        "url": "/assets/images/covers/algorithms2.jpg",
+        "url": "/assets/images/covers/iot.jpg",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/breadth-first-search-bfs"
+        "@id": "/iot-edge-part3-simulator-camera"
     },
-    "description": "Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as maze solving, maze generation, … Here I will explain how both these algorithms work and how their pseudocode works for the tree version and"
+    "description": "This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article. Recap and next steps In part 2 we created our car data simulator that will send data points every second from a CSV file. Next up is"
 }
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Breadth First Search (BFS)" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Part 3 - Creating a Car Camera simulator in IoT Edge" href="/feed.xml" />
 
 
 
@@ -138,20 +138,24 @@ into the {body} of the default.hbs template -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <article class="post-full post tag-algorithms ">
+        <article class="post-full post ">
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    <time class="post-full-meta-date" datetime="10 August 2019">10 August 2019</time>
                     
                         <span class="date-divider">/</span>
                         
                             
-                               <a href='/tag/algorithms/'>ALGORITHMS</a>,
+                               <a href='/tag/azure/'>AZURE</a>,
                             
                         
                             
-                               <a href='/tag/coding-cpp/'>CODING-CPP</a>
+                               <a href='/tag/coding-javascript/'>CODING-JAVASCRIPT</a>,
+                            
+                        
+                            
+                               <a href='/tag/iot/'>IOT</a>
                             
                         
                     
@@ -159,89 +163,175 @@ into the {body} of the default.hbs template -->
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/iot.jpg)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">Breadth First Search (BFS)</h1>
-                    <p>Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as <a href="http://desple.com/post/118014845597/solving-a-maze-with-perl">maze solving</a>, maze generation, …</p>
+                        <h1 class="post-full-title">Part 3 - Creating a Car Camera simulator in IoT Edge</h1>
+                    <blockquote>
+  <p>This is Part 3 in the Iot Edge series, view the <a href="/iot-edge">main article</a> or go the <a href="/iot-edge-part2-simulator-car">part 2</a> to view the previous article.</p>
+</blockquote>
 
-<p>Here I will explain how both these algorithms work and how their pseudocode works for the tree version and the graph version.</p>
+<p><img src="/assets/images/posts/iot-edge/architecture2.png" alt="/assets/images/posts/iot-edge/architecture2.png" /></p>
 
-<p>Note that all the implementations are based on C++ but have pieces that are pseudocode. These pieces are the ones that have to be filled in when programming these algorithms.</p>
+<h2 id="recap-and-next-steps">Recap and next steps</h2>
 
-<h2 id="breadth-first-search-bfs">Breadth-First Search (BFS)</h2>
+<p>In <a href="/iot-edge-part2-simulator-car">part 2</a> we created our car data simulator that will send data points every second from a CSV file. Next up is a second simulator that will create a video as a camera would do and save it on disk, so that a processor can use it.</p>
 
-<p>If we want to implement Breadth-First search, then we should think of looping through a tree in level order. We will first process the children of the root, then the children of the children and so on. (So from the top, downwards from left to right).</p>
+<blockquote>
+  <p>Unique here is that we will be utilizing this to create a video stream that is utilizing a shared folder through <strong>Azure IoT Edge createOptions</strong></p>
+</blockquote>
 
-<h3 id="trees">Trees</h3>
+<h2 id="initial-setup">Initial Setup</h2>
 
-<h4 id="method">Method</h4>
+<p>Our Video simulator will utilize some of the code from the previous simulator. However since we are using video frames here, we should not send them straight to cloud, nor should we use MQTT to send them to our device hub. A more efficient way is that we create a video from these frames (as a camera would do, but rather than creating a video it would then stream to a <code class="highlighter-rouge">/dev/</code> interface) and save this video to a shared path that another module can read.</p>
+
+<p>Remember: our edge device has it’s own hub, and runs modules (containers). We can thus use the underlying OS running our modules as a “share” and mount a shared path (e.g. /tmp) to these modules. If our module A would then write to this mount, module B would be able access it as well.</p>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>For our creation of this module, we will use the following settings:</p>
+
+<ul>
+  <li><strong>Path:</strong> <code class="highlighter-rouge">/home/xavier/iot-edge</code></li>
+  <li><strong>Solution:</strong> EdgeSolutionCameraFilter</li>
+  <li><strong>Module Template:</strong> C# Module</li>
+  <li><strong>Module Name:</strong> ModuleSimulatorCamera</li>
+  <li><strong>Docker Repository:</strong> <code class="highlighter-rouge">xavierregistry.azurecr.io/module-simulator-camera</code></li>
+</ul>
+
+<h3 id="data-gathering">Data Gathering</h3>
+
+<p>For the data that will be used for the video we will - as mentioned before - again utilize the data from <a href="https://github.com/cloudpose/smartphone_driving_dataset">https://github.com/cloudpose/smartphone_driving_dataset</a>. This provides us a dataset of 3,419 images. Now for simplicity reasons we will only get a couple of frames (~10Mb) in our data folder (as in the previous simulator). I chose the following frames:</p>
+
+<ul>
+  <li>output_141.png</li>
+  <li>output_197.png</li>
+  <li>output_340.png</li>
+  <li>output_384.png</li>
+  <li>output_2535.png -&gt; output_2560.png</li>
+</ul>
+
+<blockquote>
+  <p><strong>FYI:</strong> I use a remote development PC, so to copy these files specifically I had to copy them to a SSH terminal. To do this I used: <code class="highlighter-rouge">scp *.png xavier@&lt;SERVER_IP&gt;:/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera/data</code></p>
+</blockquote>
+
+<h2 id="coding-our-simulator">Coding our Simulator</h2>
+
+<h3 id="configuring-the-deployment-template--dockerfile-for-our-stream-path">Configuring the deployment template + Dockerfile for our stream path</h3>
+
+<p>Our code is mostly a copy paste of the previous code. The only thing that will change here is that we will have to send the images to the next module.</p>
+
+<blockquote>
+  <p><strong>Important:</strong> As mentiond in our Initial Setup, we should <strong>NOT</strong> use MQTT to send all these messages to cloud. Rather than that we should utilize a mount to provide a path that we can write our video to.</p>
+</blockquote>
+
+<p>To access our shared path from the OS (<code class="highlighter-rouge">/tmp</code>) in our module under <code class="highlighter-rouge">/app/stream</code> we will have to specify this in our module’s deployment file <code class="highlighter-rouge">deployment.template.json</code>. Luckily a key called <code class="highlighter-rouge">createOptions</code> exists that allows us to do this (see <a href="https://docs.microsoft.com/en-us/azure/iot-edge/module-edgeagent-edgehub#edgeagent-desired-properties">https://docs.microsoft.com/en-us/azure/iot-edge/module-edgeagent-edgehub</a> for more information).</p>
+
+<p>This will look like this to mount the <code class="highlighter-rouge">/tmp</code> folder to our <code class="highlighter-rouge">/app/stream</code> path:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"modules"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"ModuleSimulatorCamera"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"restartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${MODULES.ModuleSimulatorCamera}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"HostConfig"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"Mounts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/app/stream/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/tmp"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Next we will adapt our Dockerfile.amd64 (and Dockerfile.arm32v7) to add the following above the <code class="highlighter-rouge">ENTRYPOINT</code> statement, as well as add the dependency on ffmpeg:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Add streaming directory</span>
+RUN <span class="nb">mkdir</span> <span class="nt">-p</span> /app/stream
+
+<span class="c"># Install ffmpeg</span>
+RUN <span class="nb">sudo </span>apt-get <span class="nb">install </span>ffmpeg
+</code></pre></div></div>
+
+<h3 id="programcs">Program.cs</h3>
+
+<p>Our <code class="highlighter-rouge">Program.cs</code> is quite trivial, since we will let <code class="highlighter-rouge">ffmpeg</code> handle the difficult part of merging our frames from the <code class="highlighter-rouge">data/</code> folder into a video file. Putting this into the same kind of framework as we did in our first simulator, makes us ending up with:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">string</span> <span class="n">videoDestinationPath</span> <span class="p">=</span> <span class="s">"/app/stream/out.mp4"</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">static</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">Init</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">MqttTransportSettings</span> <span class="n">mqttSetting</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">MqttTransportSettings</span><span class="p">(</span><span class="n">TransportType</span><span class="p">.</span><span class="n">Mqtt_Tcp_Only</span><span class="p">);</span>
+    <span class="n">ITransportSettings</span><span class="p">[]</span> <span class="n">settings</span> <span class="p">=</span> <span class="p">{</span> <span class="n">mqttSetting</span> <span class="p">};</span>
+
+    <span class="c1">// Open a connection to the Edge runtime</span>
+    <span class="n">ModuleClient</span> <span class="n">ioTHubModuleClient</span> <span class="p">=</span> <span class="k">await</span> <span class="n">ModuleClient</span><span class="p">.</span><span class="nf">CreateFromEnvironmentAsync</span><span class="p">(</span><span class="n">settings</span><span class="p">);</span>
+    <span class="k">await</span> <span class="n">ioTHubModuleClient</span><span class="p">.</span><span class="nf">OpenAsync</span><span class="p">();</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"IoT Hub module client initialized."</span><span class="p">);</span>
+
+    <span class="c1">// Start our simulator</span>
+    <span class="c1">// Note: this is not async, we can run on the main thread</span>
+    <span class="nf">StartSimulator</span><span class="p">(</span><span class="n">ioTHubModuleClient</span><span class="p">,</span> <span class="s">"data/"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">void</span> <span class="nf">StartSimulator</span><span class="p">(</span><span class="n">ModuleClient</span> <span class="n">ioTHubModuleClient</span><span class="p">,</span> <span class="kt">string</span> <span class="n">filePath</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Get the images that we want to convert to a video stream</span>
+    <span class="kt">string</span> <span class="p">[]</span> <span class="n">fileEntries</span> <span class="p">=</span> <span class="n">Directory</span><span class="p">.</span><span class="nf">GetFiles</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+
+    <span class="kt">var</span> <span class="n">process</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Process</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">StartInfo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ProcessStartInfo</span>
+        <span class="p">{</span>
+            <span class="n">FileName</span> <span class="p">=</span> <span class="s">"ffmpeg"</span><span class="p">,</span>
+            <span class="n">Arguments</span> <span class="p">=</span> <span class="s">$"-y -framerate 1 -pattern_type glob -i </span><span class="p">{</span><span class="n">filePath</span><span class="p">}</span><span class="s">/*.png -c:v libx264 -r 30 -pix_fmt yuv420p -vf \"pad=ceil(iw/2)*2:ceil(ih/2)*2\" </span><span class="p">{</span><span class="n">videoDestinationPath</span><span class="p">}</span><span class="s">"</span><span class="p">,</span>
+            <span class="n">UseShellExecute</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span>
+            <span class="n">CreateNoWindow</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Compile the video</span>
+    <span class="c1">// Console.WriteLine($"ffmpeg -y -framerate 1 -pattern_type glob -i {Directory.GetCurrentDirectory()}/{filePath}*.png -c:v libx264 -r 30 -pix_fmt yuv420p -vf \"pad=ceil(iw/2)*2:ceil(ih/2)*2\" {videoDestinationPath}");</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[Simulator][</span><span class="p">{</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s">"g"</span><span class="p">)}</span><span class="s">] Creating video file from images in </span><span class="p">{</span><span class="n">filePath</span><span class="p">}</span><span class="s">*.png"</span><span class="p">);</span>   
+    <span class="n">process</span><span class="p">.</span><span class="nf">Start</span><span class="p">();</span>
+    <span class="n">process</span><span class="p">.</span><span class="nf">WaitForExit</span><span class="p">();</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[Simulator][</span><span class="p">{</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s">"g"</span><span class="p">)}</span><span class="s">] Wrote video file to </span><span class="p">{</span><span class="n">videoDestinationPath</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+
+    <span class="c1">// Wait a minute before we repeat</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[Simulator][</span><span class="p">{</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s">"g"</span><span class="p">)}</span><span class="s">] Waiting 60 seconds before repeating"</span><span class="p">);</span>
+    <span class="n">System</span><span class="p">.</span><span class="n">Threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="m">60</span> <span class="p">*</span> <span class="m">1000</span><span class="p">);</span>
+    <span class="nf">StartSimulator</span><span class="p">(</span><span class="n">ioTHubModuleClient</span><span class="p">,</span> <span class="n">filePath</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can see that we will just create our process in C# and wait till it finishes. Once it finishes we will wait 60 seconds before redoing this complete process.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> We wait one minute for this simulator, since we could for example make the <code class="highlighter-rouge">data/</code> folder receive frames from a mount as well, potentially allowing for a dynamic recompilation process.</p>
+</blockquote>
+
+<h3 id="deploying-our-simulator">Deploying our Simulator</h3>
+
+<p>Just as before, we can now deploy our simulator:</p>
 
 <ol>
-  <li>Push the root node on a queue</li>
-  <li>While the queue is not empty:</li>
-  <li>Pop the top of the queue</li>
-  <li>Put the elements from the popped node in a queue</li>
+  <li>Login to our container repository: <code class="highlighter-rouge">sudo docker login -u &lt;USERNAME&gt; -p &lt;PASSWORD&gt; &lt;LOGIN_SERVER&gt;</code></li>
+  <li>Right click on <code class="highlighter-rouge">deployment.template.json</code> and: <code class="highlighter-rouge">Build and Push IoT Edge Solution</code> which will initiate a <code class="highlighter-rouge">docker build  --rm -f "/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera/Dockerfile.amd64" -t xavierregistry.azurecr.io/module-simulator-camera:0.0.1-amd64 "/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera" &amp;&amp; docker push xavierregistry.azurecr.io/module-simulator-camera:0.0.1-amd64</code> command.</li>
+  <li>Right click on our device in the Azure IoT Hub Extension and click <code class="highlighter-rouge">Create Deployment for Single Device</code> and navigate to the path of our solution config deployment. E.g. <code class="highlighter-rouge">/EdgeSolutionCameraFilter/config/deployment.amd64.json</code></li>
 </ol>
 
-<h4 id="implementation">Implementation</h4>
-
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">BFS</span><span class="p">(</span><span class="n">node</span> <span class="n">root_node</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">queue</span> <span class="n">q</span><span class="p">;</span>
-
-  <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root_node</span><span class="p">);</span>
-
-  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-    <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Do something with the key</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="graphs">Graphs</h3>
-
-<h4 id="method-1">Method</h4>
-
-<p>We do the same as with a tree, but here we also keep an array of the visited nodes. We also make sure that the node is not visited.</p>
-
-<h4 id="implementation-1">Implementation</h4>
-
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">BFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">start_node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">amount_of_nodes</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// First create the node visited vector</span>
-  <span class="n">vector</span> <span class="n">discovered</span><span class="p">(</span><span class="n">amount_of_nodes</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
-
-  <span class="c1">// Create the queue and push the first node on it</span>
-  <span class="n">queue</span> <span class="n">q</span><span class="p">;</span>
-  <span class="n">discovered</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-  <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-
-  <span class="c1">// While the queue is not empty, keep adding the other nodes</span>
-  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="c1">// new start node</span>
-    <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="n">neighbour</span> <span class="n">i</span> <span class="n">in</span> <span class="n">neighbours</span> <span class="n">of</span> <span class="n">node</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">discovered</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-        <span class="n">discovered</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="n">q</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
+<p>Congratulations, our Camera Simulator is now finished!</p>
 
                 </div>
             </section>
@@ -282,7 +372,7 @@ into the {body} of the default.hbs template -->
                     <script>
                         var disqus_config = function () {
                             this.page.url = window.location.href;
-                            this.page.identifier = '/breadth-first-search-bfs';
+                            this.page.identifier = '/iot-edge-part3-simulator-camera';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -316,7 +406,7 @@ into the {body} of the default.hbs template -->
                         <header class="read-next-card-header">
                             <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
                             
-                                <h3 class="read-next-card-header-title"><a href="/tag/algorithms/">Algorithms</a></h3>
+                                <h3 class="read-next-card-header-title"><a href="/tag/azure/">Azure</a></h3>
                             
                         </header>
                         <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
@@ -326,29 +416,64 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
+                                    
+                                  
                                 
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part2-simulator-car">Part 2 - Creating a Car Data simulator in IoT Edge</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part1">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-simulator">Azure IoT Edge Simulator - Easily run and test your IoT Edge application</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
                                   
                                 
                                   
                                 
                                   
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
+                                    
+                                        
+                                        
+                                    
                                   
                                 
                                   
@@ -407,8 +532,6 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
-                                            <li><a href="/ordinary-least-squares">Ordinary Least Squares (OLS)</a></li>
-                                        
                                     
                                   
                                 
@@ -455,102 +578,39 @@ into the {body} of the default.hbs template -->
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/solve-permutation-heaps">Solving permutations with Heap's Algorithm in Javascript</a></li>
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/radix-sort">Radix Sort</a></li>
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
+                                
                                   
                                 
                                   
-                                    
+                                
                                   
                                 
                                   
-                                    
-                                        
-                                        
-                                    
-                                  
                                 
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
                                   
                                 
                                   
@@ -586,9 +646,9 @@ into the {body} of the default.hbs template -->
                             </ul>
                         </div>
                         <footer class="read-next-card-footer">
-                            <a href="/tag/algorithms/">
+                            <a href="/tag/azure/">
                                 
-                                    See all 14 posts  →
+                                    See all 8 posts  →
                                 
                             </a>
                         </footer>
@@ -601,29 +661,33 @@ into the {body} of the default.hbs template -->
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/shell-sort">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)"></div>
+            <a class="post-card-image-link" href="/iot-edge-part2-simulator-car">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/iot.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/shell-sort">
+            <a class="post-card-content-link" href="/iot-edge-part2-simulator-car">
                 <header class="post-card-header">
                     
                         
                             
-                               <span class="post-card-tags">Algorithms</span>
+                               <span class="post-card-tags">Azure</span>
                             
                         
                             
-                                <span class="post-card-tags">Coding-cpp</span>
+                               <span class="post-card-tags">Coding-javascript</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Iot</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">Sorting Algorithm - Shell Sort</h2>
+                    <h2 class="post-card-title">Part 2 - Creating a Car Data simulator in IoT Edge</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>Shell Sort is a more refined version of insertion sort. This algorithm will change our array from completely random unsorted data to partially sorted data so that insertion sort may work faster. How</p>
+                    <p>This is Part 2 in the Iot Edge series, view the main article or go the part 1 to view the previous article. Recap and next steps In part 1 we created our</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -645,50 +709,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/depth-first-search-dfs">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/algorithms2.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/depth-first-search-dfs">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Algorithms</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Coding-cpp</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Depth First Search (DFS)</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>Depth-First search and Breadth-First search are search algorithms that help us traversing trees and graphs. We can use these algorithms to solve complex problems such as [maze solving](http://desple.com/post/118014845597/solving-a-maze-with-perl), maze generation, ... Here I</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/xavier/">Xavier Geerinck</a>
-                        </span>
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
         </div>
     </div>
 </aside>
@@ -704,23 +724,23 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Breadth First Search (BFS)</div>
+    <div class="floating-header-title">Part 3 - Creating a Car Camera simulator in IoT Edge</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Breadth+First+Search+%28BFS%29&amp;url=https://thebillkidy.github.io/breadth-first-search-bfs"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Part+3+-+Creating+a+Car+Camera+simulator+in+IoT+Edge&amp;url=https://thebillkidy.github.io/iot-edge-part3-simulator-camera"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/breadth-first-search-bfs"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/iot-edge-part3-simulator-camera"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/breadth-first-search-bfs&title=Breadth+First+Search+%28BFS%29&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/iot-edge-part3-simulator-camera&title=Part+3+-+Creating+a+Car+Camera+simulator+in+IoT+Edge&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>

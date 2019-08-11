@@ -1,198 +1,411 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-08-10T10:08:55+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Big Data Platform Comparisons</title><link href="/big-data-platforms-comparison" rel="alternate" type="text/html" title="Big Data Platform Comparisons" /><published>2019-05-27T09:00:00+00:00</published><updated>2019-05-27T09:00:00+00:00</updated><id>/big-data-platforms-comparison</id><content type="html" xml:base="/big-data-platforms-comparison">&lt;p&gt;Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
-
-&lt;p&gt;This is the reason that I decided to create a comparison of the different Big Data platforms from a &lt;strong&gt;Microsoft&lt;/strong&gt; perspective.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-08-11T19:10:02+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Part 3 - Creating a Car Camera simulator in IoT Edge</title><link href="/iot-edge-part3-simulator-camera" rel="alternate" type="text/html" title="Part 3 - Creating a Car Camera simulator in IoT Edge" /><published>2019-08-10T09:00:04+00:00</published><updated>2019-08-10T09:00:04+00:00</updated><id>/iot-edge-part3-simulator-camera</id><content type="html" xml:base="/iot-edge-part3-simulator-camera">&lt;blockquote&gt;
+  &lt;p&gt;This is Part 3 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;part 2&lt;/a&gt; to view the previous article.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; This will also include a lot of assumptions to make the comparison as fair as possible.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The products that we will be covering are:&lt;/p&gt;
+&lt;h2 id=&quot;recap-and-next-steps&quot;&gt;Recap and next steps&lt;/h2&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/databricks/&quot;&gt;Azure Databricks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/hdinsight/&quot;&gt;HDInsight&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/machine-learning-service/&quot;&gt;Machine Learning Services&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://hortonworks.com/open-source/cloudbreak/&quot;&gt;Cloudera Cloudbreak (old Hortonworks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/tree/master/resource-managers/kubernetes&quot;&gt;Apache Spark on Kubernetes (K8S)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;In &lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;part 2&lt;/a&gt; we created our car data simulator that will send data points every second from a CSV file. Next up is a second simulator that will create a video as a camera would do and save it on disk, so that a processor can use it.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service.&lt;/p&gt;
+  &lt;p&gt;Unique here is that we will be utilizing this to create a video stream that is utilizing a shared folder through &lt;strong&gt;Azure IoT Edge createOptions&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;assumptions&quot;&gt;Assumptions&lt;/h2&gt;
+&lt;h2 id=&quot;initial-setup&quot;&gt;Initial Setup&lt;/h2&gt;
 
-&lt;p&gt;As in any comparison, some assumptions were made. In this case the following assumptions were made:&lt;/p&gt;
+&lt;p&gt;Our Video simulator will utilize some of the code from the previous simulator. However since we are using video frames here, we should not send them straight to cloud, nor should we use MQTT to send them to our device hub. A more efficient way is that we create a video from these frames (as a camera would do, but rather than creating a video it would then stream to a &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/&lt;/code&gt; interface) and save this video to a shared path that another module can read.&lt;/p&gt;
+
+&lt;p&gt;Remember: our edge device has it’s own hub, and runs modules (containers). We can thus use the underlying OS running our modules as a “share” and mount a shared path (e.g. /tmp) to these modules. If our module A would then write to this mount, module B would be able access it as well.&lt;/p&gt;
+
+&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;For our creation of this module, we will use the following settings:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;1 Web Node was utilized where a web interface is required
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dv3-series-1&quot;&gt;D2v3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Cloudera Cloudbreak&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2 Head Nodes were utilized where required for HA purposes
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#av2-series&quot;&gt;A3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; HDInsight, Cloudera Cloudbreak&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3 Worker Nodes were utilized
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-memory#dsv2-series-11-15&quot;&gt;D13v2&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;No Data Disks were selected&lt;/li&gt;
-  &lt;li&gt;For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo)
-    &lt;ul&gt;
-      &lt;li&gt;Note: 8h pricing is also included in others, but has been wrapped with &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; for clarity reasons. They can pause but extra work will be required to support this.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Path:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/xavier/iot-edge&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Solution:&lt;/strong&gt; EdgeSolutionCameraFilter&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Module Template:&lt;/strong&gt; C# Module&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Module Name:&lt;/strong&gt; ModuleSimulatorCamera&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Docker Repository:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;xavierregistry.azurecr.io/module-simulator-camera&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;comparison-matrix&quot;&gt;Comparison Matrix&lt;/h2&gt;
+&lt;h3 id=&quot;data-gathering&quot;&gt;Data Gathering&lt;/h3&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;-&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Spark on K8S&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Azure Databricks&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;HDInsight&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Cloudera Cloudbreak&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Azure Machine Learning Services&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Multi Cloud&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes &lt;em&gt;(1)&lt;/em&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Deployment Model&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;IaaS / Half PaaS&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;PaaS&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;PaaS (with full cluster control)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;IaaS&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Auto Scale&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes (will require manual configuration)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes (preview)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes (on Machine Learning Compute or Databricks)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Compute Pause Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes and can be automated)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes, and can be automated)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Language Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java, &lt;a href=&quot;https://github.com/dotnet/spark&quot;&gt;.NET&lt;/a&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Python &amp;amp; REST&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Notebook Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Scheduling Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes, Through Platform or SDK integration&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Tooling Re-training Required&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Server management through K8S&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Databricks Interface&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components &amp;amp; Cloudbreak Interface&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;SDK Interface OR GUI Interface in Azure Portal&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Extensibility&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Performance Gain Out-Of-The-Box&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;40%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;N/A&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Cost&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 1,662.21 USD&lt;br /&gt;(8h: 546.48 USD)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,409.00 USD&lt;br /&gt;8h: 803,88 USD&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,084.00 USD&lt;br /&gt;(8h: 685.15 USD)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,100.36 USD&lt;br /&gt;8h: 749.43 USD&lt;br /&gt;+375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Depends on K8S, HDI, Databricks VMs implementation&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;For the data that will be used for the video we will - as mentioned before - again utilize the data from &lt;a href=&quot;https://github.com/cloudpose/smartphone_driving_dataset&quot;&gt;https://github.com/cloudpose/smartphone_driving_dataset&lt;/a&gt;. This provides us a dataset of 3,419 images. Now for simplicity reasons we will only get a couple of frames (~10Mb) in our data folder (as in the previous simulator). I chose the following frames:&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;(1):&lt;/strong&gt; Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(2):&lt;/strong&gt; Databricks offers an out of the box performance increase - see: &lt;a href=&quot;https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html&quot;&gt;website1&lt;/a&gt; and &lt;a href=&quot;https://github.com/databricks/benchmarks&quot;&gt;website2&lt;/a&gt; for more details&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of &lt;span&gt;&lt;/span&gt;1.500 USD per license for only the worker nodes (so 3 worker nodes * 1.500 USD / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
+  &lt;li&gt;output_141.png&lt;/li&gt;
+  &lt;li&gt;output_197.png&lt;/li&gt;
+  &lt;li&gt;output_340.png&lt;/li&gt;
+  &lt;li&gt;output_384.png&lt;/li&gt;
+  &lt;li&gt;output_2535.png -&amp;gt; output_2560.png&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;FYI:&lt;/strong&gt; I use a remote development PC, so to copy these files specifically I had to copy them to a SSH terminal. To do this I used: &lt;code class=&quot;highlighter-rouge&quot;&gt;scp *.png xavier@&amp;lt;SERVER_IP&amp;gt;:/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera/data&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;More references can be found for the following products at these links:&lt;/p&gt;
+&lt;h2 id=&quot;coding-our-simulator&quot;&gt;Coding our Simulator&lt;/h2&gt;
 
-&lt;p&gt;&lt;strong&gt;HDInsight&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;configuring-the-deployment-template--dockerfile-for-our-stream-path&quot;&gt;Configuring the deployment template + Dockerfile for our stream path&lt;/h3&gt;
+
+&lt;p&gt;Our code is mostly a copy paste of the previous code. The only thing that will change here is that we will have to send the images to the next module.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Important:&lt;/strong&gt; As mentiond in our Initial Setup, we should &lt;strong&gt;NOT&lt;/strong&gt; use MQTT to send all these messages to cloud. Rather than that we should utilize a mount to provide a path that we can write our video to.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To access our shared path from the OS (&lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp&lt;/code&gt;) in our module under &lt;code class=&quot;highlighter-rouge&quot;&gt;/app/stream&lt;/code&gt; we will have to specify this in our module’s deployment file &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt;. Luckily a key called &lt;code class=&quot;highlighter-rouge&quot;&gt;createOptions&lt;/code&gt; exists that allows us to do this (see &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/module-edgeagent-edgehub#edgeagent-desired-properties&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/module-edgeagent-edgehub&lt;/a&gt; for more information).&lt;/p&gt;
+
+&lt;p&gt;This will look like this to mount the &lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp&lt;/code&gt; folder to our &lt;code class=&quot;highlighter-rouge&quot;&gt;/app/stream&lt;/code&gt; path:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;modules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ModuleSimulatorCamera&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${MODULES.ModuleSimulatorCamera}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostConfig&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Mounts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Target&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/app/stream/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Source&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/tmp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next we will adapt our Dockerfile.amd64 (and Dockerfile.arm32v7) to add the following above the &lt;code class=&quot;highlighter-rouge&quot;&gt;ENTRYPOINT&lt;/code&gt; statement, as well as add the dependency on ffmpeg:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Add streaming directory&lt;/span&gt;
+RUN &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /app/stream
+
+&lt;span class=&quot;c&quot;&gt;# Install ffmpeg&lt;/span&gt;
+RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ffmpeg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;programcs&quot;&gt;Program.cs&lt;/h3&gt;
+
+&lt;p&gt;Our &lt;code class=&quot;highlighter-rouge&quot;&gt;Program.cs&lt;/code&gt; is quite trivial, since we will let &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; handle the difficult part of merging our frames from the &lt;code class=&quot;highlighter-rouge&quot;&gt;data/&lt;/code&gt; folder into a video file. Putting this into the same kind of framework as we did in our first simulator, makes us ending up with:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;videoDestinationPath&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/app/stream/out.mp4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;MqttTransportSettings&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MqttTransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransportType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mqtt_Tcp_Only&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ITransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Open a connection to the Edge runtime&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CreateFromEnvironmentAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IoT Hub module client initialized.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Start our simulator&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Note: this is not async, we can run on the main thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Get the images that we want to convert to a video stream&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fileEntries&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Directory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;StartInfo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ProcessStartInfo&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;FileName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ffmpeg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Arguments&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$&quot;-y -framerate 1 -pattern_type glob -i &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/*.png -c:v libx264 -r 30 -pix_fmt yuv420p -vf \&quot;pad=ceil(iw/2)*2:ceil(ih/2)*2\&quot; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoDestinationPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;UseShellExecute&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;CreateNoWindow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Compile the video&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Console.WriteLine($&quot;ffmpeg -y -framerate 1 -pattern_type glob -i {Directory.GetCurrentDirectory()}/{filePath}*.png -c:v libx264 -r 30 -pix_fmt yuv420p -vf \&quot;pad=ceil(iw/2)*2:ceil(ih/2)*2\&quot; {videoDestinationPath}&quot;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] Creating video file from images in &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*.png&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   
+    &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WaitForExit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] Wrote video file to &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoDestinationPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Wait a minute before we repeat&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] Waiting 60 seconds before repeating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Threading&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can see that we will just create our process in C# and wait till it finishes. Once it finishes we will wait 60 seconds before redoing this complete process.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; We wait one minute for this simulator, since we could for example make the &lt;code class=&quot;highlighter-rouge&quot;&gt;data/&lt;/code&gt; folder receive frames from a mount as well, potentially allowing for a dynamic recompilation process.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;deploying-our-simulator&quot;&gt;Deploying our Simulator&lt;/h3&gt;
+
+&lt;p&gt;Just as before, we can now deploy our simulator:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Login to our container repository: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo docker login -u &amp;lt;USERNAME&amp;gt; -p &amp;lt;PASSWORD&amp;gt; &amp;lt;LOGIN_SERVER&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Right click on &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and: &lt;code class=&quot;highlighter-rouge&quot;&gt;Build and Push IoT Edge Solution&lt;/code&gt; which will initiate a &lt;code class=&quot;highlighter-rouge&quot;&gt;docker build  --rm -f &quot;/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera/Dockerfile.amd64&quot; -t xavierregistry.azurecr.io/module-simulator-camera:0.0.1-amd64 &quot;/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera&quot; &amp;amp;&amp;amp; docker push xavierregistry.azurecr.io/module-simulator-camera:0.0.1-amd64&lt;/code&gt; command.&lt;/li&gt;
+  &lt;li&gt;Right click on our device in the Azure IoT Hub Extension and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Create Deployment for Single Device&lt;/code&gt; and navigate to the path of our solution config deployment. E.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/EdgeSolutionCameraFilter/config/deployment.amd64.json&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Congratulations, our Camera Simulator is now finished!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article.</summary></entry><entry><title type="html">Part 2 - Creating a Car Data simulator in IoT Edge</title><link href="/iot-edge-part2-simulator-car" rel="alternate" type="text/html" title="Part 2 - Creating a Car Data simulator in IoT Edge" /><published>2019-08-10T09:00:03+00:00</published><updated>2019-08-10T09:00:03+00:00</updated><id>/iot-edge-part2-simulator-car</id><content type="html" xml:base="/iot-edge-part2-simulator-car">&lt;blockquote&gt;
+  &lt;p&gt;This is Part 2 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; to view the previous article.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;recap-and-next-steps&quot;&gt;Recap and next steps&lt;/h2&gt;
+
+&lt;p&gt;In &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; we created our cloud infrastructure, our initial device connected to it and afterwards wrote a simulator module that we pushed to the edge device, that will send us the time every 30 seconds&lt;/p&gt;
+
+&lt;p&gt;What we want to do now is that we want to create 2 solutions as shown in our architecture that will simulate car data and video data. So let’s get started!&lt;/p&gt;
+
+&lt;h2 id=&quot;initial-setup&quot;&gt;Initial Setup&lt;/h2&gt;
+
+&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;As we learned in &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; we set up a new IoT Edge solution with the following parameters:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;AutoScale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Jupyter Notebook:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Job Scheduling:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Path:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/xavier/iot-edge&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Solution:&lt;/strong&gt; EdgeSolutionCarFilter&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Module Template:&lt;/strong&gt; C# Module&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Module Name:&lt;/strong&gt; ModuleSimulatorCar&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Docker Repository:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;xavierregistry.azurecr.io/module-simulator-car&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Spark on K8S&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;data-gathering&quot;&gt;Data Gathering&lt;/h3&gt;
+
+&lt;p&gt;We start off with finding a dataset of points that we want our simulator to use. We will then send off each of these datapoints every second as our simulation.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; In real-life you would not use a simulator but just use a module to capture your Video Feed/CAN Dongle/USB/… connected to the device&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Luckily an excellent repository exist on GitHub that contains an interesting dataset for car datapoints that are comparable to a CAN bus: &lt;a href=&quot;https://github.com/cloudpose/smartphone_driving_dataset&quot;&gt;https://github.com/cloudpose/smartphone_driving_dataset&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This dataset (&lt;code class=&quot;highlighter-rouge&quot;&gt;dataset_car.csv&lt;/code&gt;) has the following fields:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Time&lt;/li&gt;
+  &lt;li&gt;Seconds&lt;/li&gt;
+  &lt;li&gt;Latitude / Y Position (Degrees)&lt;/li&gt;
+  &lt;li&gt;Longitude / X Position (Degrees)&lt;/li&gt;
+  &lt;li&gt;Distance (Miles)&lt;/li&gt;
+  &lt;li&gt;Speed (MPH)&lt;/li&gt;
+  &lt;li&gt;Steering Angle&lt;/li&gt;
+  &lt;li&gt;Throttle Position&lt;/li&gt;
+  &lt;li&gt;Engine RPM&lt;/li&gt;
+  &lt;li&gt;Lateral Gs&lt;/li&gt;
+  &lt;li&gt;Acceleration Gs&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Cloudbreak&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Notebooks:&lt;/strong&gt; &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&quot;coding-our-simulator&quot;&gt;Coding our Simulator&lt;/h2&gt;
 
-&lt;p&gt;&lt;strong&gt;Azure Machine Learning Services&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Compute Environments:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="big-data" /><summary type="html">Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads. This is the reason that I decided to create a comparison of the different Big Data platforms from a Microsoft perspective. Note: I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in. Note 2: This will also include a lot of assumptions to make the comparison as fair as possible. The products that we will be covering are: Azure Databricks HDInsight Machine Learning Services Cloudera Cloudbreak (old Hortonworks) Apache Spark on Kubernetes (K8S) Note: I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service. Assumptions As in any comparison, some assumptions were made. In this case the following assumptions were made: 1 Web Node was utilized where a web interface is required Size: D2v3 Solutions: Cloudera Cloudbreak 2 Head Nodes were utilized where required for HA purposes Size: A3 Solutions: HDInsight, Cloudera Cloudbreak 3 Worker Nodes were utilized Size: D13v2 Solutions: Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S) No Data Disks were selected For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo) Note: 8h pricing is also included in others, but has been wrapped with () for clarity reasons. They can pause but extra work will be required to support this. Comparison Matrix - Spark on K8S Azure Databricks HDInsight Cloudera Cloudbreak Azure Machine Learning Services Multi Cloud Yes Yes No Yes Yes (1) Deployment Model IaaS / Half PaaS PaaS PaaS (with full cluster control) IaaS PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S Auto Scale Yes (will require manual configuration) Yes Yes (preview) Yes Yes (on Machine Learning Compute or Databricks) Compute Pause Support No (but scale-down yes and can be automated) Yes No (but scale-down yes, and can be automated) Yes Yes Language Support Scala, Python, R, SQL, Java, .NET Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Python &amp;amp; REST Notebook Support No Yes Yes Yes Yes Scheduling Support No Yes Yes, through Oozie Yes, through Oozie Yes, Through Platform or SDK integration Tooling Re-training Required Server management through K8S Databricks Interface HDP Components HDP Components &amp;amp; Cloudbreak Interface SDK Interface OR GUI Interface in Azure Portal Extensibility No No Yes Yes Yes Performance Gain Out-Of-The-Box 0% 40% 0% 0% N/A Cost 24h: 1,662.21 USD(8h: 546.48 USD) 24h: 2,409.00 USD8h: 803,88 USDNote: perf increase added (2) 24h: 2,084.00 USD(8h: 685.15 USD) 24h: 2,100.36 USD8h: 749.43 USD+375 license cost (3) / mo Depends on K8S, HDI, Databricks VMs implementation Notes: (1): Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it. (2): Databricks offers an out of the box performance increase - see: website1 and website2 for more details (3): For enterprise support, licenses are required. See this website for more information. For our comparison, we took a price of 1.500 USD per license for only the worker nodes (so 3 worker nodes * 1.500 USD / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative! References More references can be found for the following products at these links: HDInsight AutoScale: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters Jupyter Notebook: https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels Job Scheduling: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs Spark on K8S Autoscale: https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler and https://github.com/kedacore/keda Cloudbreak Autoscale: https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html Notebooks: https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html Azure Machine Learning Services Compute Environments: https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets</summary></entry><entry><title type="html">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title><link href="/iot-edge-part1" rel="alternate" type="text/html" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" /><published>2019-05-20T09:00:00+00:00</published><updated>2019-05-20T09:00:00+00:00</updated><id>/iot-edge-part1</id><content type="html" xml:base="/iot-edge-part1">&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
+&lt;h3 id=&quot;programcs&quot;&gt;Program.cs&lt;/h3&gt;
+
+&lt;p&gt;Start off by creating a new file called &lt;code class=&quot;highlighter-rouge&quot;&gt;car.csv&lt;/code&gt; in a new &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; folder under your module (this is where &lt;code class=&quot;highlighter-rouge&quot;&gt;Program.cs&lt;/code&gt; is located - e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;EdgeSolutionCarFilter/modules/ModuleSimulatorCar/data/car.csv&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;Once this is done, adapt your &lt;code class=&quot;highlighter-rouge&quot;&gt;Program.cs&lt;/code&gt; file to look like this for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Init()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;MqttTransportSettings&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MqttTransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransportType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mqtt_Tcp_Only&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ITransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Open a connection to the Edge runtime&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CreateFromEnvironmentAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IoT Hub module client initialized.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Start our simulator&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Note: this is not async, we can run on the main thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data/car.csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above will open our &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Edge Hub&lt;/code&gt; connection through the &lt;code class=&quot;highlighter-rouge&quot;&gt;MQTT&lt;/code&gt; transport layer, whereafter we start our simulator.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: This opens a connection to the &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Edge Hub&lt;/code&gt;! Which is still locally running and not to cloud. It’s this Hub that will act as our kind of service bus and send the events to &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Hub&lt;/code&gt; on Azure.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;With the Simulator code looking like:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StreamReader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;StreamReader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ReadLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Skip the first line -&amp;gt; it's the header&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;++;&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// Send message&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UTF8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetBytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SendEventAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// Sleep for a second and go to the next line&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;++;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Threading&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Loop infinitely&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[Simulator] Reached end of CSV file, restarting&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is a quite trivial simulator, just reading our CSV line by line and sending the lines to the IoT Edge Device Hub on the “output” channel. See the following link for the method doing this: &lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.client.moduleclient.sendeventasync?view=azure-dotnet#Microsoft_Azure_Devices_Client_ModuleClient_SendEventAsync_System_String_Microsoft_Azure_Devices_Client_Message_&quot;&gt;https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.client.moduleclient.sendeventasync?view=azure-dotnet&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;When now testing this module, we see:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@PersonalVM:~/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;iotedgehubdev modulecred | xargs&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; dotnet run
+IoT Hub module client initialized.
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.005628,694.308316,30.327355999999998,-97.75596800000001,7.47,61.563,-0.3,13,2146,-0.0,-0.02
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.090666,694.393353,30.327336,-97.755969,7.47,61.51,-0.3,13,2145,-0.0,-0.02
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.190665,694.4933530000001,30.327312,-97.755969,7.48,61.448,-0.3,13,2144,-0.0,-0.02
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.247328,694.550016,30.327298,-97.755969,7.48,61.412,-0.3,13,2144,-0.0,-0.02
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;deploying-our-simulator&quot;&gt;Deploying our Simulator&lt;/h3&gt;
+
+&lt;p&gt;So we can deploy this to our container registry as learned in the &lt;a href=&quot;/iot-edge-part1&quot;&gt;first part&lt;/a&gt; with the following &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$schema-template&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;modulesContent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$edgeAgent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties.desired&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;schemaVersion&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;runtime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;minDockerVersion&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;v1.25&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;loggingOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;registryCredentials&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;xavierregistry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$CONTAINER_REGISTRY_USERNAME_xavierregistry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$CONTAINER_REGISTRY_PASSWORD_xavierregistry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xavierregistry.azurecr.io&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;systemModules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;edgeAgent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mcr.microsoft.com/azureiotedge-agent:1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;edgeHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mcr.microsoft.com/azureiotedge-hub:1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostConfig&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;PortBindings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;5671/tcp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5671&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;8883/tcp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8883&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;443/tcp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;443&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;modules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ModuleSimulatorCar&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${MODULES.ModuleSimulatorCar}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$edgeHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties.desired&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;schemaVersion&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;routes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ModuleSimulatorCarToIoTHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;FROM /messages/modules/ModuleSimulatorCar/outputs/* INTO $upstream&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;storeAndForwardConfiguration&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;timeToLiveSecs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7200&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we can:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Make sure that you set the configuration in your &lt;code class=&quot;highlighter-rouge&quot;&gt;.env&lt;/code&gt; file for the container registry (see &lt;code class=&quot;highlighter-rouge&quot;&gt;registryCredentials&lt;/code&gt; in  &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.amd64.json&lt;/code&gt; for the required keys)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Login to our container repository: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo docker login -u &amp;lt;USERNAME&amp;gt; -p &amp;lt;PASSWORD&amp;gt; &amp;lt;LOGIN_SERVER&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Right click on &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and: &lt;code class=&quot;highlighter-rouge&quot;&gt;Build and Push IoT Edge Solution&lt;/code&gt; which will initiate a &lt;code class=&quot;highlighter-rouge&quot;&gt;docker build  --rm -f &quot;/home/xavier/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar/Dockerfile.amd64&quot; -t xavierregistry.azurecr.io/module-simulator-car:0.0.1-amd64 &quot;/home/xavier/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&quot; &amp;amp;&amp;amp; docker push xavierregistry.azurecr.io/module-simulator-car:0.0.1-amd64&lt;/code&gt; command.&lt;/li&gt;
+  &lt;li&gt;Right click on our device in the Azure IoT Hub Extension and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Create Deployment for Single Device&lt;/code&gt; and navigate to the path of our solution config deployment. E.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/EdgeSolutionCarFilter/config/deployment.amd64.json&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;When all of this is done, when we now open a demo reader for IoT Hub (see &lt;a href=&quot;https://github.com/thebillkidy/PublicProjects/tree/master/JS/Azure/EventHub/Receiver&quot;&gt;My PublicProjects&lt;/a&gt; for an example) we see:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] Start monitoring message arrived &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;built-in endpoint &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;device &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1] ...
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] Created partition receiver &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0] &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;consumerGroup &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] Created partition receiver &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1] &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;consumerGroup &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11:40:29 AM] Message received from &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1/ModuleSimulatorCar]:
+&lt;span class=&quot;s2&quot;&gt;&quot;2018-04-08 10:31:38.515609,695.818296,30.326990000000002,-97.755974,7.5,60.625,-0.4,0,2119,-0.01,-0.04&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; In case you don’t see this, you should go and debug the solution. A good starting point here is to logon on your device and check the &lt;code class=&quot;highlighter-rouge&quot;&gt;docker logs&lt;/code&gt; of the &lt;code class=&quot;highlighter-rouge&quot;&gt;edgeAgent&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo docker logs edgeAgent&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Congratulations, our Car Simulator is now finished!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">This is Part 2 in the Iot Edge series, view the main article or go the part 1 to view the previous article.</summary></entry><entry><title type="html">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title><link href="/iot-edge-part1" rel="alternate" type="text/html" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" /><published>2019-08-10T09:00:02+00:00</published><updated>2019-08-10T09:00:02+00:00</updated><id>/iot-edge-part1</id><content type="html" xml:base="/iot-edge-part1">&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;This is Part 1 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt;. Part 2 is currently under construction and will follow soon.&lt;/p&gt;
@@ -520,37 +733,7 @@ ea4e5356527d: Pushed
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;We now created our first initial module, so let’s get started for real now and work on &lt;a href=&quot;/iot-edge-part2&quot;&gt;creating our AI Edge Module in Part 2&lt;/a&gt;!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html"></summary></entry><entry><title type="html">Creating an Internet Of Things (IoT) Edge Deployment</title><link href="/iot-edge" rel="alternate" type="text/html" title="Creating an Internet Of Things (IoT) Edge Deployment" /><published>2019-05-20T09:00:00+00:00</published><updated>2019-05-20T09:00:00+00:00</updated><id>/iot-edge</id><content type="html" xml:base="/iot-edge">&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
-
-&lt;p&gt;A way to solve this is by utilizing edge deployments. Edge deployments allow you to create your model in a scalable environment (cloud) and deploy these to the edge devices. Which can then utilize this model, filter the needed data and send just this data back when the connection is re-established.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Interesting use cases&lt;/strong&gt; for example are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Image processing from live video feeds (drones, street cameras, …)
-    &lt;ul&gt;
-      &lt;li&gt;Just think about streaming at 24fps, including your model inference and including the network round-trip&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Dongles in cars, sending the captured data from its CAN-bus
-    &lt;ul&gt;
-      &lt;li&gt;If a car sends at 1Hz, what is your captured data rate? It’s &lt;a href=&quot;https://newsroom.intel.com/editorials/self-driving-cars-big-meaning-behind-one-number-4-terabytes/&quot;&gt;predicted&lt;/a&gt; that self-driving cars will consume about 4Tb every 1.5 hours!&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So how can we solve this technical wise? Well you’d be happy to know that currently we have all the tools in place to actually accomplish this on-edge computing already!&lt;/p&gt;
-
-&lt;p&gt;Illustrating this with an architecture, we can see that we will have to add a small computing capability to our devices (think for example cameras, cars, …) that will then hook up to an event pipeline or IoT Device manager. On top of this we can then add our full lifecycle that can train our model and send the trained model back to the edge devices, creating a perfect loop and self-iterating process.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So let’s try to simulate this in our own environment! Now since this post would get too big due to the different steps being required, I decided to split it up into different modules:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/iot-edge-part1&quot;&gt;Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/iot-edge-part2&quot;&gt;Part 2 - Create and Deploy our Machine Learning filters on Edge&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.</summary></entry><entry><title type="html">Azure IoT Edge Simulator - Easily run and test your IoT Edge application</title><link href="/iot-edge-simulator" rel="alternate" type="text/html" title="Azure IoT Edge Simulator - Easily run and test your IoT Edge application" /><published>2019-05-20T09:00:00+00:00</published><updated>2019-05-20T09:00:00+00:00</updated><id>/iot-edge-simulator</id><content type="html" xml:base="/iot-edge-simulator">&lt;p&gt;Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).&lt;/p&gt;
+&lt;p&gt;We now created our first initial module, so let’s get started for real now and work on &lt;a href=&quot;/iot-edge-part2&quot;&gt;creating our AI Edge Module in Part 2&lt;/a&gt;!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html"></summary></entry><entry><title type="html">Azure IoT Edge Simulator - Easily run and test your IoT Edge application</title><link href="/iot-edge-simulator" rel="alternate" type="text/html" title="Azure IoT Edge Simulator - Easily run and test your IoT Edge application" /><published>2019-08-10T09:00:01+00:00</published><updated>2019-08-10T09:00:01+00:00</updated><id>/iot-edge-simulator</id><content type="html" xml:base="/iot-edge-simulator">&lt;p&gt;Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).&lt;/p&gt;
 
 &lt;p&gt;When you work with Azure IoT Edge, one of the issues you might have is that you would like to start debugging your applications before actually sending them off to your repository.&lt;/p&gt;
 
@@ -569,6 +752,19 @@ ea4e5356527d: Pushed
   &lt;/li&gt;
   &lt;li&gt;A module, see part 1 for this: &lt;a href=&quot;/iot-edge-part1&quot;&gt;iot-edge-part-1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;tldr&quot;&gt;Tl;dr&lt;/h2&gt;
+
+&lt;p&gt;As a summary, you do the following:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo iotedgehubdev start -i &quot;input1&quot;&lt;/code&gt; - Start the IoT Edge simulator for a single module&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd &amp;lt;modulePath&amp;gt;&lt;/code&gt; Navigate to your Module&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;env $(sudo iotedgehubdev modulecred | xargs) dotnet run&lt;/code&gt; - Start the module and test it (or through debug)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: if when running the &lt;code class=&quot;highlighter-rouge&quot;&gt;env&lt;/code&gt; command no output is appearing, make sure that you started the IoT Edge Simulator for a single module!&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;setting-up-the-simulator&quot;&gt;Setting up the simulator&lt;/h2&gt;
 
@@ -624,7 +820,233 @@ IoT Hub module client initialized.
 
 &lt;h2 id=&quot;sending-messages-to-our-module&quot;&gt;Sending Messages to our module&lt;/h2&gt;
 
-&lt;p&gt;Sending a message is now easy, once your code is running you are able to send messages by issueing a CURL request to the endpoint you received when starting the simulator (&lt;code class=&quot;highlighter-rouge&quot;&gt;curl --header &quot;Content-Type: application/json&quot; --request POST --data '{&quot;inputName&quot;: &quot;input1&quot;,&quot;data&quot;:&quot;hello world&quot;}' http://localhost:53000/api/v1/messages&lt;/code&gt;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).</summary></entry><entry><title type="html">Automatically create an AI model for your dataset using Azure AutoML</title><link href="/automl-interface-telco-churn-prediction" rel="alternate" type="text/html" title="Automatically create an AI model for your dataset using Azure AutoML" /><published>2019-05-15T09:00:00+00:00</published><updated>2019-05-15T09:00:00+00:00</updated><id>/automl-interface-telco-churn-prediction</id><content type="html" xml:base="/automl-interface-telco-churn-prediction">&lt;p&gt;An annoying part in working with classification, regression or other AI algorithms is that you always need to write a lot of code, prepare your data and do other steps before you are able to get results out of it.&lt;/p&gt;
+&lt;p&gt;Sending a message is now easy, once your code is running you are able to send messages by issueing a CURL request to the endpoint you received when starting the simulator (&lt;code class=&quot;highlighter-rouge&quot;&gt;curl --header &quot;Content-Type: application/json&quot; --request POST --data '{&quot;inputName&quot;: &quot;input1&quot;,&quot;data&quot;:&quot;hello world&quot;}' http://localhost:53000/api/v1/messages&lt;/code&gt;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).</summary></entry><entry><title type="html">Creating an Internet Of Things (IoT) Edge Deployment</title><link href="/iot-edge" rel="alternate" type="text/html" title="Creating an Internet Of Things (IoT) Edge Deployment" /><published>2019-08-10T09:00:00+00:00</published><updated>2019-08-10T09:00:00+00:00</updated><id>/iot-edge</id><content type="html" xml:base="/iot-edge">&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
+
+&lt;p&gt;A way to solve this is by utilizing edge deployments. Edge deployments allow you to create your model in a scalable environment (cloud) and deploy these to the edge devices. Which can then utilize this model, filter the needed data and send just this data back when the connection is re-established.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Interesting use cases&lt;/strong&gt; for example are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Image processing from live video feeds (drones, street cameras, …)
+    &lt;ul&gt;
+      &lt;li&gt;Just think about streaming at 24fps, including your model inference and including the network round-trip&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dongles in cars, sending the captured data from its CAN-bus
+    &lt;ul&gt;
+      &lt;li&gt;If a car sends at 1Hz, what is your captured data rate? It’s &lt;a href=&quot;https://newsroom.intel.com/editorials/self-driving-cars-big-meaning-behind-one-number-4-terabytes/&quot;&gt;predicted&lt;/a&gt; that self-driving cars will consume about 4Tb every 1.5 hours!&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So how can we solve this technical wise? Well you’d be happy to know that currently we have all the tools in place to actually accomplish this on-edge computing already!&lt;/p&gt;
+
+&lt;p&gt;Illustrating this with an architecture, we can see that we will have to add a small computing capability to our devices (think for example cameras, cars, …) that will then hook up to an event pipeline or IoT Device manager. On top of this we can then add our full lifecycle that can train our model and send the trained model back to the edge devices, creating a perfect loop and self-iterating process.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So let’s try to simulate this in our own environment! Now since this post would get too big due to the different steps being required, I decided to split it up into different modules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/iot-edge-simulator&quot;&gt;Part X - Utilizing the IoT Edge Simulator&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/iot-edge-part1&quot;&gt;Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;Part 2 - Creating a Car Simulator&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/iot-edge-part3-simulator-camera&quot;&gt;Part 3 - Creating a Car Camera Simulator&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.</summary></entry><entry><title type="html">Big Data Platform Comparisons</title><link href="/big-data-platforms-comparison" rel="alternate" type="text/html" title="Big Data Platform Comparisons" /><published>2019-05-27T09:00:00+00:00</published><updated>2019-05-27T09:00:00+00:00</updated><id>/big-data-platforms-comparison</id><content type="html" xml:base="/big-data-platforms-comparison">&lt;p&gt;Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
+
+&lt;p&gt;This is the reason that I decided to create a comparison of the different Big Data platforms from a &lt;strong&gt;Microsoft&lt;/strong&gt; perspective.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; This will also include a lot of assumptions to make the comparison as fair as possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The products that we will be covering are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/databricks/&quot;&gt;Azure Databricks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/hdinsight/&quot;&gt;HDInsight&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/machine-learning-service/&quot;&gt;Machine Learning Services&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hortonworks.com/open-source/cloudbreak/&quot;&gt;Cloudera Cloudbreak (old Hortonworks)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/tree/master/resource-managers/kubernetes&quot;&gt;Apache Spark on Kubernetes (K8S)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;assumptions&quot;&gt;Assumptions&lt;/h2&gt;
+
+&lt;p&gt;As in any comparison, some assumptions were made. In this case the following assumptions were made:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1 Web Node was utilized where a web interface is required
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dv3-series-1&quot;&gt;D2v3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Cloudera Cloudbreak&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2 Head Nodes were utilized where required for HA purposes
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#av2-series&quot;&gt;A3&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; HDInsight, Cloudera Cloudbreak&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3 Worker Nodes were utilized
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-memory#dsv2-series-11-15&quot;&gt;D13v2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;No Data Disks were selected&lt;/li&gt;
+  &lt;li&gt;For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo)
+    &lt;ul&gt;
+      &lt;li&gt;Note: 8h pricing is also included in others, but has been wrapped with &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; for clarity reasons. They can pause but extra work will be required to support this.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comparison-matrix&quot;&gt;Comparison Matrix&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;-&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Spark on K8S&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Azure Databricks&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;HDInsight&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Cloudera Cloudbreak&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Azure Machine Learning Services&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Multi Cloud&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes &lt;em&gt;(1)&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Deployment Model&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IaaS / Half PaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS (with full cluster control)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IaaS&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Auto Scale&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (will require manual configuration)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (preview)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes (on Machine Learning Compute or Databricks)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Compute Pause Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes and can be automated)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes, and can be automated)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Language Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java, &lt;a href=&quot;https://github.com/dotnet/spark&quot;&gt;.NET&lt;/a&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Python &amp;amp; REST&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Notebook Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Scheduling Support&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes, Through Platform or SDK integration&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Tooling Re-training Required&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Server management through K8S&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Databricks Interface&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components &amp;amp; Cloudbreak Interface&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;SDK Interface OR GUI Interface in Azure Portal&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Extensibility&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Performance Gain Out-Of-The-Box&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;40%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;N/A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Cost&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: 1,662.21 USD&lt;br /&gt;(8h: 546.48 USD)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,409.00 USD&lt;br /&gt;8h: 803,88 USD&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,084.00 USD&lt;br /&gt;(8h: 685.15 USD)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,100.36 USD&lt;br /&gt;8h: 749.43 USD&lt;br /&gt;+375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Depends on K8S, HDI, Databricks VMs implementation&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;(1):&lt;/strong&gt; Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(2):&lt;/strong&gt; Databricks offers an out of the box performance increase - see: &lt;a href=&quot;https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html&quot;&gt;website1&lt;/a&gt; and &lt;a href=&quot;https://github.com/databricks/benchmarks&quot;&gt;website2&lt;/a&gt; for more details&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of &lt;span&gt;&lt;/span&gt;1.500 USD per license for only the worker nodes (so 3 worker nodes * 1.500 USD / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;More references can be found for the following products at these links:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HDInsight&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;AutoScale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Jupyter Notebook:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Job Scheduling:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Spark on K8S&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Cloudbreak&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Notebooks:&lt;/strong&gt; &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Azure Machine Learning Services&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Compute Environments:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="big-data" /><summary type="html">Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads. This is the reason that I decided to create a comparison of the different Big Data platforms from a Microsoft perspective. Note: I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in. Note 2: This will also include a lot of assumptions to make the comparison as fair as possible. The products that we will be covering are: Azure Databricks HDInsight Machine Learning Services Cloudera Cloudbreak (old Hortonworks) Apache Spark on Kubernetes (K8S) Note: I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service. Assumptions As in any comparison, some assumptions were made. In this case the following assumptions were made: 1 Web Node was utilized where a web interface is required Size: D2v3 Solutions: Cloudera Cloudbreak 2 Head Nodes were utilized where required for HA purposes Size: A3 Solutions: HDInsight, Cloudera Cloudbreak 3 Worker Nodes were utilized Size: D13v2 Solutions: Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S) No Data Disks were selected For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo) Note: 8h pricing is also included in others, but has been wrapped with () for clarity reasons. They can pause but extra work will be required to support this. Comparison Matrix - Spark on K8S Azure Databricks HDInsight Cloudera Cloudbreak Azure Machine Learning Services Multi Cloud Yes Yes No Yes Yes (1) Deployment Model IaaS / Half PaaS PaaS PaaS (with full cluster control) IaaS PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S Auto Scale Yes (will require manual configuration) Yes Yes (preview) Yes Yes (on Machine Learning Compute or Databricks) Compute Pause Support No (but scale-down yes and can be automated) Yes No (but scale-down yes, and can be automated) Yes Yes Language Support Scala, Python, R, SQL, Java, .NET Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Python &amp;amp; REST Notebook Support No Yes Yes Yes Yes Scheduling Support No Yes Yes, through Oozie Yes, through Oozie Yes, Through Platform or SDK integration Tooling Re-training Required Server management through K8S Databricks Interface HDP Components HDP Components &amp;amp; Cloudbreak Interface SDK Interface OR GUI Interface in Azure Portal Extensibility No No Yes Yes Yes Performance Gain Out-Of-The-Box 0% 40% 0% 0% N/A Cost 24h: 1,662.21 USD(8h: 546.48 USD) 24h: 2,409.00 USD8h: 803,88 USDNote: perf increase added (2) 24h: 2,084.00 USD(8h: 685.15 USD) 24h: 2,100.36 USD8h: 749.43 USD+375 license cost (3) / mo Depends on K8S, HDI, Databricks VMs implementation Notes: (1): Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it. (2): Databricks offers an out of the box performance increase - see: website1 and website2 for more details (3): For enterprise support, licenses are required. See this website for more information. For our comparison, we took a price of 1.500 USD per license for only the worker nodes (so 3 worker nodes * 1.500 USD / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative! References More references can be found for the following products at these links: HDInsight AutoScale: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters Jupyter Notebook: https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels Job Scheduling: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs Spark on K8S Autoscale: https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler and https://github.com/kedacore/keda Cloudbreak Autoscale: https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html Notebooks: https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html Azure Machine Learning Services Compute Environments: https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets</summary></entry><entry><title type="html">Automatically create an AI model for your dataset using Azure AutoML</title><link href="/automl-interface-telco-churn-prediction" rel="alternate" type="text/html" title="Automatically create an AI model for your dataset using Azure AutoML" /><published>2019-05-15T09:00:00+00:00</published><updated>2019-05-15T09:00:00+00:00</updated><id>/automl-interface-telco-churn-prediction</id><content type="html" xml:base="/automl-interface-telco-churn-prediction">&lt;p&gt;An annoying part in working with classification, regression or other AI algorithms is that you always need to write a lot of code, prepare your data and do other steps before you are able to get results out of it.&lt;/p&gt;
 
 &lt;p&gt;Tools such as Azure ML Studio, … already allow you to drag &amp;amp; drop all your steps together, but it still is quite some work to get the results you want + it does not automatically tune the different hyperparameters nor does it run the different algorithm to identify which one is the best.&lt;/p&gt;
 
@@ -1290,404 +1712,4 @@ IoT Hub module client initialized.
 
 &lt;p&gt;When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market.&lt;/p&gt;
 
-&lt;p&gt;Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="infrastructure" /><category term="devops" /><summary type="html">So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done! What do we want to achieve? Well we want to achieve a continuous flow of development, where when we develop a piece of code, the following steps are followed (as illustrated below): SCM: Use our SCM protocol to push our code PULL CODE: Our source control repository, triggers an event BUILD: This trigger gets detected by our Pipeline process which builds our code TEST: The Build gets tested FAIL/SUCCESS: This results in a failure or success RELEASE: On success we release our code to the world Setting up our Pipeline Just as in Travis, we are able to generate a YAML file in our code repository, that will be picked up by Azure Devops. So get started by creating a azure-pipelines.yml file in your root folder. For our Github Pages we want to achieve that whenever we push to development that everything is build and the built source is pushed to master. This is a quite anti-pattern kind of process, seeing that most of the time we would build to an artifact and release this artifact to the world. For easiness we however want to do this, to keep our set of tools as minimal as possible. Note: This build is an anti-pattern because of described above! To achieve this, we can use the following steps: On push to development branch, trigger the process Pull our code (git clone) from the development branch Build our Jekyll site to a destination folder (jekyll build -d &amp;lt;DESTINATION&amp;gt;). We can see this as our artifact if we zip it! Create a branch based of master (important!) which contained our previous build site Clean the master branch from all files and copy over our artifact files Add our changes and commit Push to remote In Azure Pipelines this can be achieved through steps which describes our steps above in a YAML kind of structure. So let’s get started by creating our different steps. Step 1:Trigger on-push to Development Branch Describing to trigger on push is just 2 lines of code: trigger: - development Step 2: Pull our Code Luckily our code pulling is done automatically, due to the integration with GitHub. We however do have to add our credentials again, since they are removed by default. This way we can push! To do this, add the following: # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;amp;tabs=schema#checkout - checkout: self persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch Step 3: Build our Jekyll Website Let’s start by writing our steps that we want to execute when we have our code. For this, we need to know that everything we do is described as a task under steps. Looking like this: steps: - task: Doing this now for our Jekyll build, we will configure it to use ruby, install our dependencies and build our Jekyll website! steps: - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops displayName: 'Use Ruby &amp;gt;= 2.5' - script: 'gem install bundler' displayName: 'Install Bundler' - script: 'bundle install' displayName: 'Install Jekyll and Dependencies' - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)' displayName: 'Build Jekyll Static Site' Step 4 - 7: Push our build website to the master branch Building our website is the most complex part, for steps 4 - 7 we get: - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build' displayName: 'Create Build Branch based on Master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git rm -rf .; git clean -fxd; touch .nojekyll; touch README.md; echo &quot;# My Blog&quot; &amp;gt;&amp;gt; README.md; displayName: 'Clean Build Branch' - script: &amp;gt; git config --global user.email &quot;xavier.geerinck@gmail.com&quot;; git config --global user.name &quot;Xavier Geerinck&quot;; displayName: 'Configure Git User' - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)' displayName: 'Copy Artifact Files to Cleaned Build Branch' - script: &amp;gt; cd $(Build.Repository.LocalPath); git add --all; git commit -m&quot;Pipelines-Bot: Updated site via $(Build.SourceVersion)&quot;; displayName: 'Create our Commit' - script: &amp;gt; cd $(Build.Repository.LocalPath); git checkout master; git merge azure-pipelines-build; git branch -d azure-pipelines-build; displayName: 'Merge azure-pipelines-build into master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git push origin master; displayName: 'Push changes to remote' Final Review of our YAML file If we correctly followed everything described above, we get the following: trigger: - development pool: vmImage: 'Ubuntu-16.04' steps: # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;amp;tabs=schema#checkout - checkout: self persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops displayName: 'Use Ruby &amp;gt;= 2.5' - script: 'gem install bundler' displayName: 'Install Bundler' - script: 'bundle install' displayName: 'Install Jekyll and Dependencies' - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)' displayName: 'Build Jekyll Static Site' - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build' displayName: 'Create Build Branch based on Master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git rm -rf .; git clean -fxd; touch .nojekyll; touch README.md; echo &quot;# My Blog&quot; &amp;gt;&amp;gt; README.md; displayName: 'Clean Build Branch' - script: &amp;gt; git config --global user.email &quot;xavier.geerinck@gmail.com&quot;; git config --global user.name &quot;Xavier Geerinck&quot;; displayName: 'Configure Git User' - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)' displayName: 'Copy Artifact Files to Cleaned Build Branch' - script: &amp;gt; cd $(Build.Repository.LocalPath); git add --all; git commit -m&quot;Pipelines-Bot: Updated site via $(Build.SourceVersion)&quot;; displayName: 'Create our Commit' - script: &amp;gt; cd $(Build.Repository.LocalPath); git checkout master; git merge azure-pipelines-build; git branch -d azure-pipelines-build; displayName: 'Merge azure-pipelines-build into master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git push origin master; displayName: 'Push changes to remote' # Note: github_pat should be configured as an environment variable in devops # -&amp;gt; create github pat here: https://github.com/settings/tokens # -&amp;gt; Create environment variable in dev.azure.com under pipelines -&amp;gt; edit (right top) -&amp;gt; variables (right top triple dots) -&amp;gt; called github_pat -&amp;gt; click the lock - script: | gh_user=&quot;thebillkidy&quot;; gh_pass=$(github_pat); gh_repo=&quot;thebillkidy.github.io&quot;; auth_pass=$(echo -n &quot;${gh_user}:$(github_pat)&quot; | base64); curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \ -X POST \ -H &quot;Accept: application/vnd.github.mister-fantastic-preview+json&quot; \ -H &quot;Authorization: Basic ${auth_pass}&quot; displayName: '[GitHub] Trigger Page Build' - script: | gh_user=&quot;thebillkidy&quot;; gh_pass=$(github_pat); gh_repo=&quot;thebillkidy.github.io&quot;; auth_pass=$(echo -n &quot;${gh_user}:$(github_pat)&quot; | base64); curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \ -X GET \ -H &quot;Accept: application/vnd.github.mister-fantastic-preview+json&quot; \ -H &quot;Authorization: Basic $auth_pass&quot; displayName: '[GitHub] Get Page Build Status' Conclusion When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market. Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s</summary></entry><entry><title type="html">Quantum Computing - An Introduction</title><link href="/quantum-an-introduction" rel="alternate" type="text/html" title="Quantum Computing - An Introduction" /><published>2019-01-16T10:00:00+00:00</published><updated>2019-01-16T10:00:00+00:00</updated><id>/quantum-an-introduction</id><content type="html" xml:base="/quantum-an-introduction">&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
-
-&lt;h2 id=&quot;quantum-computing&quot;&gt;Quantum Computing?&lt;/h2&gt;
-
-&lt;p&gt;As written in the excellent publication by &lt;a href=&quot;/assets/pdf/Richard_P_Feynman-Simulating_Physics_With_Computers.pdf&quot;&gt;Richard P. Feynman - Simulating Physics with Computers&lt;/a&gt;, we would like to have a kind of computer that does exactly the same as nature. A computer that is able to simulate the real world better, and next to that allows us to tackle larger and more complex problems. Think for example about problems such as:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Quantum Chemistry&lt;/li&gt;
-  &lt;li&gt;Quantum Dynamics&lt;/li&gt;
-  &lt;li&gt;Material Science&lt;/li&gt;
-  &lt;li&gt;Optimization Problems&lt;/li&gt;
-  &lt;li&gt;Sampling&lt;/li&gt;
-  &lt;li&gt;Secure Computing&lt;/li&gt;
-  &lt;li&gt;Cryptography&lt;/li&gt;
-  &lt;li&gt;Machine Learning&lt;/li&gt;
-  &lt;li&gt;Searching&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To solve these kind of problems, we need to fundamentally change computers as they work now, transforming from classical &lt;code class=&quot;highlighter-rouge&quot;&gt;bits&lt;/code&gt; towards &lt;code class=&quot;highlighter-rouge&quot;&gt;qubits&lt;/code&gt;. However before we get started, I recommend you to take a refresher of &lt;a href=&quot;/quantum-linear-algebra&quot;&gt;Linear Algebra&lt;/a&gt; to have the fundamentals needed to continue :)&lt;/p&gt;
-
-&lt;h2 id=&quot;qubits&quot;&gt;Qubits?&lt;/h2&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;Now what are Qubits? When we look at nature, it does not represent everything binary as we do now, take a look at these examples:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;An electron can be in spin up or spin down&lt;/li&gt;
-  &lt;li&gt;A photon can have a vertical or horizontal polarization&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;All these kind of examples can be represented as a qubit, representing a 2-state quantum mechanical system.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;How does an electron look with its spins?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/quantum/introduction/spin-quantum-number.png&quot; alt=&quot;/assets/images/posts/quantum/introduction/spin-quantum-number.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;There are 2 main aspects in Quantum Physics:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Entanglement:&lt;/strong&gt; Particles can become connected so that we can predict the state of the other (e.g. one elctron is spin-up, then we know the other is spin-down if they are entangled)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Superposition:&lt;/strong&gt; A quantum system can be in multiple states at the same time until it is measured&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;mathmatical-representation&quot;&gt;Mathmatical Representation&lt;/h3&gt;
-
-&lt;p&gt;Of course to be useful in Quantum Computing, we need to represent these qubits in a mathmatical way. This we can by using the “ket” notation of before, representing a qubit as:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\vert \psi \rangle = \alpha \vert 0 \rangle + \beta \vert 1 \rangle =
-\alpha *
-\begin{bmatrix}
-1 \\
-0
-\end{bmatrix}
-+ \beta *
-\begin{bmatrix}
-0 \\
-1
-\end{bmatrix}&lt;/script&gt;
-
-&lt;p&gt;With $\alpha$ and $\beta$ being probability amplitudes (describes the behaviour of the system), with extra constraint that $\vert \alpha \vert^2 + \vert \beta \vert^2 = 1$&lt;/p&gt;
-
-&lt;p&gt;Seeing that we are working with a 2-level system that uses complex numbers, we can thus represent this on a sphere called the &lt;strong&gt;Bloch Sphere&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/quantum/introduction/bloch-sphere.png&quot; alt=&quot;/assets/images/posts/quantum/introduction/bloch-sphere.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Where the angles are described by: $\alpha = cos(\frac{\theta}{2})$ and $\beta = e^{i * \theta} * sin(\frac{\theta}{2})$&lt;/p&gt;
-
-&lt;h2 id=&quot;using-quantum-circuits-to-create-quantum-algorithms&quot;&gt;Using Quantum Circuits to create Quantum Algorithms&lt;/h2&gt;
-
-&lt;h3 id=&quot;introduction-1&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;To start working with Quantum Computing, we create circuits by using quantum gates. A good overview of the different gates can be found on &lt;a href=&quot;https://en.wikipedia.org/wiki/Quantum_logic_gate&quot;&gt;Wikipedia&lt;/a&gt;, so I will not go too much on depth on these. These Quantum Gates are the building blocks of circuits and allow us to write our different programs and algorithms.&lt;/p&gt;
-
-&lt;h3 id=&quot;a-mathmatical-example&quot;&gt;A mathmatical example&lt;/h3&gt;
-
-&lt;p&gt;Let’s actually calculate an example. When we for example combine a hadamard gate with a CNOT gate:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The Hadamard Gate is called the “Fair Coin Flip”, inducing an equal probability of the qubit being in either of the states&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/quantum/introduction/H_CNOTGate.png&quot; alt=&quot;/assets/images/posts/quantum/introduction/H_CNOTGate.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then we know the following:&lt;/p&gt;
-
-&lt;!-- Define Psi, Theta, Hadamard, Identity and CNOT --&gt;
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-\vert \psi \rangle =
-\begin{bmatrix}
-\alpha \\
-\beta
-\end{bmatrix}
-;
-\vert \theta \rangle =
-\begin{bmatrix}
-\gamma \\
-\delta
-\end{bmatrix}
-;
-H
-=
-\frac{1}{\sqrt(2)}
-*
-\begin{bmatrix}
-1 &amp; 1 \\
-1 &amp; -1
-\end{bmatrix}
-;
-I
-=
-\begin{bmatrix}
-1 &amp; 0 \\
-0 &amp; 1
-\end{bmatrix}
-;
-CNOT
-=
-\begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0 &amp; 1 \\
-0 &amp; 0 &amp; 1 &amp; 0
-\end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;Which we can work out for 2 cross products already (Psi and Gamma; Hadamard and Identity):&lt;/p&gt;
-
-&lt;!-- Work out Cross Product of Psi and Gamma, Hadamard and Identity --&gt;
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-\vert \psi \rangle
-\otimes
-\vert \theta \rangle
-=
-\begin{bmatrix}
-\alpha \gamma \\
-\alpha \delta \\
-\beta \gamma \\
-\beta \delta
-\end{bmatrix}
-;
-H \otimes I
-=
-\frac{1}{\sqrt(2)}
-*
-\begin{bmatrix}
-1 &amp; 1 \\
-1 &amp; -1
-\end{bmatrix}
-*
-\begin{bmatrix}
-1 &amp; 0 \\
-0 &amp; 1
-\end{bmatrix}
-=
-\frac{1}{\sqrt(2)}
-*
-\begin{bmatrix}
-1 &amp; 0 &amp; 1 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 1 \\
-1 &amp; 0 &amp; -1 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; -1
-\end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;Resulting in:&lt;/p&gt;
-
-&lt;!-- Result --&gt;
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-CNOT * (H \otimes I) * (\vert \psi \rangle \otimes \vert \theta \rangle)
-=
-\begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0 &amp; 1 \\
-0 &amp; 0 &amp; 1 &amp; 0
-\end{bmatrix}
-\frac{1}{\sqrt(2)}
-*
-\begin{bmatrix}
-1 &amp; 0 &amp; 1 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 1 \\
-1 &amp; 0 &amp; -1 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; -1
-\end{bmatrix}
-\begin{bmatrix}
-\alpha \gamma \\
-\alpha \delta \\
-\beta \gamma \\
-\beta \delta
-\end{bmatrix}
-\\
-=
-\frac{1}{\sqrt(2)}
-*
-\begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 0 &amp; 1 \\
-0 &amp; 0 &amp; 1 &amp; 0
-\end{bmatrix}
-\begin{bmatrix}
-\alpha \gamma + \beta \gamma \\
-\alpha \delta + \beta \delta \\
-\beta \gamma - \beta \gamma \\
-\beta \delta - \beta \delta
-\end{bmatrix}
-=
-\frac{1}{\sqrt(2)}
-*
-\begin{bmatrix}
-\alpha \gamma + \beta \gamma \\
-\alpha \delta + \beta \delta \\
-\alpha \delta - \beta \delta \\
-\alpha \gamma - \beta \gamma
-\end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;quantum-algorithms&quot;&gt;Quantum Algorithms&lt;/h3&gt;
-
-&lt;p&gt;Interesting Quantum Algorithms are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Grover Search:&lt;/strong&gt; Find an element in an unordered array. Worse case using Quantum here is $\sqrt(n)$ which is normally N using convential algorithms.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Short’s Factoring:&lt;/strong&gt; Factor an integer in its prime factors. With Quantum this is possible in Polynomial time (RSA encryption is based on Prime Factors, showing the impact quantum can have here)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For an implementation of these algorithms, feel free to check this awesome &lt;a href=&quot;https://people.cs.umass.edu/~strubell/doc/quantum_tutorial.pdf&quot;&gt;article&lt;/a&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="quantum" /><summary type="html">Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post. Quantum Computing? As written in the excellent publication by Richard P. Feynman - Simulating Physics with Computers, we would like to have a kind of computer that does exactly the same as nature. A computer that is able to simulate the real world better, and next to that allows us to tackle larger and more complex problems. Think for example about problems such as: Quantum Chemistry Quantum Dynamics Material Science Optimization Problems Sampling Secure Computing Cryptography Machine Learning Searching To solve these kind of problems, we need to fundamentally change computers as they work now, transforming from classical bits towards qubits. However before we get started, I recommend you to take a refresher of Linear Algebra to have the fundamentals needed to continue :) Qubits? Introduction Now what are Qubits? When we look at nature, it does not represent everything binary as we do now, take a look at these examples: An electron can be in spin up or spin down A photon can have a vertical or horizontal polarization All these kind of examples can be represented as a qubit, representing a 2-state quantum mechanical system. How does an electron look with its spins? There are 2 main aspects in Quantum Physics: Entanglement: Particles can become connected so that we can predict the state of the other (e.g. one elctron is spin-up, then we know the other is spin-down if they are entangled) Superposition: A quantum system can be in multiple states at the same time until it is measured Mathmatical Representation Of course to be useful in Quantum Computing, we need to represent these qubits in a mathmatical way. This we can by using the “ket” notation of before, representing a qubit as: With $\alpha$ and $\beta$ being probability amplitudes (describes the behaviour of the system), with extra constraint that $\vert \alpha \vert^2 + \vert \beta \vert^2 = 1$ Seeing that we are working with a 2-level system that uses complex numbers, we can thus represent this on a sphere called the Bloch Sphere: Where the angles are described by: $\alpha = cos(\frac{\theta}{2})$ and $\beta = e^{i * \theta} * sin(\frac{\theta}{2})$ Using Quantum Circuits to create Quantum Algorithms Introduction To start working with Quantum Computing, we create circuits by using quantum gates. A good overview of the different gates can be found on Wikipedia, so I will not go too much on depth on these. These Quantum Gates are the building blocks of circuits and allow us to write our different programs and algorithms. A mathmatical example Let’s actually calculate an example. When we for example combine a hadamard gate with a CNOT gate: The Hadamard Gate is called the “Fair Coin Flip”, inducing an equal probability of the qubit being in either of the states Then we know the following: Which we can work out for 2 cross products already (Psi and Gamma; Hadamard and Identity): Resulting in: Quantum Algorithms Interesting Quantum Algorithms are: Grover Search: Find an element in an unordered array. Worse case using Quantum here is $\sqrt(n)$ which is normally N using convential algorithms. Short’s Factoring: Factor an integer in its prime factors. With Quantum this is possible in Polynomial time (RSA encryption is based on Prime Factors, showing the impact quantum can have here) For an implementation of these algorithms, feel free to check this awesome article</summary></entry><entry><title type="html">Creating a Big Data cluster with SQL Server 2019</title><link href="/sql-server-2019-big-data-clusters" rel="alternate" type="text/html" title="Creating a Big Data cluster with SQL Server 2019" /><published>2019-01-16T09:00:00+00:00</published><updated>2019-01-16T09:00:00+00:00</updated><id>/sql-server-2019-big-data-clusters</id><content type="html" xml:base="/sql-server-2019-big-data-clusters">&lt;p&gt;SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool!&lt;/p&gt;
-
-&lt;p&gt;But the most wonderful feature of all in my opinion are the “Big Data Clusters”, allowing you to spin up scalable clusters and deploy SQL Server, Spark and HDFS containers side-by-side. But how does it accomplish all of this? Well the architecture below shows us the magic:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/architecture.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/architecture.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/architecture2.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/architecture2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So what will we do in this post? Well here we will do just that! Deploy our Big Data Cluster and start running our notebooks and SQL queries on it!&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: There is documentation available that explains all of this, but I would like to present an easy to understand view for all developers out there. In any case feel free to check this documentation at: &lt;a href=&quot;https://docs.microsoft.com/en-us/sql/big-data-cluster/quickstart-big-data-cluster-deploy?view=sqlallproducts-allversions&quot;&gt;https://docs.microsoft.com/en-us/sql/big-data-cluster/quickstart-big-data-cluster-deploy&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Big Note: This is a very large deployment and it’s recommended to have a aks cluster size of &lt;strong&gt;64GB RAM&lt;/strong&gt;!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
-
-&lt;p&gt;Before we can get started, it’s required to have &lt;code class=&quot;highlighter-rouge&quot;&gt;mssqlctl&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;azure-cli&lt;/code&gt; installed and have an AKS cluster running.&lt;/p&gt;
-
-&lt;h3 id=&quot;az-cli&quot;&gt;AZ CLI&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Needed on WSL&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; libssl-dev libffi-dev
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python-dev
-
-&lt;span class=&quot;c&quot;&gt;# Modify Sources&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;apt-transport-https lsb-release software-properties-common &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;AZ_REPO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$AZ_REPO&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; main&quot;&lt;/span&gt; | &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/azure-cli.list
-
-&lt;span class=&quot;c&quot;&gt;# Microsoft Signing Key&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key &lt;span class=&quot;nt&quot;&gt;--keyring&lt;/span&gt; /etc/apt/trusted.gpg.d/Microsoft.gpg adv &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-     &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; packages.microsoft.com &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-     &lt;span class=&quot;nt&quot;&gt;--recv-keys&lt;/span&gt; BC528686B50D79E339D3721CEB3E94ADBE1229CF
-
-&lt;span class=&quot;c&quot;&gt;# Install&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;azure-cli
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;mssqlctl&quot;&gt;mssqlctl&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install Python&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python3 &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; python3-pip &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /
-&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--upgrade&lt;/span&gt; pip
-
-&lt;span class=&quot;c&quot;&gt;# Install mssqlctl&lt;/span&gt;
-pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--index-url&lt;/span&gt; https://private-repo.microsoft.com/python/ctp-2.2 mssqlctl
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;aks&quot;&gt;AKS&lt;/h3&gt;
-
-&lt;p&gt;Deploy an AKS instance quickly:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; We can get the node sizes easily through the command: &lt;code class=&quot;highlighter-rouge&quot;&gt;az vm list-sizes -l  &amp;lt;YOUR_LOCATION&amp;gt; --query &quot;[?numberOfCores&amp;lt;=`16`  &amp;amp;&amp;amp; numberOfCores&amp;gt;=`8`  &amp;amp;&amp;amp; memoryInMb&amp;gt;=`16384`]&quot; -o table&lt;/code&gt; –&amp;gt; see &lt;a href=&quot;http://jmespath.org/examples.html&quot;&gt;http://jmespath.org/examples.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; We can get our Kubernetes versions through &lt;code class=&quot;highlighter-rouge&quot;&gt;az aks get-versions -l &amp;lt;YOUR_LOCATION&amp;gt; --query &quot;orchestrators[].orchestratorVersion&quot;&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Set our Azure Context&lt;/span&gt;
-az account &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &amp;lt;SUBSCRIPTION_ID&amp;gt;
-
-&lt;span class=&quot;c&quot;&gt;# Create our Resource Group (e.g. az group create -n Xavier-SQLBigData -l westeurope)&lt;/span&gt;
-az group create &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &amp;lt;YOUR_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &amp;lt;REGION&amp;gt;
-
-&lt;span class=&quot;c&quot;&gt;# Create AKS in our resource group&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. az aks create --name Xavier-SQLBigDataCluster --resource-group Xavier-SQLBigData --generate-ssh-keys --node-vm-size &quot;Standard_D8_v3&quot; --node-count 3 --kubernetes-version &quot;1.11.5&quot;&lt;/span&gt;
-az aks create &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &amp;lt;CLUSTER_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;--resource-group&lt;/span&gt; &amp;lt;YOUR_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;--generate-ssh-keys&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--node-vm-size&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Standard_D8_v3&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--node-count&lt;/span&gt; 3 &lt;span class=&quot;nt&quot;&gt;--kubernetes-version&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1.11.5&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Get the credentials&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. az aks get-credentials --name Xavier-SQLBigDataCluster --resource-group Xavier-SQLBigData --admin&lt;/span&gt;
-az aks get-credentials &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &amp;lt;CLUSTER_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;--resource-group&lt;/span&gt; &amp;lt;YOUR_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;--admin&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# If needed, view the cluster with&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. az aks browse --name Xavier-SQLBigDataCluster --resource-group Xavier-SQLBigData&lt;/span&gt;
-az aks browse &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &amp;lt;CLUSTER_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;--resource-group&lt;/span&gt; &amp;lt;YOUR_NAME&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;create-our-sql-server-big-data-cluster&quot;&gt;Create our SQL Server Big Data Cluster&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create SQL Big Data Cluster&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. mssqlctl create cluster sql-server-cluster&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ACCEPT_EULA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Y
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CLUSTER_PLATFORM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;aks&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CONTROLLER_USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;admin&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# change to what you want&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CONTROLLER_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Test123#&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# change to what you want&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;MSSQL_SA_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Test123#&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KNOX_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Test123#&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_REGISTRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private-repo.microsoft.com&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_REPOSITORY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mssql-private-preview&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker-email@something.comm&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker-password&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker-email@something.com&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DOCKER_PRIVATE_REGISTRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;
-
-mssqlctl create cluster &amp;lt;CLUSTER_NAME&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Let’s start easy by creating our SQL Server Big Data Cluster, this will deploy the complete cluster on the AKS cluster we created earlier. It will look like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2019-01-16 09:30:35.0826 UTC | INFO | Creating cluster...
-2019-01-16 09:30:37.0313 UTC | INFO | Deploying controller...
-2019-01-16 09:30:39.0764 UTC | INFO | The service account token is ready &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;controller
-2019-01-16 09:30:41.0613 UTC | INFO | Waiting &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;controller pod to be up...
-... it takes a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; ...
-2019-01-16 09:39:40.0930 UTC | INFO | Waiting &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;controller pod to be up...
-2019-01-16 09:39:46.0337 UTC | INFO | Controller pod is running.
-2019-01-16 09:39:46.0542 UTC | INFO | Controller Endpoint: https://11.22.33.44:30080
-2019-01-16 09:43:15.0898 UTC | INFO | Deployment progress can be tracked at Portal Endpoint: https://11.22.33.44:30777/portal/
-2019-01-16 09:43:15.0905 UTC | INFO | Deploying cluster...
-2019-01-16 09:43:16.0627 UTC | INFO | Cluster monitoring is ready.
-2019-01-16 09:43:16.0627 UTC | INFO | Initiating cluster creation.
-2019-01-16 09:43:16.0628 UTC | INFO | Creating cluster with name: sql-server-cluster
-2019-01-16 09:56:14.0388 UTC | INFO | Control plane is ready.
-2019-01-16 10:02:38.0710 UTC | INFO | Storage pool is ready.
-2019-01-16 10:02:38.0711 UTC | INFO | Data pool is ready.
-2019-01-16 10:03:06.0027 UTC | INFO | Master pool is ready.
-2019-01-16 10:03:23.0044 UTC | INFO | Compute pool is ready.
-2019-01-16 10:03:24.0355 UTC | INFO | Cluster state: Ready
-2019-01-16 10:03:24.0355 UTC | INFO | Monitor and track your cluster at the Portal Endpoint: https://11.22.33.44:30777/portal/
-2019-01-16 10:03:24.0356 UTC | INFO | Cluster deployed successfully.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Allowing you to login on the your cluster!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/big-data-cluster-dashboard-overview.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/big-data-cluster-dashboard-overview.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/big-data-cluster-dashboard-endpoints.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/big-data-cluster-dashboard-endpoints.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/big-data-cluster-dashboard-deployment.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/big-data-cluster-dashboard-deployment.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;display-information-about-our-cluster&quot;&gt;Display Information about our cluster&lt;/h2&gt;
-
-&lt;p&gt;Let’s see how we can get the information to login on our cluster through commands for automation:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Note: view detailed info through `kubectl get service kubernetes -o json`&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Get endpoint-master-pool&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. kubectl get svc endpoint-master-pool -n sql-server-cluster -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot;&lt;/span&gt;
-kubectl get service endpoint-master-pool &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &amp;lt;CLUSTER_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;custom-columns&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt; 
-
-&lt;span class=&quot;c&quot;&gt;# Get Service Security Loadbalancer&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. kubectl get svc service-security-lb -n sql-server-cluster -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot;&lt;/span&gt;
-kubectl get service service-security-lb &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &amp;lt;CLUSTER_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;custom-columns&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;IP:status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Cluster Admin Portal&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# e.g. kubectl get svc service-proxy-lb -n sql-server-cluster -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot;&lt;/span&gt;
-kubectl get service service-proxy-lb &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &amp;lt;CLUSTER_NAME&amp;gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;custom-columns&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;IP:status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can now open our Azure Data Studio and login on our clusters:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;SQL: IP and PORT received from &lt;code class=&quot;highlighter-rouge&quot;&gt;endpoint-master-pool&lt;/code&gt; (use &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;IP&amp;gt;,&amp;lt;PORT&amp;gt;&lt;/code&gt; format in Data Studio)&lt;/li&gt;
-  &lt;li&gt;Spark/HDFS: IP received from &lt;code class=&quot;highlighter-rouge&quot;&gt;service-security-lb&lt;/code&gt; (no port required on connection)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: For Spark/HDFS we use username: &lt;code class=&quot;highlighter-rouge&quot;&gt;root&lt;/code&gt;, password: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;your_password&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: For SQL we use username: &lt;code class=&quot;highlighter-rouge&quot;&gt;sa&lt;/code&gt;, password: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;your_sa_password&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!-- ![/assets/images/posts/sql-server-2019/data-studio-sql.png](/assets/images/posts/sql-server-2019/data-studio-sql.png) --&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/sql-server-2019/data-studio-hdfs-overview.png&quot; alt=&quot;/assets/images/posts/sql-server-2019/data-studio-hdfs-overview.png&quot; /&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="big-data" /><category term="infrastructure" /><category term="coding-sql" /><summary type="html">SQL Server 2019 came out in preview a while ago, and the new features announced are just wonderful! A one-to-go-tool for all your big data needs: Unstructured and Structured data that can be processed using just one tool! But the most wonderful feature of all in my opinion are the “Big Data Clusters”, allowing you to spin up scalable clusters and deploy SQL Server, Spark and HDFS containers side-by-side. But how does it accomplish all of this? Well the architecture below shows us the magic: So what will we do in this post? Well here we will do just that! Deploy our Big Data Cluster and start running our notebooks and SQL queries on it! Note: There is documentation available that explains all of this, but I would like to present an easy to understand view for all developers out there. In any case feel free to check this documentation at: https://docs.microsoft.com/en-us/sql/big-data-cluster/quickstart-big-data-cluster-deploy Big Note: This is a very large deployment and it’s recommended to have a aks cluster size of 64GB RAM! Prerequisites Before we can get started, it’s required to have mssqlctl and azure-cli installed and have an AKS cluster running. AZ CLI # Needed on WSL sudo apt-get update sudo apt-get install -y libssl-dev libffi-dev sudo apt-get install -y python-dev # Modify Sources sudo apt-get install apt-transport-https lsb-release software-properties-common -y AZ_REPO=$(lsb_release -cs) echo &quot;deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main&quot; | \ sudo tee /etc/apt/sources.list.d/azure-cli.list # Microsoft Signing Key sudo apt-key --keyring /etc/apt/trusted.gpg.d/Microsoft.gpg adv \ --keyserver packages.microsoft.com \ --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF # Install sudo apt-get update sudo apt-get install azure-cli mssqlctl # Install Python sudo apt-get update &amp;amp;&amp;amp; / sudo apt-get install -y python3 &amp;amp;&amp;amp; / sudo apt-get install -y python3-pip &amp;amp;&amp;amp; / sudo -H pip3 install --upgrade pip # Install mssqlctl pip3 install --index-url https://private-repo.microsoft.com/python/ctp-2.2 mssqlctl AKS Deploy an AKS instance quickly: Note: We can get the node sizes easily through the command: az vm list-sizes -l &amp;lt;YOUR_LOCATION&amp;gt; --query &quot;[?numberOfCores&amp;lt;=`16` &amp;amp;&amp;amp; numberOfCores&amp;gt;=`8` &amp;amp;&amp;amp; memoryInMb&amp;gt;=`16384`]&quot; -o table –&amp;gt; see http://jmespath.org/examples.html Note 2: We can get our Kubernetes versions through az aks get-versions -l &amp;lt;YOUR_LOCATION&amp;gt; --query &quot;orchestrators[].orchestratorVersion&quot; # Set our Azure Context az account set -s &amp;lt;SUBSCRIPTION_ID&amp;gt; # Create our Resource Group (e.g. az group create -n Xavier-SQLBigData -l westeurope) az group create -n &amp;lt;YOUR_NAME&amp;gt; -l &amp;lt;REGION&amp;gt; # Create AKS in our resource group # e.g. az aks create --name Xavier-SQLBigDataCluster --resource-group Xavier-SQLBigData --generate-ssh-keys --node-vm-size &quot;Standard_D8_v3&quot; --node-count 3 --kubernetes-version &quot;1.11.5&quot; az aks create --name &amp;lt;CLUSTER_NAME&amp;gt; --resource-group &amp;lt;YOUR_NAME&amp;gt; --generate-ssh-keys --node-vm-size &quot;Standard_D8_v3&quot; --node-count 3 --kubernetes-version &quot;1.11.5&quot; # Get the credentials # e.g. az aks get-credentials --name Xavier-SQLBigDataCluster --resource-group Xavier-SQLBigData --admin az aks get-credentials --name &amp;lt;CLUSTER_NAME&amp;gt; --resource-group &amp;lt;YOUR_NAME&amp;gt; --admin # If needed, view the cluster with # e.g. az aks browse --name Xavier-SQLBigDataCluster --resource-group Xavier-SQLBigData az aks browse --name &amp;lt;CLUSTER_NAME&amp;gt; --resource-group &amp;lt;YOUR_NAME&amp;gt; Create our SQL Server Big Data Cluster # Create SQL Big Data Cluster # e.g. mssqlctl create cluster sql-server-cluster export ACCEPT_EULA=Y export CLUSTER_PLATFORM=&quot;aks&quot; export CONTROLLER_USERNAME=&quot;admin&quot; # change to what you want export CONTROLLER_PASSWORD=&quot;Test123#&quot; # change to what you want export MSSQL_SA_PASSWORD=&quot;Test123#&quot; export KNOX_PASSWORD=&quot;Test123#&quot; export DOCKER_REGISTRY=&quot;private-repo.microsoft.com&quot; export DOCKER_REPOSITORY=&quot;mssql-private-preview&quot; export DOCKER_USERNAME=&quot;docker-email@something.comm&quot; export DOCKER_PASSWORD=&quot;docker-password&quot; export DOCKER_EMAIL=&quot;docker-email@something.com&quot; export DOCKER_PRIVATE_REGISTRY=&quot;1&quot; mssqlctl create cluster &amp;lt;CLUSTER_NAME&amp;gt; Let’s start easy by creating our SQL Server Big Data Cluster, this will deploy the complete cluster on the AKS cluster we created earlier. It will look like this: 2019-01-16 09:30:35.0826 UTC | INFO | Creating cluster... 2019-01-16 09:30:37.0313 UTC | INFO | Deploying controller... 2019-01-16 09:30:39.0764 UTC | INFO | The service account token is ready for controller 2019-01-16 09:30:41.0613 UTC | INFO | Waiting for controller pod to be up... ... it takes a while ... 2019-01-16 09:39:40.0930 UTC | INFO | Waiting for controller pod to be up... 2019-01-16 09:39:46.0337 UTC | INFO | Controller pod is running. 2019-01-16 09:39:46.0542 UTC | INFO | Controller Endpoint: https://11.22.33.44:30080 2019-01-16 09:43:15.0898 UTC | INFO | Deployment progress can be tracked at Portal Endpoint: https://11.22.33.44:30777/portal/ 2019-01-16 09:43:15.0905 UTC | INFO | Deploying cluster... 2019-01-16 09:43:16.0627 UTC | INFO | Cluster monitoring is ready. 2019-01-16 09:43:16.0627 UTC | INFO | Initiating cluster creation. 2019-01-16 09:43:16.0628 UTC | INFO | Creating cluster with name: sql-server-cluster 2019-01-16 09:56:14.0388 UTC | INFO | Control plane is ready. 2019-01-16 10:02:38.0710 UTC | INFO | Storage pool is ready. 2019-01-16 10:02:38.0711 UTC | INFO | Data pool is ready. 2019-01-16 10:03:06.0027 UTC | INFO | Master pool is ready. 2019-01-16 10:03:23.0044 UTC | INFO | Compute pool is ready. 2019-01-16 10:03:24.0355 UTC | INFO | Cluster state: Ready 2019-01-16 10:03:24.0355 UTC | INFO | Monitor and track your cluster at the Portal Endpoint: https://11.22.33.44:30777/portal/ 2019-01-16 10:03:24.0356 UTC | INFO | Cluster deployed successfully. Allowing you to login on the your cluster! Display Information about our cluster Let’s see how we can get the information to login on our cluster through commands for automation: # Note: view detailed info through `kubectl get service kubernetes -o json` # Get endpoint-master-pool # e.g. kubectl get svc endpoint-master-pool -n sql-server-cluster -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot; kubectl get service endpoint-master-pool -n &amp;lt;CLUSTER_NAME&amp;gt; -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot; # Get Service Security Loadbalancer # e.g. kubectl get svc service-security-lb -n sql-server-cluster -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot; kubectl get service service-security-lb -n &amp;lt;CLUSTER_NAME&amp;gt; -o=custom-columns=&quot;&quot;IP:status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot; # Cluster Admin Portal # e.g. kubectl get svc service-proxy-lb -n sql-server-cluster -o=custom-columns=&quot;&quot;IP:.status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot; kubectl get service service-proxy-lb -n &amp;lt;CLUSTER_NAME&amp;gt; -o=custom-columns=&quot;&quot;IP:status.loadBalancer.ingress[0].ip,PORT:.spec.ports[0].port&quot;&quot; We can now open our Azure Data Studio and login on our clusters: SQL: IP and PORT received from endpoint-master-pool (use &amp;lt;IP&amp;gt;,&amp;lt;PORT&amp;gt; format in Data Studio) Spark/HDFS: IP received from service-security-lb (no port required on connection) Note: For Spark/HDFS we use username: root, password: &amp;lt;your_password&amp;gt; Note: For SQL we use username: sa, password: &amp;lt;your_sa_password&amp;gt;</summary></entry></feed>
+&lt;p&gt;Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="infrastructure" /><category term="devops" /><summary type="html">So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done! What do we want to achieve? Well we want to achieve a continuous flow of development, where when we develop a piece of code, the following steps are followed (as illustrated below): SCM: Use our SCM protocol to push our code PULL CODE: Our source control repository, triggers an event BUILD: This trigger gets detected by our Pipeline process which builds our code TEST: The Build gets tested FAIL/SUCCESS: This results in a failure or success RELEASE: On success we release our code to the world Setting up our Pipeline Just as in Travis, we are able to generate a YAML file in our code repository, that will be picked up by Azure Devops. So get started by creating a azure-pipelines.yml file in your root folder. For our Github Pages we want to achieve that whenever we push to development that everything is build and the built source is pushed to master. This is a quite anti-pattern kind of process, seeing that most of the time we would build to an artifact and release this artifact to the world. For easiness we however want to do this, to keep our set of tools as minimal as possible. Note: This build is an anti-pattern because of described above! To achieve this, we can use the following steps: On push to development branch, trigger the process Pull our code (git clone) from the development branch Build our Jekyll site to a destination folder (jekyll build -d &amp;lt;DESTINATION&amp;gt;). We can see this as our artifact if we zip it! Create a branch based of master (important!) which contained our previous build site Clean the master branch from all files and copy over our artifact files Add our changes and commit Push to remote In Azure Pipelines this can be achieved through steps which describes our steps above in a YAML kind of structure. So let’s get started by creating our different steps. Step 1:Trigger on-push to Development Branch Describing to trigger on push is just 2 lines of code: trigger: - development Step 2: Pull our Code Luckily our code pulling is done automatically, due to the integration with GitHub. We however do have to add our credentials again, since they are removed by default. This way we can push! To do this, add the following: # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;amp;tabs=schema#checkout - checkout: self persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch Step 3: Build our Jekyll Website Let’s start by writing our steps that we want to execute when we have our code. For this, we need to know that everything we do is described as a task under steps. Looking like this: steps: - task: Doing this now for our Jekyll build, we will configure it to use ruby, install our dependencies and build our Jekyll website! steps: - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops displayName: 'Use Ruby &amp;gt;= 2.5' - script: 'gem install bundler' displayName: 'Install Bundler' - script: 'bundle install' displayName: 'Install Jekyll and Dependencies' - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)' displayName: 'Build Jekyll Static Site' Step 4 - 7: Push our build website to the master branch Building our website is the most complex part, for steps 4 - 7 we get: - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build' displayName: 'Create Build Branch based on Master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git rm -rf .; git clean -fxd; touch .nojekyll; touch README.md; echo &quot;# My Blog&quot; &amp;gt;&amp;gt; README.md; displayName: 'Clean Build Branch' - script: &amp;gt; git config --global user.email &quot;xavier.geerinck@gmail.com&quot;; git config --global user.name &quot;Xavier Geerinck&quot;; displayName: 'Configure Git User' - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)' displayName: 'Copy Artifact Files to Cleaned Build Branch' - script: &amp;gt; cd $(Build.Repository.LocalPath); git add --all; git commit -m&quot;Pipelines-Bot: Updated site via $(Build.SourceVersion)&quot;; displayName: 'Create our Commit' - script: &amp;gt; cd $(Build.Repository.LocalPath); git checkout master; git merge azure-pipelines-build; git branch -d azure-pipelines-build; displayName: 'Merge azure-pipelines-build into master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git push origin master; displayName: 'Push changes to remote' Final Review of our YAML file If we correctly followed everything described above, we get the following: trigger: - development pool: vmImage: 'Ubuntu-16.04' steps: # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;amp;tabs=schema#checkout - checkout: self persistCredentials: true # set to 'true' to leave the OAuth token in the Git config after the initial fetch - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops displayName: 'Use Ruby &amp;gt;= 2.5' - script: 'gem install bundler' displayName: 'Install Bundler' - script: 'bundle install' displayName: 'Install Jekyll and Dependencies' - script: 'bundle exec jekyll build -d $(Build.ArtifactStagingDirectory)' displayName: 'Build Jekyll Static Site' - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build' displayName: 'Create Build Branch based on Master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git rm -rf .; git clean -fxd; touch .nojekyll; touch README.md; echo &quot;# My Blog&quot; &amp;gt;&amp;gt; README.md; displayName: 'Clean Build Branch' - script: &amp;gt; git config --global user.email &quot;xavier.geerinck@gmail.com&quot;; git config --global user.name &quot;Xavier Geerinck&quot;; displayName: 'Configure Git User' - script: 'cp -a $(Build.ArtifactStagingDirectory)/. $(Build.Repository.LocalPath)' displayName: 'Copy Artifact Files to Cleaned Build Branch' - script: &amp;gt; cd $(Build.Repository.LocalPath); git add --all; git commit -m&quot;Pipelines-Bot: Updated site via $(Build.SourceVersion)&quot;; displayName: 'Create our Commit' - script: &amp;gt; cd $(Build.Repository.LocalPath); git checkout master; git merge azure-pipelines-build; git branch -d azure-pipelines-build; displayName: 'Merge azure-pipelines-build into master' - script: &amp;gt; cd $(Build.Repository.LocalPath); git push origin master; displayName: 'Push changes to remote' # Note: github_pat should be configured as an environment variable in devops # -&amp;gt; create github pat here: https://github.com/settings/tokens # -&amp;gt; Create environment variable in dev.azure.com under pipelines -&amp;gt; edit (right top) -&amp;gt; variables (right top triple dots) -&amp;gt; called github_pat -&amp;gt; click the lock - script: | gh_user=&quot;thebillkidy&quot;; gh_pass=$(github_pat); gh_repo=&quot;thebillkidy.github.io&quot;; auth_pass=$(echo -n &quot;${gh_user}:$(github_pat)&quot; | base64); curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \ -X POST \ -H &quot;Accept: application/vnd.github.mister-fantastic-preview+json&quot; \ -H &quot;Authorization: Basic ${auth_pass}&quot; displayName: '[GitHub] Trigger Page Build' - script: | gh_user=&quot;thebillkidy&quot;; gh_pass=$(github_pat); gh_repo=&quot;thebillkidy.github.io&quot;; auth_pass=$(echo -n &quot;${gh_user}:$(github_pat)&quot; | base64); curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \ -X GET \ -H &quot;Accept: application/vnd.github.mister-fantastic-preview+json&quot; \ -H &quot;Authorization: Basic $auth_pass&quot; displayName: '[GitHub] Get Page Build Status' Conclusion When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market. Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s</summary></entry></feed>
