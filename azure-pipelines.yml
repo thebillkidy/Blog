@@ -22,8 +22,14 @@ steps:
   displayName: 'Build Jekyll Static Site'
 
 - script: |
+    gh_user="thebillkidy";
+    gh_pass=$(github_pat);
+    gh_repo="thebillkidy.github.io";
+    auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);
+
     git config user.email "xavier.geerinck@gmail.com";
     git config user.name "thebillkidy";
+    git -c http.extraheader="AUTHORIZATION: Basic $(auth_pass)"
   displayName: 'Configure Git User'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
