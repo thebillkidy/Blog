@@ -10,7 +10,7 @@
 
 
 
-    <title>Continuous Integration for Github Pages with Jekyll in the same repository</title>
+    <title>Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -30,17 +30,17 @@
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Continuous Integration for Github Pages with Jekyll in the same repository" />
+    <meta property="og:title" content="Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline" />
     <meta property="og:description" content="So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to" />
     <meta property="og:url" content="/deploying-gh-pages-with-azure-pipelines" />
     <meta property="og:image" content="/assets/images/covers/experience.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2019-01-27T07:00:00+00:00" />
-    <meta property="article:modified_time" content="2019-01-27T07:00:00+00:00" />
+    <meta property="article:published_time" content="2019-08-14T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2019-08-14T09:00:00+00:00" />
     <meta property="article:tag" content="Infrastructure" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Continuous Integration for Github Pages with Jekyll in the same repository" />
+    <meta name="twitter:title" content="Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline" />
     <meta name="twitter:description" content="So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to" />
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image" content="/assets/images/covers/experience.jpg" />
@@ -78,7 +78,7 @@
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Continuous Integration for Github Pages with Jekyll in the same repository" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline" href="/feed.xml" />
 
 
 
@@ -142,7 +142,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="27 January 2019">27 January 2019</time>
+                    <time class="post-full-meta-date" datetime="14 August 2019">14 August 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -165,7 +165,7 @@ into the {body} of the default.hbs template -->
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">Continuous Integration for Github Pages with Jekyll in the same repository</h1>
+                        <h1 class="post-full-title">Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline</h1>
                     <p>So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!</p>
 
 <p>What do we want to achieve? Well we want to achieve a continuous flow of development, where when we develop a piece of code, the following steps are followed (as illustrated below):</p>
@@ -181,31 +181,23 @@ into the {body} of the default.hbs template -->
 
 <p><img src="/assets/images/posts/CI/ci-pipeline.png" alt="/assets/images/posts/CI/ci-pipeline.png" /></p>
 
-<h2 id="setting-up-our-pipeline">Setting up our Pipeline</h2>
+<h2 id="pipeline-definition">Pipeline Definition</h2>
 
-<p>Just as in Travis, we are able to generate a <code class="highlighter-rouge">YAML</code> file in our code repository, that will be picked up by <code class="highlighter-rouge">Azure Devops</code>. So get started by creating a <code class="highlighter-rouge">azure-pipelines.yml</code> file in your root folder.</p>
-
-<p>For our <code class="highlighter-rouge">Github Pages</code> we want to achieve that whenever we push to <code class="highlighter-rouge">development</code> that everything is build and the built source is pushed to <code class="highlighter-rouge">master</code>. This is a quite anti-pattern kind of process, seeing that most of the time we would build to an <code class="highlighter-rouge">artifact</code> and release this artifact to the world. For easiness we however want to do this, to keep our set of tools as minimal as possible.</p>
-
-<blockquote>
-  <p><strong>Note:</strong> This build is an anti-pattern because of described above!</p>
-</blockquote>
-
-<p>To achieve this, we can use the following steps:</p>
+<p>Translating this continuous flow of development to our own project, what we want to do is that as soon as a commit is pushed on to the <code class="highlighter-rouge">development</code> branch (which contains our <code class="highlighter-rouge">.md</code> blog files), we want to trigger a build that is going to transform these to <code class="highlighter-rouge">.html</code> files and push those onto the <code class="highlighter-rouge">master</code> branch. Writing this out in steps would look like:</p>
 
 <ol>
-  <li>On push to <code class="highlighter-rouge">development</code> branch, trigger the process</li>
-  <li>Pull our code (<code class="highlighter-rouge">git clone</code>) from the development branch</li>
-  <li>Build our Jekyll site to a destination folder (<code class="highlighter-rouge">jekyll build -d &lt;DESTINATION&gt;</code>). We can see this as our artifact if we zip it!</li>
-  <li>Create a branch based of <code class="highlighter-rouge">master</code> (important!) which contained our previous build site</li>
-  <li>Clean the master branch from all files and copy over our artifact files</li>
-  <li>Add our changes and commit</li>
-  <li>Push to remote</li>
+  <li>Trigger: On push to <code class="highlighter-rouge">development</code> branch</li>
+  <li>Setup our git repository</li>
+  <li>Build our Jekyll site to <code class="highlighter-rouge">/tmp</code> through <code class="highlighter-rouge">jekyll build -d /tmp</code></li>
+  <li>Copy over everything from <code class="highlighter-rouge">/tmp</code> to our working folder (replacing everything except the <code class="highlighter-rouge">.git/</code> folder)</li>
+  <li>Create a commit and push it to remote</li>
 </ol>
 
-<p>In Azure Pipelines this can be achieved through <code class="highlighter-rouge">steps</code> which describes our steps above in a <code class="highlighter-rouge">YAML</code> kind of structure. So let’s get started by creating our different steps.</p>
+<h2 id="pipeline-coding">Pipeline Coding</h2>
 
-<h3 id="step-1trigger-on-push-to-development-branch">Step 1:Trigger on-push to Development Branch</h3>
+<p>To code this actual pipeline utilizing <code class="highlighter-rouge">Azure DevOps</code>, we can utilize a <code class="highlighter-rouge">azure-pipelines.yml</code> file that we place in the root of our repository. We can now describe what should happens using the <code class="highlighter-rouge">steps:</code> in this files, let’s do this in phases:</p>
+
+<h3 id="step-1-trigger-on-push-to-development-branch">Step 1: Trigger on-push to Development Branch</h3>
 
 <p>Describing to trigger on push is just 2 lines of code:</p>
 
@@ -213,170 +205,131 @@ into the {body} of the default.hbs template -->
 <span class="pi">-</span> <span class="s">development</span>
 </code></pre></div></div>
 
-<h3 id="step-2-pull-our-code">Step 2: Pull our Code</h3>
+<h3 id="step-2-set-pool--global-variables">Step 2: Set pool &amp; global variables</h3>
 
-<p>Luckily our code pulling is done automatically, due to the integration with GitHub. We however do have to add our credentials again, since they are removed by default. This way we can push! To do this, add the following:</p>
+<p>Since GitHub wants us to utilize a PAT token to be able to trigger a page build, we will need to add this to our environment variables (as a secret! - see <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&amp;tabs=yaml%2Cbatch#secret-variables">https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables</a> for more information).</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;tabs=schema#checkout</span>
-<span class="pi">-</span> <span class="na">checkout</span><span class="pi">:</span> <span class="s">self</span>
-  <span class="na">persistCredentials</span><span class="pi">:</span> <span class="no">true</span> <span class="c1"># set to 'true' to leave the OAuth token in the Git config after the initial fetch</span>
-</code></pre></div></div>
+<p>We can also define a pool (execution environment) that our code will run on.</p>
 
-<h3 id="step-3-build-our-jekyll-website">Step 3: Build our Jekyll Website</h3>
-
-<p>Let’s start by writing our steps that we want to execute when we have our code. For this, we need to know that everything we do is described as a <code class="highlighter-rouge">task</code> under <code class="highlighter-rouge">steps</code>. Looking like this:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
-<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> 
-</code></pre></div></div>
-
-<p>Doing this now for our Jekyll build, we will configure it to use ruby, install our dependencies and build our Jekyll website!</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
-<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">UseRubyVersion@0</span> <span class="c1"># See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Use</span><span class="nv"> </span><span class="s">Ruby</span><span class="nv"> </span><span class="s">&gt;=</span><span class="nv"> </span><span class="s">2.5'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gem</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">bundler'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Bundler'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">install'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Dependencies'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">jekyll</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">-d</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Build</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">Static</span><span class="nv"> </span><span class="s">Site'</span>
-</code></pre></div></div>
-
-<h3 id="step-4---7-push-our-build-website-to-the-master-branch">Step 4 - 7: Push our build website to the master branch</h3>
-
-<p>Building our website is the most complex part, for steps 4 - 7 we get:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cd</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath);</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">master;</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">-b</span><span class="nv"> </span><span class="s">azure-pipelines-build'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Master'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git rm -rf .; git clean -fxd;</span>
-    <span class="s">touch .nojekyll;</span>
-    <span class="s">touch README.md;</span>
-    <span class="s">echo "# My Blog" &gt;&gt; README.md;</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Clean</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">git config --global user.email "xavier.geerinck@gmail.com";</span>
-    <span class="s">git config --global user.name "Xavier Geerinck";</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Configure</span><span class="nv"> </span><span class="s">Git</span><span class="nv"> </span><span class="s">User'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cp</span><span class="nv"> </span><span class="s">-a</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)/.</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath)'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">Artifact</span><span class="nv"> </span><span class="s">Files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cleaned</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git add --all;</span>
-    <span class="s">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">Commit'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git checkout master;</span>
-    <span class="s">git merge azure-pipelines-build;</span>
-    <span class="s">git branch -d azure-pipelines-build;</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Merge</span><span class="nv"> </span><span class="s">azure-pipelines-build</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">master'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git push origin master;</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
-</code></pre></div></div>
-
-<h3 id="final-review-of-our-yaml-file">Final Review of our YAML file</h3>
-
-<p>If we correctly followed everything described above, we get the following:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span>
-<span class="pi">-</span> <span class="s">development</span>
-
-<span class="na">pool</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">pool</span><span class="pi">:</span>
   <span class="na">vmImage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Ubuntu-16.04'</span>
-
-<span class="na">steps</span><span class="pi">:</span>
-<span class="c1"># https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;tabs=schema#checkout</span>
-<span class="pi">-</span> <span class="na">checkout</span><span class="pi">:</span> <span class="s">self</span>
-  <span class="na">persistCredentials</span><span class="pi">:</span> <span class="no">true</span> <span class="c1"># set to 'true' to leave the OAuth token in the Git config after the initial fetch</span>
-
-<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">UseRubyVersion@0</span> <span class="c1"># See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Use</span><span class="nv"> </span><span class="s">Ruby</span><span class="nv"> </span><span class="s">&gt;=</span><span class="nv"> </span><span class="s">2.5'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gem</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">bundler'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Bundler'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">install'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Install</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Dependencies'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">bundle</span><span class="nv"> </span><span class="s">exec</span><span class="nv"> </span><span class="s">jekyll</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">-d</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Build</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">Static</span><span class="nv"> </span><span class="s">Site'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cd</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath);</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">master;</span><span class="nv"> </span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">-b</span><span class="nv"> </span><span class="s">azure-pipelines-build'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Master'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git rm -rf .; git clean -fxd;</span>
-    <span class="s">touch .nojekyll;</span>
-    <span class="s">touch README.md;</span>
-    <span class="s">echo "# My Blog" &gt;&gt; README.md;</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Clean</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">git config --global user.email "xavier.geerinck@gmail.com";</span>
-    <span class="s">git config --global user.name "Xavier Geerinck";</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Configure</span><span class="nv"> </span><span class="s">Git</span><span class="nv"> </span><span class="s">User'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">cp</span><span class="nv"> </span><span class="s">-a</span><span class="nv"> </span><span class="s">$(Build.ArtifactStagingDirectory)/.</span><span class="nv"> </span><span class="s">$(Build.Repository.LocalPath)'</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">Artifact</span><span class="nv"> </span><span class="s">Files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Cleaned</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Branch'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git add --all;</span>
-    <span class="s">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Create</span><span class="nv"> </span><span class="s">our</span><span class="nv"> </span><span class="s">Commit'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git checkout master;</span>
-    <span class="s">git merge azure-pipelines-build;</span>
-    <span class="s">git branch -d azure-pipelines-build;</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Merge</span><span class="nv"> </span><span class="s">azure-pipelines-build</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">master'</span>
-
-<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">&gt;</span>
-    <span class="s">cd $(Build.Repository.LocalPath);</span>
-    <span class="s">git push origin master;</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
 
 <span class="c1"># Note: github_pat should be configured as an environment variable in devops</span>
 <span class="c1">#   -&gt; create github pat here: https://github.com/settings/tokens</span>
 <span class="c1">#   -&gt; Create environment variable in dev.azure.com under pipelines -&gt; edit (right top) -&gt; variables (right top triple dots) -&gt; called github_pat -&gt; click the lock</span>
+<span class="na">variables</span><span class="pi">:</span>
+  <span class="na">gh_user</span><span class="pi">:</span> <span class="s">thebillkidy</span>
+  <span class="na">gh_repo</span><span class="pi">:</span> <span class="s">thebillkidy.github.io</span>
+  <span class="na">gh_pass</span><span class="pi">:</span> <span class="s">$(github_pat)</span>
+  <span class="na">gh_email</span><span class="pi">:</span> <span class="s">xavier.geerinck@gmail.com</span>
+  <span class="na">gh_auth_header</span><span class="pi">:</span> <span class="s">$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+</code></pre></div></div>
+
+<h3 id="step-3-pull-our-code">Step 3: Pull our Code</h3>
+
+<p>Since we set up the PAT token and other variables, we can now start cloning our directory. Let’s define the steps for this</p>
+
+<blockquote>
+  <p><strong>Note:</strong> We clone our directory rather than using the <code class="highlighter-rouge">checkout</code> function due to the PAT token being required for a page build (see previous step).</p>
+</blockquote>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
+<span class="c1"># https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azdevops&amp;tabs=schema#checkout</span>
+<span class="pi">-</span> <span class="na">checkout</span><span class="pi">:</span> <span class="s">none</span> <span class="c1"># we are not going to sync sources, we will manually clone</span>
+  <span class="na">persistCredentials</span><span class="pi">:</span> <span class="no">false</span> <span class="c1"># We disallow setting the persisting, since we want to have a verified push which requires a PAT token</span>
+
+<span class="c1"># 1. Setup our local repository and branch that we can work on</span>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s">git clone https://$(github_pat)@github.com/$(gh_user)/$(gh_repo).git .</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Clone</span><span class="nv"> </span><span class="s">GitHub</span><span class="nv"> </span><span class="s">Pages</span><span class="nv"> </span><span class="s">Repository"</span>
+
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
-    <span class="s">gh_user="thebillkidy";</span>
-    <span class="s">gh_pass=$(github_pat);</span>
-    <span class="s">gh_repo="thebillkidy.github.io";</span>
-    <span class="s">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+    <span class="s">git config user.email $(gh_email)</span>
+    <span class="s">git config user.name $(gh_user)</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Configure</span><span class="nv"> </span><span class="s">User'</span>
 
-    <span class="s">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds -I \</span>
-    <span class="s">-X POST \</span>
-    <span class="s">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
-    <span class="s">-H "Authorization: Basic ${auth_pass}"</span>
-  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[GitHub]</span><span class="nv"> </span><span class="s">Trigger</span><span class="nv"> </span><span class="s">Page</span><span class="nv"> </span><span class="s">Build'</span>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">development'</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">development</span><span class="nv"> </span><span class="s">branch'</span>
+</code></pre></div></div>
+
+<h3 id="step-4-build-our-jekyll-website">Step 4: Build our Jekyll Website</h3>
+
+<p>We can now build our Jekyll website, to do this we will utilize a <code class="highlighter-rouge">/tmp/source</code> and <code class="highlighter-rouge">/tmp/build</code> directory to be able to generate clean <code class="highlighter-rouge">.html</code> diffs in our commit messages on master.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 2. Configure Ruby</span>
+<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">UseRubyVersion@0</span> <span class="c1"># See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Ruby]</span><span class="nv"> </span><span class="s">Use</span><span class="nv"> </span><span class="s">Ruby</span><span class="nv"> </span><span class="s">&gt;=</span><span class="nv"> </span><span class="s">2.5'</span>
+
+<span class="c1"># 3. Build Site - We only want a HTML diff on master, so we follow this process</span>
+<span class="c1">#      1. Copy files from development branch to /tmp/source</span>
+<span class="c1">#      2. Build Jekyll on /tmp/source to /tmp/build</span>
+<span class="c1">#      3. Remove all files in $(Build.StagingDirectory) except .git/</span>
+<span class="c1">#      4. Copy everything from /tmp/build to $(Build.StagingDirectory)/</span>
+<span class="c1">#      5. Create the commit and push it</span>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">development'</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Switch</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">development</span><span class="nv"> </span><span class="s">branch</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">$(Build.StagingDirectory)'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mkdir</span><span class="nv"> </span><span class="s">/tmp/source;</span><span class="nv"> </span><span class="s">cp</span><span class="nv"> </span><span class="s">-R</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">/tmp/source;</span><span class="nv"> </span><span class="s">rm</span><span class="nv"> </span><span class="s">-rf</span><span class="nv"> </span><span class="s">/tmp/source/.git'</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Script]</span><span class="nv"> </span><span class="s">Copy</span><span class="nv"> </span><span class="s">file</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">development</span><span class="nv"> </span><span class="s">branch</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">/tmp/source'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">git</span><span class="nv"> </span><span class="s">checkout</span><span class="nv"> </span><span class="s">master'</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Switch</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">master</span><span class="nv"> </span><span class="s">branch</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">$(Build.StagingDirectory)'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s1">'</span><span class="s">gem</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">bundler'</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">/tmp/source</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Jekyll]</span><span class="nv"> </span><span class="s">Install</span><span class="nv"> </span><span class="s">Bundler'</span>
 
 <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
-    <span class="s">gh_user="thebillkidy";</span>
-    <span class="s">gh_pass=$(github_pat);</span>
-    <span class="s">gh_repo="thebillkidy.github.io";</span>
-    <span class="s">auth_pass=$(echo -n "${gh_user}:$(github_pat)" | base64);</span>
+    <span class="s">ls -la;</span>
+    <span class="s">bundle install</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">/tmp/source</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Jekyll]</span><span class="nv"> </span><span class="s">Install</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Dependencies'</span>
 
-    <span class="s">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -I \</span>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">mkdir /tmp/build;</span>
+    <span class="s">bundle exec jekyll build -d /tmp/build;</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">/tmp/source</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Jekyll]</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">Static</span><span class="nv"> </span><span class="s">Site</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">/tmp/source</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">/tmp/build'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">cp -R $(Build.StagingDirectory)/.git /tmp/build;</span>
+    <span class="s">rm -rf $(Build.StagingDirectory)/*;</span>
+    <span class="s">cp -R /tmp/build/* $(Build.StagingDirectory);</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">/tmp/build</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Script]</span><span class="nv"> </span><span class="s">Remove</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">$(Build.StagingDirectory)</span><span class="nv"> </span><span class="s">except</span><span class="nv"> </span><span class="s">.git/</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">add</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">/tmp/build'</span>
+</code></pre></div></div>
+
+<h3 id="step-5-push-our-changes">Step 5: Push our changes</h3>
+
+<p>Last but not least is the easiest part, pushing it all to master:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 3. Create our commit, merge into master, delete draft branch and push it</span>
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">git add --all;</span>
+    <span class="s">git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Creating</span><span class="nv"> </span><span class="s">commit'</span>
+
+<span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">git push origin master;</span>
+  <span class="na">workingDirectory</span><span class="pi">:</span> <span class="s">$(Build.StagingDirectory)</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[Git]</span><span class="nv"> </span><span class="s">Push</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">remote'</span>
+</code></pre></div></div>
+
+<h3 id="step-6-checking-pages-build">Step 6: Checking Pages Build</h3>
+
+<p>As an extra, we would like to utilize the PAT token to check our pages build and see if it was successful. For that we can utilize the following in our pipeline:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -i -v \</span>
     <span class="s">-X GET \</span>
     <span class="s">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
-    <span class="s">-H "Authorization: Basic $auth_pass"</span>
+    <span class="s">-H "Authorization: Basic $(gh_auth_header)"</span>
   <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">[GitHub]</span><span class="nv"> </span><span class="s">Get</span><span class="nv"> </span><span class="s">Page</span><span class="nv"> </span><span class="s">Build</span><span class="nv"> </span><span class="s">Status'</span>
 </code></pre></div></div>
 
@@ -385,6 +338,8 @@ into the {body} of the default.hbs template -->
 <p>When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market.</p>
 
 <p>Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s</p>
+
+<p>If you’re interested in the full source code, feel free to check this at: <a href="https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml">https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml</a> which is this code being used for my own personal blog ;)</p>
 
                 </div>
             </section>
@@ -469,25 +424,25 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
                                     
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
                                   
                                 
                                   
@@ -689,25 +644,33 @@ into the {body} of the default.hbs template -->
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/quantum-an-introduction">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/quantum.jpeg)"></div>
+            <a class="post-card-image-link" href="/iot-edge-part3-simulator-camera">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/iot.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/quantum-an-introduction">
+            <a class="post-card-content-link" href="/iot-edge-part3-simulator-camera">
                 <header class="post-card-header">
                     
                         
                             
-                                <span class="post-card-tags">Quantum</span>
+                               <span class="post-card-tags">Azure</span>
+                            
+                        
+                            
+                               <span class="post-card-tags">Coding-javascript</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Iot</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">Quantum Computing - An Introduction</h2>
+                    <h2 class="post-card-title">Part 3 - Creating a Car Camera simulator in IoT Edge</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would</p>
+                    <p>This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article. Recap and next steps In part 2 we created our</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -729,50 +692,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/azure-data-lake-gen-2-browser">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/lake.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/azure-data-lake-gen-2-browser">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Azure</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Coding-javascript</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Creating an Azure Data Lake Gen 2 File Browser for the Web</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>While working with Azure Data Lake Gen 2 (ADLS Gen 2), I saw that one common ask from the people around me is to be able to interact with it through a web</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/xavier/">Xavier Geerinck</a>
-                        </span>
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
         </div>
     </div>
 </aside>
@@ -788,13 +707,13 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Continuous Integration for Github Pages with Jekyll in the same repository</div>
+    <div class="floating-header-title">Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Continuous+Integration+for+Github+Pages+with+Jekyll+in+the+same+repository&amp;url=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Build+your+Jekyll+site+and+Deploy+it+on+GitHub+Pages+with+Azure+a+DevOps+pipeline&amp;url=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
@@ -804,7 +723,7 @@ into the {body} of the default.hbs template -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines&title=Continuous+Integration+for+Github+Pages+with+Jekyll+in+the+same+repository&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/deploying-gh-pages-with-azure-pipelines&title=Build+your+Jekyll+site+and+Deploy+it+on+GitHub+Pages+with+Azure+a+DevOps+pipeline&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
