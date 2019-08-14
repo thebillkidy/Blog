@@ -41,7 +41,9 @@ steps:
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Jekyll] Install Bundler'
 
-- script: 'bundle install'
+- script: |
+    ls -la;
+    bundle install
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Jekyll] Install Jekyll and Dependencies'
 
