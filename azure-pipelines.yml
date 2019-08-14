@@ -38,7 +38,7 @@ steps:
   displayName: '[Git] Set development branch'
 
 # 2. Build our site
-- task: 'git checkout -b azure-pipelines-build'
+- script: 'git checkout -b azure-pipelines-build'
   displayName: '[Git] Switch to draft branch that we will delete'
 
 - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
