@@ -3,7 +3,7 @@ layout: post
 current: post
 cover:  assets/images/covers/experience.jpg
 navigation: True
-title: Build your Jekyll site and Deploy it on GitHub Pages with Azure a DevOps pipeline
+title: Build your Jekyll site and Deploy it on GitHub Pages with an Azure DevOps pipeline
 date: 2019-08-14 09:00:00
 tags: infrastructure devops
 class: post-template
