@@ -30,6 +30,7 @@ steps:
 - script: |
     git config user.email $(gh_email)
     git config user.name $(gh_user)
+  workingDirectory: $(Build.StagingDirectory)
   displayName: '[Git] Configure User'
 
 # 2. Build our site
