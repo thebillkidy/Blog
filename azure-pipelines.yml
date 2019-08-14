@@ -33,7 +33,14 @@ steps:
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Git] Configure User'
 
+- script: 'git checkout development'
+  workingDirectory: $(Build.StagingDirectory)
+  displayName: '[Git] Set development branch'
+
 # 2. Build our site
+- task: 'git checkout -b azure-pipelines-build'
+  displayName: '[Git] Switch to draft branch that we will delete'
+
 - task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
   displayName: '[Jekyll] Use Ruby >= 2.5'
 
@@ -51,12 +58,19 @@ steps:
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Jekyll] Build Jekyll Static Site'
 
-# 3. Create our commit and push it
+# 3. Create our commit, merge into master, delete draft branch and push it
 - script: |
     git add --all;
     git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Git] Creating commit'
+
+- script: |
+    git checkout master;
+    git merge azure-pipelines-build;
+    git branch -d azure-pipelines-build;
+  workingDirectory: $(Build.StagingDirectory)
+  displayName: '[Git] Merging draft branch into master'
 
 - script: |
     git push origin master;
