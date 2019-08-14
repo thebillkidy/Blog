@@ -33,36 +33,50 @@ steps:
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Git] Configure User'
 
+# 2. Configure Ruby
+- task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
+  displayName: '[Ruby] Use Ruby >= 2.5'
+
+# 3. Build Site - We only want a HTML diff on master, so we follow this process
+#      1. Copy files from development branch to /tmp/source
+#      2. Build Jekyll on /tmp/source to /tmp/build
+#      3. Remove all files in $(Build.StagingDirectory) except .git/
+#      4. Copy everything from /tmp/build to $(Build.StagingDirectory)/
+#      5. Create the commit and push it
 - script: 'git checkout development'
   workingDirectory: $(Build.StagingDirectory)
-  displayName: '[Git] Set development branch'
+  displayName: '[Git] Switch to development branch for $(Build.StagingDirectory)'
 
-# 2. Build our site
-- script: 'git checkout -b azure-pipelines-build'
+- script: 'mkdir /tmp/source; cp -R * /tmp/source; rm -rf /tmp/source/.git'
   workingDirectory: $(Build.StagingDirectory)
-  displayName: '[Git] Switch to draft branch that we will delete'
+  displayName: '[Script] Copy file from development branch to /tmp/source'
 
-- task: UseRubyVersion@0 # See: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/tool/use-ruby-version?view=azdevops
-  displayName: '[Jekyll] Use Ruby >= 2.5'
+- script: 'git checkout master'
+  workingDirectory: $(Build.StagingDirectory)
+  displayName: '[Git] Switch to master branch for $(Build.StagingDirectory)'
 
 - script: 'gem install bundler'
-  workingDirectory: $(Build.StagingDirectory)
+  workingDirectory: /tmp/source
   displayName: '[Jekyll] Install Bundler'
 
 - script: |
     ls -la;
     bundle install
-  workingDirectory: $(Build.StagingDirectory)
+  workingDirectory: /tmp/source
   displayName: '[Jekyll] Install Jekyll and Dependencies'
 
 - script: |
     mkdir /tmp/build;
     bundle exec jekyll build -d /tmp/build;
+  workingDirectory: /tmp/source
+  displayName: '[Jekyll] Build Jekyll Static Site from /tmp/source to /tmp/build'
+
+- script: |
     cp -R $(Build.StagingDirectory)/.git /tmp/build;
     rm -rf $(Build.StagingDirectory)/*;
     cp -R /tmp/build/* $(Build.StagingDirectory);
-  workingDirectory: $(Build.StagingDirectory)
-  displayName: '[Jekyll] Build Jekyll Static Site'
+  workingDirectory: /tmp/build
+  displayName: '[Script] Remove all files in $(Build.StagingDirectory) except .git/ and add files from /tmp/build'
 
 # 3. Create our commit, merge into master, delete draft branch and push it
 - script: |
@@ -70,13 +84,6 @@ steps:
     git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Git] Creating commit'
-
-- script: |
-    git checkout master;
-    git merge azure-pipelines-build;
-    git branch -d azure-pipelines-build;
-  workingDirectory: $(Build.StagingDirectory)
-  displayName: '[Git] Merging draft branch into master'
 
 - script: |
     git push origin master;
