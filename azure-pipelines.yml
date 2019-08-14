@@ -55,7 +55,12 @@ steps:
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Jekyll] Install Jekyll and Dependencies'
 
-- script: 'bundle exec jekyll build -d $(Build.StagingDirectory)'
+- script: |
+    rm -rf /tmp/*;
+    bundle exec jekyll build -d /tmp;
+    cp -R $(Build.StagingDirectory)/.git /tmp;
+    rm -rf $(Build.StagingDirectory)/*;
+    cp -R /tmp/* $(Build.StagingDirectory);
   workingDirectory: $(Build.StagingDirectory)
   displayName: '[Jekyll] Build Jekyll Static Site'
 
