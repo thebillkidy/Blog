@@ -23,7 +23,7 @@ steps:
   persistCredentials: false # We disallow setting the persisting, since we want to have a verified push which requires a PAT token
 
 # 1. Setup our local repository and branch that we can work on
-- script: git clone https://$(github_pat)@github.com/$(gb_user)/$(gh_repo).git .
+- script: git clone https://$(github_pat)@github.com/$(gh_user)/$(gh_repo).git .
   workingDirectory: $(Build.StagingDirectory)
   displayName: "[Git] Clone GitHub Pages Repository"
 
