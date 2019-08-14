@@ -171,7 +171,7 @@ As an extra, we would like to utilize the PAT token to check our pages build and
 
 ```yaml
 - script: |
-    curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -i -v \
+    curl https://api.github.com/repos/$(gh_user)/$(gh_repo)/pages/builds/latest -i -v \
     -X GET \
     -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
     -H "Authorization: Basic $(gh_auth_header)"
