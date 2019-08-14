@@ -43,7 +43,7 @@ steps:
 - script: |
     cd $(Build.Repository.LocalPath);
     git add --all;
-    git commit -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";
+    git commit -c http.extraheader="\"AUTHORIZATION: Basic ${auth_pass}\"" -m"Pipelines-Bot: Updated site via $(Build.SourceVersion)";
   displayName: 'Create our Commit'
 
 - script: |
