@@ -326,7 +326,7 @@ into the {body} of the default.hbs template -->
 <p>As an extra, we would like to utilize the PAT token to check our pages build and see if it was successful. For that we can utilize the following in our pipeline:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
-    <span class="s">curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -i -v \</span>
+    <span class="s">curl https://api.github.com/repos/$(gh_user)/$(gh_repo)/pages/builds/latest -i -v \</span>
     <span class="s">-X GET \</span>
     <span class="s">-H "Accept: application/vnd.github.mister-fantastic-preview+json" \</span>
     <span class="s">-H "Authorization: Basic $(gh_auth_header)"</span>
