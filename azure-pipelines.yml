@@ -31,7 +31,7 @@ steps:
     git config user.name "thebillkidy";
 
     # Set our PAT token
-    git config http.extraHeader "\"AUTHORIZATION: Basic ${auth_pass}\""
+    git config https.extraHeader "\"AUTHORIZATION: Basic ${auth_pass}\""
   displayName: 'Configure Git User'
 
 - script: 'cd $(Build.Repository.LocalPath); git checkout master; git checkout -b azure-pipelines-build'
