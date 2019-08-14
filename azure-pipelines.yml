@@ -104,7 +104,7 @@ steps:
 #   displayName: '[GitHub] Trigger Page Build'
 
 - script: |
-    curl https://api.github.com/repos/${gh_user}/${gh_repo}/pages/builds/latest -i -v \
+    curl https://api.github.com/repos/$(gh_user)/$(gh_repo)/pages/builds/latest -i -v \
     -X GET \
     -H "Accept: application/vnd.github.mister-fantastic-preview+json" \
     -H "Authorization: Basic $(gh_auth_header)"
