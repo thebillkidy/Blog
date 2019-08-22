@@ -180,8 +180,8 @@ As an extra, we would like to utilize the PAT token to check our pages build and
 
 ## Conclusion
 
-When comparing my new Azure Devops Pipelines to the old Travis Job, I am able to say that Azure Devops Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market.
+When comparing my new Azure DevOps Pipelines to the old Travis Job, I am able to say that Azure DevOps Pipelines allows me to more fine grained configure my tasks as well as deploy, really showing how strong this product is for the enterprise market.
 
-Another noticable thing is the performance. When deploying with Travis, my builds often took between 2 - 3minutes, while with Azure Devops Pipelines this takes around 1m 40s
+Another noticeable thing is the performance. When deploying with Travis, my builds often took between 2 - 3 minutes, while with Azure DevOps Pipelines this takes around 1m 40s
 
 If you're interested in the full source code, feel free to check this at: [https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml](https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml) which is this code being used for my own personal blog ;)
