@@ -290,7 +290,7 @@ into the {body} of the default.hbs template -->
 <span class="p">,</span> <span class="n">rank</span><span class="p">()</span> <span class="n">over</span><span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">resort</span><span class="p">,</span> <span class="n">racedate</span><span class="p">)</span> <span class="nv">"rownr by resort and racedate"</span>
 <span class="p">,</span> <span class="n">rank</span><span class="p">()</span> <span class="n">over</span><span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">racedate</span><span class="p">)</span> <span class="nv">"rownr by racedate"</span>
 <span class="k">FROM</span> <span class="n">races</span>
-<span class="k">WHERE</span> <span class="k">extract</span><span class="p">(</span><span class="k">year</span> <span class="k">from</span> <span class="n">racedate</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2008</span>
+<span class="k">WHERE</span> <span class="k">extract</span><span class="p">(</span><span class="nb">year</span> <span class="k">from</span> <span class="n">racedate</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2008</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">resort</span><span class="p">,</span> <span class="n">racedate</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">resort</span><span class="p">,</span> <span class="n">racedate</span>
 </code></pre></div></div>
@@ -341,7 +341,7 @@ into the {body} of the default.hbs template -->
 
 <p>However if we want to calculate the <strong>gliding total</strong>, then we need to use this:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SUM</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">date</span> <span class="n">RANGE</span> <span class="k">BETWEEN</span> <span class="mi">90</span> <span class="n">PRECEDING</span> <span class="k">AND</span> <span class="k">CURRENT</span> <span class="k">ROW</span><span class="p">)</span> <span class="k">AS</span> <span class="n">mov_average</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SUM</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="nb">date</span> <span class="n">RANGE</span> <span class="k">BETWEEN</span> <span class="mi">90</span> <span class="n">PRECEDING</span> <span class="k">AND</span> <span class="k">CURRENT</span> <span class="k">ROW</span><span class="p">)</span> <span class="k">AS</span> <span class="n">mov_average</span>
 </code></pre></div></div>
 
 <h2 id="combined-select-queries">Combined Select Queries</h2>

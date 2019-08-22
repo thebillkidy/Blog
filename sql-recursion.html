@@ -261,7 +261,7 @@ into the {body} of the default.hbs template -->
 <p><strong>Finally</strong>, we group by the year and the month and we perform a count on the day where the day is a Sunday (so to_char(date, ‘d’) = 7:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span>
-<span class="mi">2014</span> <span class="k">year</span>
+<span class="mi">2014</span> <span class="nb">year</span>
 <span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">MONTH</span> <span class="k">FROM</span> <span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">month</span>
 <span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">'01/01/2014'</span><span class="p">,</span> <span class="s1">'DD/MM/YYYY'</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">'d'</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">THEN</span> <span class="mi">1</span> <span class="k">END</span><span class="p">)</span> <span class="n">sundays</span>
 <span class="k">FROM</span> <span class="n">dual</span>
@@ -496,7 +496,7 @@ may 31
 <span class="p">)</span>
 <span class="k">SELECT</span>
 <span class="n">x</span>
-<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">year</span> <span class="k">FROM</span> <span class="n">x</span><span class="p">)</span> <span class="k">as</span> <span class="k">year</span>
+<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="nb">year</span> <span class="k">FROM</span> <span class="n">x</span><span class="p">)</span> <span class="k">as</span> <span class="nb">year</span>
 <span class="p">,</span> <span class="k">CAST</span><span class="p">(</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'mm'</span><span class="p">)</span> <span class="k">AS</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">month</span>
 <span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'iw'</span><span class="p">)</span> <span class="n">weeknumber</span>
 <span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'dd'</span><span class="p">)</span> <span class="n">daymonth</span>
@@ -515,7 +515,7 @@ may 31
 <span class="p">),</span> <span class="n">cal</span> <span class="k">AS</span> <span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">x</span>
-<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="k">year</span> <span class="k">FROM</span> <span class="n">x</span><span class="p">)</span> <span class="k">as</span> <span class="k">year</span>
+<span class="p">,</span> <span class="k">EXTRACT</span><span class="p">(</span><span class="nb">year</span> <span class="k">FROM</span> <span class="n">x</span><span class="p">)</span> <span class="k">as</span> <span class="nb">year</span>
 <span class="p">,</span> <span class="k">CAST</span><span class="p">(</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'mm'</span><span class="p">)</span> <span class="k">AS</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">month</span>
 <span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'iw'</span><span class="p">)</span> <span class="n">weeknumber</span>
 <span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'dd'</span><span class="p">)</span> <span class="n">daymonth</span>
@@ -532,8 +532,8 @@ may 31
 <span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'6'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Fr</span>
 <span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="k">CASE</span> <span class="n">daynumber</span> <span class="k">WHEN</span> <span class="s1">'7'</span> <span class="k">THEN</span> <span class="n">daymonth</span> <span class="k">ELSE</span> <span class="s1">' '</span> <span class="k">END</span><span class="p">)</span> <span class="n">Sa</span>
 <span class="k">FROM</span> <span class="n">cal</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="k">year</span><span class="p">,</span> <span class="k">month</span><span class="p">,</span> <span class="n">weeknumber</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">year</span><span class="p">,</span> <span class="k">month</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="n">daymonth</span><span class="p">);</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="nb">year</span><span class="p">,</span> <span class="k">month</span><span class="p">,</span> <span class="n">weeknumber</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="nb">year</span><span class="p">,</span> <span class="k">month</span><span class="p">,</span> <span class="k">MAX</span><span class="p">(</span><span class="n">daymonth</span><span class="p">);</span>
 </code></pre></div></div>
 
                 </div>
