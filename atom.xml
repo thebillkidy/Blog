@@ -8,6 +8,23 @@
     
       
       <item>
+        <title>Part 4 - Creating a Automated Machine Learning model based on our Car Simulation Data</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;This is Part 4 in the IoT Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part3-simulator-camera&quot;&gt;part 3&lt;/a&gt; to view the previous article.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Fri, 23 Aug 2019 09:00:05 +0000</pubDate>
+        <link>
+        /iot-edge-part4-ml-car</link>
+        <guid isPermaLink="true">/iot-edge-part4-ml-car</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Build your Jekyll site and Deploy it on GitHub Pages with an Azure DevOps pipeline</title>
         
           <description>&lt;p&gt;So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!&lt;/p&gt;
