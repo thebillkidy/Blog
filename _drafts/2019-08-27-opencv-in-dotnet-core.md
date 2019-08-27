@@ -4,7 +4,10 @@ For the example in this Blog Post, we will work on the use case of **extracting 
 
 ## Installing OpenCV
 
-To install OpenCV, we will utilize a docker container (since most of our applications run there nowadays anyways). The following will take care of downloading the specified OpenCV and OpenCV-contrib version, extract it and build it from source:
+To install OpenCV, we will utilize a docker container (since most of our applications run there nowadays anyways). The following will take care of :
+
+* Downloading and installing OpenCV
+* Downloading and installing OpenCV-Contrib
 
 ```bash
 FROM microsoft/dotnet:2.1-sdk AS build-env
@@ -62,7 +65,13 @@ RUN sudo ldconfig
 # Copy libs
 #RUN cd $OPENCV_INSTALLATION_DIR/lib
 #RUN cp -r * /usr/lib
+```
 
+## Installing OpenCV Sharp
+
+To utilize OpenCV in .NET we luckily have access to a wrapper library called [OpenCVSharp](https://github.com/shimat/opencvsharp). So we will add this to our Dockerfile to be installed:
+
+```bash
 # =================================
 # Install OpenCV Sharp
 # =================================
@@ -78,7 +87,17 @@ RUN sudo make -j$(grep -c ^processor /proc/cpuinfo)
 RUN sudo make install
 RUN sudo ldconfig
 RUN sudo cp OpenCvSharpExtern/libOpenCvSharpExtern.so /usr/lib
+```
 
+## Creating our project
+
+For our project we will now create a dotnet project
+
+## Deploying our Project with Docker
+
+To deploy our project, we now need of course to adapt our Dockerfile as well. To do this we will add the following code:
+
+```bash
 # =================================
 # Install our .NET project
 # =================================
@@ -97,7 +116,3 @@ USER moduleuser
 
 ENTRYPOINT ["dotnet", "ModuleFilterCamera.dll"]
 ```
-
-## Installing OpenCV Sharp
-
-To utilize OpenCV in .NET we luckily have access to a wrapper library called [OpenCVSharp](https://github.com/shimat/opencvsharp).
