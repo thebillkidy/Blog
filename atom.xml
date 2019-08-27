@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Utilizing OpenCV in C# .NET Core to grab frames from a video</title>
+        
+          <description>&lt;p&gt;While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. &lt;a href=&quot;https://opencv.org/&quot;&gt;OpenCV&lt;/a&gt; is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do we utilize this in .NET Core?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 27 Aug 2019 09:00:00 +0000</pubDate>
+        <link>
+        /opencv-in-dotnet-core</link>
+        <guid isPermaLink="true">/opencv-in-dotnet-core</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Part 4 - Creating a Automated Machine Learning model based on our Car Simulation Data</title>
         
           <description>&lt;blockquote&gt;

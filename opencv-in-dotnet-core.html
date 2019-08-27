@@ -10,7 +10,7 @@
 
 
 
-    <title>Reinforcement Learning - Terminology</title>
+    <title>Utilizing OpenCV in C# .NET Core to grab frames from a video</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -24,30 +24,30 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="My thoughts, tutorials and learnings" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/rl-overview-terminology" />
+    <link rel="canonical" href="/opencv-in-dotnet-core" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Reinforcement Learning - Terminology" />
-    <meta property="og:description" content="Tags: Machine LearningReinforcement LearningQ LearningArtificial IntelligenceMonte Carlo Reinforcement Learning - An Overview of Today Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith" />
-    <meta property="og:url" content="/rl-overview-terminology" />
-    <meta property="og:image" content="/assets/images/covers/rl.jpg" />
+    <meta property="og:title" content="Utilizing OpenCV in C# .NET Core to grab frames from a video" />
+    <meta property="og:description" content="While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. OpenCV is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do" />
+    <meta property="og:url" content="/opencv-in-dotnet-core" />
+    <meta property="og:image" content="/assets/images/covers/dotnet.png" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2018-11-29T09:00:00+00:00" />
-    <meta property="article:modified_time" content="2018-11-29T09:00:00+00:00" />
-    <meta property="article:tag" content="Ai" />
+    <meta property="article:published_time" content="2019-08-27T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2019-08-27T09:00:00+00:00" />
+    <meta property="article:tag" content="Azure" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Reinforcement Learning - Terminology" />
-    <meta name="twitter:description" content="Tags: Machine LearningReinforcement LearningQ LearningArtificial IntelligenceMonte Carlo Reinforcement Learning - An Overview of Today Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith" />
+    <meta name="twitter:title" content="Utilizing OpenCV in C# .NET Core to grab frames from a video" />
+    <meta name="twitter:description" content="While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. OpenCV is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do" />
     <meta name="twitter:url" content="/" />
-    <meta name="twitter:image" content="/assets/images/covers/rl.jpg" />
+    <meta name="twitter:image" content="/assets/images/covers/dotnet.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
     <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="Ai" />
+    <meta name="twitter:data2" content="Azure" />
     <meta name="twitter:site" content="@XavierGeerinck" />
     <meta name="twitter:creator" content="@XavierGeerinck" />
     <meta property="og:image:width" content="1400" />
@@ -62,23 +62,23 @@
         "name": "Xavier Geerinck - Blog",
         "logo": "/false"
     },
-    "url": "/rl-overview-terminology",
+    "url": "/opencv-in-dotnet-core",
     "image": {
         "@type": "ImageObject",
-        "url": "/assets/images/covers/rl.jpg",
+        "url": "/assets/images/covers/dotnet.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/rl-overview-terminology"
+        "@id": "/opencv-in-dotnet-core"
     },
-    "description": "Tags: Machine LearningReinforcement LearningQ LearningArtificial IntelligenceMonte Carlo Reinforcement Learning - An Overview of Today Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith"
+    "description": "While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. OpenCV is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do"
 }
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Reinforcement Learning - Terminology" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Utilizing OpenCV in C# .NET Core to grab frames from a video" href="/feed.xml" />
 
 
 
@@ -142,20 +142,16 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="29 November 2018">29 November 2018</time>
+                    <time class="post-full-meta-date" datetime="27 August 2019">27 August 2019</time>
                     
                         <span class="date-divider">/</span>
                         
                             
-                               <a href='/tag/ai/'>AI</a>,
+                               <a href='/tag/azure/'>AZURE</a>,
                             
                         
                             
-                               <a href='/tag/ai-ml/'>AI-ML</a>,
-                            
-                        
-                            
-                               <a href='/tag/ai-rl/'>AI-RL</a>
+                               <a href='/tag/coding-csharp/'>CODING-CSHARP</a>
                             
                         
                     
@@ -163,210 +159,170 @@ into the {body} of the default.hbs template -->
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/covers/rl.jpg)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/dotnet.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">Reinforcement Learning - Terminology</h1>
-                    <p>Tags:     Machine LearningReinforcement LearningQ LearningArtificial IntelligenceMonte Carlo</p>
+                        <h1 class="post-full-title">Utilizing OpenCV in C# .NET Core to grab frames from a video</h1>
+                    <p>While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. <a href="https://opencv.org/">OpenCV</a> is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do we utilize this in .NET Core?</p>
 
-<h1 id="reinforcement-learning---an-overview-of-today">Reinforcement Learning - An Overview of Today</h1>
+<p>For the example in this Blog Post, we will work on the use case of <strong>extracting frames from a video file</strong> and saving these individually.</p>
 
-<p>Reinforcement Learning took big leaps recently, so big that they are being used more and more in production environments (just think about Facebook using RL for its notification push system, or even for optimizing the bandwith in their 360 degree videos) but what does all the terminology mean? This is what I want to explain in the article below.</p>
+<h2 id="installing-opencv">Installing OpenCV</h2>
 
-<blockquote>
-  <p>This is not an introduction into Reinforcement Learning, for the introduction feel free to check: https://xaviergeerinck.com/rl-intro</p>
-</blockquote>
-
-<blockquote>
-  <p>For an in-depth overview of the algorithms listed at the bottom of this article, feel free to check the fantastic OpenAI Documentation at <a href="https://spinningup.openai.com/en/latest/">
-https://spinningup.openai.com/en/latest/</a></p>
-</blockquote>
-
-<h2 id="important-terminology">Important Terminology</h2>
-
-<h3 id="models-deterministics-vs-stochastic"><strong>Models:</strong> Deterministics vs Stochastic</h3>
+<p>To install OpenCV, we will utilize a docker container (since most of our applications run there nowadays anyways). The following will take care of :</p>
 
 <ul>
-  <li><strong>Deterministic:</strong> No randomness, what you see is what you get. Just think about a formula always returning what you expect. In the case of Reinforcement Learning we will always be able to say which action to take belongs to which state.</li>
-  <li><strong>Stochastic:</strong> Include randomness, return a distribution of which action to take belonging to which states with a probability to them.</li>
+  <li>Downloading and installing OpenCV</li>
+  <li>Downloading and installing OpenCV-Contrib</li>
 </ul>
 
-<h3 id="models-model-based-vs-model-free"><strong>Models:</strong> Model-based vs Model-free</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM microsoft/dotnet:2.1-sdk AS build-env
+MAINTAINER Xavier Geerinck &lt;xageerin@microsoft.com&gt;
 
-<p><strong>Model-based algorithms</strong> try to create models (think of this as a mathmatical formula) that is able to represent the world. Based on this they are then able to predict the next state they are going to be in.</p>
+ENV <span class="nv">OPENCV_VERSION</span><span class="o">=</span><span class="s2">"4.1.1"</span>
+ENV <span class="nv">OPENCV_INSTALLATION_DIR</span><span class="o">=</span><span class="s2">"/opt/opencv/"</span>
+ENV <span class="nv">OPENCV_SHARP_VERSION</span><span class="o">=</span><span class="s2">"4.1.0.20190417"</span>
 
-<p><strong>Model-free algorithms</strong> however purely act on experience, when an action is taken we update our policy or value function and continue. Every timestep we learn something new.</p>
+WORKDIR /app
 
-<h3 id="policies-on-policy-vs-off-policy"><strong>Policies:</strong> On-Policy vs Off-Policy</h3>
+<span class="c"># =================================</span>
+<span class="c"># Install OpenCV 4 &amp; OpenCV_contrib</span>
+<span class="c"># =================================</span>
+<span class="c"># Update Packages</span>
+RUN <span class="nb">sudo </span>apt update
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>build-essential checkinstall cmake pkg-config yasm
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>git gfortran
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libjpeg8-dev libjpeg-dev libpng-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libjasper1
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libtiff-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libxine2-dev libv4l-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libgtk2.0-dev libtbb-dev qt5-default
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libatlas-base-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libfaac-dev libmp3lame-dev libtheora-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libvorbis-dev libxvidcore-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libopencore-amrnb-dev libopencore-amrwb-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libavresample-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>x264 v4l-utils
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libprotobuf-dev protobuf-compiler
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libgoogle-glog-dev libgflags-dev
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
+RUN <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libtbb2 libjasper-dev libdc1394-22-dev
 
-<p>A policy defines the “strategy” of an agent in a given environment. Or more specifically, what is the action that the Agent is going to take in a given environment? Here we have different distinctions in our policies:</p>
+<span class="c"># Download version</span>
+RUN <span class="nb">cd</span> <span class="k">${</span><span class="nv">OPENCV_INSTALLATION_DIR</span><span class="k">}</span>
+RUN wget https://github.com/opencv/opencv/archive/<span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>.zip <span class="nt">-Oopencv-</span><span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>.zip
+RUN unzip opencv-<span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>.zip
+RUN wget https://github.com/opencv/opencv_contrib/archive/<span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>.zip <span class="nt">-Oopencv_contrib-</span><span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>.zip
+RUN unzip opencv_contrib-<span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>.zip
 
-<ul>
-  <li><strong>Behaviour Policy:</strong> Policy that controls the current actions</li>
-  <li><strong>Target Policy:</strong> The policy being evaluated and/or learned</li>
-</ul>
+<span class="c"># Install OpenCV</span>
+RUN <span class="nb">cd </span>opencv-<span class="k">${</span><span class="nv">OPENCV_VERSION</span><span class="k">}</span>
+RUN <span class="nb">mkdir </span>build <span class="o">&amp;&amp;</span> <span class="nb">cd </span>build
+RUN cmake .. <span class="se">\</span>
+	<span class="nt">-DCMAKE_BUILD_TYPE</span><span class="o">=</span>Release <span class="se">\</span>
+	<span class="nt">-DOPENCV_EXTRA_MODULES_PATH</span><span class="o">=</span>../../opencv_contrib-4.1.0/modules <span class="se">\</span>
+	<span class="c"># you might want to specify other CMake flags through -Dflag=value</span>
+RUN <span class="nb">sudo </span>make <span class="nt">-j</span><span class="si">$(</span><span class="nb">grep</span> <span class="nt">-c</span> ^processor /proc/cpuinfo<span class="si">)</span>
+RUN <span class="nb">sudo </span>make <span class="nb">install</span> <span class="nt">-j8</span>
+RUN <span class="nb">sudo </span>ldconfig
 
-<p>With 2 different kind of learning methods:</p>
+<span class="c"># Copy libs</span>
+<span class="c">#RUN cd $OPENCV_INSTALLATION_DIR/lib</span>
+<span class="c">#RUN cp -r * /usr/lib</span>
+</code></pre></div></div>
 
-<ul>
-  <li><strong>On-Policy:</strong> It learns the value of the policy being carried out by the agent, including the exploration steps. (Behaviour Policy == Target Policy). We thus use the latest version of our policy to make decisions in real-time.</li>
-  <li><strong>Off-Policy:</strong> It learns the value of the Optimal Target Policy independently on the agent’s actions based on the Behaviour Policy. (Behaviour Policy != Target Policy)</li>
-</ul>
+<h2 id="installing-opencv-sharp">Installing OpenCV Sharp</h2>
 
-<h3 id="space-discrete-vs-continuous"><strong>Space:</strong> Discrete vs Continuous</h3>
+<p>To utilize OpenCV in .NET we luckily have access to a wrapper library called <a href="https://github.com/shimat/opencvsharp">OpenCVSharp</a>. So we will add this to our Dockerfile to be installed:</p>
 
-<ul>
-  <li><strong>Discrete:</strong> Finite set of numbers (e.g. the numbers on a dice 1, 2, 3, 4, 5 or 6 with only those numbers being able to be returned)</li>
-  <li><strong>Continuous:</strong> Set of numbers within a certain range (e.g. the rotation of a steering wheel [-360, 360] with all numbers in between such as 10.99293).</li>
-</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># =================================</span>
+<span class="c"># Install OpenCV Sharp</span>
+<span class="c"># =================================</span>
+RUN <span class="nb">cd</span> <span class="k">${</span><span class="nv">OPENCV_INSTALLATION_DIR</span><span class="k">}</span>
+RUN git clone https://github.com/shimat/opencvsharp.git opencvsharp
+RUN <span class="nb">cd </span>opencvsharp
+RUN git fetch <span class="nt">--all</span> <span class="nt">--tags</span> <span class="nt">--prune</span> <span class="o">&amp;&amp;</span> git checkout <span class="k">${</span><span class="nv">OPENCV_SHARP_VERSION</span><span class="k">}</span>
+RUN <span class="nb">cd </span>src
+RUN <span class="nb">mkdir </span>build
+RUN <span class="nb">cd </span>build
+RUN cmake <span class="nt">-D</span> <span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="k">${</span><span class="nv">OPENCV_INSTALLATION_DIR</span><span class="k">}</span> ..
+RUN <span class="nb">sudo </span>make <span class="nt">-j</span><span class="si">$(</span><span class="nb">grep</span> <span class="nt">-c</span> ^processor /proc/cpuinfo<span class="si">)</span>
+RUN <span class="nb">sudo </span>make <span class="nb">install
+</span>RUN <span class="nb">sudo </span>ldconfig
+RUN <span class="nb">sudo cp </span>OpenCvSharpExtern/libOpenCvSharpExtern.so /usr/lib
+</code></pre></div></div>
 
-<h3 id="advantage"><strong>Advantage</strong></h3>
+<h2 id="creating-our-project">Creating our project</h2>
 
-<p><strong>Advantage (A):</strong> A(s, a) = Q(s, a)- V(s)</p>
-<ul>
-  <li>Q(s,a) being the Q-Value in a specific state and action</li>
-  <li>V(s) being the average action value</li>
-</ul>
+<p>For our project we will now create a dotnet project, here we will simply take an existing <code class="highlighter-rouge">mp4</code> file and process it in our code.</p>
 
-<p>This formula thus depicts how good an action is compared to the average action. How good is an action compared to the average action?</p>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nf">Process</span><span class="p">(</span><span class="s">"./out.mp4"</span><span class="p">);</span>
+<span class="p">}</span>
 
-<h2 id="algorithms-overview">Algorithms Overview</h2>
+<span class="k">static</span> <span class="k">void</span> <span class="nf">Process</span><span class="p">(</span><span class="kt">string</span> <span class="n">videoPath</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[VideoProcessor] Processing videoPath </span><span class="p">{</span><span class="n">videoPath</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+	<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"[VideoProcessor] "</span> <span class="p">+</span> <span class="p">(</span><span class="n">File</span><span class="p">.</span><span class="nf">Exists</span><span class="p">(</span><span class="n">videoPath</span><span class="p">)</span> <span class="p">?</span> <span class="s">"Video exists"</span> <span class="p">:</span> <span class="s">"Video does not exist"</span><span class="p">));</span>
 
-<p>In the world of Reinforcement Learning 2 big different types of algorithms being used:</p>
+	<span class="n">VideoCapture</span> <span class="n">capture</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">VideoCapture</span><span class="p">(</span><span class="n">videoPath</span><span class="p">);</span>
 
-<ul>
-  <li><strong>Value Based</strong> algorithms: they use a Value function that describes how good it is to take a certain action in a given state.
-    <ul>
-      <li>Mostly used in an environment with a finite amount of states</li>
-      <li>Are faster than Policy based functions due to the finite amount of states</li>
-    </ul>
-  </li>
-  <li><strong>Policy Based</strong> algorithms: They map a state to an action
-    <ul>
-      <li>These however converge a lot to a local maximum, but are slower than Value Functions</li>
-    </ul>
-  </li>
-</ul>
+	<span class="c1">// using (Window window = new Window("capture"))</span>
+	<span class="k">using</span> <span class="p">(</span><span class="n">Mat</span> <span class="n">image</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Mat</span><span class="p">())</span> <span class="c1">// Frame image buffer</span>
+	<span class="p">{</span>
+		<span class="kt">var</span> <span class="n">frameIndex</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 
-<h3 id="algorithms-comparison">Algorithms Comparison</h3>
+		<span class="c1">// Loop while we can read an image (aka: image.Empty is not true)</span>
+		<span class="k">do</span>
+		<span class="p">{</span>
+			<span class="c1">// Read the next</span>
+			<span class="n">capture</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
 
-<table>
-  <thead>
-    <tr>
-      <th>Algorithm</th>
-      <th>Description</th>
-      <th>Model</th>
-      <th>Policy</th>
-      <th>Action Space</th>
-      <th>State Space</th>
-      <th>Operator</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Monte Carlo</td>
-      <td>Every visit to Monte Carlo</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Discrete</td>
-      <td>Discrete</td>
-      <td>Sample-Means</td>
-    </tr>
-    <tr>
-      <td>Q-Learning</td>
-      <td>State-action-reward-state</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Discrete</td>
-      <td>Discrete</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>SARSA</td>
-      <td>State-action-reward-state-action</td>
-      <td>Model-Free</td>
-      <td>On-Policy</td>
-      <td>Discrete</td>
-      <td>Discrete</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>Q-Learning $\lambda$</td>
-      <td>State-action-reward-state with eligibility traces</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Discrete</td>
-      <td>Discrete</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>SARSA $\lambda$</td>
-      <td>State-action-reward-state-action with eligibility traces</td>
-      <td>Model-Free</td>
-      <td>On-Policy</td>
-      <td>Discrete</td>
-      <td>Discrete</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>DQN</td>
-      <td>Deep Q Network</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Discrete</td>
-      <td>Continuous</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>DDPG</td>
-      <td>Deep Deterministic Policy Gradient</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Continuous</td>
-      <td>Continuous</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>A3C</td>
-      <td>Asynchronous Actor-Critic</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Continuous</td>
-      <td>Continuous</td>
-      <td>Q-Value</td>
-    </tr>
-    <tr>
-      <td>NAF</td>
-      <td>Q-Learning with Normalized Advantage Functions</td>
-      <td>Model-Free</td>
-      <td>Off-Policy</td>
-      <td>Continuous</td>
-      <td>Continuous</td>
-      <td>Advantage</td>
-    </tr>
-    <tr>
-      <td>TRPO</td>
-      <td>Trust Region Policy Optimization</td>
-      <td>Model-Free</td>
-      <td>On-Policy</td>
-      <td>Continuous</td>
-      <td>Continuous</td>
-      <td>Advantage</td>
-    </tr>
-    <tr>
-      <td>PPO</td>
-      <td>Proximal Policy Optimization</td>
-      <td>Model-Free</td>
-      <td>On-Policy</td>
-      <td>Continuous</td>
-      <td>Continuous</td>
-      <td>Advantage</td>
-    </tr>
-  </tbody>
-</table>
+			<span class="c1">// We only want to save every FPS hit since we have 1 image per second -&gt; mod</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">frameIndex</span> <span class="p">%</span> <span class="n">capture</span><span class="p">.</span><span class="n">Fps</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="kt">var</span> <span class="n">saveResult</span> <span class="p">=</span> <span class="n">image</span><span class="p">.</span><span class="nf">SaveImage</span><span class="p">(</span><span class="s">$"image_</span><span class="p">{</span><span class="n">frameIndex</span><span class="p">}</span><span class="s">.png"</span><span class="p">);</span>
+				<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[VideoProcessor] Saved image #</span><span class="p">{</span><span class="n">frameIndex</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+			<span class="p">}</span>
+
+			<span class="n">frameIndex</span><span class="p">++;</span>
+		<span class="p">}</span> <span class="k">while</span> <span class="p">(!</span><span class="n">image</span><span class="p">.</span><span class="nf">Empty</span><span class="p">());</span>
+	<span class="p">}</span>
+
+	<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"[VideoProcessor] Done Processing"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="deploying-our-project-with-docker">Deploying our Project with Docker</h2>
+
+<p>To deploy our project, we now need of course to adapt our Dockerfile as well. To do this we will add the following code:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># =================================</span>
+<span class="c"># Install our .NET project</span>
+<span class="c"># =================================</span>
+COPY <span class="k">*</span>.csproj ./
+RUN dotnet restore
+
+COPY <span class="nb">.</span> ./
+RUN dotnet publish <span class="nt">-c</span> Release <span class="nt">-o</span> out
+
+FROM microsoft/dotnet:2.1-runtime-stretch-slim
+WORKDIR /app
+COPY <span class="nt">--from</span><span class="o">=</span>build-env /app/out ./
+
+RUN useradd <span class="nt">-ms</span> /bin/bash moduleuser
+USER moduleuser
+
+ENTRYPOINT <span class="o">[</span><span class="s2">"dotnet"</span>, <span class="s2">"ModuleFilterCamera.dll"</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>We are now done and are able to utilize OpenCV in dotnet core!</p>
 
                 </div>
             </section>
@@ -407,7 +363,7 @@ https://spinningup.openai.com/en/latest/</a></p>
                     <script>
                         var disqus_config = function () {
                             this.page.url = window.location.href;
-                            this.page.identifier = '/rl-overview-terminology';
+                            this.page.identifier = '/opencv-in-dotnet-core';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -441,7 +397,7 @@ https://spinningup.openai.com/en/latest/</a></p>
                         <header class="read-next-card-header">
                             <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
                             
-                                <h3 class="read-next-card-header-title"><a href="/tag/ai/">Ai</a></h3>
+                                <h3 class="read-next-card-header-title"><a href="/tag/azure/">Azure</a></h3>
                             
                         </header>
                         <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
@@ -451,6 +407,97 @@ https://spinningup.openai.com/en/latest/</a></p>
                                 
                                 
                                   
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part4-ml-car">Part 4 - Creating a Automated Machine Learning model based on our Car Simulation Data</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part3-simulator-camera">Part 3 - Creating a Car Camera simulator in IoT Edge</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part2-simulator-car">Part 2 - Creating a Car Data simulator in IoT Edge</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
                                 
                                   
                                 
@@ -490,12 +537,6 @@ https://spinningup.openai.com/en/latest/</a></p>
                                     
                                         
                                         
-                                            <li><a href="/facebook-horizon">Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive</a></li>
-                                        
-                                    
-                                  
-                                
-                                  
                                     
                                   
                                 
@@ -517,86 +558,6 @@ https://spinningup.openai.com/en/latest/</a></p>
                                 
                                   
                                 
-                                  
-                                    
-                                        
-                                        
-                                            <li><a href="/openai-dotnet-core-sdk">Writing a C# SDK for the OpenAI Gym using .NET Core</a></li>
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                            <li><a href="/openai-cartpole">OpenAI Gym Problems - Solving the CartPole Gym</a></li>
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
                                   
                                 
                                   
@@ -690,9 +651,9 @@ https://spinningup.openai.com/en/latest/</a></p>
                             </ul>
                         </div>
                         <footer class="read-next-card-footer">
-                            <a href="/tag/ai/">
+                            <a href="/tag/azure/">
                                 
-                                    See all 9 posts  →
+                                    See all 10 posts  →
                                 
                             </a>
                         </footer>
@@ -705,17 +666,17 @@ https://spinningup.openai.com/en/latest/</a></p>
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/minecraft-rfc-scanner">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/minecraft.jpg)"></div>
+            <a class="post-card-image-link" href="/iot-edge-part4-ml-car">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/iot.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/minecraft-rfc-scanner">
+            <a class="post-card-content-link" href="/iot-edge-part4-ml-car">
                 <header class="post-card-header">
                     
                         
                             
-                               <span class="post-card-tags">Coding</span>
+                               <span class="post-card-tags">Azure</span>
                             
                         
                             
@@ -723,15 +684,15 @@ https://spinningup.openai.com/en/latest/</a></p>
                             
                         
                             
-                                <span class="post-card-tags">Big-data</span>
+                                <span class="post-card-tags">Iot</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">Building a Minecraft Puppet Scanner with Event Hub, a NFC 522 Reader and a Raspberry PI</h2>
+                    <h2 class="post-card-title">Part 4 - Creating a Automated Machine Learning model based on our Car Simulation Data</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>In Belgium we every year celebrate the coming of “Sinterklaas” on the 6th of December, a celebration for children where this mythologic figure delivers presents for all the children that behaved well that</p>
+                    <p>This is Part 4 in the IoT Edge series, view the main article or go the part 3 to view the previous article. Recap and next steps We just built our 2 simulators</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -753,54 +714,6 @@ https://spinningup.openai.com/en/latest/</a></p>
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/facebook-horizon">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/horizon.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/facebook-horizon">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Ai</span>
-                            
-                        
-                            
-                               <span class="post-card-tags">Ai-ml</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Ai-rl</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Facebook's Open-Source Reinforcement Learning Platform - A Deep Dive</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>Facebook decided to open-source the platform that they created to solve end-to-end Reinforcement Learning problems at the scale they are working on. So of course I just had to try this ;) Let's</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/xavier/">Xavier Geerinck</a>
-                        </span>
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
         </div>
     </div>
 </aside>
@@ -816,23 +729,23 @@ https://spinningup.openai.com/en/latest/</a></p>
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Reinforcement Learning - Terminology</div>
+    <div class="floating-header-title">Utilizing OpenCV in C# .NET Core to grab frames from a video</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Reinforcement+Learning+-+Terminology&amp;url=https://thebillkidy.github.io/rl-overview-terminology"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Utilizing+OpenCV+in+C%23+.NET+Core+to+grab+frames+from+a+video&amp;url=https://thebillkidy.github.io/opencv-in-dotnet-core"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/rl-overview-terminology"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/opencv-in-dotnet-core"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/rl-overview-terminology&title=Reinforcement+Learning+-+Terminology&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/opencv-in-dotnet-core&title=Utilizing+OpenCV+in+C%23+.NET+Core+to+grab+frames+from+a+video&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
