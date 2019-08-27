@@ -1,3 +1,16 @@
+---
+layout: post
+current: post
+cover: 'assets/images/covers/dotnet.png'
+navigation: True
+title: Utilizing OpenCV in C# .NET Core to grab frames from a video
+date: 2019-08-27 09:00:00
+tags: azure coding-csharp
+class: post-template
+subclass: 'post'
+author: xavier
+---
+
 While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. [OpenCV](https://opencv.org/) is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, ...). But how do we utilize this in .NET Core?
 
 For the example in this Blog Post, we will work on the use case of **extracting frames from a video file** and saving these individually.
@@ -91,7 +104,46 @@ RUN sudo cp OpenCvSharpExtern/libOpenCvSharpExtern.so /usr/lib
 
 ## Creating our project
 
-For our project we will now create a dotnet project
+For our project we will now create a dotnet project, here we will simply take an existing `mp4` file and process it in our code.
+
+```csharp
+static void Main(string[] args)
+{
+	Process("./out.mp4");
+}
+
+static void Process(string videoPath)
+{
+	Console.WriteLine($"[VideoProcessor] Processing videoPath {videoPath}");
+	Console.WriteLine("[VideoProcessor] " + (File.Exists(videoPath) ? "Video exists" : "Video does not exist"));
+
+	VideoCapture capture = new VideoCapture(videoPath);
+
+	// using (Window window = new Window("capture"))
+	using (Mat image = new Mat()) // Frame image buffer
+	{
+		var frameIndex = 0;
+
+		// Loop while we can read an image (aka: image.Empty is not true)
+		do
+		{
+			// Read the next
+			capture.Read(image);
+
+			// We only want to save every FPS hit since we have 1 image per second -> mod
+			if (frameIndex % capture.Fps == 0)
+			{
+				var saveResult = image.SaveImage($"image_{frameIndex}.png");
+				Console.WriteLine($"[VideoProcessor] Saved image #{frameIndex}");
+			}
+
+			frameIndex++;
+		} while (!image.Empty());
+	}
+
+	Console.WriteLine($"[VideoProcessor] Done Processing");
+}
+```
 
 ## Deploying our Project with Docker
 
@@ -116,3 +168,5 @@ USER moduleuser
 
 ENTRYPOINT ["dotnet", "ModuleFilterCamera.dll"]
 ```
+
+We are now done and are able to utilize OpenCV in dotnet core!
