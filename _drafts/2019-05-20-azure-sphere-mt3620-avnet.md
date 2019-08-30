@@ -70,13 +70,48 @@ How data transmission will happen now is through the following steps:
 
 When looking at our **MT3620 AVNET Sphere Starter Kit Diagram** we can see that it utilizes **ISU1** for SPI mode with **SDO, SDI, SCK** on the 2 **MikroBUS Connectors**. This is also shown in the [Azure Sphere Starter Kit User Guide](https://www.element14.com/community/docs/DOC-92359/l/azure-sphere-starter-kit-user-guide-v14?ICID=azuresphere-kit-datasheet-widget) on page 19. This states:
 
+**Click Socket #1:**
+
 * **SCLK (=SCK):** GPIO31_SCLK1_TX1
 * **MOSI (=SDO):** GPIO32_MOSI1_RTS1_CLK1
 * **MISO (=SDI):** GPIO33_MISO1_RX1_DATA1 
 * **SS (=CS):** GPIO34_CSA1_CTS1 Select
+* **SDA:** GPIO38_MISO2_RXD2_SDA2
+
+**Click Socket #2:**
+
+* **SCLK (=SCK):** GPIO31_SCLK1_TX1
+* **MOSI (=SDO):** GPIO32_MOSI1_RTS1_CLK1
+* **MISO (=SDI):** GPIO33_MISO1_RX1_DATA1 
+* **SS (=CS):** GPIO35_CSB0 Select
+* **SDA:** GPIO38_MISO2_RXD2_SDA2
 
 
 
 ## Puppet Scanner
 
 ## Normal Scanner with Azure Twin Update
+
+
+Connecting AZ Sphere Board
+
+Started off with deploying the demo as specified in: https://www.element14.com/community/groups/internet-of-things/blog/2019/04/24/avnets-azure-sphere-starter-kit-out-of-box-demo-part-1-of-3?ICID=azuresphere-kit-datasheet-widget
+
+What we want to do: Have Board connect to IoT Hub -> Pulls configuration from IOT Hub -> Shows configured product on display screen -> When NFC tag is presented it will update the on-edge board to the configuration details it fetched through IoT Hub -> When then IoT Hub Twin updated, when tag presented again it will show the latest
+
+Setting up project
+-> run azsphere.exe device prep-debug to make sure it's prepped for debugging and app sideloading
+
+For our RFC Scanner we will utilize SPI (since library supports this)
+
+Interesting: https://github.com/Azure/azure-sphere-samples/tree/master/Samples/SPI/SPI_LSM6DS3_HighLevelApp
+
+https://github.com/Azure/azure-sphere-samples/tree/master/Samples/I2C/I2C_LSM6DS3_HighLevelApp
+
+Coding:
+
+1. Start off with a blank VS Studio Project on Green Blink
+1. We copy over pin connections from the first reference design app (see GitHub for Avnet) 
+2. Start off with a blank
+
+Download lib: https://github.com/miguelbalboa/rfid/blob/master/src/MFRC522.h and install by creating files
