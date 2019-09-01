@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/azure-sphere.png'
 navigation: True
 title: An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)
-date: 2019-05-19 09:00:00
+date: 2019-09-01 09:00:00
 tags: azure coding-c
 class: post-template
 subclass: 'post'
