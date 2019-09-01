@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="My thoughts, tutorials and learnings" />
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="/azure-sphere-mt3620-avnet" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Xavier Geerinck - Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)" />
+    <meta property="og:description" content="Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner Avnet just released an MT3620 Azure Sphere Development Kit with a contest related to it. Project Description Title: How IoT can play a secure role in the world of Smart Retail Description: In retail the most important thing" />
+    <meta property="og:url" content="/azure-sphere-mt3620-avnet" />
+    <meta property="og:image" content="/assets/images/covers/azure-sphere.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:author" content="https://www.facebook.com/" />
+    <meta property="article:published_time" content="2019-05-19T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2019-05-19T09:00:00+00:00" />
+    <meta property="article:tag" content="Azure" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)" />
+    <meta name="twitter:description" content="Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner Avnet just released an MT3620 Azure Sphere Development Kit with a contest related to it. Project Description Title: How IoT can play a secure role in the world of Smart Retail Description: In retail the most important thing" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/covers/azure-sphere.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Azure" />
+    <meta name="twitter:site" content="@XavierGeerinck" />
+    <meta name="twitter:creator" content="@XavierGeerinck" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xavier Geerinck - Blog",
+        "logo": "/false"
+    },
+    "url": "/azure-sphere-mt3620-avnet",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/covers/azure-sphere.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/azure-sphere-mt3620-avnet"
+    },
+    "description": "Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner Avnet just released an MT3620 Azure Sphere Development Kit with a contest related to it. Project Description Title: How IoT can play a secure role in the world of Smart Retail Description: In retail the most important thing"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)" href="/feed.xml" />
+
+
+
+    <!-- Enable MathJAX for LaTeX equations -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-about" role="menuitem"><a href="/projects">Projects</a></li>
+    <li class="nav-about" role="menuitem"><a href="/demos">Demos</a></li>
+    <li class="nav-about" role="menuitem"><a href="/categories">Categories</a></li>
+</ul>
+
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="19 May 2019">19 May 2019</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/azure/'>AZURE</a>,
+                            
+                        
+                            
+                               <a href='/tag/coding-c/'>CODING-C</a>
+                            
+                        
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/azure-sphere.png)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                        <h1 class="post-full-title">An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</h1>
+                    <h1 id="smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner">Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner</h1>
+
+<p>Avnet just released an <a href="https://www.avnet.com/shop/us/products/avnet-engineering-services/aes-ms-mt3620-sk-g-3074457345636825680/">MT3620 Azure Sphere Development Kit</a> with a <a href="https://www.element14.com/community/community/designcenter/azure-sphere-starter-kits?ICID=azuresphere-sensingWorldCH-doc">contest</a> related to it.</p>
+
+<h2 id="project-description">Project Description</h2>
+
+<p><strong>Title:</strong> How IoT can play a secure role in the world of Smart Retail</p>
+
+<p><strong>Description:</strong> In retail the most important thing while walking through the store is the labels displaying the price of an item. With this project I want to display how you can utilize small form factor devices to dynamically update these prices from cloud to edge. I want to demonstrate this through an LCD display that displays the item name and price. Once we then hold and RFID tag in front of an RFID Scanner it will pull the information from its local database. When we then perform a Twin Update, we will change this local database information and re-scan the tag to demonstrate this. With this we want to demonstrate the following technolgies: IoT Twins, Azure IoT Hub, IoT Edge, RFID Scanner, OLED Screens, SPI connection and I2C connection.</p>
+
+<p>Breaking this up into bullet points, we will thus perform the following actions:</p>
+
+<ul>
+  <li>Connect an OLED screen</li>
+  <li>Connect an RFID Scanner</li>
+  <li>Fetch information from a specific rfid tag and fetch product information from the local database</li>
+  <li>Adapt the information of the local database, re-scan the rfid token and show the updated information on the OLED screen</li>
+</ul>
+
+<h2 id="hardware">Hardware</h2>
+
+<h3 id="avnet-mt3620">Avnet MT3620</h3>
+
+<p>So we talked about the contest, but how does our device actually look like? Well when I received it, it looked like this fresh out of the box:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/device-1.jpg" alt="/assets/images/posts/azure-sphere-avnet/device-1.jpg" />
+<img src="/assets/images/posts/azure-sphere-avnet/device-2.jpg" alt="/assets/images/posts/azure-sphere-avnet/device-2.jpg" />
+<img src="/assets/images/posts/azure-sphere-avnet/device-3.jpg" alt="/assets/images/posts/azure-sphere-avnet/device-3.jpg" />
+<img src="/assets/images/posts/azure-sphere-avnet/device-4.jpg" alt="/assets/images/posts/azure-sphere-avnet/device-4.jpg" /></p>
+
+<h3 id="rfid-scanner">RFID Scanner</h3>
+
+<p>We will be utilizing a <a href="https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf">Mifare RC522 Module RFID Reader</a> as an RFID reader.</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/hardware-rfid-scanner.jpg" alt="/assets/images/posts/azure-sphere-avnet/hardware-rfid-scanner.jpg" /></p>
+
+<h3 id="oled-screen">OLED Screen</h3>
+
+<p>For our OLED screen I bought an <a href="https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf">IZOKEE 0.96” I2C IIC SPI Serial 128x64 px display</a></p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/hardware-lcd-screen.jpg" alt="/assets/images/posts/azure-sphere-avnet/hardware-lcd-screen.jpg" /></p>
+
+<h2 id="basic-concepts---connecting-hardware">Basic Concepts - Connecting Hardware</h2>
+
+<p>Before we go on and connect our hardware, we should first understand some basic concepts of how hardware gets connected. This is since we want a microcontroller to communicate with small peripheral ICs such as Sensors, ADCs, DACs, …</p>
+
+<h3 id="serial-peripheral-interface-spi">Serial Peripheral Interface (SPI)</h3>
+
+<p>One of these interfaces is a <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface">Serial Peripheral Interface (SPI)</a>. This is a “synchronous” bus where data is being sent over between a ‘master’ and a ‘slave’ and is kept in sync on both sides through the use of a “clock”. This interface has 4 logic signals:</p>
+
+<ul>
+  <li><strong>SCLK:</strong> Serial Clock (often called <strong>SCK</strong>)
+    <ul>
+      <li>Is used to keep both sides in sync, the master generates this.</li>
+    </ul>
+  </li>
+  <li><strong>MOSI:</strong> Master Output Slave Input (often called <strong>SDO on master</strong>)
+    <ul>
+      <li>Data being sent from Master -&gt; Slave goes over this data line</li>
+    </ul>
+  </li>
+  <li><strong>MISO:</strong> Master Input Slave Output (often called <strong>SDI on master</strong>)
+    <ul>
+      <li>Data being sent from Slave -&gt; Master goes over this data line</li>
+    </ul>
+  </li>
+  <li><strong>SS:</strong> Slave Select (often called <strong>CS</strong>)
+    <ul>
+      <li>Select the correct slave and wake it up</li>
+      <li>Note: if high, then no slave is active -&gt; active-low configuration</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To make this more clearer, here is a <a href="https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all">diagram</a> to illustrate this:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/spi.png" alt="/assets/images/posts/azure-sphere-avnet/spi.png" /></p>
+
+<p>How will SPI send data now? Here a short overview:</p>
+
+<ol>
+  <li>The master sets SCLK (our clock)</li>
+  <li>The master selects the slave device (SS) with a logic level 0 on the select line</li>
+  <li>During each SPI clock cycle:
+    <ul>
+      <li>Master sends a bit on the MOSI line and slave reads it</li>
+      <li>Slave sends a bit on the MISO line and the master reads it</li>
+    </ul>
+  </li>
+</ol>
+
+<p>For our <strong>DevKit device</strong>, we can find the following about SPI in the <a href="https://www.element14.com/community/docs/DOC-92359/l/azure-sphere-starter-kit-user-guide-v14?ICID=azuresphere-kit-datasheet-widget">datasheet</a> on page 11 and 19.</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/diagram.png" alt="/assets/images/posts/azure-sphere-avnet/diagram.png" /></p>
+
+<p><strong>Click Socket #1:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Click1 Pin</th>
+      <th>Module Signal Name</th>
+      <th>Click1 Pin</th>
+      <th>Module Signal Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AN</td>
+      <td>GPIO42_ADC1</td>
+      <td>PWM</td>
+      <td>GPIO0_PWM0</td>
+    </tr>
+    <tr>
+      <td>RST</td>
+      <td>GPIO16</td>
+      <td>INT</td>
+      <td>GPIO2_PWM2</td>
+    </tr>
+    <tr>
+      <td>CS</td>
+      <td>GPIO34_CSA1_CTS1</td>
+      <td>RX</td>
+      <td>GPIO28_MISO0_RXD0_SDA0</td>
+    </tr>
+    <tr>
+      <td>SCK</td>
+      <td>GPIO31_SCLK1_TX1</td>
+      <td>TX</td>
+      <td>GPIO26_SCLK0_TXD0</td>
+    </tr>
+    <tr>
+      <td>MISO</td>
+      <td>GPIO33_MISO1_RX1_DATA1</td>
+      <td>SCL</td>
+      <td>GPIO37_MOSI2_RTS2_SCL2</td>
+    </tr>
+    <tr>
+      <td>MOSI</td>
+      <td>GPIO32_MOSI1_RTS1_CLK1</td>
+      <td>SDA</td>
+      <td>GPIO38_MISO2_RXD2_SDA2</td>
+    </tr>
+    <tr>
+      <td>+3.3V</td>
+      <td>3V3</td>
+      <td>+5V</td>
+      <td>5V</td>
+    </tr>
+    <tr>
+      <td>GND</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>GND</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Click Socket #2:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Click2 Pin</th>
+      <th>Module Signal Name</th>
+      <th>Click2 Pin</th>
+      <th>Module Signal Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AN</td>
+      <td>GPIO43_ADC2</td>
+      <td>PWM</td>
+      <td>GPIO1_PWM1</td>
+    </tr>
+    <tr>
+      <td>RST</td>
+      <td>GPIO17</td>
+      <td>INT</td>
+      <td>GPIO2_PWM2</td>
+    </tr>
+    <tr>
+      <td>CS</td>
+      <td>GPIO35_CSB0</td>
+      <td>RX</td>
+      <td>GPIO28_MISO0_RXD0_SDA0</td>
+    </tr>
+    <tr>
+      <td>SCK</td>
+      <td>GPIO31_SCLK1_TX1</td>
+      <td>TX</td>
+      <td>GPIO26_SCLK0_TXD0</td>
+    </tr>
+    <tr>
+      <td>MISO</td>
+      <td>GPIO33_MISO1_RX1_DATA1</td>
+      <td>SCL</td>
+      <td>GPIO37_MOSI2_RTS2_SCL2</td>
+    </tr>
+    <tr>
+      <td>MOSI</td>
+      <td>GPIO32_MOSI1_RTS1_CLK1</td>
+      <td>SDA</td>
+      <td>GPIO38_MISO2_RXD2_SDA2</td>
+    </tr>
+    <tr>
+      <td>+3.3V</td>
+      <td>3V3</td>
+      <td>+5V</td>
+      <td>5V</td>
+    </tr>
+    <tr>
+      <td>GND</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>GND</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="connecting-azure-sphere-and-our-hardware">Connecting Azure Sphere and our Hardware</h2>
+
+<h3 id="activate-network-and-claim-the-device">Activate network and Claim the device</h3>
+
+<p>First off when we receive a new Azure Sphere device is to <a href="https://docs.microsoft.com/en-us/azure-sphere/install/configure-wifi">activate its network</a> and <a href="https://docs.microsoft.com/en-us/azure-sphere/install/claim-device">claim it</a>.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Special at Azure Sphere is that these devices always have a radio built in, enabling network connectivity.</p>
+</blockquote>
+
+<h4 id="activating-network">Activating Network</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Show the status of the WiFi connection</span>
+azsphere device wifi show-status
+
+<span class="c"># Connect the device to WiFi</span>
+azsphere device wifi add <span class="nt">--ssid</span> &lt;yourSSID&gt; <span class="nt">--key</span> &lt;yourKey&gt;
+</code></pre></div></div>
+
+<h4 id="claiming-the-device">Claiming the device</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Login to Azure and see the tenants</span>
+azsphere login
+
+<span class="c"># Select the tenant (XavierAzureSphereTenant)</span>
+azsphere tenant <span class="k">select</span> <span class="nt">-i</span> aca3da0d-5493-45e6-aea2-85c47962770d
+
+<span class="c"># Claim the device</span>
+azsphere device claim
+</code></pre></div></div>
+
+<h3 id="enabling-debugging-on-our-azure-sphere">Enabling debugging on our Azure Sphere</h3>
+
+<p>Before we can now get started and deploy code on our Azure Sphere, we have to configure it so it allows sideloading. For that just execute the command <code class="highlighter-rouge">azsphere device prep-debug</code> which will configure the device and reboot it so we are ready to go!</p>
+
+<h3 id="connecting-the-rfid-scanner">Connecting the RFID Scanner</h3>
+
+<p>Since we learned what the SPI interface is, we can now connect our RFID scanner. For that just connect the corresponding pins on the RFID scanner with the ones on our devkit as shown here. For this we look at the SPI details in the <a href="https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf">datasheet</a> on page 9. Here we find the following:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PIN</th>
+      <th>UART(input)</th>
+      <th>SPI (output)</th>
+      <th>I2C-bus (I/O)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SDA</td>
+      <td>RX</td>
+      <td>NSS</td>
+      <td>SDA</td>
+    </tr>
+    <tr>
+      <td>I2C</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>EA</td>
+      <td>0</td>
+      <td>1</td>
+      <td>EA</td>
+    </tr>
+    <tr>
+      <td>D7</td>
+      <td>TX</td>
+      <td>MISO</td>
+      <td>SCL</td>
+    </tr>
+    <tr>
+      <td>D6</td>
+      <td>MX</td>
+      <td>MOSI</td>
+      <td>ADR_0</td>
+    </tr>
+    <tr>
+      <td>D5</td>
+      <td>DTRQ</td>
+      <td>SCK</td>
+      <td>ADR_1</td>
+    </tr>
+    <tr>
+      <td>D4</td>
+      <td>-</td>
+      <td>-</td>
+      <td>ADR_2</td>
+    </tr>
+    <tr>
+      <td>D3</td>
+      <td>-</td>
+      <td>-</td>
+      <td>ADR_3</td>
+    </tr>
+    <tr>
+      <td>D2</td>
+      <td>-</td>
+      <td>-</td>
+      <td>ADR_4</td>
+    </tr>
+    <tr>
+      <td>D1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>ADR_5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Where we see that for SPI we need to utilize <strong>NSS, MISO, MOSI, SCK</strong> on our development board, which refer to <strong>SDA, MISO, MOSI, SCK</strong> on the RFID scanner.</p>
+
+<p>Once connected, we will have this:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/hardware-connected-rfid-1.jpg" alt="/assets/images/posts/azure-sphere-avnet/hardware-connected-rfid-1.jpg" /></p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/hardware-connected-rfid-2.jpg" alt="/assets/images/posts/azure-sphere-avnet/hardware-connected-rfid-2.jpg" /></p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/hardware-connected-rfid-3.jpg" alt="/assets/images/posts/azure-sphere-avnet/hardware-connected-rfid-3.jpg" /></p>
+
+<p>Drawing this out, we will get:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>RFID</th>
+      <th>DEVICE</th>
+      <th>COLOR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SDA</td>
+      <td>CS</td>
+      <td>GREEN</td>
+    </tr>
+    <tr>
+      <td>SCK</td>
+      <td>SCK</td>
+      <td>PURPLE</td>
+    </tr>
+    <tr>
+      <td>MOSI</td>
+      <td>SDO</td>
+      <td>GREY</td>
+    </tr>
+    <tr>
+      <td>MISO</td>
+      <td>SDI</td>
+      <td>WHITE</td>
+    </tr>
+    <tr>
+      <td>RQ</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>GND</td>
+      <td>GND</td>
+      <td>BLACK</td>
+    </tr>
+    <tr>
+      <td>RST</td>
+      <td>RST</td>
+      <td>YELLOW</td>
+    </tr>
+    <tr>
+      <td>3.3V</td>
+      <td>3V3</td>
+      <td>BLUE</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="connecting-the-oled-screen">Connecting the OLED screen</h3>
+
+<p>The OLED screen is quite straightforward for our project, seeing that it’s the one as shown on page 22 in the datasheet. It has the following pin connectors:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Grove Pin #</th>
+      <th>Signal Name</th>
+      <th>Signal Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>GND</td>
+      <td>GND</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>3V3</td>
+      <td>3V3</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>SCL</td>
+      <td>GPIO37_MOSI2_RTS2_SCL2</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>SDA</td>
+      <td>GPIO38_MISO2_RXD2_SDA2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/hardware-connected-lcd.jpg" alt="/assets/images/posts/azure-sphere-avnet/hardware-connected-lcd.jpg" /></p>
+
+<h2 id="azure">Azure</h2>
+
+<p>To be able to connect our device and control it, we will work with Azure. In Azure we always start off with creating a <strong>resource group</strong> when we want to test something.</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-resource-group.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-resource-group.png" /></p>
+
+<h3 id="azure-iot-hub">Azure IoT Hub</h3>
+
+<p>Connecting devices to cloud is done through IoT Hub, this is a service that allows us to manage our devices as well as receive / send data from / to them. For our demonstration we will choose the S1 tier.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> the F1 tier will also be sufficient but has a smaller limit of messages / day</p>
+</blockquote>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-iothub.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-iothub.png" /></p>
+
+<h3 id="azure-device-provisioning">Azure Device Provisioning</h3>
+
+<p>Now we have an IoT Hub and an IoT Edge device, how do we actually connect this device to IoT Hub? One way would be to go through the portal and create our device manually. This is however not something we want to do seeing the manual work involved, wouldn’t it be better if we could let our device handle all of this automatically?</p>
+
+<p>For that we have the <a href="https://docs.microsoft.com/en-us/azure/iot-dps/about-iot-dps"><strong>Azure Device Provisioning Service</strong></a>, which will  automatically provision our IoT device once it gets connected to the IoT Hub (this through a Enrollment list, but more later on that).</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps.png" /></p>
+
+<p>Once our Device Provisioning Service (DPS) has been set up, we can link our IoT Hub to it:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps-link-iothub.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps-link-iothub.png" /></p>
+
+<p>The last thing we now have to do is add our device to the enrollment list, here we have the choice to add our devices through Certificates our symmetric keys. Seeing the nature of IoT Edge devices and that we want to let them be as secure as possible, we will thus utilize a Certificate for this. First we will get our device its CA certificate by running the command <code class="highlighter-rouge">azsphere tenant download-CA-certificate -output MyAzureSphereCACertificate.cer</code>, whereafter we will add it to our DPS service and create an enrollment for it. See the pictures below on how this will look:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps-device-get-ca-certificate.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps-device-get-ca-certificate.png" />
+<img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps-add-certificate.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps-add-certificate.png" /></p>
+
+<p>Now since we uploaded a certificate <strong>we need to verify that it’s the correct certificate</strong>, for this get the code on the detail pane and verify it with <code class="highlighter-rouge">azsphere tenant download-validation-certificate --output MyAzureSphereVerificationCertificate.cer --verificationcode &lt;code&gt;</code>. Whereafter we upload this to the portal.</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps-verify-certificate.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps-verify-certificate.png" /></p>
+
+<p>Last but not least we are now able to create an Enrollment Group where this device will be part of.</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps-enrollment-group.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps-enrollment-group.png" /></p>
+
+<p>Now when our device connects, it will be automatically added.</p>
+
+<h2 id="coding-our-project">Coding our Project</h2>
+
+<p>Before we start coding, important to note is as well that the Azure Sphere SDK includes a set of Application Libraries (AppLibs) that make it easy for us to develop an Azure Sphere applications. For more information, check the <a href="https://docs.microsoft.com/en-us/azure-sphere/reference/applibs-reference/api-overview">Azure Documentation</a></p>
+
+<h3 id="code-setup">Code Setup</h3>
+
+<p>Now, since we connected our hardware, let’s get started with coding our project. For that start off with creating a solution in Visual Studio as follows:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/project-create-1.png" alt="/assets/images/posts/azure-sphere-avnet/project-create-1.png" /></p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/project-create-2.png" alt="/assets/images/posts/azure-sphere-avnet/project-create-2.png" /></p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/project-create-3.png" alt="/assets/images/posts/azure-sphere-avnet/project-create-3.png" /></p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/project-create-4.png" alt="/assets/images/posts/azure-sphere-avnet/project-create-4.png" /></p>
+
+<p>Since we now have a project, we now want to correct some properties:</p>
+
+<ol>
+  <li>Change the SDK to the BETA version. For this, follow <a href="https://docs.microsoft.com/en-us/azure-sphere/app-development/use-beta">this guide</a> and select the “2+Beta1905” version.</li>
+  <li>We want to set the correct Hardware Target reference to be utilized in our app manifest. For this, we will copy over the <a href="https://github.com/Azure/azure-sphere-samples/tree/master/Hardware">Hardware folder from the Azure Sphere Samples</a> to our project root (where our solution is sitting) as shown <a href="https://docs.microsoft.com/en-us/azure-sphere/app-development/manage-hardware-dependencies">here</a>.</li>
+  <li>We want to access easy pin definitions as defined in step 2. For that, find the respective header files in the Hardware folder from step 2 and include them into your project. (for our Avnet development board, we thus have to include <a href="https://raw.githubusercontent.com/Azure/azure-sphere-samples/master/Hardware/mt3620/inc/hw/mt3620.h"><code class="highlighter-rouge">mt3620.h</code></a>, <a href="https://raw.githubusercontent.com/Azure/azure-sphere-samples/blob/master/Hardware/avnet_aesms_mt3620/inc/hw/avnet_aesms_mt3620.h"><code class="highlighter-rouge">avnet_mt3620_aesms.h</code></a> and <a href="https://github.com/Azure/azure-sphere-samples/blob/master/Hardware/avnet_mt3620_sk/inc/hw/avnet_mt3620_sk.h"><code class="highlighter-rouge">avnet_mt3620_sk.h</code></a>).</li>
+</ol>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/target-hardware.png" alt="/assets/images/posts/azure-sphere-avnet/target-hardware.png" /></p>
+
+<h3 id="hello-world---oled-screen">Hello World - OLED Screen</h3>
+
+<p>The easiest code samples always start with a Hello World sample, so let’s create one for the OLED display.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Seeing that the scope of this post is to actually make a fully E2E working project, we are going to skip through this quite quickly, but feel free to find the source code in the <a href="https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project">GitHub repository</a>.</p>
+</blockquote>
+
+<p>Luckily for us, Avnet already used this type of OLED screen and working source code is <a href="https://github.com/CloudConnectKits/Azure_Sphere_SK_ADC_RTApp/tree/master/AvnetAzureSphereSK_OLED/AvnetStarterKitReferenceDesign">available</a>. Therefor we copy the following files:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">oled.h</code></li>
+  <li><code class="highlighter-rouge">oled.c</code></li>
+  <li><code class="highlighter-rouge">sd1306.h</code></li>
+  <li><code class="highlighter-rouge">sd1306.c</code></li>
+  <li><code class="highlighter-rouge">font.h</code></li>
+</ul>
+
+<p>We then change some parts to let it suit or needs (as well as strip unneeded code that access the accelerometer and other sensors) and add this in our <strong>main.c</strong> code:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// OUR IMPORTS</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+	<span class="c1">// Start the OLED Screen</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">oled_init</span><span class="p">())</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"OLED not found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"OLED found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Clear the buffer</span>
+	<span class="n">oled_buffer_clear</span><span class="p">();</span>
+
+	<span class="c1">// Draw the strings</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"Test"</span><span class="p">,</span> <span class="n">FONT_SIZE_TITLE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_1_X</span><span class="p">,</span> <span class="n">OLED_LINE_1_Y</span><span class="p">,</span> <span class="s">"Hello World"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_2_X</span><span class="p">,</span> <span class="n">OLED_LINE_2_Y</span><span class="p">,</span> <span class="s">"Hello World"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_3_X</span><span class="p">,</span> <span class="n">OLED_LINE_3_Y</span><span class="p">,</span> <span class="s">"Hello World"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_4_X</span><span class="p">,</span> <span class="n">OLED_LINE_4_Y</span><span class="p">,</span> <span class="s">"Hello World"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+
+	<span class="c1">// Send the buffer to OLED RAM</span>
+	<span class="n">sd1306_refresh</span><span class="p">();</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can now see Hello World being printed on the screen:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/demo-lcd-hello-world.jpg" alt="/assets/images/posts/azure-sphere-avnet/demo-lcd-hello-world.jpg" /></p>
+
+<h3 id="hello-world---rfid-scanner">Hello World - RFID Scanner</h3>
+
+<p>As a Hello World for our RFID scanner, we will be reading the version of our RFID scanner.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> this is not an easy feat since there is no library in existance for the RFID scanner that works with the Azure Sphere chipset</p>
+</blockquote>
+
+<p>For this we will rework <a href="https://github.com/asif-mahmud/MIFARE-RFID-with-AVR/blob/master/lib/avr-rfid-library/lib/mfrc522.c">this library</a> and bake in our chip support through the <a href="https://docs.microsoft.com/en-us/azure-sphere/reference/applibs-reference/applibs-spi/spi-overview">SPI applibs </a>.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Seeing that the scope of this post is to actually make a fully E2E working project, we are going to skip through this quite quickly, but feel free to find the source code in the <a href="https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project">GitHub repository</a>.</p>
+</blockquote>
+
+<p>In short, we will adapt the read and write methods to utilize our Azure Sphere SPI interface so that they look like this:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">mfrc522_write</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">reg</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">const</span> <span class="kt">size_t</span> <span class="n">transferCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="n">SPIMaster_Transfer</span> <span class="n">transfer</span><span class="p">;</span>
+
+	<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">SPIMaster_InitTransfers</span><span class="p">(</span><span class="o">&amp;</span><span class="n">transfer</span><span class="p">,</span> <span class="n">transferCount</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">//const uint8_t command[] = { (reg &lt;&lt; 1) &amp; 0x7E, data };</span>
+	<span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">command</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="n">reg</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7E</span><span class="p">,</span> <span class="n">data</span> <span class="p">};</span>
+	<span class="n">transfer</span><span class="p">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">SPI_TransferFlags_Write</span><span class="p">;</span>
+	<span class="n">transfer</span><span class="p">.</span><span class="n">writeData</span> <span class="o">=</span> <span class="n">command</span><span class="p">;</span>
+	<span class="n">transfer</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>
+
+	<span class="kt">ssize_t</span> <span class="n">transferredBytes</span> <span class="o">=</span> <span class="n">SPIMaster_TransferSequential</span><span class="p">(</span><span class="n">spiFd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">transfer</span><span class="p">,</span> <span class="n">transferCount</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CheckTransferSize</span><span class="p">(</span><span class="s">"SPIMaster_TransferSequential (CTRL3_C)"</span><span class="p">,</span> <span class="n">transfer</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="n">transferredBytes</span><span class="p">))</span> <span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Transfer size is not correct"</span><span class="p">);</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">uint8_t</span> <span class="nf">mfrc522_read</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">reg</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">uint8_t</span> <span class="n">readDataResult</span><span class="p">;</span>
+	<span class="c1">//uint8_t readCmd = ((reg &lt;&lt; 1) &amp; 0x7E) | 0x80; // Set bit 7 indicating it's a read command -&gt; 0x80</span>
+	<span class="kt">uint8_t</span> <span class="n">readCmd</span> <span class="o">=</span> <span class="p">((</span><span class="n">reg</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7E</span> <span class="o">|</span> <span class="mh">0x80</span><span class="p">);</span> <span class="c1">// Set bit 7 indicating it's a read command -&gt; 0x80</span>
+	<span class="kt">ssize_t</span> <span class="n">transferredBytes</span> <span class="o">=</span> <span class="n">SPIMaster_WriteThenRead</span><span class="p">(</span><span class="n">spiFd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">readCmd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">readCmd</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">readDataResult</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">readDataResult</span><span class="p">));</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CheckTransferSize</span><span class="p">(</span><span class="s">"SPIMaster_WriteThenRead (CTRL3_C)"</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">readCmd</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">readDataResult</span><span class="p">),</span> <span class="n">transferredBytes</span><span class="p">))</span> <span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Transfer size is not correct"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"INFO: READ=0x%02x (SPIMaster_WriteThenRead)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">readDataResult</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="n">readDataResult</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can then adapt our <strong>main.c</strong> code to initialize the RFC library and start reading the version:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// INCLUDES</span>
+
+<span class="kt">void</span> <span class="nf">delay</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">sleep</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"IPC RFID RC522 Application Starting</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+	<span class="c1">// Start the RFID Scanner</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">mfrc522_init</span><span class="p">())</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"RFID Scanner not found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"RFID Scanner found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Look for a card</span>
+	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Trying to get version</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="c1">// Check version of the reader</span>
+		<span class="c1">// Can be 0x91 for 1.0 or 0x92 for 2.0 -&gt; https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf (p66 - VersionReg register)</span>
+		<span class="kt">uint8_t</span> <span class="n">byte</span> <span class="o">=</span> <span class="n">mfrc522_read</span><span class="p">(</span><span class="n">VersionReg</span><span class="p">);</span>
+
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Detected version %d (Hex: %x)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">byte</span><span class="p">,</span> <span class="n">byte</span><span class="p">);</span>
+
+		<span class="n">delay</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="hello-world---azure">Hello World - Azure</h3>
+
+<p>For our Azure connectivity we want to do something very basic, here we just want to demonstrate:</p>
+<ul>
+  <li>Sending data to cloud</li>
+  <li>Receiving data from cloud</li>
+</ul>
+
+<p>Therefor we will create an application that is going to send the status of the green LED light every 10 seconds and we will utilize a Device Twin to change the status of this LED.</p>
+
+<h4 id="configuring-our-app-manifest">Configuring our App Manifest</h4>
+
+<p>The first thing we will do is to configure our <code class="highlighter-rouge">app_manifest.json</code>:</p>
+
+<ol>
+  <li>Add the Device Provisioning Service Scope ID to the <code class="highlighter-rouge">CmdArgs</code> block (e.g. <code class="highlighter-rouge">"CmdArgs: [ "&lt;YourScopeID&gt;" ]</code>)</li>
+  <li>Add the tenant id to the <code class="highlighter-rouge">DeviceAuthentication</code> key (e.g. <code class="highlighter-rouge">"DeviceAuthentication": "00000000-0000-0000-0000-000000000000"</code>)</li>
+  <li>Set the <code class="highlighter-rouge">AllowedConnections</code> key to allow the device provisioning service and your IoTHub connection string (e.g. <code class="highlighter-rouge">"AllowedConnections": [ "global.azure-devices-provisioning.net", "MyAzureSphereIoTHub.azure-devices.net" ]</code>)</li>
+  <li>Seeing that we will let the GREEN LED blink, we need to enable Gpio pin 9 (e.g. <code class="highlighter-rouge">"Gpio": [ 9 ]</code>)</li>
+</ol>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/azure-create-dps-id-scope.png" alt="/assets/images/posts/azure-sphere-avnet/azure-create-dps-id-scope.png" />
+<img src="/assets/images/posts/azure-sphere-avnet/azsphere-tenant-show-selected.png" alt="/assets/images/posts/azure-sphere-avnet/azsphere-tenant-show-selected.png" /></p>
+
+<h4 id="writing-our-code">Writing our Code</h4>
+
+<p>First we configure our project by opening the <code class="highlighter-rouge">.vcxproj</code> in a text editor and adding the following in the <code class="highlighter-rouge">&lt;Link&gt;</code> tags:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;AdditionalLibraryDirectories</span> <span class="na">Condition=</span><span class="s">"'$(Configuration)|$(Platform)'=='Debug|ARM'"</span><span class="nt">&gt;</span> .\azureiot\lib;%(AdditionalLibraryDirectories)<span class="nt">&lt;/AdditionalLibraryDirectories&gt;</span>
+<span class="nt">&lt;AdditionalDependencies</span> <span class="na">Condition=</span><span class="s">"'$(Configuration)|$(Platform)'=='Debug|ARM'"</span><span class="nt">&gt;</span>-lm;-lazureiot;%(AdditionalDependencies)<span class="nt">&lt;/AdditionalDependencies&gt;</span>
+<span class="nt">&lt;AdditionalLibraryDirectories</span> <span class="na">Condition=</span><span class="s">"'$(Configuration)|$(Platform)'=='Release|ARM'"</span><span class="nt">&gt;</span> .\azureiot\lib;%(AdditionalLibraryDirectories)<span class="nt">&lt;/AdditionalLibraryDirectories&gt;</span>
+<span class="nt">&lt;AdditionalDependencies</span> <span class="na">Condition=</span><span class="s">"'$(Configuration)|$(Platform)'=='Release|ARM'"</span><span class="nt">&gt;</span>-lm;-lazureiot;%(AdditionalDependencies)<span class="nt">&lt;/AdditionalDependencies&gt;</span>
+</code></pre></div></div>
+
+<p>Making it look like this:</p>
+
+<p><img src="/assets/images/posts/azure-sphere-avnet/vstudio-extra-link-dependencies.png" alt="/assets/images/posts/azure-sphere-avnet/vstudio-extra-link-dependencies.png" /></p>
+
+<p>Luckily for us, the <code class="highlighter-rouge">azureiot</code> files are included through the Azure Sphere SDK installation (typically in <code class="highlighter-rouge">C:\Program Files (x86)\Microsoft Azure Sphere SDK\Sysroots\2+Beta1905\usr\include\azureiot\</code>), so we can have the following includes defined:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Azure IoT SDK</span>
+<span class="cp">#include &lt;azureiot/iothub_client_core_common.h&gt;
+#include &lt;azureiot/iothub_device_client_ll.h&gt;
+#include &lt;azureiot/iothub_client_options.h&gt;
+#include &lt;azureiot/iothubtransportmqtt.h&gt;
+#include &lt;azureiot/iothub.h&gt;
+#include &lt;azureiot/azure_sphere_provisioning.h&gt;
+</span></code></pre></div></div>
+
+<p>For the rest of our code, we will be utilizing one of the <a href="https://github.com/Azure/azure-sphere-samples/tree/master/Samples/AzureIoT/AzureIoT">Azure Sphere examples</a> that we adapt to only include the LED light and Twin functionality. When we then run this, we see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remote debugging from host 192.168.35.1
+Application Starting
+Setting Azure Scope ID 0ne000777D8
+Opening GREEN LED as output
+<span class="o">[</span>Azure IoT] Using HSM cert at /run/daa/aca3da0d-5493-45e6-aea2-85c47962770d
+<span class="o">[</span>IoTHub][INFO] IoTHubDeviceClient_LL_CreateWithAzureSphereDeviceAuthProvisioning returned <span class="s1">'AZURE_SPHERE_PROV_RESULT_OK'</span><span class="nb">.</span>
+<span class="o">[</span>IoTHub][INFO] Configuring Device Twin Callback and Connection Status Callback
+<span class="o">[</span>IoTHub][INFO] Sending IoT Hub Message: <span class="o">{</span> <span class="s2">"Test"</span>: <span class="s2">"Hello World"</span> <span class="o">}</span>
+<span class="o">[</span>IoTHub][INFO] IoTHubClient accepted the message <span class="k">for </span>delivery
+<span class="o">[</span>IoTHub][INFO] Received IoT Twin Update from IoT Hub
+<span class="o">[</span>IoTHub][INFO] Changing Status LED to <span class="nb">true</span>
+<span class="o">[</span>IoTHub][INFO] Reported state <span class="k">for</span> <span class="s1">'MyGreenLED'</span> to value <span class="s1">'true'</span><span class="nb">.</span>
+<span class="o">[</span>IoTHub][INFO] Sending IoT Hub Message: <span class="o">{</span> <span class="s2">"Test"</span>: <span class="s2">"Hello World"</span> <span class="o">}</span>
+<span class="o">[</span>IoTHub][INFO] IoTHubClient accepted the message <span class="k">for </span>delivery
+<span class="o">[</span>IoTHub][INFO] Message received by IoT Hub. Result is: 0
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Note:</strong> Initially I got <code class="highlighter-rouge">IOTHUB_CLIENT_CONNECTION_NO_NETWORK</code>, which was because I forgot to configure my IoT Hub endpoint in the <code class="highlighter-rouge">app_manifest.json</code> file under <code class="highlighter-rouge">"AllowedConnections"</code>.</p>
+</blockquote>
+
+<p>For the full code, please see the <a href="https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project">GitHub repository</a>.</p>
+
+<h3 id="rfid-scanner--oled-screen-for-serial-reading">RFID Scanner + OLED Screen for Serial Reading</h3>
+
+<p>The next step we will now do before connecting it all to cloud is to be able to read the tags from our RFID Tags and display their serial number. Seeing the 2 hello world examples this should be trivial to do now. Therefor we copy everything from the 2 hello world projects into 1 project and use the following <strong>main.c</strong> file that will display some information in-between and will read and display the serial every time the tag is presented.</p>
+
+<p><strong>main.c</strong></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// INCLUDES...</span>
+
+<span class="c1">// DECLARE FUNCTIONS...</span>
+
+<span class="kt">void</span> <span class="nf">delay</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">sleep</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">uint8_t</span> <span class="nf">InitPeripherals</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"[OLED] Initializing</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">oled_init</span><span class="p">())</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"OLED not found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"OLED found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"[MFRC522] Initializing</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">mfrc522_init</span><span class="p">())</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"RFID Scanner not found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"RFID Scanner found!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">InitPeripherals</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Error, exiting!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">oled_template_waiting_for_rfc</span><span class="p">();</span>
+
+	<span class="c1">// Get Card Version</span>
+	<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Trying to get version</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span> <span class="c1">// 0x91 = 1.0, 0x92 = 0.2 -&gt; https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf (p66 - VersionReg register)</span>
+	<span class="kt">uint8_t</span> <span class="n">readerVersion</span> <span class="o">=</span> <span class="n">mfrc522_read</span><span class="p">(</span><span class="n">VersionReg</span><span class="p">);</span>
+
+	<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"Detected version %d (Hex: %x)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">readerVersion</span><span class="p">,</span> <span class="n">readerVersion</span><span class="p">);</span>
+	<span class="n">oled_template_waiting_for_rfc_with_version</span><span class="p">(</span><span class="n">readerVersion</span><span class="p">);</span>
+
+	<span class="c1">// Prepare for reading tags</span>
+	<span class="kt">uint8_t</span> <span class="n">byte</span><span class="p">;</span>
+	<span class="n">byte</span> <span class="o">=</span> <span class="n">mfrc522_read</span><span class="p">(</span><span class="n">ComIEnReg</span><span class="p">);</span>
+	<span class="n">mfrc522_write</span><span class="p">(</span><span class="n">ComIEnReg</span><span class="p">,</span> <span class="n">byte</span> <span class="o">|</span> <span class="mh">0x20</span><span class="p">);</span>
+	<span class="n">byte</span> <span class="o">=</span> <span class="n">mfrc522_read</span><span class="p">(</span><span class="n">DivIEnReg</span><span class="p">);</span>
+	<span class="n">mfrc522_write</span><span class="p">(</span><span class="n">DivIEnReg</span><span class="p">,</span> <span class="n">byte</span> <span class="o">|</span> <span class="mh">0x80</span><span class="p">);</span>
+
+	<span class="n">delay</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+	<span class="c1">// Look for a card</span>
+	<span class="c1">// Commands: https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf P36</span>
+	<span class="kt">uint8_t</span> <span class="n">str</span><span class="p">[</span><span class="n">MAX_LEN</span><span class="p">];</span>
+
+	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">byte</span> <span class="o">=</span> <span class="n">mfrc522_request</span><span class="p">(</span><span class="n">PICC_REQALL</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span> <span class="c1">// Find all the cards antenna area</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">byte</span> <span class="o">==</span> <span class="n">CARD_FOUND</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"[MFRC522] Found a card: %x</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">byte</span><span class="p">);</span>
+
+			<span class="n">byte</span> <span class="o">=</span> <span class="n">mfrc522_get_card_serial</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+
+			<span class="k">if</span> <span class="p">(</span><span class="n">byte</span> <span class="o">==</span> <span class="n">CARD_FOUND</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">for</span> <span class="p">(</span><span class="n">byte</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">byte</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">byte</span><span class="o">++</span><span class="p">)</span>
+				<span class="p">{</span>
+					<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"[MFRC522] Dumping: %x</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="n">byte</span><span class="p">]);</span>
+				<span class="p">}</span>
+
+				<span class="c1">// Convert the byte array to a string of bytes</span>
+				<span class="kt">char</span> <span class="n">hexstr</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+				<span class="n">btox</span><span class="p">(</span><span class="n">hexstr</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+				<span class="n">hexstr</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+				<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">hexstr</span><span class="p">);</span>
+				<span class="n">oled_template_show_serial</span><span class="p">(</span><span class="n">hexstr</span><span class="p">);</span>
+
+				<span class="n">delay</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+			<span class="p">}</span>
+			<span class="k">else</span>
+			<span class="p">{</span>
+				<span class="n">Log_Debug</span><span class="p">(</span><span class="s">"[MFRC522] Error while reading card</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+		<span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Todo: close SPI here</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">btox</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">xp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">bb</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">const</span> <span class="kt">char</span> <span class="n">xx</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"0123456789ABCDEF"</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">xp</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[(</span><span class="n">bb</span><span class="p">[</span><span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xF</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">oled_template_waiting_for_rfc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">// Clear the buffer</span>
+	<span class="n">oled_buffer_clear</span><span class="p">();</span>
+
+	<span class="c1">// Draw the strings</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"Information"</span><span class="p">,</span> <span class="n">FONT_SIZE_TITLE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_1_X</span><span class="p">,</span> <span class="n">OLED_LINE_1_Y</span><span class="p">,</span> <span class="s">"Waiting for tag to"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_2_X</span><span class="p">,</span> <span class="n">OLED_LINE_2_Y</span><span class="p">,</span> <span class="s">"be detected"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+
+	<span class="c1">// Send the buffer to OLED RAM</span>
+	<span class="n">sd1306_refresh</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">oled_template_waiting_for_rfc_with_version</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">version</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">// Clear the buffer</span>
+	<span class="n">oled_buffer_clear</span><span class="p">();</span>
+
+	<span class="c1">// Draw the strings</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"Information"</span><span class="p">,</span> <span class="n">FONT_SIZE_TITLE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_1_X</span><span class="p">,</span> <span class="n">OLED_LINE_1_Y</span><span class="p">,</span> <span class="s">"Waiting for tag to"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_2_X</span><span class="p">,</span> <span class="n">OLED_LINE_2_Y</span><span class="p">,</span> <span class="s">"be detected"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+
+	<span class="kt">char</span> <span class="n">versionBuffer</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+	<span class="n">sprintf</span><span class="p">(</span><span class="n">versionBuffer</span><span class="p">,</span> <span class="s">"MIFARE Version = %x"</span><span class="p">,</span> <span class="n">version</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_3_X</span><span class="p">,</span> <span class="n">OLED_LINE_3_Y</span><span class="p">,</span> <span class="n">versionBuffer</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+
+	<span class="c1">// Send the buffer to OLED RAM</span>
+	<span class="n">sd1306_refresh</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">oled_template_show_serial</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">serial</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">// Clear the buffer</span>
+	<span class="n">oled_buffer_clear</span><span class="p">();</span>
+
+	<span class="c1">// Draw the strings</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"Information"</span><span class="p">,</span> <span class="n">FONT_SIZE_TITLE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_1_X</span><span class="p">,</span> <span class="n">OLED_LINE_1_Y</span><span class="p">,</span> <span class="s">"Serial:"</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+	<span class="n">sd1306_draw_string</span><span class="p">(</span><span class="n">OLED_LINE_2_X</span><span class="p">,</span> <span class="n">OLED_LINE_2_Y</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span> <span class="n">FONT_SIZE_LINE</span><span class="p">,</span> <span class="n">white_pixel</span><span class="p">);</span>
+
+	<span class="c1">// Send the buffer to OLED RAM</span>
+	<span class="n">sd1306_refresh</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="putting-it-all-together---rfid--oled--azure">Putting it all together - RFID + OLED + Azure</h3>
+
+<p>Since we have the basic functionality done now, we want to put it all together. When we scan a RFID tag, we look in a local array for the price information and display this on screen. By utilizing Azure we will now add the functionality to update this price information through <strong>Device Twins</strong> as well as <strong>send an event to IoTHub</strong> stating our scanned tag and price identified.</p>
+
+<p>Doing this will require a few things that we will do (not displayed here for shortness reasons, see source code):</p>
+
+<ol>
+  <li>Add a custom event handler for the RFID and merge the code in there</li>
+  <li>Add OLED display methods for displaying the price</li>
+  <li>Including a <a href="https://github.com/rxi/map/blob/master/src/">MAP datastructure</a> that we can utilize to hold our price for the tags</li>
+  <li>Updating the Azure Twin so that we are able to update the price for the tags through the Device Twin (cloud to device)</li>
+</ol>
+
+<p>Once we adapted our code to incorporate this, we can then see something like this when testing (added comments for clarity)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remote debugging from host 192.168.35.1
+<span class="c"># 1. Initializing the application</span>
+<span class="o">[</span>Application][INFO] Starting
+<span class="o">[</span>Application][INFO] Setting Azure Scope ID &lt;MASKED&gt;
+<span class="o">[</span>OLED][INFO] Initializing
+<span class="o">[</span>OLED][INFO] OLED found!
+<span class="o">[</span>MFRC522][INFO] Initializing
+<span class="o">[</span>MFRC522][SPI][INFO] Initializing
+<span class="o">[</span>MFRC522][SPI][INFO] Opened SPI Interface
+<span class="o">[</span>MFRC522][SPI][INFO] BusSpeed <span class="o">=</span> 4000000
+<span class="o">[</span>MFRC522][SPI][INFO] SPIMode <span class="o">=</span> 1
+<span class="o">[</span>MFRC522][SPI][INFO] BitOrder <span class="o">=</span> SPI_BitOrder_MsbFirst
+<span class="o">[</span>MFRC522][SPI][INFO] FD Set on 4
+<span class="o">[</span>MFRC522][SPI][INFO] Initialized
+<span class="o">[</span>MFRC522][INFO] RFID Scanner found!
+<span class="o">[</span>ePoll][INFO] Initializing
+<span class="c"># 2. Detecting the scanner version</span>
+<span class="o">[</span>MFRC522][INFO] Trying to get version
+<span class="o">[</span>MFRC522][INFO] Detected version 146 <span class="o">(</span>Hex: 92<span class="o">)</span>
+<span class="o">[</span>MFRC522][INFO] Waiting <span class="k">for </span>IoTHub Connection
+<span class="c"># ...</span>
+<span class="o">[</span>MFRC522][INFO] Waiting <span class="k">for </span>IoTHub Connection
+<span class="c"># 3. Configuring our IoT Hub Connection</span>
+<span class="o">[</span>Azure IoT] Using HSM cert at /run/daa/&lt;MASKED&gt;
+<span class="o">[</span>IoTHub][INFO] IoTHubDeviceClient_LL_CreateWithAzureSphereDeviceAuthProvisioning returned <span class="s1">'AZURE_SPHERE_PROV_RESULT_OK'</span><span class="nb">.</span>
+<span class="o">[</span>IoTHub][INFO] Configuring Device Twin Callback and Connection Status Callback
+<span class="o">[</span>IoTHub][INFO] IoT Hub Authenticated: IOTHUB_CLIENT_CONNECTION_OK
+<span class="c"># 4. Handling the Azure Device Twin Update</span>
+<span class="o">[</span>IoTHub][INFO] Received IoT Twin Update from IoT Hub
+<span class="o">[</span>IoTHub][Twin][INFO] Updating PriceMap
+<span class="o">[</span>IoTHub][Twin][INFO] 8804399D -&gt; Zombie: <span class="nv">$15</span>.50
+<span class="o">[</span>IoTHub][Twin][INFO] Updating price <span class="k">for </span>7908C820 to Normal: <span class="nv">$14</span>.11
+<span class="o">[</span>IoTHub][ERROR] Reported state <span class="k">for</span> <span class="s1">'7908C820'</span> to value <span class="s1">'Normal: $14.11'</span><span class="nb">.</span>
+<span class="o">[</span>IoTHub][Twin][INFO] 88041B9D -&gt; Skeleton: <span class="nv">$20</span>.00
+<span class="o">[</span>IoTHub][INFO] Device Twin reported properties update result: HTTP status code 400
+<span class="c"># 5. Reading our card and displaying it to the screen</span>
+<span class="o">[</span>MFRC522][INFO] Found a card: 1
+<span class="o">[</span>MFRC522][INFO] Dumping: 79
+<span class="o">[</span>MFRC522][INFO] Dumping: 8
+<span class="o">[</span>MFRC522][INFO] Dumping: c8
+<span class="o">[</span>MFRC522][INFO] Dumping: 20
+<span class="o">[</span>MFRC522][INFO] Dumping: 99
+<span class="o">[</span>MFRC522][INFO] Dumping: 0
+<span class="o">[</span>MFRC522][INFO] Dumping: 0
+<span class="o">[</span>MFRC522][INFO] Dumping: 0
+<span class="o">[</span>MFRC522][INFO] Serial: 7908C820
+<span class="o">[</span>MAP][INFO] Map Price: Normal: <span class="nv">$14</span>.11
+</code></pre></div></div>
+
+<h3 id="testing">Testing</h3>
+
+<p>When we test this in real life, we will see something as shown in the videos below. What we see here is the scanning of tags on the device, executing a twin update and seeing the updated price on the device. Note that we also show the event data being sent to Azure through a consumer. This consumer is quite basic and looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./config</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">Client</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">azure-event-hubs</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">connectionString</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">&lt;YOUR_IOTHUB_CONNECTION_STRING&gt;</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">consumerGroup</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">$Default</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">printError</span> <span class="o">=</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">Client</span><span class="p">.</span><span class="nx">fromConnectionString</span><span class="p">(</span><span class="nx">connectionString</span><span class="p">);</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">open</span><span class="p">()</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">client</span><span class="p">.</span><span class="nx">getPartitionIds</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">client</span><span class="p">))</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">partitionIds</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">partitionIds</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">partitionId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">client</span><span class="p">.</span><span class="nx">createReceiver</span><span class="p">(</span><span class="nx">consumerGroup</span><span class="p">,</span> <span class="nx">partitionId</span><span class="p">,</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">startAfterTime</span><span class="dl">'</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">receiver</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`[Receiver] Created partition receiver: [</span><span class="p">${</span><span class="nx">partitionId</span><span class="p">}</span><span class="s2">] for consumerGroup [</span><span class="p">${</span><span class="nx">consumerGroup</span><span class="p">}</span><span class="s2">]`</span><span class="p">);</span>
+      <span class="nx">receiver</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">errorReceived</span><span class="dl">'</span><span class="p">,</span> <span class="nx">printError</span><span class="p">);</span>
+      <span class="nx">receiver</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`[Receiver][</span><span class="p">${</span><span class="nx">consumerGroup</span><span class="p">}</span><span class="s2">][</span><span class="p">${</span><span class="nx">partitionId</span><span class="p">}</span><span class="s2">] Message received: </span><span class="p">${</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">toString</span><span class="p">()}</span><span class="s2">`</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">printError</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>screencast</strong></p>
+
+<video width="640" height="480" controls="" autoplay="">
+  <source src="/assets/images/posts/azure-sphere-avnet/video-screencast.mp4" type="video/mp4" />
+Your browser does not support the video tag.
+</video>
+
+<p><strong>device</strong></p>
+
+<video width="640" height="480" controls="" autoplay="">
+  <source src="/assets/images/posts/azure-sphere-avnet/video-hardware.mp4" type="video/mp4" />
+Your browser does not support the video tag.
+</video>
+
+<p>To see the full code that was used to create this example, feel free to check this repository: <a href="https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project">https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project</a>.</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="xavier" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/xavier">Xavier Geerinck</a></h4>
+                                
+                                    <p>Xavier works as a Cloud Solution Architect at Microsoft, helping its customer unlock the full potential of the cloud. Even though he is still considered a young graduate, he achieved his first success at the age 16, by creating and selling his first startup. He then took this knowledge to create and help more startups in different markets such as technology, social media, philanthropy and home care. While in the meantime gaining more enterprise insights at renowned enterprises such as Nokia, Cisco and now Microsoft.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/xavier">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = '/azure-sphere-mt3620-avnet';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://xaviergeerinck.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/covers/blog-cover.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/azure/">Azure</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/opencv-in-dotnet-core">Utilizing OpenCV in C# .NET Core to grab frames from a video</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part4-ml-car">Part 4 - Creating a Automated Machine Learning model based on our Car Simulation Data</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-edge-part3-simulator-camera">Part 3 - Creating a Car Camera simulator in IoT Edge</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/azure/">
+                                
+                                    See all 11 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/automl-interface-telco-churn-prediction">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/ai.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/automl-interface-telco-churn-prediction">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Azure</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Coding-python</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Automatically create an AI model for your dataset using Azure AutoML</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>An annoying part in working with classification, regression or other AI algorithms is that you always need to write a lot of code, prepare your data and do other steps before you are</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/big-data-platforms-comparison">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/infrastructure.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/big-data-platforms-comparison">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Azure</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Big-data</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Big Data Platform Comparisons</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/xavier/">Xavier Geerinck</a>
+                        </span>
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Xavier Geerinck - Blog icon" />
+            
+            <span>Xavier Geerinck - Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=An+E2E+Azure+Sphere+project+in+the+area+of+Smart+Retail+%28RFID+RC522%2C+AVNet+MT3620+SK%2C+Izokee+Display%29&amp;url=https://thebillkidy.github.io/azure-sphere-mt3620-avnet"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/azure-sphere-mt3620-avnet"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/azure-sphere-mt3620-avnet&title=An+E2E+Azure+Sphere+project+in+the+area+of+Smart+Retail+%28RFID+RC522%2C+AVNet+MT3620+SK%2C+Izokee+Display%29&source=https://thebillkidy.github.io/"
+            onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Xavier Geerinck - Blog</a> &copy; 2019</section>
+                <section class="poweredby">Made with ❤ in Belgium</section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/XavierGeerinck" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://linkedin.com/in/xaviergeerinck" target="_blank" rel="noopener">LinkedIn</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- The big email subscribe modal content -->
+     
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+    <script>
+        var blocks = document.querySelectorAll('div[class^=language-]');
+        blocks.forEach((b) => {
+            var language = b.className.split(" ")[0].match(/language\-(.*)/)[1];
+
+            var codeBlocks = b.querySelectorAll('pre code');
+
+            // Highlight the code
+            codeBlocks.forEach((i) => {
+                var text = i.innerText;
+                var highlightedText = hljs.highlight(language, text);
+                i.innerHTML = highlightedText.value;
+            });
+
+            // Add line numbers
+
+            codeBlocks.forEach((i) => {            
+                i.innerHTML = i.innerHTML.split("\n").map(function (i, idx, arr) {
+                    // The last line seems to be empty, so don't work with it
+                    if (idx == arr.length - 1) {
+                        return '';
+                    }
+
+                    return '<span class="line-numbers"">' + i + '</span>' + "\n";
+                }).join("");
+            });
+        });
+    </script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27398198-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+</body>
+</html>

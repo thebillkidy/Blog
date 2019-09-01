@@ -342,6 +342,21 @@
     
       
       <item>
+        <title>An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title>
+        
+          <description>&lt;h1 id=&quot;smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner&quot;&gt;Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Sun, 19 May 2019 09:00:00 +0000</pubDate>
+        <link>
+        /azure-sphere-mt3620-avnet</link>
+        <guid isPermaLink="true">/azure-sphere-mt3620-avnet</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Automatically create an AI model for your dataset using Azure AutoML</title>
         
           <description>&lt;p&gt;An annoying part in working with classification, regression or other AI algorithms is that you always need to write a lot of code, prepare your data and do other steps before you are able to get results out of it.&lt;/p&gt;
