@@ -746,7 +746,7 @@ client.open()
 
 **screencast**
 
-<video width="640" height="480" controls autoplay>
+<video width="960" height="540" controls autoplay>
   <source src="/assets/images/posts/azure-sphere-avnet/video-screencast.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
