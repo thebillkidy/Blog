@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title>
+        
+          <description>&lt;h1 id=&quot;smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner&quot;&gt;Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Sun, 01 Sep 2019 09:00:00 +0000</pubDate>
+        <link>
+        /azure-sphere-mt3620-avnet</link>
+        <guid isPermaLink="true">/azure-sphere-mt3620-avnet</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Utilizing OpenCV in C# .NET Core to grab frames from a video</title>
         
           <description>&lt;p&gt;While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. &lt;a href=&quot;https://opencv.org/&quot;&gt;OpenCV&lt;/a&gt; is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do we utilize this in .NET Core?&lt;/p&gt;
@@ -337,21 +352,6 @@
         <link>
         /big-data-platforms-comparison</link>
         <guid isPermaLink="true">/big-data-platforms-comparison</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title>
-        
-          <description>&lt;h1 id=&quot;smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner&quot;&gt;Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner&lt;/h1&gt;
-
-</description>
-        
-        <pubDate>Sun, 19 May 2019 09:00:00 +0000</pubDate>
-        <link>
-        /azure-sphere-mt3620-avnet</link>
-        <guid isPermaLink="true">/azure-sphere-mt3620-avnet</guid>
       </item>
       
     
