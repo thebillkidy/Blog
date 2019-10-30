@@ -23,7 +23,7 @@ From working with enterprise customers for the past 2 years, my experience is th
 
 Which is why I think the ReAgent platform proposal shines! It does solve all the problems mentioned above since it now allows the customer to gradually adapt due to the workflow provided, going from hard-coded rules to eventually Torchscript running the Bandit or RL Models. Illustrated as follows:
 
-![/images/posts/fb-reagent/workflow.jpg](/images/posts/fb-reagent/workflow.jpg)
+![/assets/images/posts/fb-reagent/workflow.jpg](/assets/images/posts/fb-reagent/workflow.jpg)
 
 To get started with this I installed and ran the getting started guide myself.
 
