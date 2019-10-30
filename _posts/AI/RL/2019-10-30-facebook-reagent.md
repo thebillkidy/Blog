@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/facebook-reagent.png'
 navigation: True
 title: Facebook ReAgent - An End-to-End Use Case
-date: 2019-10-28 09:00:05
+date: 2019-10-30 09:00:00
 tags: azure ai ai-rl ai-ml
 class: post-template
 subclass: 'post'
@@ -77,9 +77,6 @@ git clone --recurse-submodules https://github.com/facebookresearch/ReAgent.git
 
 # Install ReAgent
 cd ReAgent
-# Note: as long as PR #179 is not merged, the following has to be executed:
-#git fetch origin pull/179/head:fixed-build
-#git checkout fixed-build
 
 conda install --file requirements.txt
 
@@ -91,21 +88,29 @@ make -j$(nproc)
 # Install ephemral package in Python of ReAgent
 cd ../../
 pip install -e .
+
+# Install spark package
+mvn -f preprocessing/pom.xml dependency:resolve
+mvn -f preprocessing/pom.xml package
 ```
 
-## Running the Makin' Bacon example
+## Going from a static decision plan to a contextual bandit
 
-Now everything is up and running, I decided to go through the [**Makin' Bacon** example](http://reagent.ai/rasp_tutorial.html#makin-bacon).
+The [**Makin' Bacon** example](http://reagent.ai/rasp_tutorial.html#makin-bacon) provided by the ReAgent documentation is splendid, explaining how we can go from a static pre-configured plan towards a dynamic plan. But what are we actually doing in this example? There are actually 3 phases:
 
-> **Note:** I won't be explaining the tutorial that is written on the page mentioned above, rather I will give my personal opinion as well as focus points.
+1. Start - We are starting out simple with a 52% bacon chance and 48% ribs chance
+    * This through a simple SoftMax ranker
+    * We see this by running `heuristic.json` in the simulator, which returns `{'Ribs': 471, 'Bacon': 529}` with an average reward of `0.363`.
+2. Hindsight Analysis - No Personalization
+    * When we analyze the clicks, we get: `88 390 266 253` for `ribs_clicked, ribs_not_clicked, bacon_clicked, bacon_not_clicked` 
+    * This translates into `18%` and `51%` for `ribs` and `bacon` respectively on the click-through rate!
+        * Initial Observation here is that we can see that people are more likely to click when they see bacon! (since they aren't rib lovers)
+        * We can adapt the decision plan!
+    * We will use a `multi-armed bandit` through the `UCB1 bandit ranker`
+        * **Note:** Multi-armed bandits will not take into account any state!
+        * We now see a score of `0.497` or `{'Bacon': 926, 'Ribs': 74}` - Since we want to show more bacon due to the click-through rate!
+3. Smart Analysis - Personalization
+    * Our code has been running for a while now and we found an extra parameter that can help this tune for our customers! `isUserARibLover`! If this is `1` then it's a Ribs lover, else it's a Bacon lover.
+    * After training this through the dqn workflow, we will see that context is now taken into account and we receive a reward of `0.52` or `{'Bacon': 883, 'Ribs': 117}`
 
-What I want to take away from this, is that the platform is perfectly able to let us start of with a base plan (in this case: we show bacon 52% of the time and ribs 48% of the time). 
-
-> However, as defined in the rules, some users are more likely to click than others -> take this into account
-
-Which the platform does, by allowing of calculating the reward for this approach, whereafter it's able to continue and tune based on this! (e.g. after running UCB (Upper Confidence Bound) it's able to boost clickthrough from 0.363 to 0.447) now using a multi armed bandit rather than static parameters as provided by us earlier.
-
-## Adapting this to other cases
-
-Bandwidth use case: 
-
+We are now done and understand how the ReAgent framework works. Time to get started ourselves! (that is for a later post though)

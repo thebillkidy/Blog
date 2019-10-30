@@ -11,6 +11,8 @@ subclass: 'post'
 author: xavier
 ---
 
+## RL Use Cases
+
 The usage of Reinforcement Learning is increasing day-by-day, solving more complex tasks and optimizing the world more. So much that we are even in the cycle of transforming from [Software 1.0 to Software 2.0](https://medium.com/@karpathy/software-2-0-a64152b37c35). But how can we grasp this? What are use cases being done today already? 
 
 Let's take a look at different use cases and split them up in the parts required for RL:
@@ -20,95 +22,8 @@ Let's take a look at different use cases and split them up in the parts required
 * State: What is the state that we observe composed off?
 * Action: Which actions can the agent take?
 * Rewards: What are the rewards that we get?
-  
-## [Rate Control] 360-Video Streaming
 
-### Description
-
-In video streaming, we would like to give the a user the best QoE (Qualify of Experience) possible. This depends on different factors such as Network Speed, Device being used, Connectivity Used (celullar, WiFi, Ethernet, ...) and others.
-
-### Objective
-
-Improve the QoE 
-
-### State, Action and Rewards
-
-* **Environment State:**
-  * Last Video Bitrate
-  * BL Buffer Size History
-  * EL Buffer Size History
-  * BL End of Video Indicator
-  * EL End of Video Indicator
-  * BL Remaining Chunks
-  * EL Remaining Chunks
-  * EL Rebuffering Indicator
-  * FoV Prediction Accuracy for Next EL Chunk
-  * Video Chunk Size History
-  * Download Time History
-  * Next Chunk Sizes
-* **Agent Actions**
-  * Which chunk to send
-  * Bitrate to choose
-  * ...
-  * Limitation: not allowed to skip enhancement chunks or fetch a later chunk first
-* **Rewards:**
-  * Maximize QoE (Quality of Experience)
-  * Rebuffering time should be as small as possible
-  * Smooth video (aka: quality difference between adjacent chunks should be minimal)
-
-## [Network] Dynamic Spectrum Access
-
-### Description
-
-We want to allow users to locally select channels to maximize their throughput. The user might however not
-
-### Objective
-
-
-
-### State, Action and Rewards
-
-* **Environment State:**
-* **Agent Actions**
-* **Rewards:**
-	
-* Allow users to locally select channels to maximize their throughput
-* The user however may not have full observations of the system (e.g. channel states)
-Join User Association and Spectrum Access
-* User association is implemented to determine which user to be assigned to which base station.
-Adaptive Rate Control
-* Bitrate/data rate control in dynamic and unpredictable environments
-	* E.g. HTTP (DASH)
-	* Objective: maximize QoE
-
-
-## TITLE
-
-### Description
-
-
-
-### Objective
-
-
-
-### State, Action and Rewards
-
-* **Environment State:**
-* **Agent Actions**
-* **Rewards:**
-	
-	
-## References
-
-https://arxiv.org/pdf/1810.07862.pdf - Interesting
-https://aodongli.github.io/files/360-degree-video.pdf
-https://arxiv.org/pdf/1901.00959.pdf
-
-
-
-
-## RL Use Cases
+Note that the cases below are a small overview of all the cases out there, these are however my personal favorites.
 
 ### Network Access - Dynamic Spectrum Access (select channels to maximize throughput)
 
@@ -120,15 +35,6 @@ https://arxiv.org/pdf/1901.00959.pdf
   * **Actions:** Select one of M channels
   * **Rewards:** +1 if channel in low interference; -1 otherwise
 * **Reference:** *"Deep Reinforcement Learning for Dynamic Multichannel Access"*
-
-#### Joint Channel Selection and Packet Forwarding (DQN)
-
-* **Description:** In a multi-sensor scenario, how to address the joint channel selection and packet forwarding. Where we have a relay agent that forwards packets it received from neighboring sensors to a sink. The relay agent has a buffer that keeps the received messages until it's able to forward them.
-  * **Objective:** Find an optimal policy which maximizes the sensor's expected accumulated discounted reward over time slots
-  * **State:** Combination of the buffer state and channel state.
-  * **Actions:** Select a set of channels, numbers of packets transmitted on the channels and a modulation mode.
-  * **Rewards:** +1 if channel in low interference; -1 otherwise
-* **Reference:** *A new DQN based transmission scheduling mechanism for the Cognitive Internet of Things*
 * 
 #### Vehicle-to-Vehicle (V2V) transmission capacity maximization (DQN)
 
@@ -142,15 +48,6 @@ https://arxiv.org/pdf/1901.00959.pdf
   * **Actions:** Which channel to choose and which transmit power level
   * **Rewards:** Is a function of the V2V transmitter's capacity and level
 * **Reference:** *Deep Reinforcement Learning for resource allocation in v2v communications*
-
-#### Dynamic Spectrum Access for multiple users sharing K channels (DQN) in Cellular Networks
-
-* **Description:** At a time slot, the user selects a channel with a certain attempt probability or chooses not to transmit at all.
-  * **Objective:** The problem of the user is to find a vector of the strategies (the policy over timeslots) to maximize its expected accumulated discounted data rate of the user.
-  * **State:** The history of the user's actions and its local observations, and the user's strategy is mapping from the history to an attempt probability
-  * **Actions:** 
-  * **Rewards:** 
-* **Reference:** *Deep multi-user reinforcement learning for dynamic spectrum access in multichannel wireless networks*
 
 #### Channel Allocation to new arrival users in a multibeam satellite system
 
@@ -193,27 +90,6 @@ https://arxiv.org/pdf/1901.00959.pdf
 
 ### Adaptive Rate Control
 
-#### Dynamic Adaptive Streaming over HTTP (DASH)
-
-* **Description:** DASH becomes the dominant standard for video streaming, it is able to leverage existing content delivery network infrastructure and is compatible with a multitude of client-side applications. Videos are stored in servers as multiple segments (i.e. chunks) with each segment being encoded at different compression levels to generate representations with different bitrates (i.e. different video visual quality). At each time a client chooses a representation (i.e. a segment with a certain bitrate), to download.
-  * **Objective:** The client has to find an optimal policy which maximizes its QoE such as maximizing average bitrate and minimizing rebuffering (i.e. the time which the video playout freezes).
-  * **State:** Given the reward formulation, this should include:
-    * The video quality of the last downloaded segment
-    * The current buffer state
-    * The rebuffering time
-    * The channel capacities experienced during downloading of segments in the past time slots
-  * **Actions:** Which representation to download
-  * **Rewards:** Defined as a function of:
-    * Visual Quality of the video
-    * Video Quality stability
-    * Rebuffering event
-    * Buffer state
-* **Conclusion:** 
-  * DQL can improve QoE up to 25% compared with the bitrate control scheme
-  * By having sufficient buffer to handle network throughput fluctuation, DQL can reduce rebuffering by 32.8%
-  * Further improvements can be made by reducing state space through a video quality prediction network (Qarc: Video Quality aware rate control for real-time video streaming based on DRL).
-* **Reference:** [*Dynamic Adaptive Streaming over http: standards and design principles*](https://pdfs.semanticscholar.org/4c2e/59034d8f6de995e9c9e8bdfcd4f7834f4e9a.pdf) & [*D-dash: A deep q-learning framework for dash video streaming*](https://ieeexplore.ieee.org/document/8048013)
-
 #### Rate control in High Volume Flexible Time (HVFT) applications
 
 * **Description:** HVFT applications utilize cellular networks to deliver IoT traffic. These HVFT applications have a large volume of traffic, and traffic scheduling is necessary. Mostly static priority classes per traffic type are assigned and scheduling is based on that; this does however not accommodate new traffic classes, therefor DQN is a good solution. The network model is a single cell including one base station as a central controller and multiple mobile users.
@@ -246,12 +122,44 @@ https://arxiv.org/pdf/1901.00959.pdf
     * Transmit Power efficiency
 * **Reference:** [*Multi-objective reinforcement learning for cognitive satellite communications using deep neural network ensembles*](https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20170007958.pdf)
 
+### Traffic Engineering and Routing
 
-#### TITLE
+Traffic Engineering (TE) in communication networks refers to Network Utility Maximization (NUM) by optimizing a path to forward data traffic, given a set of network flows from source to destination nodes.
 
-* **Description:** 
-  * **Objective:** 
-  * **State:** 
-  * **Actions:** 
-  * **Rewards:** 
-* **Reference:** [**]()
+#### Software Defined Networking Routing Optimization through Deep-Reinforcement Learning
+
+* **Description:** Through the interaction with the network environment, the DQL agent at the network controller determines the paths for all source-destination pairs. The OMNet+ discrete event simulator can help us evaluate the solution.
+  * **Objective:** Minimize network delay bby adapting routing configurations automatically to current traffic conditions
+  * **State:** Bandwidth request between each source-destination pair
+  * **Actions:** Traffic Load split on different paths
+  * **Rewards:** A function of the mean network delay
+* **Reference:** [*A deep-reinforcement learning approach for software-defined networking routing optimization*](https://arxiv.org/abs/1709.07080)
+
+### Audio & Video Streaming
+
+#### Dynamic Adaptive Streaming over HTTP (DASH)
+
+* **Description:** DASH becomes the dominant standard for video streaming, it is able to leverage existing content delivery network infrastructure and is compatible with a multitude of client-side applications. Videos are stored in servers as multiple segments (i.e. chunks) with each segment being encoded at different compression levels to generate representations with different bitrates (i.e. different video visual quality). At each time a client chooses a representation (i.e. a segment with a certain bitrate), to download.
+  * **Objective:** The client has to find an optimal policy which maximizes its QoE such as maximizing average bitrate and minimizing rebuffering (i.e. the time which the video playout freezes).
+  * **State:** Given the reward formulation, this should include:
+    * The video quality of the last downloaded segment
+    * The current buffer state
+    * The rebuffering time
+    * The channel capacities experienced during downloading of segments in the past time slots
+  * **Actions:** Which representation to download
+  * **Rewards:** Defined as a function of:
+    * Visual Quality of the video
+    * Video Quality stability
+    * Rebuffering event
+    * Buffer state
+* **Conclusion:** 
+  * DQL can improve QoE up to 25% compared with the bitrate control scheme
+  * By having sufficient buffer to handle network throughput fluctuation, DQL can reduce rebuffering by 32.8%
+  * Further improvements can be made by reducing state space through a video quality prediction network (Qarc: Video Quality aware rate control for real-time video streaming based on DRL).
+* **Reference:** [*Dynamic Adaptive Streaming over http: standards and design principles*](https://pdfs.semanticscholar.org/4c2e/59034d8f6de995e9c9e8bdfcd4f7834f4e9a.pdf) & [*D-dash: A deep q-learning framework for dash video streaming*](https://ieeexplore.ieee.org/document/8048013)
+
+## References
+
+* [https://arxiv.org/pdf/1810.07862.pdf - Networking use cases](https://arxiv.org/pdf/1810.07862.pdf)
+* [https://aodongli.github.io/files/360-degree-video.pdf](https://aodongli.github.io/files/360-degree-video.pdf)
+* [https://arxiv.org/pdf/1901.00959.pdf](https://arxiv.org/pdf/1901.00959.pdf)
