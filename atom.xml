@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Facebook ReAgent - An End-to-End Use Case</title>
+        
+          <description>&lt;p&gt;Facebook &lt;a href=&quot;https://ai.facebook.com/blog/open-sourcing-reagent-a-platform-for-reasoning-systems/&quot;&gt;decided&lt;/a&gt; to release their end-to-end applied reinforcement learning platform called &lt;a href=&quot;https://github.com/facebookresearch/ReAgent&quot;&gt;ReAgent&lt;/a&gt;, after reading their vision on this, I have to say that I am completely hooked! They are providing an excellent view of Reinforcement Learning and the future adoption of it. But why is this and how can we get started with it?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 30 Oct 2019 09:00:00 +0000</pubDate>
+        <link>
+        /facebook-reagent</link>
+        <guid isPermaLink="true">/facebook-reagent</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title>
         
           <description>&lt;h1 id=&quot;smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner&quot;&gt;Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner&lt;/h1&gt;

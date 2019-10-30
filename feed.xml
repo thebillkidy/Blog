@@ -1,4 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-10-30T15:59:09+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title><link href="/azure-sphere-mt3620-avnet" rel="alternate" type="text/html" title="An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)" /><published>2019-09-01T09:00:00+00:00</published><updated>2019-09-01T09:00:00+00:00</updated><id>/azure-sphere-mt3620-avnet</id><content type="html" xml:base="/azure-sphere-mt3620-avnet">&lt;h1 id=&quot;smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner&quot;&gt;Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-10-30T19:54:57+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Facebook ReAgent - An End-to-End Use Case</title><link href="/facebook-reagent" rel="alternate" type="text/html" title="Facebook ReAgent - An End-to-End Use Case" /><published>2019-10-30T09:00:00+00:00</published><updated>2019-10-30T09:00:00+00:00</updated><id>/facebook-reagent</id><content type="html" xml:base="/facebook-reagent">&lt;p&gt;Facebook &lt;a href=&quot;https://ai.facebook.com/blog/open-sourcing-reagent-a-platform-for-reasoning-systems/&quot;&gt;decided&lt;/a&gt; to release their end-to-end applied reinforcement learning platform called &lt;a href=&quot;https://github.com/facebookresearch/ReAgent&quot;&gt;ReAgent&lt;/a&gt;, after reading their vision on this, I have to say that I am completely hooked! They are providing an excellent view of Reinforcement Learning and the future adoption of it. But why is this and how can we get started with it?&lt;/p&gt;
+
+&lt;p&gt;From working with enterprise customers for the past 2 years, my experience is the following in the Reinforcement Learning domain:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The customer maturity level is low - they do not know what Reinforcement Learning is, nor do they know how to get started with it
+    &lt;ul&gt;
+      &lt;li&gt;To quote one of my customers: “Ah it’s that tool used for playing games”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;It’s hard to implement in current existing systems, they are mostly based on hard coded rules (or even heuristics if they’re modern) making it a technical debt investment&lt;/li&gt;
+  &lt;li&gt;Modeling the existing problem into a &lt;a href=&quot;/markov-property-chain-reward-decision&quot;&gt;Markov Decision Process (MDP)&lt;/a&gt; is not always trivial&lt;/li&gt;
+  &lt;li&gt;Existing systems use a variety of languages: Python, C++, PHP, C#, … how do you integrate into these applications?&lt;/li&gt;
+  &lt;li&gt;Personal: I think the performance impact caused by Python should not be overlooked - I for example saw a 44x increase on a personal benchmark I did when comparing C# to Python for an Expected SARSA algorithm.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Which is why I think the ReAgent platform proposal shines! It does solve all the problems mentioned above since it now allows the customer to gradually adapt due to the workflow provided, going from hard-coded rules to eventually Torchscript running the Bandit or RL Models. Illustrated as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/fb-reagent/workflow.jpg&quot; alt=&quot;/images/posts/fb-reagent/workflow.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To get started with this I installed and ran the getting started guide myself.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-reagent&quot;&gt;Installing ReAgent&lt;/h2&gt;
+
+&lt;p&gt;Luckily Getting Started with ReAgent has been made easy due to the &lt;a href=&quot;http://reagent.ai/rasp_tutorial.html&quot;&gt;excellent tutorial&lt;/a&gt; that is being provided by Facebook. Installing the platform can be done by executing the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Install extra dependencies&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;build-essential ca-certificates cmake git &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;software-properties-common vim emacs wget
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;unzip
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libboost-dev &lt;span class=&quot;c&quot;&gt;# Boost C++ Lib - https://www.boost.org/&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libgflags-dev &lt;span class=&quot;c&quot;&gt;# Commandline flags processing - https://github.com/gflags/gflags&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libgoogle-glog-dev &lt;span class=&quot;c&quot;&gt;# Application level logging - https://github.com/google/glog&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;update-ca-certificates
+
+&lt;span class=&quot;c&quot;&gt;# Install Miniconda&lt;/span&gt;
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; miniconda.sh
+&lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x miniconda.sh
+./miniconda.sh &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# silent install&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOME&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/miniconda3/bin:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Enable conda for now, conda init will completely init it in bashrc&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#echo 'export PATH=&quot;${HOME}/miniconda3/bin:${PATH}&quot;' &amp;gt;&amp;gt; ~/.bashrc&lt;/span&gt;
+conda config &lt;span class=&quot;nt&quot;&gt;--set&lt;/span&gt; auto_activate_base &lt;span class=&quot;nb&quot;&gt;true
+&lt;/span&gt;conda init
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bashrc
+
+&lt;span class=&quot;c&quot;&gt;# Install Spark&lt;/span&gt;
+wget https://archive.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzf&lt;/span&gt; spark-2.3.3-bin-hadoop2.7.tgz
+&lt;span class=&quot;nb&quot;&gt;sudo mv &lt;/span&gt;spark-2.3.3-bin-hadoop2.7 /usr/local/spark
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;:/usr/local/spark/bin
+pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;gym[classic_control,box2d,atari]&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install LibTorch&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# see: https://pytorch.org/get-started/locally/&lt;/span&gt;
+wget https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-1.3.0%2Bcpu.zip &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; libtorch.zip
+unzip libtorch.zip &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/
+
+&lt;span class=&quot;c&quot;&gt;# Set JAVA_HOME&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JAVA_HOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; which conda&lt;span class=&quot;si&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CONDA_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOME&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/miniconda&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LD_LIBRARY_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CONDA_PATH&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/lib:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LD_LIBRARY_PATH&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install ReAgent&lt;/span&gt;
+conda config &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; channels conda-forge
+conda config &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; channels pytorch
+&lt;span class=&quot;c&quot;&gt;#conda install glog&lt;/span&gt;
+
+git clone &lt;span class=&quot;nt&quot;&gt;--recurse-submodules&lt;/span&gt; https://github.com/facebookresearch/ReAgent.git
+
+&lt;span class=&quot;c&quot;&gt;# Install ReAgent&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;ReAgent
+
+conda &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--file&lt;/span&gt; requirements.txt
+
+&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;serving/build
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;serving/build
+cmake &lt;span class=&quot;nt&quot;&gt;-DCMAKE_PREFIX_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/libtorch ..
+make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install ephemral package in Python of ReAgent&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../
+pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install spark package&lt;/span&gt;
+mvn &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; preprocessing/pom.xml dependency:resolve
+mvn &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; preprocessing/pom.xml package
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;going-from-a-static-decision-plan-to-a-contextual-bandit&quot;&gt;Going from a static decision plan to a contextual bandit&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://reagent.ai/rasp_tutorial.html#makin-bacon&quot;&gt;&lt;strong&gt;Makin’ Bacon&lt;/strong&gt; example&lt;/a&gt; provided by the ReAgent documentation is splendid, explaining how we can go from a static pre-configured plan towards a dynamic plan. But what are we actually doing in this example? There are actually 3 phases:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Start - We are starting out simple with a 52% bacon chance and 48% ribs chance
+    &lt;ul&gt;
+      &lt;li&gt;This through a simple SoftMax ranker&lt;/li&gt;
+      &lt;li&gt;We see this by running &lt;code class=&quot;highlighter-rouge&quot;&gt;heuristic.json&lt;/code&gt; in the simulator, which returns &lt;code class=&quot;highlighter-rouge&quot;&gt;{'Ribs': 471, 'Bacon': 529}&lt;/code&gt; with an average reward of &lt;code class=&quot;highlighter-rouge&quot;&gt;0.363&lt;/code&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Hindsight Analysis - No Personalization
+    &lt;ul&gt;
+      &lt;li&gt;When we analyze the clicks, we get: &lt;code class=&quot;highlighter-rouge&quot;&gt;88 390 266 253&lt;/code&gt; for &lt;code class=&quot;highlighter-rouge&quot;&gt;ribs_clicked, ribs_not_clicked, bacon_clicked, bacon_not_clicked&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;This translates into &lt;code class=&quot;highlighter-rouge&quot;&gt;18%&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;51%&lt;/code&gt; for &lt;code class=&quot;highlighter-rouge&quot;&gt;ribs&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;bacon&lt;/code&gt; respectively on the click-through rate!
+        &lt;ul&gt;
+          &lt;li&gt;Initial Observation here is that we can see that people are more likely to click when they see bacon! (since they aren’t rib lovers)&lt;/li&gt;
+          &lt;li&gt;We can adapt the decision plan!&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;We will use a &lt;code class=&quot;highlighter-rouge&quot;&gt;multi-armed bandit&lt;/code&gt; through the &lt;code class=&quot;highlighter-rouge&quot;&gt;UCB1 bandit ranker&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Note:&lt;/strong&gt; Multi-armed bandits will not take into account any state!&lt;/li&gt;
+          &lt;li&gt;We now see a score of &lt;code class=&quot;highlighter-rouge&quot;&gt;0.497&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;{'Bacon': 926, 'Ribs': 74}&lt;/code&gt; - Since we want to show more bacon due to the click-through rate!&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Smart Analysis - Personalization
+    &lt;ul&gt;
+      &lt;li&gt;Our code has been running for a while now and we found an extra parameter that can help this tune for our customers! &lt;code class=&quot;highlighter-rouge&quot;&gt;isUserARibLover&lt;/code&gt;! If this is &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; then it’s a Ribs lover, else it’s a Bacon lover.&lt;/li&gt;
+      &lt;li&gt;After training this through the dqn workflow, we will see that context is now taken into account and we receive a reward of &lt;code class=&quot;highlighter-rouge&quot;&gt;0.52&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;{'Bacon': 883, 'Ribs': 117}&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We are now done and understand how the ReAgent framework works. Time to get started ourselves! (that is for a later post though)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="ai" /><category term="ai-rl" /><category term="ai-ml" /><summary type="html">Facebook decided to release their end-to-end applied reinforcement learning platform called ReAgent, after reading their vision on this, I have to say that I am completely hooked! They are providing an excellent view of Reinforcement Learning and the future adoption of it. But why is this and how can we get started with it?</summary></entry><entry><title type="html">An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)</title><link href="/azure-sphere-mt3620-avnet" rel="alternate" type="text/html" title="An E2E Azure Sphere project in the area of Smart Retail (RFID RC522, AVNet MT3620 SK, Izokee Display)" /><published>2019-09-01T09:00:00+00:00</published><updated>2019-09-01T09:00:00+00:00</updated><id>/azure-sphere-mt3620-avnet</id><content type="html" xml:base="/azure-sphere-mt3620-avnet">&lt;h1 id=&quot;smart-retail-with-the-avnet-mt3620-starter-kit-and-an-nfc-scanner&quot;&gt;Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner&lt;/h1&gt;
 
 &lt;p&gt;Avnet just released an &lt;a href=&quot;https://www.avnet.com/shop/us/products/avnet-engineering-services/aes-ms-mt3620-sk-g-3074457345636825680/&quot;&gt;MT3620 Azure Sphere Development Kit&lt;/a&gt; with a &lt;a href=&quot;https://www.element14.com/community/community/designcenter/azure-sphere-starter-kits?ICID=azuresphere-sensingWorldCH-doc&quot;&gt;contest&lt;/a&gt; related to it.&lt;/p&gt;
 
@@ -2536,198 +2659,4 @@ IoT Hub module client initialized.
   &lt;li&gt;&lt;a href=&quot;/iot-edge-part1&quot;&gt;Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;Part 2 - Creating a Car Simulator&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;/iot-edge-part3-simulator-camera&quot;&gt;Part 3 - Creating a Car Camera Simulator&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.</summary></entry><entry><title type="html">Big Data Platform Comparisons</title><link href="/big-data-platforms-comparison" rel="alternate" type="text/html" title="Big Data Platform Comparisons" /><published>2019-05-27T09:00:00+00:00</published><updated>2019-05-27T09:00:00+00:00</updated><id>/big-data-platforms-comparison</id><content type="html" xml:base="/big-data-platforms-comparison">&lt;p&gt;Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads.&lt;/p&gt;
-
-&lt;p&gt;This is the reason that I decided to create a comparison of the different Big Data platforms from a &lt;strong&gt;Microsoft&lt;/strong&gt; perspective.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note 2:&lt;/strong&gt; This will also include a lot of assumptions to make the comparison as fair as possible.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The products that we will be covering are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/databricks/&quot;&gt;Azure Databricks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/hdinsight/&quot;&gt;HDInsight&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/machine-learning-service/&quot;&gt;Machine Learning Services&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://hortonworks.com/open-source/cloudbreak/&quot;&gt;Cloudera Cloudbreak (old Hortonworks)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/spark/tree/master/resource-managers/kubernetes&quot;&gt;Apache Spark on Kubernetes (K8S)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;assumptions&quot;&gt;Assumptions&lt;/h2&gt;
-
-&lt;p&gt;As in any comparison, some assumptions were made. In this case the following assumptions were made:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1 Web Node was utilized where a web interface is required
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#dv3-series-1&quot;&gt;D2v3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Cloudera Cloudbreak&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2 Head Nodes were utilized where required for HA purposes
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-general#av2-series&quot;&gt;A3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; HDInsight, Cloudera Cloudbreak&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3 Worker Nodes were utilized
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Size:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-memory#dsv2-series-11-15&quot;&gt;D13v2&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solutions:&lt;/strong&gt; Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;No Data Disks were selected&lt;/li&gt;
-  &lt;li&gt;For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo)
-    &lt;ul&gt;
-      &lt;li&gt;Note: 8h pricing is also included in others, but has been wrapped with &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; for clarity reasons. They can pause but extra work will be required to support this.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;comparison-matrix&quot;&gt;Comparison Matrix&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;-&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Spark on K8S&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Azure Databricks&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;HDInsight&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Cloudera Cloudbreak&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Azure Machine Learning Services&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Multi Cloud&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes &lt;em&gt;(1)&lt;/em&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Deployment Model&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;IaaS / Half PaaS&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;PaaS&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;PaaS (with full cluster control)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;IaaS&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Auto Scale&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes (will require manual configuration)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes (preview)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes (on Machine Learning Compute or Databricks)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Compute Pause Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes and can be automated)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No (but scale-down yes, and can be automated)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Language Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java, &lt;a href=&quot;https://github.com/dotnet/spark&quot;&gt;.NET&lt;/a&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Scala, Python, R, SQL, Java&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Python &amp;amp; REST&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Notebook Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Scheduling Support&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes, through Oozie&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes, Through Platform or SDK integration&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Tooling Re-training Required&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Server management through K8S&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Databricks Interface&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;HDP Components &amp;amp; Cloudbreak Interface&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;SDK Interface OR GUI Interface in Azure Portal&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Extensibility&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Performance Gain Out-Of-The-Box&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;40%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0%&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;N/A&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Cost&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 1,662.21 USD&lt;br /&gt;(8h: 546.48 USD)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,409.00 USD&lt;br /&gt;8h: 803,88 USD&lt;br /&gt;Note: perf increase added &lt;em&gt;(2)&lt;/em&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,084.00 USD&lt;br /&gt;(8h: 685.15 USD)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24h: 2,100.36 USD&lt;br /&gt;8h: 749.43 USD&lt;br /&gt;+375 license cost &lt;em&gt;(3)&lt;/em&gt; / mo&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Depends on K8S, HDI, Databricks VMs implementation&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;(1):&lt;/strong&gt; Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(2):&lt;/strong&gt; Databricks offers an out of the box performance increase - see: &lt;a href=&quot;https://databricks.com/blog/2017/07/12/benchmarking-big-data-sql-platforms-in-the-cloud.html&quot;&gt;website1&lt;/a&gt; and &lt;a href=&quot;https://github.com/databricks/benchmarks&quot;&gt;website2&lt;/a&gt; for more details&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;(3):&lt;/strong&gt; For enterprise support, licenses are required. See &lt;a href=&quot;https://hortonworks.com/services/support/enterprise/&quot;&gt;this website&lt;/a&gt; for more information. For our comparison, we took a price of &lt;span&gt;&lt;/span&gt;1.500 USD per license for only the worker nodes (so 3 worker nodes * 1.500 USD / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;p&gt;More references can be found for the following products at these links:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;HDInsight&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;AutoScale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Jupyter Notebook:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Job Scheduling:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&quot;&gt;https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Spark on K8S&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&quot;&gt;https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler&lt;/a&gt; and &lt;a href=&quot;https://github.com/kedacore/keda&quot;&gt;https://github.com/kedacore/keda&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Cloudbreak&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Autoscale:&lt;/strong&gt; &lt;a href=&quot;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&quot;&gt;https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Notebooks:&lt;/strong&gt; &lt;a href=&quot;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&quot;&gt;https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Azure Machine Learning Services&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Compute Environments:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&quot;&gt;https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="big-data" /><summary type="html">Choosing a platform for doing your Big Data processing tasks is not an easy choice. At one side you want to be flexible and open, but at another you would like a stable and robust platform that can handle your critical business workloads. This is the reason that I decided to create a comparison of the different Big Data platforms from a Microsoft perspective. Note: I am confident that other major cloud vendors such as Google and AWS, or even other vendors also have have excellent Big Data platform products, but seeing that I am not a specialist in these, I would like to keep it to the ones I am proficient in. Note 2: This will also include a lot of assumptions to make the comparison as fair as possible. The products that we will be covering are: Azure Databricks HDInsight Machine Learning Services Cloudera Cloudbreak (old Hortonworks) Apache Spark on Kubernetes (K8S) Note: I will not include a detailed overview of the services but rather a comparison. For a detailed overview, feel free to check the associated links for each service. Assumptions As in any comparison, some assumptions were made. In this case the following assumptions were made: 1 Web Node was utilized where a web interface is required Size: D2v3 Solutions: Cloudera Cloudbreak 2 Head Nodes were utilized where required for HA purposes Size: A3 Solutions: HDInsight, Cloudera Cloudbreak 3 Worker Nodes were utilized Size: D13v2 Solutions: Azure Databricks, HDInsight, Machine Learning Services, Cloudera Cloudbreak, Apache Spark on Kubernetes (K8S) No Data Disks were selected For Pausing enabled clusters, 8h was included (240h/mo) was taken, for others 24h (720h/mo) Note: 8h pricing is also included in others, but has been wrapped with () for clarity reasons. They can pause but extra work will be required to support this. Comparison Matrix - Spark on K8S Azure Databricks HDInsight Cloudera Cloudbreak Azure Machine Learning Services Multi Cloud Yes Yes No Yes Yes (1) Deployment Model IaaS / Half PaaS PaaS PaaS (with full cluster control) IaaS PaaS, with integrated support for compute on ML Services, VMs, Databricks, HDI and K8S Auto Scale Yes (will require manual configuration) Yes Yes (preview) Yes Yes (on Machine Learning Compute or Databricks) Compute Pause Support No (but scale-down yes and can be automated) Yes No (but scale-down yes, and can be automated) Yes Yes Language Support Scala, Python, R, SQL, Java, .NET Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Scala, Python, R, SQL, Java Python &amp;amp; REST Notebook Support No Yes Yes Yes Yes Scheduling Support No Yes Yes, through Oozie Yes, through Oozie Yes, Through Platform or SDK integration Tooling Re-training Required Server management through K8S Databricks Interface HDP Components HDP Components &amp;amp; Cloudbreak Interface SDK Interface OR GUI Interface in Azure Portal Extensibility No No Yes Yes Yes Performance Gain Out-Of-The-Box 0% 40% 0% 0% N/A Cost 24h: 1,662.21 USD(8h: 546.48 USD) 24h: 2,409.00 USD8h: 803,88 USDNote: perf increase added (2) 24h: 2,084.00 USD(8h: 685.15 USD) 24h: 2,100.36 USD8h: 749.43 USD+375 license cost (3) / mo Depends on K8S, HDI, Databricks VMs implementation Notes: (1): Multi Cloud since this is an offering that can be implemented through an SDK and is more on the Model Training and Operationalization part. Notebook support however has been included recently, making this a viable solution now. For Spark workloads, I however recommend to include another service with it. (2): Databricks offers an out of the box performance increase - see: website1 and website2 for more details (3): For enterprise support, licenses are required. See this website for more information. For our comparison, we took a price of 1.500 USD per license for only the worker nodes (so 3 worker nodes * 1.500 USD / 12 months). Exact pricing needs to be checked with Cloudera and this is purely indicative! References More references can be found for the following products at these links: HDInsight AutoScale: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-autoscale-clusters Jupyter Notebook: https://docs.microsoft.com/en-us/azure/hdinsight/spark/apache-spark-jupyter-notebook-kernels Job Scheduling: https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-use-oozie-linux-mac#schedule-jobs Spark on K8S Autoscale: https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler and https://github.com/kedacore/keda Cloudbreak Autoscale: https://hortonworks.github.io/cloudbreak-documentation/latest/autoscaling/index.html Notebooks: https://community.hortonworks.com/articles/104453/using-zeppelin-with-spark-21-on-hdp-26-cluster-bui.html Azure Machine Learning Services Compute Environments: https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-set-up-training-targets</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.</summary></entry></feed>
