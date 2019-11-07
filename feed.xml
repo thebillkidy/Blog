@@ -1,4 +1,266 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-11-06T22:18:57+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Facebook ReAgent - An End-to-End Use Case</title><link href="/facebook-reagent" rel="alternate" type="text/html" title="Facebook ReAgent - An End-to-End Use Case" /><published>2019-10-30T09:00:00+00:00</published><updated>2019-10-30T09:00:00+00:00</updated><id>/facebook-reagent</id><content type="html" xml:base="/facebook-reagent">&lt;p&gt;Facebook &lt;a href=&quot;https://ai.facebook.com/blog/open-sourcing-reagent-a-platform-for-reasoning-systems/&quot;&gt;decided&lt;/a&gt; to release their end-to-end applied reinforcement learning platform called &lt;a href=&quot;https://github.com/facebookresearch/ReAgent&quot;&gt;ReAgent&lt;/a&gt;, after reading their vision on this, I have to say that I am completely hooked! They are providing an excellent view of Reinforcement Learning and the future adoption of it. But why is this and how can we get started with it?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-11-07T16:41:17+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Creating a Pub/Sub system with 100.000 subscribers and 1 publisher</title><link href="/1-pub-to-100k-sub" rel="alternate" type="text/html" title="Creating a Pub/Sub system with 100.000 subscribers and 1 publisher" /><published>2019-11-06T09:00:00+00:00</published><updated>2019-11-06T09:00:00+00:00</updated><id>/1-pub-to-100k-sub</id><content type="html" xml:base="/1-pub-to-100k-sub">&lt;p&gt;I decided to do something exciting and challenging for personal growth in my Data &amp;amp; AI area and posed myself the hypothesis: “Can I create a system that with a few publishers but a massive amount of subscribers?” with the constraints of:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Should be easy to maintain (as much PaaS as possible)&lt;/li&gt;
+  &lt;li&gt;Should be easy to scale (can I autoscale? Container support? …)&lt;/li&gt;
+  &lt;li&gt;Should be able to handle real-time data flows (a real pub/sub system!)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thinking back this was something I actually encountered &lt;a href=&quot;https://github.com/sockjs/sockjs-node/issues/156&quot;&gt;before in 2014&lt;/a&gt; while working on the &lt;a href=&quot;https://xaviergeerinck.com/projects/feedient&quot;&gt;Feedient&lt;/a&gt; &lt;a href=&quot;https://github.com/Feedient/Server/blob/060184240f6028b4f29a76d884df9345561878dc/src/lib/socket.js&quot;&gt;socket implementation&lt;/a&gt;, here however I was utilizing SockJS and only had a need for around 20k connected clients.&lt;/p&gt;
+
+&lt;p&gt;After doing some research on different Azure components (since it’s my comfort zone), I came to the following conclusion:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Apache Kafka:&lt;/strong&gt; We can go high here, but it seems to be a &lt;a href=&quot;https://stackoverflow.com/questions/46284641/maximum-subscription-limit-of-kafka-topics-per-consumer&quot;&gt;bad design&lt;/a&gt;. Next to that, it instantly starts off at 1.8k for a base HA cluster…&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Redis:&lt;/strong&gt; Might be possible! I could however not find anything about this (if anyone knows, please comment below :))&lt;/li&gt;
+  &lt;li&gt;Azure Event Hubs: Not possible, it will scale well but would be too expensive + there is a limit of around &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-quotas&quot;&gt;3200 connections &lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Note: this could be increased through dedicated event hubs or contacting support but this would grow too expensive&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Azure Event Grid:&lt;/strong&gt; &lt;a href=&quot;https://github.com/MicrosoftDocs/azure-docs/blob/master/includes/event-grid-limits.md&quot;&gt;500 / topic&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Note: this could potentially be increased by multiple chained Event Grids, but this would cause too much implementation work on the moment&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Azure Service Bus:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quotas&quot;&gt;2.000 subscriptions&lt;/a&gt; on the basic or standard tier
+    &lt;ul&gt;
+      &lt;li&gt;Note: Again, can be increased but not ideal for the use case of growing towards &amp;gt; 10k connections.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After checking all of the above, I came to the conclusion that nothing in my existing skill portfolio is going to cover this… so I started my search online. After a bit of searching I came on a product calledd &lt;a href=&quot;https://www.emqx.io/&quot;&gt;emqx.io&lt;/a&gt; which sounded reasonable! And actually it was!&lt;/p&gt;
+
+&lt;p&gt;5 minutes later, I found and deployed the &lt;a href=&quot;https://hub.docker.com/u/emqx/&quot;&gt;docker container&lt;/a&gt; through the following command:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: This is being deployed on a 1 GB RAM, 1 vCPU container instance on Azure&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Create container&lt;/span&gt;
+az container create &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; General &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; emqx &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--dns-name-label&lt;/span&gt; xemqx &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--image&lt;/span&gt; emqx/emqx:latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--cpu&lt;/span&gt; 1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--memory&lt;/span&gt; 1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--ports&lt;/span&gt; 1883 8883 8083 8084 8080 18083
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With the port mapping being:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Port&lt;/th&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;isPrivate?&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1883&lt;/td&gt;
+      &lt;td&gt;MQTT&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8883&lt;/td&gt;
+      &lt;td&gt;MQTT/SSL&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8083&lt;/td&gt;
+      &lt;td&gt;MQTT/Websocket&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8084&lt;/td&gt;
+      &lt;td&gt;MQTT/Websocket/SSL&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8080&lt;/td&gt;
+      &lt;td&gt;Management API&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;18083&lt;/td&gt;
+      &lt;td&gt;Dashboard&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4369&lt;/td&gt;
+      &lt;td&gt;Node Discovery&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5369&lt;/td&gt;
+      &lt;td&gt;Cluster RPC&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;6369&lt;/td&gt;
+      &lt;td&gt;Cluster Channel&lt;/td&gt;
+      &lt;td&gt;Yes&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;After which I could open the dashboard by loading the FQDN:18083:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/pub-sub/dashboard.png&quot; alt=&quot;/assets/images/posts/pub-sub/dashboard.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;stress-testing---10k-connections&quot;&gt;Stress Testing - 10k Connections&lt;/h2&gt;
+
+&lt;p&gt;Ok, so we now got our broker done. How can we actually start stress testing? Well for this I wrote a small script that we can just execute locally:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;client.js&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mqtt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mqtt&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;noOfClients&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CLIENT_CONNECTIONS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// How many clients to create?&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;serverUrl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CLIENT_URL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Connecting &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;noOfClients&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serverUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;clientNo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;clientNo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;noOfClients&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;clientNo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Unique MQTT Object per client&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mqtt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;serverUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;test-message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Client Connected #&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientNo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// client.publish('presence', 'Hello mqtt')&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;topic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// message is Buffer&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Client #&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientNo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; Received: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// In this test we instantly end them&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Connected &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;noOfClients&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; clients`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;package.json&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mqtt-tester&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Testing mqtt subscriptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;client.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Error: no test specified&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; exit 1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;license&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ISC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;async-mqtt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^2.4.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;mqtt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^3.0.0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After executing this locally with &lt;code class=&quot;highlighter-rouge&quot;&gt;CLIENT_CONNECTIONS=10000 CLIENT_URL=mqtt://xemqx.northeurope.azurecontainer.io node client.js&lt;/code&gt; I got to 10k connections! With a stable running &lt;code class=&quot;highlighter-rouge&quot;&gt;EMQX&lt;/code&gt; service.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/pub-sub/10k.png&quot; alt=&quot;/assets/images/posts/pub-sub/10k.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next to that, I could also send to my subscribers by utilizing this small script (nothing fancy, I know):&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;sender.js&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mqtt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mqtt&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mqtt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mqtt://xemqx.northeurope.azurecontainer.io&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;test-message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Hello World: #&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Sent Message &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However when wanting to go higher, I started noticing delays on my computer not being able to handle the amount of subscriptions open… so back to the drawing board!&lt;/p&gt;
+
+&lt;h2 id=&quot;stress-testing---28k-connections&quot;&gt;Stress Testing - 28k Connections&lt;/h2&gt;
+
+&lt;p&gt;How can we improve this? Well one simple way is to create a docker container that we can put on a cloud host and simply spin up more instances! So let’s do just that and create a Dockerfile + build the image.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dockerfile&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Note: build with `docker build -t thebillkidy/mqtt-tester:1.0 .`&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Note: push to docker hub with: `docker push thebillkidy/mqtt-test:1.0`&lt;/span&gt;
+FROM node:latest
+WORKDIR /usr/src/app
+
+&lt;span class=&quot;c&quot;&gt;# Install package.json dependencies&lt;/span&gt;
+COPY package&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.json ./
+RUN npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install app&lt;/span&gt;
+COPY &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Default ENV variables&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Note: specify those while running `docker run -e CLIENT_URL=mqtt://localhost`&lt;/span&gt;
+ENV &lt;span class=&quot;nv&quot;&gt;CLIENT_CONNECTIONS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1000
+ENV &lt;span class=&quot;nv&quot;&gt;CLIENT_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'mqtt://localhost'&lt;/span&gt;
+
+CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;node&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;client_massive.js&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finishing with building the container and pushing it so that we can use it.&lt;/p&gt;
+
+&lt;p&gt;But how can we now deploy this on cloud? Well in Azure we can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;az cli&lt;/code&gt; to create out containers after being pushed. &lt;strong&gt;So creating a small line we can multiply this * 50!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;1..50&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;az container create &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; POC-EMQX &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; subscriber-&lt;span class=&quot;nv&quot;&gt;$RANDOM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--image&lt;/span&gt; thebillkidy/mqtt-tester:1.0 &lt;span class=&quot;nt&quot;&gt;--cpu&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;--memory&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;--environment-variables&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CLIENT_CONNECTIONS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10000 &lt;span class=&quot;nv&quot;&gt;CLIENT_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;mqtt://xemqx.northeurope.azurecontainer.io &lt;span class=&quot;nt&quot;&gt;--no-wait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Deployed Container &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Allowing a couple of minutes to make sure the containers are being spun up, we can now check the dashboard again. &lt;strong&gt;However!&lt;/strong&gt; it seems that it’s crashing at around 28k connections…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/pub-sub/28k.png&quot; alt=&quot;/assets/images/posts/pub-sub/28k.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Looking at our statistics of the machine, we see that the memory cap is close to being hit - so let’s see if we can work on this.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/pub-sub/28k-stats.png&quot; alt=&quot;/assets/images/posts/pub-sub/28k-stats.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;stress-testing---100k-connections&quot;&gt;Stress Testing - 100k Connections&lt;/h2&gt;
+
+&lt;p&gt;Rather than deploying our &lt;code class=&quot;highlighter-rouge&quot;&gt;emqx&lt;/code&gt; container with 1GB of RAM and 1 CPU, let’s take 4 of both and retry.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Create container
+az container create \
+    -g General \
+    --name emqx \
+    --dns-name-label xemqx \
+    --image emqx/emqx:latest \
+    --cpu 4 \
+    --memory 4 \
+    --ports 1883 8883 8083 8084 8080 18083
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With a script to create 50 x 2k connections&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;1..50&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;az container create &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; POC-EMQX &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; subscriber-&lt;span class=&quot;nv&quot;&gt;$RANDOM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--image&lt;/span&gt; thebillkidy/mqtt-tester:1.0 &lt;span class=&quot;nt&quot;&gt;--cpu&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;--memory&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;--environment-variables&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CLIENT_CONNECTIONS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2000 &lt;span class=&quot;nv&quot;&gt;CLIENT_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;mqtt://xemqx.northeurope.azurecontainer.io &lt;span class=&quot;nt&quot;&gt;--no-wait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Deployed Container &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which after a while of waiting to allow the subscriptions to come up shows us!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/pub-sub/100k.png&quot; alt=&quot;/assets/images/posts/pub-sub/100k.png&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/pub-sub/100k-stats.png&quot; alt=&quot;/assets/images/posts/pub-sub/100k-stats.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So we did it, we scaled it to 100k subscribers!&lt;/p&gt;
+
+&lt;h2 id=&quot;further&quot;&gt;Further&lt;/h2&gt;
+
+&lt;p&gt;So the above is by no means a production system, it’s merely a POC showing that we can scale to a certain amount of users. For further research I would like to scale this up towards 1M and even 10M subscribers. To do this, I would need to adapt the tooling written to make sure it scales better (there is a container limit and I can only open 2k subscribers per container in a stable way on this size). Next to that, does it not show how to run this in production and maintain it for a longer amount of time.&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">I decided to do something exciting and challenging for personal growth in my Data &amp;amp; AI area and posed myself the hypothesis: “Can I create a system that with a few publishers but a massive amount of subscribers?” with the constraints of: Should be easy to maintain (as much PaaS as possible) Should be easy to scale (can I autoscale? Container support? …) Should be able to handle real-time data flows (a real pub/sub system!)</summary></entry><entry><title type="html">Facebook ReAgent - An End-to-End Use Case</title><link href="/facebook-reagent" rel="alternate" type="text/html" title="Facebook ReAgent - An End-to-End Use Case" /><published>2019-10-30T09:00:00+00:00</published><updated>2019-10-30T09:00:00+00:00</updated><id>/facebook-reagent</id><content type="html" xml:base="/facebook-reagent">&lt;p&gt;Facebook &lt;a href=&quot;https://ai.facebook.com/blog/open-sourcing-reagent-a-platform-for-reasoning-systems/&quot;&gt;decided&lt;/a&gt; to release their end-to-end applied reinforcement learning platform called &lt;a href=&quot;https://github.com/facebookresearch/ReAgent&quot;&gt;ReAgent&lt;/a&gt;, after reading their vision on this, I have to say that I am completely hooked! They are providing an excellent view of Reinforcement Learning and the future adoption of it. But why is this and how can we get started with it?&lt;/p&gt;
 
 &lt;p&gt;From working with enterprise customers for the past 2 years, my experience is the following in the Reinforcement Learning domain:&lt;/p&gt;
 &lt;ul&gt;
@@ -2627,36 +2889,4 @@ IoT Hub module client initialized.
 
 &lt;h2 id=&quot;sending-messages-to-our-module&quot;&gt;Sending Messages to our module&lt;/h2&gt;
 
-&lt;p&gt;Sending a message is now easy, once your code is running you are able to send messages by issueing a CURL request to the endpoint you received when starting the simulator (&lt;code class=&quot;highlighter-rouge&quot;&gt;curl --header &quot;Content-Type: application/json&quot; --request POST --data '{&quot;inputName&quot;: &quot;input1&quot;,&quot;data&quot;:&quot;hello world&quot;}' http://localhost:53000/api/v1/messages&lt;/code&gt;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).</summary></entry><entry><title type="html">Creating an Internet Of Things (IoT) Edge Deployment</title><link href="/iot-edge" rel="alternate" type="text/html" title="Creating an Internet Of Things (IoT) Edge Deployment" /><published>2019-08-10T09:00:00+00:00</published><updated>2019-08-10T09:00:00+00:00</updated><id>/iot-edge</id><content type="html" xml:base="/iot-edge">&lt;p&gt;The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.&lt;/p&gt;
-
-&lt;p&gt;A way to solve this is by utilizing edge deployments. Edge deployments allow you to create your model in a scalable environment (cloud) and deploy these to the edge devices. Which can then utilize this model, filter the needed data and send just this data back when the connection is re-established.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Interesting use cases&lt;/strong&gt; for example are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Image processing from live video feeds (drones, street cameras, …)
-    &lt;ul&gt;
-      &lt;li&gt;Just think about streaming at 24fps, including your model inference and including the network round-trip&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Dongles in cars, sending the captured data from its CAN-bus
-    &lt;ul&gt;
-      &lt;li&gt;If a car sends at 1Hz, what is your captured data rate? It’s &lt;a href=&quot;https://newsroom.intel.com/editorials/self-driving-cars-big-meaning-behind-one-number-4-terabytes/&quot;&gt;predicted&lt;/a&gt; that self-driving cars will consume about 4Tb every 1.5 hours!&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So how can we solve this technical wise? Well you’d be happy to know that currently we have all the tools in place to actually accomplish this on-edge computing already!&lt;/p&gt;
-
-&lt;p&gt;Illustrating this with an architecture, we can see that we will have to add a small computing capability to our devices (think for example cameras, cars, …) that will then hook up to an event pipeline or IoT Device manager. On top of this we can then add our full lifecycle that can train our model and send the trained model back to the edge devices, creating a perfect loop and self-iterating process.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So let’s try to simulate this in our own environment! Now since this post would get too big due to the different steps being required, I decided to split it up into different modules:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/iot-edge-simulator&quot;&gt;Part X - Utilizing the IoT Edge Simulator&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/iot-edge-part1&quot;&gt;Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;Part 2 - Creating a Car Simulator&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/iot-edge-part3-simulator-camera&quot;&gt;Part 3 - Creating a Car Camera Simulator&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">The Internet-Of-Things (IoT) is currently in full roll-out around the world and will only grow with the deployment of 5G, enabling new use cases and collecting more data than ever seen before. An important aspect of this is not only managing the data that you collect, but also correctly filtering and reducing the latency that you experience on-premise. It is not accepted that it takes 10 seconds round-trip from a container ship in the middle of the atlantic ocean, if you need a response for every image of a camera feed at 24fps.</summary></entry></feed>
+&lt;p&gt;Sending a message is now easy, once your code is running you are able to send messages by issueing a CURL request to the endpoint you received when starting the simulator (&lt;code class=&quot;highlighter-rouge&quot;&gt;curl --header &quot;Content-Type: application/json&quot; --request POST --data '{&quot;inputName&quot;: &quot;input1&quot;,&quot;data&quot;:&quot;hello world&quot;}' http://localhost:53000/api/v1/messages&lt;/code&gt;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).</summary></entry></feed>

@@ -8,6 +8,26 @@
     
       
       <item>
+        <title>Creating a Pub/Sub system with 100.000 subscribers and 1 publisher</title>
+        
+          <description>&lt;p&gt;I decided to do something exciting and challenging for personal growth in my Data &amp;amp; AI area and posed myself the hypothesis: “Can I create a system that with a few publishers but a massive amount of subscribers?” with the constraints of:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Should be easy to maintain (as much PaaS as possible)&lt;/li&gt;
+  &lt;li&gt;Should be easy to scale (can I autoscale? Container support? …)&lt;/li&gt;
+  &lt;li&gt;Should be able to handle real-time data flows (a real pub/sub system!)&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        
+        <pubDate>Wed, 06 Nov 2019 09:00:00 +0000</pubDate>
+        <link>
+        /1-pub-to-100k-sub</link>
+        <guid isPermaLink="true">/1-pub-to-100k-sub</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Facebook ReAgent - An End-to-End Use Case</title>
         
           <description>&lt;p&gt;Facebook &lt;a href=&quot;https://ai.facebook.com/blog/open-sourcing-reagent-a-platform-for-reasoning-systems/&quot;&gt;decided&lt;/a&gt; to release their end-to-end applied reinforcement learning platform called &lt;a href=&quot;https://github.com/facebookresearch/ReAgent&quot;&gt;ReAgent&lt;/a&gt;, after reading their vision on this, I have to say that I am completely hooked! They are providing an excellent view of Reinforcement Learning and the future adoption of it. But why is this and how can we get started with it?&lt;/p&gt;
