@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Create a script to deploy a container automatically with Azure Container Registry</title>
+        
+          <description>&lt;p&gt;Currently I am working on a new web application that will require a server for signaling purposes. Now to run this server, I would like to utilize Azure Web Apps together with a container. Since I would like a low barrier to entry, I want to be able to run a command that takes care of:&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 24 Dec 2019 09:00:05 +0000</pubDate>
+        <link>
+        /azure-automated-container-push</link>
+        <guid isPermaLink="true">/azure-automated-container-push</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Creating a Pub/Sub system with 100.000 subscribers and 1 publisher</title>
         
           <description>&lt;p&gt;I decided to do something exciting and challenging for personal growth in my Data &amp;amp; AI area and posed myself the hypothesis: “Can I create a system that with a few publishers but a massive amount of subscribers?” with the constraints of:&lt;/p&gt;

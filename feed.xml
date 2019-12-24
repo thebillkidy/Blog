@@ -1,4 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-12-16T21:27:58+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Creating a Pub/Sub system with 100.000 subscribers and 1 publisher</title><link href="/1-pub-to-100k-sub" rel="alternate" type="text/html" title="Creating a Pub/Sub system with 100.000 subscribers and 1 publisher" /><published>2019-11-06T09:00:00+00:00</published><updated>2019-11-06T09:00:00+00:00</updated><id>/1-pub-to-100k-sub</id><content type="html" xml:base="/1-pub-to-100k-sub">&lt;p&gt;I decided to do something exciting and challenging for personal growth in my Data &amp;amp; AI area and posed myself the hypothesis: “Can I create a system that with a few publishers but a massive amount of subscribers?” with the constraints of:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-12-24T12:29:46+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Create a script to deploy a container automatically with Azure Container Registry</title><link href="/azure-automated-container-push" rel="alternate" type="text/html" title="Create a script to deploy a container automatically with Azure Container Registry" /><published>2019-12-24T09:00:05+00:00</published><updated>2019-12-24T09:00:05+00:00</updated><id>/azure-automated-container-push</id><content type="html" xml:base="/azure-automated-container-push">&lt;p&gt;Currently I am working on a new web application that will require a server for signaling purposes. Now to run this server, I would like to utilize Azure Web Apps together with a container. Since I would like a low barrier to entry, I want to be able to run a command that takes care of:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Login to azure automatically&lt;/li&gt;
+  &lt;li&gt;Setting up an Azure Container Registry service if it doesn’t exist yet&lt;/li&gt;
+  &lt;li&gt;Logs in to docker through the credentials it will automatically fetch&lt;/li&gt;
+  &lt;li&gt;Builds the docker container&lt;/li&gt;
+  &lt;li&gt;Pushes the docker container to the Azure Container Registry service&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Therefor I created an &lt;code class=&quot;highlighter-rouge&quot;&gt;azure-login.sh&lt;/code&gt; script that takes care of logging in the user automatically and allows the user to set the subscription, and a &lt;code class=&quot;highlighter-rouge&quot;&gt;acr-build-and-push-container.sh&lt;/code&gt; script that takes care of the steps listed above.&lt;/p&gt;
+
+&lt;p&gt;I can now run the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./acr-build-and-push-container.sh mycontainerregistry&lt;span class=&quot;nv&quot;&gt;$RANDOM&lt;/span&gt; ../ webapplication:v0.0.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Which will:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Build a container based on a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; located at &lt;code class=&quot;highlighter-rouge&quot;&gt;../&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Push the image &lt;code class=&quot;highlighter-rouge&quot;&gt;webapplication:v0.0.1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;mycontainerregistry$RANDOM&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;$RANDOM&lt;/code&gt; will give us a random integer so that we don’t create an already existing azure resource&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;source-code&quot;&gt;Source Code&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;azure-login.sh&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;az&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-Login] AZ CLI not installed, installing...&quot;&lt;/span&gt;
+    curl &lt;span class=&quot;nt&quot;&gt;-sL&lt;/span&gt; https://aka.ms/InstallAzureCLIDeb | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;bash
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-Login] AZ CLI Installed, continuing&quot;&lt;/span&gt;
+az login &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt; table &lt;span class=&quot;nt&quot;&gt;--query&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[].{name: name, subscriptionId: id, isDefault: isDefault}'&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# az account list --output table&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-Login] Select Subscription&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Subscription: &quot;&lt;/span&gt; var_azure_subscription
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-Login] Setting Subscription to &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$var_azure_subscription&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+az account &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--subscription&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$var_azure_subscription&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-Login] Logged in!&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;acr-build-and-push-container.sh&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# =====================================================&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Parameters&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# =====================================================&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Base Parameters&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;REQUIRE_LOGIN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;AZURE_LOCATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;westeurope
+&lt;span class=&quot;nv&quot;&gt;RESOURCE_GROUP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;webrtc-file-dropper
+
+&lt;span class=&quot;c&quot;&gt;# Specific Parameters&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;DOCKER_FILE_LOCATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;DOCKER_IMAGE_NAME_AND_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$3&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Print Parameters&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;================== PARAMETERS ===================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;AZURE_LOCATION: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$AZURE_LOCATION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;RESOURCE_GROUP: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RESOURCE_GROUP&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;REQUIRE_LOGIN: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$REQUIRE_LOGIN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;CONTAINER_REGISTRY_NAME: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;DOCKER_FILE_LOCATION: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DOCKER_FILE_LOCATION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;DOCKER_IMAGE_NAME_AND_VERSION: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DOCKER_IMAGE_NAME_AND_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# =====================================================&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Functions&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# =====================================================&lt;/span&gt;
+exit_onerror&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-eq&lt;/span&gt; 0 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+        &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# ================= PARAMETER CHECK ====================&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-z&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Usage: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;lt;container_registry_name&amp;gt; &amp;lt;dockerfile_location&amp;gt; &amp;lt;docker_image_name_and_version&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Example: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; mycontainerregistry&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;RANDOM ./ my-image:v1&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;exit
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# ====================== LOGIN ==========================&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$REQUIRE_LOGIN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$REQUIRE_LOGIN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    ./azure-login.sh
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# =======================================================&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# PRE-REQUISITES&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# =======================================================&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=============== PRE-REQUISITES ==================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Install docker if not installed&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[Docker] Docker not installed, installing...&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+    &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;docker.io
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Make sure we can reach docker&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;docker ps 2&amp;gt;&amp;amp;1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[Docker] Can not reach the Docker Daemon, check if 'unix:///var/run/docker.sock' exists&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[Docker] Note - WSL 1: Expose daemon on tcp://localhost:2375 and run 'echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;export DOCKER_HOST=tcp://localhost:2375&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;gt;&amp;gt; ~/.bashrc &amp;amp;&amp;amp; source ~/.bashrc'&quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;exit
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[Docker] Installed, continuing&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Create Resource Group&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-Group] Creating resource group &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RESOURCE_GROUP&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+az group create &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$AZURE_LOCATION&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RESOURCE_GROUP&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null
+exit_onerror
+
+&lt;span class=&quot;c&quot;&gt;# Make sure container registry exists, else create it&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;az acr show &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt; 2&amp;gt;&amp;amp;1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ERROR: The resource with name '&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-ACR] Container Registry with name &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; does not exist, attempting to create one with 'Basic' sku&quot;&lt;/span&gt;
+
+     &lt;span class=&quot;c&quot;&gt;# skus: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-skus&lt;/span&gt;
+    az acr create &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--resource-group&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RESOURCE_GROUP&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--sku&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Basic&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null
+
+    exit_onerror
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-ACR] Container Registry &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; exists&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# =======================================================&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# BUILD CONTAINER&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# =======================================================&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;============= BUILDING CONTAINER ================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[Docker] Building container&quot;&lt;/span&gt;
+docker build &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DOCKER_FILE_LOCATIONDockerfile&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.azurecr.io/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DOCKER_IMAGE_NAME_AND_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$DOCKER_FILE_LOCATION&lt;/span&gt;
+exit_onerror
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;============== PUSHING CONTAINER ================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=================================================&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-ACR] Enabling admin&quot;&lt;/span&gt;
+az acr update &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--admin-enabled&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true &lt;/span&gt;1&amp;gt; /dev/null
+exit_onerror
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-ACR] Fetching credentials&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ACR_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;az acr credential show &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--query&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;passwords[0].value&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+exit_onerror
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[Docker] Logging in&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Note: use sh -c since bash interprets it wrong and will fail to login&lt;/span&gt;
+sh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;docker login -u &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; -p &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ACR_PASSWORD&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.azurecr.io&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[AZ-ACR] Pushing container&quot;&lt;/span&gt;
+docker push &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONTAINER_REGISTRY_NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.azurecr.io/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DOCKER_IMAGE_NAME_AND_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding" /><category term="coding-bash" /><summary type="html">Currently I am working on a new web application that will require a server for signaling purposes. Now to run this server, I would like to utilize Azure Web Apps together with a container. Since I would like a low barrier to entry, I want to be able to run a command that takes care of:</summary></entry><entry><title type="html">Creating a Pub/Sub system with 100.000 subscribers and 1 publisher</title><link href="/1-pub-to-100k-sub" rel="alternate" type="text/html" title="Creating a Pub/Sub system with 100.000 subscribers and 1 publisher" /><published>2019-11-06T09:00:00+00:00</published><updated>2019-11-06T09:00:00+00:00</updated><id>/1-pub-to-100k-sub</id><content type="html" xml:base="/1-pub-to-100k-sub">&lt;p&gt;I decided to do something exciting and challenging for personal growth in my Data &amp;amp; AI area and posed myself the hypothesis: “Can I create a system that with a few publishers but a massive amount of subscribers?” with the constraints of:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Should be easy to maintain (as much PaaS as possible)&lt;/li&gt;
   &lt;li&gt;Should be easy to scale (can I autoscale? Container support? …)&lt;/li&gt;
@@ -2802,91 +2968,4 @@ ea4e5356527d: Pushed
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;We now created our first initial module, so let’s get started for real now and work on &lt;a href=&quot;/iot-edge-part2&quot;&gt;creating our AI Edge Module in Part 2&lt;/a&gt;!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html"></summary></entry><entry><title type="html">Azure IoT Edge Simulator - Easily run and test your IoT Edge application</title><link href="/iot-edge-simulator" rel="alternate" type="text/html" title="Azure IoT Edge Simulator - Easily run and test your IoT Edge application" /><published>2019-08-10T09:00:01+00:00</published><updated>2019-08-10T09:00:01+00:00</updated><id>/iot-edge-simulator</id><content type="html" xml:base="/iot-edge-simulator">&lt;p&gt;Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).&lt;/p&gt;
-
-&lt;p&gt;When you work with Azure IoT Edge, one of the issues you might have is that you would like to start debugging your applications before actually sending them off to your repository.&lt;/p&gt;
-
-&lt;p&gt;This article will explain you how you can do this for a &lt;code class=&quot;highlighter-rouge&quot;&gt;Dotnet Core&lt;/code&gt; application using the simulator.&lt;/p&gt;
-
-&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;IoT Hub&lt;/li&gt;
-  &lt;li&gt;IoT Hub Edge Simulator: &lt;code class=&quot;highlighter-rouge&quot;&gt;pip install --upgrade iotedgehubdev&lt;/code&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Note: I got a segfault while running the above, but adding &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; solved this - it’s most likely related due to a right issue&lt;/li&gt;
-      &lt;li&gt;Note 2: If you have to utilize &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;, first remove &lt;code class=&quot;highlighter-rouge&quot;&gt;iotedgehubdev&lt;/code&gt; since it might be installed under &lt;code class=&quot;highlighter-rouge&quot;&gt;.local&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;Note 3: Make sure &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose&lt;/code&gt; is also installed correctly (else if also under .local, reinstall with sudo)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;A module, see part 1 for this: &lt;a href=&quot;/iot-edge-part1&quot;&gt;iot-edge-part-1&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;tldr&quot;&gt;Tl;dr&lt;/h2&gt;
-
-&lt;p&gt;As a summary, you do the following:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo iotedgehubdev start -i &quot;input1&quot;&lt;/code&gt; - Start the IoT Edge simulator for a single module&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd &amp;lt;modulePath&amp;gt;&lt;/code&gt; Navigate to your Module&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;env $(sudo iotedgehubdev modulecred | xargs) dotnet run&lt;/code&gt; - Start the module and test it (or through debug)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: if when running the &lt;code class=&quot;highlighter-rouge&quot;&gt;env&lt;/code&gt; command no output is appearing, make sure that you started the IoT Edge Simulator for a single module!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;setting-up-the-simulator&quot;&gt;Setting up the simulator&lt;/h2&gt;
-
-&lt;h3 id=&quot;starting-the-simulator&quot;&gt;Starting the simulator&lt;/h3&gt;
-
-&lt;p&gt;Setting up the simulator requires an easy step:&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Azure IoT-Edge: Start IoT Edge Hub Simulator for Single Module&lt;/code&gt; with a value for the input channel (default is &lt;code class=&quot;highlighter-rouge&quot;&gt;value1&lt;/code&gt;). This will start a container up such as &lt;code class=&quot;highlighter-rouge&quot;&gt;mcr.microsoft.com/azureiotedge-testing-utility:1.0.0 &lt;/code&gt; which you see after running &lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This will give you the following output it everything went well:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@PersonalVM:~/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;iotedgehubdev start &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;input1&quot;&lt;/span&gt;
-IoT Edge Simulator has been started &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;single module mode.
-Please run &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;iotedgehubdev modulecred&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; to get credential to connect your module.
-And send message through:
-
-        curl &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--request&lt;/span&gt; POST &lt;span class=&quot;nt&quot;&gt;--data&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{&quot;inputName&quot;: &quot;input1&quot;,&quot;data&quot;:&quot;hello world&quot;}'&lt;/span&gt; http://localhost:53000/api/v1/messages
-
-Please refer to https://github.com/Azure/iot-edge-testing-utility/blob/master/swagger.json &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;detail schema
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Showing that a container is now running that will act as our &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Edge Hub&lt;/code&gt; (remember, the Hub orchestrates messages from the edge devices to IoT Hub and Reverse - it’s kind of a service bus).&lt;/p&gt;
-
-&lt;h3 id=&quot;getting-the-module-credentials&quot;&gt;Getting the module credentials&lt;/h3&gt;
-
-&lt;p&gt;When the simulator has now been started, we are able to get the credentials that are needed to connect our modules. You can get those by running: &lt;code class=&quot;highlighter-rouge&quot;&gt;iotedgehubdev modulecred&lt;/code&gt; which will give an output such as this:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@PersonalVM:~/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;iotedgehubdev modulecred
-&lt;span class=&quot;nv&quot;&gt;EdgeHubConnectionString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HostName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;HOSTNAME&amp;gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GatewayHostName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;personalvm&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DeviceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xavier-device-1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ModuleId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;target&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;SharedAccessKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;SHAREDACCESSKEY&amp;gt;
-&lt;span class=&quot;nv&quot;&gt;EdgeModuleCACertificateFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/var/lib/iotedgehubdev/certs/edge-device-ca/cert/edge-device-ca.cert.pem
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Checking &lt;a href=&quot;https://github.com/Azure/azure-iot-sdk-csharp/blob/master/iothub/device/tests/Edge/EdgeModuleClientFactoryTest.cs&quot;&gt;https://github.com/Azure/azure-iot-sdk-csharp/blob/master/iothub/device/tests/Edge/EdgeModuleClientFactoryTest.cs&lt;/a&gt; we can see that these credentials are used to configure connection parameters.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;running-our-code&quot;&gt;Running our code&lt;/h2&gt;
-
-&lt;p&gt;Seeing that we now have our credentials, we can inject them as environment variables in our &lt;code class=&quot;highlighter-rouge&quot;&gt;dotnet run&lt;/code&gt; command through this: &lt;code class=&quot;highlighter-rouge&quot;&gt;env $(sudo iotedgehubdev modulecred | xargs) dotnet run&lt;/code&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;What this will do is that it will run the &lt;code class=&quot;highlighter-rouge&quot;&gt;iotedgehubdev modulecred&lt;/code&gt; command to get the variables, it will then put those on 1 single line and eventually use that line as a specific environment configuration to run our &lt;code class=&quot;highlighter-rouge&quot;&gt;dotnet run&lt;/code&gt; command.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;You will now see the module booting as such:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@PersonalVM:~/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;iotedgehubdev modulecred | xargs&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; dotnet run
-IoT Hub module client initialized.
-&amp;lt;PROGRAM_OUTPUT&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Of course you are also able to utilize this as debug, for that feel free to check this link on how to set this up for your IDE: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module#develop-your-module&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module#develop-your-module&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;sending-messages-to-our-module&quot;&gt;Sending Messages to our module&lt;/h2&gt;
-
-&lt;p&gt;Sending a message is now easy, once your code is running you are able to send messages by issueing a CURL request to the endpoint you received when starting the simulator (&lt;code class=&quot;highlighter-rouge&quot;&gt;curl --header &quot;Content-Type: application/json&quot; --request POST --data '{&quot;inputName&quot;: &quot;input1&quot;,&quot;data&quot;:&quot;hello world&quot;}' http://localhost:53000/api/v1/messages&lt;/code&gt;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">Building an IoT Edge module is an important step for any IoT Application that requires on-edge processing to not constantly send data towards cloud (for bandwith, latency as well as processing reasons).</summary></entry></feed>
+&lt;p&gt;We now created our first initial module, so let’s get started for real now and work on &lt;a href=&quot;/iot-edge-part2&quot;&gt;creating our AI Edge Module in Part 2&lt;/a&gt;!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html"></summary></entry></feed>
