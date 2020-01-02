@@ -4585,6 +4585,21 @@ Predicted comments: 5451.721
     
       
       <item>
+        <title>Web2Text - Deep Structured Boilerplate Removal - Running the Code</title>
+        
+          <description>&lt;p&gt;In this article I will explain you how you can run the [Web2Text] (https://github.com/dalab/web2text) demonstration code available as explained in their &lt;a href=&quot;https://arxiv.org/pdf/1801.02607.pdf&quot;&gt;paper&lt;/a&gt; or &lt;a href=&quot;https://www.slideshare.net/eickhoff/web2text-deep-structured-boilerplate-removal&quot;&gt;presentation&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 02 Jan 2018 09:00:00 +0000</pubDate>
+        <link>
+        /web2text</link>
+        <guid isPermaLink="true">/web2text</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>The MERGE Stack</title>
         
           <description>&lt;p&gt;https://github.com/thebillkidy/MERGE-Stack&lt;/p&gt;
