@@ -4585,6 +4585,21 @@ Predicted comments: 5451.721
     
       
       <item>
+        <title>Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title>
+        
+          <description>&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 03 Jan 2018 04:00:00 +0000</pubDate>
+        <link>
+        /ai-performance-markers</link>
+        <guid isPermaLink="true">/ai-performance-markers</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Web2Text - Deep Structured Boilerplate Removal - Running the Code</title>
         
           <description>&lt;p&gt;In this article I will explain you how you can run the [Web2Text] (https://github.com/dalab/web2text) demonstration code available as explained in their &lt;a href=&quot;https://arxiv.org/pdf/1801.02607.pdf&quot;&gt;paper&lt;/a&gt; or &lt;a href=&quot;https://www.slideshare.net/eickhoff/web2text-deep-structured-boilerplate-removal&quot;&gt;presentation&lt;/a&gt;.&lt;/p&gt;
