@@ -4,7 +4,7 @@ current: post
 cover: 'assets/images/covers/ai6.jpg'
 navigation: True
 title: Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared
-date: 2018-01-03 04:00:00
+date: 2020-01-03 09:00:00
 tags: ai ai-ml
 class: post-template
 subclass: 'post'
