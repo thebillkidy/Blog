@@ -38,10 +38,7 @@ A key concept that we need to know before being able to explain the performance 
 
 A confusion matrix will look like this:
 
-||**Positive**|**Negative**|
-|-:|:-:|:-:|
-|**Positive**|True Positive (TP)|False Positive (FP)|
-|**Negative**|False Negative (FN)|True Negative (TN)|
+![/assets/images/posts/confusion-matrix.png](/assets/images/posts/confusion-matrix.png)
 
 The above might look "confusing" but is actually quite simple. The **top line dictates the "Actual Value (=truth)"** while the **left side shows the "prediction"**.
 
@@ -63,7 +60,7 @@ Example: "We want to show the confusion matrix for a classifier that classifies 
 |**Positive**|330 (TP)|2 (FN)|
 |**Negative**|7 (FP)|661 (TN)|
 
-Showing that we correctly indentified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times. 
+Showing that we correctly identified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times. 
 
 Or in other words: We were wrong 9 times and correct 991 times (also known as accuracy, but more about this later).
 
@@ -101,7 +98,7 @@ In other terms, we can thus say that the F1 score focuses on the left-bottom to 
 
 ### ROC Curve
 
-**In short:** This curve allows us to select the optimal model and discard suboptimal ones.
+**In short:** This curve allows us to select the optimal model and discard sub-optimal ones.
 
 **Formula:** False Positive Rate (FPR) = X-Axis and True Positive Rate (TPR) = Y-Axis
 * **FPR:** `TP / (TP + FN)`
@@ -113,11 +110,11 @@ Every time when we classify a point, we take the **probability** being returned 
 
 Based on the threshold selected, we will be able to construct a confusion matrix.
 
-We will now discritize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, ..., 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula `TPR = TP / (FP + TN)` and the False Positive Rate (= FPR) through `FPR = TP / (TP + FN)` and plot these.
+We will now discretize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, ..., 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula `TPR = TP / (FP + TN)` and the False Positive Rate (= FPR) through `FPR = TP / (TP + FN)` and plot these.
 
 This eventually will result in something as this:
 
-![/assets/images/posts/roc-curve.png](/assets/images/posts/roc-curve.png) 
+![/assets/images/posts/roc-curve-own.png](/assets/images/posts/roc-curve-own.png) 
 
 > **Note:** We strive to have a model that has a high AUC value, or a ROC curve that shows as much to the left top as possible.
 
@@ -148,7 +145,7 @@ Graphically this look like:
 
 **Formula:** $F = \frac{explained variance}{unexplained variance}$
 * **Explained Variance:** $\sum^K_{i=1}n_i\frac{(\bar{Y}_i - \bar{Y})^2}{K - 1}$
-* **Unexplained Variance:** $\sum^K_{i=1}\sum^{n_i}_{j=1}\frac{(Y_{ij} - \bar{Y}_i)^2}{N - K}$
+* **Unexplained Variance:** $\sum^K_{i=1} \sum^{n_i}_{j=1} \frac{(Y_{ij} - \bar{Y}_i)^2}{N - K}$
     * K = Number of groups
     * N = Overall Sample Size
     * $Y_{ij}$ = $j^{th}$ observation in the $i^{th}$ out of $K$ groups
