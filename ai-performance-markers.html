@@ -230,27 +230,7 @@ into the {body} of the default.hbs template -->
 
 <p>A confusion matrix will look like this:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: right"> </th>
-      <th style="text-align: center"><strong>Positive</strong></th>
-      <th style="text-align: center"><strong>Negative</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right"><strong>Positive</strong></td>
-      <td style="text-align: center">True Positive (TP)</td>
-      <td style="text-align: center">False Positive (FP)</td>
-    </tr>
-    <tr>
-      <td style="text-align: right"><strong>Negative</strong></td>
-      <td style="text-align: center">False Negative (FN)</td>
-      <td style="text-align: center">True Negative (TN)</td>
-    </tr>
-  </tbody>
-</table>
+<p><img src="/assets/images/posts/confusion-matrix.png" alt="/assets/images/posts/confusion-matrix.png" /></p>
 
 <p>The above might look “confusing” but is actually quite simple. The <strong>top line dictates the “Actual Value (=truth)”</strong> while the <strong>left side shows the “prediction”</strong>.</p>
 
@@ -291,7 +271,7 @@ into the {body} of the default.hbs template -->
   </tbody>
 </table>
 
-<p>Showing that we correctly indentified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times.</p>
+<p>Showing that we correctly identified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times.</p>
 
 <p>Or in other words: We were wrong 9 times and correct 991 times (also known as accuracy, but more about this later).</p>
 
@@ -329,7 +309,7 @@ into the {body} of the default.hbs template -->
 
 <h3 id="roc-curve">ROC Curve</h3>
 
-<p><strong>In short:</strong> This curve allows us to select the optimal model and discard suboptimal ones.</p>
+<p><strong>In short:</strong> This curve allows us to select the optimal model and discard sub-optimal ones.</p>
 
 <p><strong>Formula:</strong> False Positive Rate (FPR) = X-Axis and True Positive Rate (TPR) = Y-Axis</p>
 <ul>
@@ -343,11 +323,11 @@ into the {body} of the default.hbs template -->
 
 <p>Based on the threshold selected, we will be able to construct a confusion matrix.</p>
 
-<p>We will now discritize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, …, 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula <code class="highlighter-rouge">TPR = TP / (FP + TN)</code> and the False Positive Rate (= FPR) through <code class="highlighter-rouge">FPR = TP / (TP + FN)</code> and plot these.</p>
+<p>We will now discretize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, …, 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula <code class="highlighter-rouge">TPR = TP / (FP + TN)</code> and the False Positive Rate (= FPR) through <code class="highlighter-rouge">FPR = TP / (TP + FN)</code> and plot these.</p>
 
 <p>This eventually will result in something as this:</p>
 
-<p><img src="/assets/images/posts/roc-curve.png" alt="/assets/images/posts/roc-curve.png" /></p>
+<p><img src="/assets/images/posts/roc-curve-own.png" alt="/assets/images/posts/roc-curve-own.png" /></p>
 
 <blockquote>
   <p><strong>Note:</strong> We strive to have a model that has a high AUC value, or a ROC curve that shows as much to the left top as possible.</p>
@@ -378,7 +358,7 @@ into the {body} of the default.hbs template -->
 <p><strong>Formula:</strong> $F = \frac{explained variance}{unexplained variance}$</p>
 <ul>
   <li><strong>Explained Variance:</strong> $\sum^K_{i=1}n_i\frac{(\bar{Y}_i - \bar{Y})^2}{K - 1}$</li>
-  <li><strong>Unexplained Variance:</strong> $\sum^K_{i=1}\sum^{n_i}<em>{j=1}\frac{(Y</em>{ij} - \bar{Y}_i)^2}{N - K}$
+  <li><strong>Unexplained Variance:</strong> $\sum^K_{i=1} \sum^{n_i}<em>{j=1} \frac{(Y</em>{ij} - \bar{Y}_i)^2}{N - K}$
     <ul>
       <li>K = Number of groups</li>
       <li>N = Overall Sample Size</li>

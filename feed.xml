@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-03T18:42:20+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title><link href="/ai-performance-markers" rel="alternate" type="text/html" title="Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared" /><published>2020-01-03T09:00:00+00:00</published><updated>2020-01-03T09:00:00+00:00</updated><id>/ai-performance-markers</id><content type="html" xml:base="/ai-performance-markers">&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-03T18:58:03+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title><link href="/ai-performance-markers" rel="alternate" type="text/html" title="Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared" /><published>2020-01-03T09:00:00+00:00</published><updated>2020-01-03T09:00:00+00:00</updated><id>/ai-performance-markers</id><content type="html" xml:base="/ai-performance-markers">&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;
 
 &lt;p&gt;These are the questions I would like to tackle in this article. Starting from “Classification models” where we will look at metrics such as Accuracy, Precision, Recall, F1 Score and the ROC curve towards “regression models” where we will tackle the Root Mean Squared Error, F-Test and R-Squared methods.&lt;/p&gt;
 
@@ -62,27 +62,7 @@
 
 &lt;p&gt;A confusion matrix will look like this:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt; &lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;&lt;strong&gt;Positive&lt;/strong&gt;&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;&lt;strong&gt;Negative&lt;/strong&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;Positive&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;True Positive (TP)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;False Positive (FP)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;Negative&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;False Negative (FN)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;True Negative (TN)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/confusion-matrix.png&quot; alt=&quot;/assets/images/posts/confusion-matrix.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The above might look “confusing” but is actually quite simple. The &lt;strong&gt;top line dictates the “Actual Value (=truth)”&lt;/strong&gt; while the &lt;strong&gt;left side shows the “prediction”&lt;/strong&gt;.&lt;/p&gt;
 
@@ -123,7 +103,7 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;Showing that we correctly indentified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times.&lt;/p&gt;
+&lt;p&gt;Showing that we correctly identified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times.&lt;/p&gt;
 
 &lt;p&gt;Or in other words: We were wrong 9 times and correct 991 times (also known as accuracy, but more about this later).&lt;/p&gt;
 
@@ -161,7 +141,7 @@
 
 &lt;h3 id=&quot;roc-curve&quot;&gt;ROC Curve&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; This curve allows us to select the optimal model and discard suboptimal ones.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; This curve allows us to select the optimal model and discard sub-optimal ones.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; False Positive Rate (FPR) = X-Axis and True Positive Rate (TPR) = Y-Axis&lt;/p&gt;
 &lt;ul&gt;
@@ -175,11 +155,11 @@
 
 &lt;p&gt;Based on the threshold selected, we will be able to construct a confusion matrix.&lt;/p&gt;
 
-&lt;p&gt;We will now discritize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, …, 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula &lt;code class=&quot;highlighter-rouge&quot;&gt;TPR = TP / (FP + TN)&lt;/code&gt; and the False Positive Rate (= FPR) through &lt;code class=&quot;highlighter-rouge&quot;&gt;FPR = TP / (TP + FN)&lt;/code&gt; and plot these.&lt;/p&gt;
+&lt;p&gt;We will now discretize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, …, 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula &lt;code class=&quot;highlighter-rouge&quot;&gt;TPR = TP / (FP + TN)&lt;/code&gt; and the False Positive Rate (= FPR) through &lt;code class=&quot;highlighter-rouge&quot;&gt;FPR = TP / (TP + FN)&lt;/code&gt; and plot these.&lt;/p&gt;
 
 &lt;p&gt;This eventually will result in something as this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/roc-curve.png&quot; alt=&quot;/assets/images/posts/roc-curve.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/roc-curve-own.png&quot; alt=&quot;/assets/images/posts/roc-curve-own.png&quot; /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; We strive to have a model that has a high AUC value, or a ROC curve that shows as much to the left top as possible.&lt;/p&gt;
@@ -210,7 +190,7 @@
 &lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; $F = \frac{explained variance}{unexplained variance}$&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Explained Variance:&lt;/strong&gt; $\sum^K_{i=1}n_i\frac{(\bar{Y}_i - \bar{Y})^2}{K - 1}$&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Unexplained Variance:&lt;/strong&gt; $\sum^K_{i=1}\sum^{n_i}&lt;em&gt;{j=1}\frac{(Y&lt;/em&gt;{ij} - \bar{Y}_i)^2}{N - K}$
+  &lt;li&gt;&lt;strong&gt;Unexplained Variance:&lt;/strong&gt; $\sum^K_{i=1} \sum^{n_i}&lt;em&gt;{j=1} \frac{(Y&lt;/em&gt;{ij} - \bar{Y}_i)^2}{N - K}$
     &lt;ul&gt;
       &lt;li&gt;K = Number of groups&lt;/li&gt;
       &lt;li&gt;N = Overall Sample Size&lt;/li&gt;
