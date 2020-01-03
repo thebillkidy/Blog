@@ -1,4 +1,348 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-03T12:36:03+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Create a script to deploy a container automatically with Azure Container Registry</title><link href="/azure-automated-container-push" rel="alternate" type="text/html" title="Create a script to deploy a container automatically with Azure Container Registry" /><published>2019-12-24T09:00:05+00:00</published><updated>2019-12-24T09:00:05+00:00</updated><id>/azure-automated-container-push</id><content type="html" xml:base="/azure-automated-container-push">&lt;p&gt;Currently I am working on a new web application that will require a server for signaling purposes. Now to run this server, I would like to utilize Azure Web Apps together with a container. Since I would like a low barrier to entry, I want to be able to run a command that takes care of:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-03T15:48:51+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title><link href="/ai-performance-markers" rel="alternate" type="text/html" title="Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared" /><published>2020-01-03T09:00:00+00:00</published><updated>2020-01-03T09:00:00+00:00</updated><id>/ai-performance-markers</id><content type="html" xml:base="/ai-performance-markers">&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;
+
+&lt;p&gt;These are the questions I would like to tackle in this article. Starting from “Classification models” where we will look at metrics such as Accuracy, Precision, Recall, F1 Score and the ROC curve towards “regression models” where we will tackle the Root Mean Squared Error, F-Test and R-Squared methods.&lt;/p&gt;
+
+&lt;h2 id=&quot;performance-in-classification-models&quot;&gt;Performance in Classification Models&lt;/h2&gt;
+
+&lt;p&gt;Often when we are reading through papers on the internet, we see a table popping up that looks like this:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Accuracy&lt;/th&gt;
+      &lt;th&gt;Precision&lt;/th&gt;
+      &lt;th&gt;Recall&lt;/th&gt;
+      &lt;th&gt;F1&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BTE&lt;/td&gt;
+      &lt;td&gt;0.75&lt;/td&gt;
+      &lt;td&gt;0.76&lt;/td&gt;
+      &lt;td&gt;0.84&lt;/td&gt;
+      &lt;td&gt;0.80&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CRF&lt;/td&gt;
+      &lt;td&gt;0.82&lt;/td&gt;
+      &lt;td&gt;0.88&lt;/td&gt;
+      &lt;td&gt;0.81&lt;/td&gt;
+      &lt;td&gt;0.84&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Web2Text&lt;/td&gt;
+      &lt;td&gt;0.86&lt;/td&gt;
+      &lt;td&gt;0.87&lt;/td&gt;
+      &lt;td&gt;0.90&lt;/td&gt;
+      &lt;td&gt;0.88&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Numbers taken from the &lt;a href=&quot;https://www.slideshare.net/eickhoff/web2text-deep-structured-boilerplate-removal&quot;&gt;Web2Text slides&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;But what do these actually mean? Well let us take a deeper look at the different terms, starting of with introducing the “Confusion Matrix”.&lt;/p&gt;
+
+&lt;h3 id=&quot;confusion-matrix&quot;&gt;Confusion Matrix&lt;/h3&gt;
+
+&lt;p&gt;A key concept that we need to know before being able to explain the performance metrics is the &lt;strong&gt;confusion matrix&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Definition:&lt;/strong&gt; A confusion matrix is a table that is often used to describe the performance of a classification model (or “classifier”) on a set of test data for which the true values are known.&lt;/p&gt;
+
+&lt;p&gt;A confusion matrix will look like this:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;strong&gt;Positive&lt;/strong&gt;&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;strong&gt;Negative&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;Positive&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;True Positive (TP)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;False Positive (FP)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;Negative&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;False Negative (FN)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;True Negative (TN)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The above might look “confusing” but is actually quite simple. The &lt;strong&gt;top line dictates the “Actual Value (=truth)”&lt;/strong&gt; while the &lt;strong&gt;left side shows the “prediction”&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We could look at this in the sense of that &lt;strong&gt;whenever we predict correctly we will see “True”&lt;/strong&gt;, while as &lt;strong&gt;we predict wrongly we will see “False”&lt;/strong&gt; correlated to the actual value Positive or Negative&lt;/p&gt;
+
+&lt;p&gt;Mapping this to the terms filled in:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;True Positive: Prediction = True, Truth = True&lt;/li&gt;
+  &lt;li&gt;False Positive: Prediction = True, Truth = False&lt;/li&gt;
+  &lt;li&gt;False Negative: Prediction = False, Truth = True&lt;/li&gt;
+  &lt;li&gt;True Negative: Prediction = False, Truth = False&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s look at an &lt;strong&gt;example&lt;/strong&gt; to make this more clearer.&lt;/p&gt;
+
+&lt;p&gt;Example: “We want to show the confusion matrix for a classifier that classifies if an object recognition model detected an object as a car or not”. Then we could see the following confusion matrix for 1.000 test cases:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;strong&gt;Positive&lt;/strong&gt;&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;&lt;strong&gt;Negative&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;Positive&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;330 (TP)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2 (FN)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;Negative&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;7 (FP)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;661 (TN)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Showing that we correctly indentified a car in 330 cases, wrongly detected a car 2 times, correctly predicted that it was not a car 661 times and wrongly predicted that it was not a car 7 times.&lt;/p&gt;
+
+&lt;p&gt;Or in other words: We were wrong 9 times and correct 991 times (also known as accuracy, but more about this later).&lt;/p&gt;
+
+&lt;h3 id=&quot;accuracy&quot;&gt;Accuracy&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; Accuracy is how well the model performs&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;(TP + TN) / (TP + TN + FP + FN)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;#CORRECT_PREDICTIONS / #TOTAL&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;precision&quot;&gt;Precision&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; How often are we correct in our positive prediction?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;(TP) / (TP + FP)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;#CORRECT_POSITIVE_PREDICTIONS / #POSITIVE_SAMPLES&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;With Precision we want to make sure that we can accurately say when it should be positive. E.g. in our example above we want to make sure that when we say that it’s car, that it really is a car and not some other object. This is important since we will often take actions based on our detections (e.g. in a self-driving car we could change the speed based on this).&lt;/p&gt;
+
+&lt;h3 id=&quot;recall&quot;&gt;Recall&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; How often did we wrongly classify something as not true (= false)?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;(TP) / (TP + FN)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;#CORRECT_POSITIVE_PREDICTIONS / #TRUE_TRUTH_VALUES&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Recall highlights the cost of predicting something wrongly. E.g. in our example of the car, when we wrongly identify it as not a car, we might end up in hitting the car.&lt;/p&gt;
+
+&lt;h3 id=&quot;f1-score&quot;&gt;F1 Score&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; Utilize the precision and recall to create a test’s accuracy through the &lt;a href=&quot;https://en.wikipedia.org/wiki/Harmonic_mean#Harmonic_mean_of_two_numbers&quot;&gt;“harmonic mean”&lt;/a&gt;. It focuses on the on the left-bottom to right-top diagonal in the Confusion Matrix.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;2 * ((Precision * Recall) / (Precision + Recall))&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Looking at the definitions of Precision and Recall, we can see that they both focus on high impact cases (e.g. we don’t want to crash cars when we detected wrongly as not a car (= FN) and we don’t want to say that it’s a car if it’s not (= FP)). This is what the F1 score does, it will focus on what impacts our business the most compared to the Accuracy score.&lt;/p&gt;
+
+&lt;p&gt;In other terms, we can thus say that the F1 score focuses on the left-bottom to right-top diagonal.&lt;/p&gt;
+
+&lt;h3 id=&quot;roc-curve&quot;&gt;ROC Curve&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; This curve allows us to select the optimal model and discard suboptimal ones.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; False Positive Rate (FPR) = X-Axis and True Positive Rate (TPR) = Y-Axis&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;FPR:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;TP / (TP + FN)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TPR:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;FP / (FP + TN)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The ROC Curve (= Receiver Operating Characteristic) shows the performance, while the “AUC (= Area Under the Curve)” performance metric allows us to describe this as a value to measure the performance of classification models.&lt;/p&gt;
+
+&lt;p&gt;Every time when we classify a point, we take the &lt;strong&gt;probability&lt;/strong&gt; being returned to state if it’s matching or classifier or not (e.g. is it a car or not). But to be able to return true or false, we now have to introduce a &lt;em&gt;threshold&lt;/em&gt; that will &lt;strong&gt;convert this probability into a classification&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Based on the threshold selected, we will be able to construct a confusion matrix.&lt;/p&gt;
+
+&lt;p&gt;We will now discritize the range of our threshold value (e.g. we make our range of [0, 1] to [0.0, 0.1, 0.2, …, 0.9, 1.0]) which we can now create the respective confusion matrices for. With those confusion matrices we will now calculate the True Positive Rate (= TPR) through the formula &lt;code class=&quot;highlighter-rouge&quot;&gt;TPR = TP / (FP + TN)&lt;/code&gt; and the False Positive Rate (= FPR) through &lt;code class=&quot;highlighter-rouge&quot;&gt;FPR = TP / (TP + FN)&lt;/code&gt; and plot these.&lt;/p&gt;
+
+&lt;p&gt;This eventually will result in something as this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/roc-curve.png&quot; alt=&quot;/assets/images/posts/roc-curve.png&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; We strive to have a model that has a high AUC value, or a ROC curve that shows as much to the left top as possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;performance-in-regression-models&quot;&gt;Performance in Regression Models&lt;/h2&gt;
+
+&lt;p&gt;To calculate the performance of regression models, we utilize mathematical formulas that will compare the plotted graph to the points that we are predicting.&lt;/p&gt;
+
+&lt;p&gt;A good regression model should focus on minimizing the difference between the observation and the predicted value, while being unbiased. (Unbiased means that we try to find a balance between over-estimation and under-estimation)&lt;/p&gt;
+
+&lt;h3 id=&quot;root-mean-square-error-rmse&quot;&gt;Root Mean Square Error (RMSE)&lt;/h3&gt;
+
+&lt;p&gt;This is simply the root of the Mean Square Error:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;RMSE = \sqrt{\sum^n_{i=1}\frac{(\hat{y}_i - y_i)^2}{n}}&lt;/script&gt;
+
+&lt;p&gt;Which translates to taking the distance between the actual point and the predicted point, squaring this and then dividing by the amount of points we have for the mean.&lt;/p&gt;
+
+&lt;p&gt;Graphically this look like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/least_squares.png&quot; alt=&quot;/assets/images/posts/least_squares.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;f-test&quot;&gt;F-Test&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; The F-Test is used to compare statistical models that were fitted to a dataset, it allows us to identify the model that best fits the population.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; $F = \frac{explained variance}{unexplained variance}$&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Explained Variance:&lt;/strong&gt; $\sum^K_{i=1}n_i\frac{(\bar{Y}_i - \bar{Y})^2}{K - 1}$&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Unexplained Variance:&lt;/strong&gt; $\sum^K_{i=1}\sum^{n_i}&lt;em&gt;{j=1}\frac{(Y&lt;/em&gt;{ij} - \bar{Y}_i)^2}{N - K}$
+    &lt;ul&gt;
+      &lt;li&gt;K = Number of groups&lt;/li&gt;
+      &lt;li&gt;N = Overall Sample Size&lt;/li&gt;
+      &lt;li&gt;$Y_{ij}$ = $j^{th}$ observation in the $i^{th}$ out of $K$ groups&lt;/li&gt;
+      &lt;li&gt;$\bar{Y}$ = Overall mean of the data&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;r-squared&quot;&gt;R-Squared&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;In short:&lt;/strong&gt; R-Squared describes how well a model fits for a linear regresison model. The higher R, the better the fit.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Formula:&lt;/strong&gt; $R_2 = 1 - \frac{Explained Variation}{Total Variation} = 1 - \frac{SS_{res}}{SS_{tot}}$&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;$\hat{y} = \frac{1}{n} \sum^n_{i = 1} y_i$ (the mean of the observed data)&lt;/li&gt;
+  &lt;li&gt;$SS_{tot}$: $\sum_i(y_i - \hat{y})^2$ (total sum of squares)&lt;/li&gt;
+  &lt;li&gt;$SS_{res}$: $\sum_i(y_i - f_i)^2$ (sum of squares of residuals)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The below picture illustrates:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$SS_{tot}$: red&lt;/li&gt;
+  &lt;li&gt;$SS_{res}$: blue&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/coefficient-of-determination.png&quot; alt=&quot;/assets/images/posts/coefficient-of-determination.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;R-Squared (or also called the “Coefficient of Determination”) will show how close the data is to the fitted regression line. Or in other words, It indicates the percentage of the variance in the dependent variable that the independent variables explain collectively.&lt;/p&gt;
+
+&lt;p&gt;This is an interesting metric, because &lt;strong&gt;it allows us to understand better if our model is being overfitted or not.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/r-squared.webp&quot; alt=&quot;/assets/images/posts/r-squared.webp&quot; /&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="ai" /><category term="ai-ml" /><summary type="html">We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?</summary></entry><entry><title type="html">Web2Text - Deep Structured Boilerplate Removal - Running the Code</title><link href="/web2text" rel="alternate" type="text/html" title="Web2Text - Deep Structured Boilerplate Removal - Running the Code" /><published>2020-01-02T09:00:00+00:00</published><updated>2020-01-02T09:00:00+00:00</updated><id>/web2text</id><content type="html" xml:base="/web2text">&lt;p&gt;In this article I will explain you how you can run the [Web2Text] (https://github.com/dalab/web2text) demonstration code available as explained in their &lt;a href=&quot;https://arxiv.org/pdf/1801.02607.pdf&quot;&gt;paper&lt;/a&gt; or &lt;a href=&quot;https://www.slideshare.net/eickhoff/web2text-deep-structured-boilerplate-removal&quot;&gt;presentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;p&gt;Before we can run the entire pipeline, we first have to install some tools for this to work.&lt;/p&gt;
+
+&lt;h3 id=&quot;checking-the-java-version&quot;&gt;Checking the JAVA version&lt;/h3&gt;
+
+&lt;p&gt;Make sure that you have java &amp;gt; 1.8 installed by checking this with &lt;code class=&quot;highlighter-rouge&quot;&gt;java -version&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;installing-scala-sbt&quot;&gt;Installing Scala SBT&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Download scala-sbt (https://www.scala-sbt.org/download.html)
+    &lt;ul&gt;
+      &lt;li&gt;Note: I had to use 1.3.3 on Windows, 1.3.5 ad 1.3.4 seems broken
+        &lt;ul&gt;
+          &lt;li&gt;In this I had to change &lt;code class=&quot;highlighter-rouge&quot;&gt;C:\Program Files (x86)\sbt\bin\sbt.bat&lt;/code&gt; line 385 and replace &lt;code class=&quot;highlighter-rouge&quot;&gt;if x%g:^==% == x%g% (&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;if &quot;x%g:^==%&quot; == &quot;x%g%&quot; (&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;installing-tensorflow&quot;&gt;Installing Tensorflow&lt;/h3&gt;
+
+&lt;p&gt;The Web2Text project utilizes Tensorflow to create a convolutional neural network. To utilize the trained model, it will utilize Tensorflow, so we should install it as well. To do this, we can run the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;numpy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;1.18.0 &lt;span class=&quot;nv&quot;&gt;tensorflow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;1.15.0 tensorflow-gpu&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;1.15.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; See that we are installing Tensorflow 1.15.0 and not 2.0.0, this is because the original Web2Text code is not up to date with the latest version yet. The error code being returned is that it’s missing the &lt;code class=&quot;highlighter-rouge&quot;&gt;variable_scope&lt;/code&gt;. This can potentially be resolved by utilizing &lt;a href=&quot;(https://www.tensorflow.org/api_docs/python/tf/compat/v1/variable_scope)&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ts.compat.v1&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;installing-nvidia-cuda-toolkit&quot;&gt;Installing NVIDIA CUDA Toolkit&lt;/h3&gt;
+
+&lt;p&gt;For Tensorflow to perform well, we have to install the NVIDIA CUDA Toolkit, this way we will be able to utilize GPU training / inferencing:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install https://developer.nvidia.com/cuda-toolkit-archive v10.0
+    &lt;ul&gt;
+      &lt;li&gt;Note: &amp;gt;v10.0 doesn’t work! see https://www.tensorflow.org/install/gpu#software_requirements&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Install https://developer.nvidia.com/rdp/cudnn-download for v10.0
+    &lt;ul&gt;
+      &lt;li&gt;Note: open the .zip file and extract the content in the &lt;code class=&quot;highlighter-rouge&quot;&gt;cuda/&lt;/code&gt; folder to the &lt;code class=&quot;highlighter-rouge&quot;&gt;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0&lt;/code&gt; folder
+```&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As a last step, we can now adapt our PATH variable to include the NVIDIA toolkit:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SET &lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogram Files&lt;span class=&quot;se&quot;&gt;\N&lt;/span&gt;VIDIA GPU Computing Toolkit&lt;span class=&quot;se&quot;&gt;\C&lt;/span&gt;UDA&lt;span class=&quot;se&quot;&gt;\v&lt;/span&gt;10.0&lt;span class=&quot;se&quot;&gt;\b&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;%PATH%
+SET &lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogram Files&lt;span class=&quot;se&quot;&gt;\N&lt;/span&gt;VIDIA GPU Computing Toolkit&lt;span class=&quot;se&quot;&gt;\C&lt;/span&gt;UDA&lt;span class=&quot;se&quot;&gt;\v&lt;/span&gt;10.0&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;xtras&lt;span class=&quot;se&quot;&gt;\C&lt;/span&gt;UPTI&lt;span class=&quot;se&quot;&gt;\l&lt;/span&gt;ibx64&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;%PATH%
+SET &lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogram Files&lt;span class=&quot;se&quot;&gt;\N&lt;/span&gt;VIDIA GPU Computing Toolkit&lt;span class=&quot;se&quot;&gt;\C&lt;/span&gt;UDA&lt;span class=&quot;se&quot;&gt;\v&lt;/span&gt;10.0&lt;span class=&quot;se&quot;&gt;\i&lt;/span&gt;nclude&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;%PATH%
+SET &lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;C:&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;ools&lt;span class=&quot;se&quot;&gt;\c&lt;/span&gt;uda&lt;span class=&quot;se&quot;&gt;\b&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;%PATH%
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;downloading-our-web2text-code&quot;&gt;Downloading our Web2Text code&lt;/h3&gt;
+
+&lt;p&gt;Download the source code with: &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone https://github.com/dalab/web2text.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;running-the-code&quot;&gt;Running the code&lt;/h2&gt;
+
+&lt;p&gt;After installing everything, we are now ready to run the code on our own HTML file:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Navigate to root path of Web2Text&lt;/li&gt;
+  &lt;li&gt;Open CMD&lt;/li&gt;
+  &lt;li&gt;[CMD] &lt;code class=&quot;highlighter-rouge&quot;&gt;sbt &quot;runMain ch.ethz.dalab.web2text.ExtractPageFeatures result/input.html result/step_1_extracted_features&quot;&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Note: this will download some files&lt;/li&gt;
+      &lt;li&gt;Note: on windows there is a bug, see: https://github.com/sbt/sbt/issues/5222&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Files will now be visible in the root folder&lt;/li&gt;
+  &lt;li&gt;[CMD] &lt;code class=&quot;highlighter-rouge&quot;&gt;python src\main\python\main.py classify result\step_1_extracted_features result/step_2_classified_labels&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Note: first error I got was: &lt;code class=&quot;highlighter-rouge&quot;&gt;absl.flags._exceptions.UnparsedFlagAccessError: Trying to access flag --logtostderr before flags were parsed.&lt;/code&gt;, this was resolved by opening &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/python/config.py&lt;/code&gt; and adding &lt;code class=&quot;highlighter-rouge&quot;&gt;import sys\nFLAGS(sys.argv)&lt;/code&gt; under &lt;code class=&quot;highlighter-rouge&quot;&gt;FLAGS = tf.app.flags.FLAGS&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Note: second error I got was: &lt;code class=&quot;highlighter-rouge&quot;&gt;tensorflow.python.framework.errors_impl.NotFoundError: FindFirstFile failed for: trained_model_cleaneval_split : The system cannot find the path specified.&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul&gt;
+      &lt;li&gt;This was due to &lt;code class=&quot;highlighter-rouge&quot;&gt;os.path.join(CHECKPOINT_DIR, &quot;unary.ckpt&quot;)&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;os.path.join(CHECKPOINT_DIR, &quot;edge.ckpt&quot;)&lt;/code&gt; which do not take into account the running from the root directory. We can easily resolve this by adding &lt;code class=&quot;highlighter-rouge&quot;&gt;os.path.dirname(__file__)&lt;/code&gt; to the join parameters. Example: &lt;code class=&quot;highlighter-rouge&quot;&gt;os.path.join(os.path.dirname(__file__), CHECKPOINT_DIR, &quot;unary.ckpt&quot;)&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;[CMD] &lt;code class=&quot;highlighter-rouge&quot;&gt;sbt &quot;runMain ch.ethz.dalab.web2text.ApplyLabelsToPage result/input.html result/step_2_classified_labels result/step_3_applied_labels&quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;running-the-code---summarized&quot;&gt;Running the code - Summarized&lt;/h2&gt;
+
+&lt;p&gt;For people just wanting to run the code you can find a copy/paste example here :)&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sbt &lt;span class=&quot;s2&quot;&gt;&quot;runMain ch.ethz.dalab.web2text.ExtractPageFeatures result/input.html result/step_1_extracted_features&quot;&lt;/span&gt;
+python src&lt;span class=&quot;se&quot;&gt;\m&lt;/span&gt;ain&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython&lt;span class=&quot;se&quot;&gt;\m&lt;/span&gt;ain.py classify result&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;tep_1_extracted_features result/step_2_classified_labels
+sbt &lt;span class=&quot;s2&quot;&gt;&quot;runMain ch.ethz.dalab.web2text.ApplyLabelsToPage result/input.html result/step_2_classified_labels result/step_3_applied_labels&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Xavier Geerinck</name></author><category term="ai" /><category term="ai-ml" /><summary type="html">In this article I will explain you how you can run the [Web2Text] (https://github.com/dalab/web2text) demonstration code available as explained in their paper or presentation.</summary></entry><entry><title type="html">Create a script to deploy a container automatically with Azure Container Registry</title><link href="/azure-automated-container-push" rel="alternate" type="text/html" title="Create a script to deploy a container automatically with Azure Container Registry" /><published>2019-12-24T09:00:05+00:00</published><updated>2019-12-24T09:00:05+00:00</updated><id>/azure-automated-container-push</id><content type="html" xml:base="/azure-automated-container-push">&lt;p&gt;Currently I am working on a new web application that will require a server for signaling purposes. Now to run this server, I would like to utilize Azure Web Apps together with a container. Since I would like a low barrier to entry, I want to be able to run a command that takes care of:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Login to azure automatically&lt;/li&gt;
@@ -2394,578 +2738,4 @@ RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&q
   &lt;li&gt;Right click on our device in the Azure IoT Hub Extension and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Create Deployment for Single Device&lt;/code&gt; and navigate to the path of our solution config deployment. E.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/EdgeSolutionCameraFilter/config/deployment.amd64.json&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Congratulations, our Camera Simulator is now finished!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article.</summary></entry><entry><title type="html">Part 2 - Creating a Car Data simulator in IoT Edge</title><link href="/iot-edge-part2-simulator-car" rel="alternate" type="text/html" title="Part 2 - Creating a Car Data simulator in IoT Edge" /><published>2019-08-10T09:00:03+00:00</published><updated>2019-08-10T09:00:03+00:00</updated><id>/iot-edge-part2-simulator-car</id><content type="html" xml:base="/iot-edge-part2-simulator-car">&lt;blockquote&gt;
-  &lt;p&gt;This is Part 2 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; to view the previous article.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;recap-and-next-steps&quot;&gt;Recap and next steps&lt;/h2&gt;
-
-&lt;p&gt;In &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; we created our cloud infrastructure, our initial device connected to it and afterwards wrote a simulator module that we pushed to the edge device, that will send us the time every 30 seconds&lt;/p&gt;
-
-&lt;p&gt;What we want to do now is that we want to create 2 solutions as shown in our architecture that will simulate car data and video data. So let’s get started!&lt;/p&gt;
-
-&lt;h2 id=&quot;initial-setup&quot;&gt;Initial Setup&lt;/h2&gt;
-
-&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
-
-&lt;p&gt;As we learned in &lt;a href=&quot;/iot-edge-part1&quot;&gt;part 1&lt;/a&gt; we set up a new IoT Edge solution with the following parameters:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Path:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/xavier/iot-edge&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Solution:&lt;/strong&gt; EdgeSolutionCarFilter&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Module Template:&lt;/strong&gt; C# Module&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Module Name:&lt;/strong&gt; ModuleSimulatorCar&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Docker Repository:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;xavierregistry.azurecr.io/module-simulator-car&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;data-gathering&quot;&gt;Data Gathering&lt;/h3&gt;
-
-&lt;p&gt;We start off with finding a dataset of points that we want our simulator to use. We will then send off each of these datapoints every second as our simulation.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; In real-life you would not use a simulator but just use a module to capture your Video Feed/CAN Dongle/USB/… connected to the device&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Luckily an excellent repository exist on GitHub that contains an interesting dataset for car datapoints that are comparable to a CAN bus: &lt;a href=&quot;https://github.com/cloudpose/smartphone_driving_dataset&quot;&gt;https://github.com/cloudpose/smartphone_driving_dataset&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This dataset (&lt;code class=&quot;highlighter-rouge&quot;&gt;dataset_car.csv&lt;/code&gt;) has the following fields:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Time&lt;/li&gt;
-  &lt;li&gt;Seconds&lt;/li&gt;
-  &lt;li&gt;Latitude / Y Position (Degrees)&lt;/li&gt;
-  &lt;li&gt;Longitude / X Position (Degrees)&lt;/li&gt;
-  &lt;li&gt;Distance (Miles)&lt;/li&gt;
-  &lt;li&gt;Speed (MPH)&lt;/li&gt;
-  &lt;li&gt;Steering Angle&lt;/li&gt;
-  &lt;li&gt;Throttle Position&lt;/li&gt;
-  &lt;li&gt;Engine RPM&lt;/li&gt;
-  &lt;li&gt;Lateral Gs&lt;/li&gt;
-  &lt;li&gt;Acceleration Gs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;coding-our-simulator&quot;&gt;Coding our Simulator&lt;/h2&gt;
-
-&lt;h3 id=&quot;programcs&quot;&gt;Program.cs&lt;/h3&gt;
-
-&lt;p&gt;Start off by creating a new file called &lt;code class=&quot;highlighter-rouge&quot;&gt;car.csv&lt;/code&gt; in a new &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; folder under your module (this is where &lt;code class=&quot;highlighter-rouge&quot;&gt;Program.cs&lt;/code&gt; is located - e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;EdgeSolutionCarFilter/modules/ModuleSimulatorCar/data/car.csv&lt;/code&gt;)&lt;/p&gt;
-
-&lt;p&gt;Once this is done, adapt your &lt;code class=&quot;highlighter-rouge&quot;&gt;Program.cs&lt;/code&gt; file to look like this for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Init()&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;MqttTransportSettings&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MqttTransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransportType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mqtt_Tcp_Only&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ITransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Open a connection to the Edge runtime&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CreateFromEnvironmentAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IoT Hub module client initialized.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Start our simulator&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Note: this is not async, we can run on the main thread&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data/car.csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The above will open our &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Edge Hub&lt;/code&gt; connection through the &lt;code class=&quot;highlighter-rouge&quot;&gt;MQTT&lt;/code&gt; transport layer, whereafter we start our simulator.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: This opens a connection to the &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Edge Hub&lt;/code&gt;! Which is still locally running and not to cloud. It’s this Hub that will act as our kind of service bus and send the events to &lt;code class=&quot;highlighter-rouge&quot;&gt;IoT Hub&lt;/code&gt; on Azure.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;With the Simulator code looking like:&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StreamReader&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;StreamReader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ReadLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// Skip the first line -&amp;gt; it's the header&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;++;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// Send message&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UTF8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetBytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SendEventAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// Sleep for a second and go to the next line&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;lineCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;++;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Threading&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Loop infinitely&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[Simulator] Reached end of CSV file, restarting&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This is a quite trivial simulator, just reading our CSV line by line and sending the lines to the IoT Edge Device Hub on the “output” channel. See the following link for the method doing this: &lt;a href=&quot;https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.client.moduleclient.sendeventasync?view=azure-dotnet#Microsoft_Azure_Devices_Client_ModuleClient_SendEventAsync_System_String_Microsoft_Azure_Devices_Client_Message_&quot;&gt;https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.client.moduleclient.sendeventasync?view=azure-dotnet&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;When now testing this module, we see:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@PersonalVM:~/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;iotedgehubdev modulecred | xargs&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; dotnet run
-IoT Hub module client initialized.
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.005628,694.308316,30.327355999999998,-97.75596800000001,7.47,61.563,-0.3,13,2146,-0.0,-0.02
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.090666,694.393353,30.327336,-97.755969,7.47,61.51,-0.3,13,2145,-0.0,-0.02
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.190665,694.4933530000001,30.327312,-97.755969,7.48,61.448,-0.3,13,2144,-0.0,-0.02
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Simulator][8/10/19 10:46 AM] 2018-04-08 10:31:37.247328,694.550016,30.327298,-97.755969,7.48,61.412,-0.3,13,2144,-0.0,-0.02
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;deploying-our-simulator&quot;&gt;Deploying our Simulator&lt;/h3&gt;
-
-&lt;p&gt;So we can deploy this to our container registry as learned in the &lt;a href=&quot;/iot-edge-part1&quot;&gt;first part&lt;/a&gt; with the following &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$schema-template&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;modulesContent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$edgeAgent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties.desired&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;schemaVersion&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;runtime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;minDockerVersion&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;v1.25&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;loggingOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;registryCredentials&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;xavierregistry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$CONTAINER_REGISTRY_USERNAME_xavierregistry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;$CONTAINER_REGISTRY_PASSWORD_xavierregistry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xavierregistry.azurecr.io&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;systemModules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;edgeAgent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mcr.microsoft.com/azureiotedge-agent:1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;edgeHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mcr.microsoft.com/azureiotedge-hub:1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostConfig&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;PortBindings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;5671/tcp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5671&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;8883/tcp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8883&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;443/tcp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostPort&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;443&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;modules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ModuleSimulatorCar&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${MODULES.ModuleSimulatorCar}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-              &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$edgeHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties.desired&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;schemaVersion&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;routes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ModuleSimulatorCarToIoTHub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;FROM /messages/modules/ModuleSimulatorCar/outputs/* INTO $upstream&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;storeAndForwardConfiguration&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;timeToLiveSecs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7200&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we can:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Make sure that you set the configuration in your &lt;code class=&quot;highlighter-rouge&quot;&gt;.env&lt;/code&gt; file for the container registry (see &lt;code class=&quot;highlighter-rouge&quot;&gt;registryCredentials&lt;/code&gt; in  &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.amd64.json&lt;/code&gt; for the required keys)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Login to our container repository: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo docker login -u &amp;lt;USERNAME&amp;gt; -p &amp;lt;PASSWORD&amp;gt; &amp;lt;LOGIN_SERVER&amp;gt;&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Right click on &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and: &lt;code class=&quot;highlighter-rouge&quot;&gt;Build and Push IoT Edge Solution&lt;/code&gt; which will initiate a &lt;code class=&quot;highlighter-rouge&quot;&gt;docker build  --rm -f &quot;/home/xavier/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar/Dockerfile.amd64&quot; -t xavierregistry.azurecr.io/module-simulator-car:0.0.1-amd64 &quot;/home/xavier/iot-edge/EdgeSolutionCarFilter/modules/ModuleSimulatorCar&quot; &amp;amp;&amp;amp; docker push xavierregistry.azurecr.io/module-simulator-car:0.0.1-amd64&lt;/code&gt; command.&lt;/li&gt;
-  &lt;li&gt;Right click on our device in the Azure IoT Hub Extension and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Create Deployment for Single Device&lt;/code&gt; and navigate to the path of our solution config deployment. E.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/EdgeSolutionCarFilter/config/deployment.amd64.json&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;When all of this is done, when we now open a demo reader for IoT Hub (see &lt;a href=&quot;https://github.com/thebillkidy/PublicProjects/tree/master/JS/Azure/EventHub/Receiver&quot;&gt;My PublicProjects&lt;/a&gt; for an example) we see:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] Start monitoring message arrived &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;built-in endpoint &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;device &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1] ...
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] Created partition receiver &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;0] &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;consumerGroup &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] Created partition receiver &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1] &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;consumerGroup &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11:40:29 AM] Message received from &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1/ModuleSimulatorCar]:
-&lt;span class=&quot;s2&quot;&gt;&quot;2018-04-08 10:31:38.515609,695.818296,30.326990000000002,-97.755974,7.5,60.625,-0.4,0,2119,-0.01,-0.04&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; In case you don’t see this, you should go and debug the solution. A good starting point here is to logon on your device and check the &lt;code class=&quot;highlighter-rouge&quot;&gt;docker logs&lt;/code&gt; of the &lt;code class=&quot;highlighter-rouge&quot;&gt;edgeAgent&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo docker logs edgeAgent&lt;/code&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Congratulations, our Car Simulator is now finished!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">This is Part 2 in the Iot Edge series, view the main article or go the part 1 to view the previous article.</summary></entry><entry><title type="html">Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title><link href="/iot-edge-part1" rel="alternate" type="text/html" title="Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub" /><published>2019-08-10T09:00:02+00:00</published><updated>2019-08-10T09:00:02+00:00</updated><id>/iot-edge-part1</id><content type="html" xml:base="/iot-edge-part1">&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;This is Part 1 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt;. Part 2 is currently under construction and will follow soon.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Looking at our architecture, we need to be able to connect out devices and get some interesting output from them before we can actually do something with them. In this first part we will be mainly focusing on doing just that - connecting our devices and sending data to our IoT Hub resource.&lt;/p&gt;
-
-&lt;p&gt;Therefor in this Part we have the following &lt;strong&gt;prerequisities:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note for my variables I used the following:&lt;/p&gt;
-  &lt;ul&gt;
-    &lt;li&gt;YOUR_IOTHUB_NAME = xavier-iothub&lt;/li&gt;
-    &lt;li&gt;YOUR_DEVICE_ID = xavier-device-1&lt;/li&gt;
-    &lt;li&gt;YOUR_EDGE_VM = xavier-edge-1&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;IoT Hub - Connect and manage your devices
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;az iot hub create --resource-group DEMO-IoTEdge --name {YOUR_IOTHUB_NAME} --sku F1&lt;/code&gt; will create a &lt;em&gt;free&lt;/em&gt; iot hub (limits: 8k messages per day and 500 registered devices)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Azure Shell + IoT Cli Extension
-    &lt;ul&gt;
-      &lt;li&gt;Note: Easy way is utilizing &lt;a href=&quot;https://shell.azure.com&quot;&gt;https://shell.azure.com&lt;/a&gt; and run &lt;code class=&quot;highlighter-rouge&quot;&gt;az extension add --name azure-cli-iot-ext&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Azure Edge Runtime on the device
-    &lt;ul&gt;
-      &lt;li&gt;Linux x64: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux&lt;/li&gt;
-      &lt;li&gt;Linux ARM: https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;An ARM IoT Device (we use ARM because it might give compatibility issues, but we will most likely have ARM devices in the field)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;registering-a-device&quot;&gt;Registering a Device&lt;/h2&gt;
-
-&lt;h3 id=&quot;creating-a-simulation-device&quot;&gt;Creating a simulation device&lt;/h3&gt;
-
-&lt;p&gt;Checking &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/support#operating-systems&quot;&gt;IoT Edge Supported Devices&lt;/a&gt; showed me that Ubuntu 18.04 is supported on ARM. However since I didn’t have access to a ARM device on the moment of writing, I went with deploying a VM on Azure, which is easily done through the marketplace: &lt;a href=&quot;https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu&quot;&gt;https://azuremarketplace.microsoft.com/marketplace/apps/microsoft_iot_edge.iot_edge_vm_ubuntu&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az vm create &lt;span class=&quot;nt&quot;&gt;--resource-group&lt;/span&gt; DEMO-IoTEdge &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; xavier-edge-1 &lt;span class=&quot;nt&quot;&gt;--image&lt;/span&gt; microsoft_iot_edge:iot_edge_vm_ubuntu:ubuntu_1604_edgeruntimeonly:latest &lt;span class=&quot;nt&quot;&gt;--admin-username&lt;/span&gt; xavier &lt;span class=&quot;nt&quot;&gt;--ssh-key-values&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;YOUR_SSH_KEY&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--size&lt;/span&gt; Standard_B1ms
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: if you are installing on an ARM, feel free to follow the guide at: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux-arm&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;creating-an-iot-edge-device-id&quot;&gt;Creating an IoT Edge Device ID&lt;/h3&gt;
-
-&lt;p&gt;Once our prerequisites are done, we can start adding our devices. For this run: &lt;code class=&quot;highlighter-rouge&quot;&gt;az iot hub device-identity create --hub-name {YOUR_IOTHUB_NAME} --device-id {YOUR_DEVICE_ID} --edge-enabled&lt;/code&gt; which will create an edge-enabled device. This will return something like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;authentication&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;symmetricKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;primaryKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{MASKED}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;secondaryKey&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{MASKED}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sas&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;x509Thumbprint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;primaryThumbprint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;secondaryThumbprint&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;capabilities&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;iotEdge&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;cloudToDeviceMessageCount&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;connectionState&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Disconnected&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;connectionStateUpdatedTime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deviceId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;xavier-device-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deviceScope&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ms-azure-iot-edge://xavier-device-1-{ID}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;etag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{ETAG}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;generationId&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{ID}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;lastActivityTime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;enabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;statusReason&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;statusUpdatedTime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0001-01-01T00:00:00&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;connecting-our-iot-edge-device-to-iot-hub&quot;&gt;Connecting our IoT Edge Device to IoT Hub&lt;/h2&gt;
-
-&lt;p&gt;Once we deployed this VM, we can now configure our IoT Edge by getting our IoT Hub connection string and running a shell command which is available in the image.&lt;/p&gt;
-
-&lt;p&gt;To get our connection string we can run:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az iot hub device-identity show-connection-string &lt;span class=&quot;nt&quot;&gt;--device-id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;YOUR_DEVICE_ID&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--hub-name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;YOUR_IOTHUB_NAME&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Which will return something such as:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;connectionString&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HostName={YOUR_IOTHUB}.azure-devices.net;DeviceId={YOUR_DEVICE_ID};SharedAccessKey={ACCESS_KEY}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we can run the following script which was pre-deployed on our Edge Device through the Marketplace image, that will configure our edge device:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;az vm run-command invoke &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; Demo-IoTEdge &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;YOUR_EDGE_VM&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--command-id&lt;/span&gt; RunShellScript &lt;span class=&quot;nt&quot;&gt;--script&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/etc/iotedge/configedge.sh '{YOUR_DEVICE_CONNECTION_STRING}'&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Which should show the following when executed successfully:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xavier@Azure:~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;az vm run-command invoke &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; Demo-IoTEdge &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; xavier-edge-1 &lt;span class=&quot;nt&quot;&gt;--command-id&lt;/span&gt; RunShellScript &lt;span class=&quot;nt&quot;&gt;--script&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/etc/iotedge/configedge.sh 'HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}'&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;s2&quot;&gt;&quot;code&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;ProvisioningState/succeeded&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;displayStatus&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Provisioning succeeded&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;level&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Info&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;message&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Enable succeeded: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[stdout]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; Wed May 22 13:24:14 UTC 2019 Connection string set to HostName=xavier-iothub.azure-devices.net;DeviceId=xavier-device-1;SharedAccessKey={YOUR_DEVICE_ACCCESS_KEY}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[stderr]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;time&quot;&lt;/span&gt;: null
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; You can now check if IoT Edge is running by SSHing on the machine and executing &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl status iotedge&lt;/code&gt;
-&lt;strong&gt;Interesting Commands:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;journalctl -u iotedge&lt;/code&gt; - Check logs, &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo iotedge list&lt;/code&gt; - Show modules running&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;creating-our-edge-devices-echo-module&quot;&gt;Creating our Edge Device’s Echo Module&lt;/h2&gt;
-
-&lt;p&gt;For testing purposes, we want to create a small container that echos the current time every 2 seconds to IoT Hub. To do this we follow a few steps:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Command Palette (ctrl + p):&lt;/strong&gt; Azure: Sign In&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Command Palette (ctrl + p):&lt;/strong&gt; Azure IoT Edge: New IoT Edge solution
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Path:&lt;/strong&gt; /home/xavier/iot-edge/&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Solution:&lt;/strong&gt; EdgeSolutionCameraFilter&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Module Template:&lt;/strong&gt; C# Module&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Module Name:&lt;/strong&gt; EchoModule (our demo container for now)&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Docker Repository:&lt;/strong&gt; xavierregistry.azurecr.io/echomodule&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note: for more information and details, check &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module&lt;/a&gt; which goes through the steps of creating a temperature model.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Note 2: I didn’t have docker installed on my machine. We can however easily work around this by utilizing a remote Linux VM Machine and use &lt;a href=&quot;https://code.visualstudio.com/docs/remote/remote-overview&quot;&gt;VS Code Remote-SSH&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Once we did that, we will see the following boilerplate code created once we open our folder.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This boilerplate code creates a module that will play back our input on the output channel. To make this clearer, I renamed &lt;code class=&quot;highlighter-rouge&quot;&gt;input1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;input-echo&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;output1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;output-echo&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Another thing I did is to add a timer that will send a message every 30 seconds to make it clear that it is actually doing something and that we don’t necessarily have to send something to it ;) The code I used for that:&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Register a Timer that will send every X seconds&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Elapsed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ElapsedEventHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Timers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ElapsedEventArgs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UTF8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetBytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;Sending event at &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SendEventAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Interval&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Every 30 seconds&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Enabled&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A last thing we now have to do is to remove a few lines from our &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.debug.json&lt;/code&gt; file in the root folder:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;sensorToEchoModule&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/modules/EchoModule/inputs/input1&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And some lines that deploy another module that we don’t need&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;tempSensor&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we are ready to build, publish and finally deploy our edge module.&lt;/p&gt;
-
-&lt;h2 id=&quot;building-publishing--deploying-the-edge-module&quot;&gt;Building, Publishing &amp;amp; Deploying the Edge Module&lt;/h2&gt;
-
-&lt;h3 id=&quot;building-and-publishing-our-edge-module&quot;&gt;Building and Publishing our Edge Module&lt;/h3&gt;
-
-&lt;p&gt;We can now easily build and publish our Edge Module by right-clicking our &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and selecting “Build and Push Iot Edge Solution”&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-creation-4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; For me this failed due to permission issues on my Linux machine, however when you have the terminal open you can just press the up arrow and add &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; in the front. 
-&lt;strong&gt;Hint:&lt;/strong&gt; ctrl + a jumps to the beginning of a line&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;This will now build and push our solution, resulting in:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Docker container is building&lt;/span&gt;
-Step 1/12 : FROM microsoft/dotnet:2.1-sdk AS build-env
-2.1-sdk: Pulling from microsoft/dotnet
-c5e155d5a1d1: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;221d80d00ae9: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;4250b3117dca: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;3b7ca19181b2: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;5980daa97e3c: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;7cbae962589c: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;4ab425e558b6: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;Digest: sha256:481a526515bd95f7ecbe866b99ddac6130da3402e8e4fb09712123393d3f1475
-Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;microsoft/dotnet:2.1-sdk
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 511c1f563ce6
-Step 2/12 : WORKDIR /app
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;ed3388ecf107
-Removing intermediate container ed3388ecf107
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; e8033981828f
-Step 3/12 : COPY &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.csproj ./
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 4614b845cc5d
-Step 4/12 : RUN dotnet restore &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;2db5ed302e26  Restore completed &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;3.24 sec &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /app/EchoModule.csproj.
-Removing intermediate container 2db5ed302e26
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; b74b9ac5490b
-Step 5/12 : COPY &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; ./
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 8132d7ecea0d
- Step 6/12 : RUN dotnet publish &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; Release &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; out
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;62098984d63d
-Microsoft &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;R&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Build Engine version 16.1.76+g14b0a930a7 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; .NET Core
-Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Microsoft Corporation. All rights reserved.
-
-  Restore completed &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;485.11 ms &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /app/EchoModule.csproj.
-  EchoModule -&amp;gt; /app/bin/Release/netcoreapp2.1/EchoModule.dll
-  EchoModule -&amp;gt; /app/out/
-Removing intermediate container 62098984d63d
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 46899da4cedb
-Step 7/12 : FROM microsoft/dotnet:2.1-runtime-stretch-slim
-2.1-runtime-stretch-slim: Pulling from microsoft/dotnet
-743f2d6c1f65: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;074da88b8de0: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;ac831735b47a: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;625946e33cc4: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;Digest: sha256:5ff2b0f6e69b44f6404d46445be34408551331429d5a84b667cfee49ebd8117d
-Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;microsoft/dotnet:2.1-runtime-stretch-slim
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; f7da44fabfad
-Step 8/12 : WORKDIR /app
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;b999e9d179aa
-Removing intermediate container b999e9d179aa
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 247b2ac0a988
-Step 9/12 : COPY &lt;span class=&quot;nt&quot;&gt;--from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;build-env /app/out ./
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; ef30f581b39d
-Step 10/12 : RUN useradd &lt;span class=&quot;nt&quot;&gt;-ms&lt;/span&gt; /bin/bash moduleuser
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;172a5e40a83e
-Removing intermediate container 172a5e40a83e
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; dc3691450b75
-Step 11/12 : USER moduleuser
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;c71d5ab2fc77
-Removing intermediate container c71d5ab2fc77
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; d4798c0654e7
-Step 12/12 : ENTRYPOINT &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dotnet&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;EchoModule.dll&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; Running &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;547f0facbdd8
-Removing intermediate container 547f0facbdd8
- &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 114a7cc96b50
-Successfully built 114a7cc96b50
-Successfully tagged xavierregistry.azurecr.io/echomodule:0.0.1-amd64
-
-&lt;span class=&quot;c&quot;&gt;# Pushing it&lt;/span&gt;
-The push refers to repository &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavierregistry.azurecr.io/echomodule]
-11e1e4b905fe: Pushed 
-a0d529ad3f07: Pushed 
-f081219e5aa6: Pushed 
-be1595c6dfc4: Pushed 
-ecf7942d9af2: Pushed 
-ea4e5356527d: Pushed 
-6270adb5794c: Pushed 
-0.0.1-amd64: digest: sha256:7021323942c2323adb48d17ec73b00e69ec19216c816de59e2eb6e9a0b3f682c size: 1789
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;deploying-our-edge-module&quot;&gt;Deploying our Edge Module&lt;/h3&gt;
-
-&lt;p&gt;Now that our module is created and pushed to our repository, we can now push it to our Edge Module. For this, simply right-click on our device and select “Create Deployment for Single Device”&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This will open up our output and show:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Edge] Start deployment to device &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1]
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Edge] Deployment succeeded.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;When we open up our device now, we can see that under modules we have an extra module deployed.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png&quot; alt=&quot;/assets/images/posts/iot-edge/iothub-echo-module-deploy-3.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;testing-our-deployment&quot;&gt;Testing our Deployment&lt;/h2&gt;
-
-&lt;p&gt;To monitor our device, we can now go to our devices and select “Start Monitoring Built-In Event Endpoint” which will open a logger for us. When we did this, we will now after a few seconds see:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5:59:27 PM] Message received from &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1/EchoModule]:
-&lt;span class=&quot;s2&quot;&gt;&quot;Sending event at 05/24/2019 17:59&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;For our Echo module, we can now send a C2D message (Cloud to Device), we do this by Right-Clicking our device again and selecting “Send D2C Message to IoTHub” and entering our message.&lt;/p&gt;
-
-&lt;p&gt;When everything goes well we will now see the following in our Device Event Log:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;D2CMessage] Sending message to &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoT Hub] ...
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;IoTHubMonitor] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;6:02:36 PM] Message received from &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;xavier-device-1]:
-&lt;span class=&quot;s2&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;We now created our first initial module, so let’s get started for real now and work on &lt;a href=&quot;/iot-edge-part2&quot;&gt;creating our AI Edge Module in Part 2&lt;/a&gt;!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html"></summary></entry></feed>
+&lt;p&gt;Congratulations, our Camera Simulator is now finished!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article.</summary></entry></feed>
