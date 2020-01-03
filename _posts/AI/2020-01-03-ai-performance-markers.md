@@ -153,7 +153,7 @@ Graphically this look like:
 
 ### R-Squared
 
-**In short:** R-Squared describes how well a model fits for a linear regresison model. The higher R, the better the fit.
+**In short:** R-Squared describes how well a model fits for a linear regression model. The higher R, the better the fit.
 
 **Formula:** $R_2 = 1 - \frac{Explained Variation}{Total Variation} = 1 - \frac{SS_{res}}{SS_{tot}}$
 * $\hat{y} = \frac{1}{n} \sum^n_{i = 1} y_i$ (the mean of the observed data)
