@@ -1,3 +1,16 @@
+---
+layout: post
+current: post
+cover: 'assets/images/covers/ai6.jpg'
+navigation: True
+title: Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared
+date: 2018-01-03 04:00:00
+tags: ai ai-ml
+class: post-template
+subclass: 'post'
+author: xavier
+---
+
 We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?
 
 These are the questions I would like to tackle in this article. Starting from "Classification models" where we will look at metrics such as Accuracy, Precision, Recall, F1 Score and the ROC curve towards "regression models" where we will tackle the Root Mean Squared Error, F-Test and R-Squared methods.
@@ -113,6 +126,8 @@ This eventually will result in something as this:
 
 To calculate the performance of regression models, we utilize mathematical formulas that will compare the plotted graph to the points that we are predicting. 
 
+A good regression model should focus on minimizing the difference between the observation and the predicted value, while being unbiased. (Unbiased means that we try to find a balance between over-estimation and under-estimation)
+
 ### Root Mean Square Error (RMSE)
 
 This is simply the root of the Mean Square Error:
@@ -127,18 +142,36 @@ Graphically this look like:
 
 ![/assets/images/posts/least_squares.png](/assets/images/posts/least_squares.png)
 
-
 ### F-Test
 
-TODO
+**In short:** The F-Test is used to compare statistical models that were fitted to a dataset, it allows us to identify the model that best fits the population.
+
+**Formula:** $F = \frac{explained variance}{unexplained variance}$
+* **Explained Variance:** $\sum^K_{i=1}n_i\frac{(\bar{Y}_i - \bar{Y})^2}{K - 1}$
+* **Unexplained Variance:** $\sum^K_{i=1}\sum^{n_i}_{j=1}\frac{(Y_{ij} - \bar{Y}_i)^2}{N - K}$
+    * K = Number of groups
+    * N = Overall Sample Size
+    * $Y_{ij}$ = $j^{th}$ observation in the $i^{th}$ out of $K$ groups
+    * $\bar{Y}$ = Overall mean of the data
 
 ### R-Squared
 
-R-Squared will show hus how close the data is to the fitted regression line. This is interesting because it can show us if a model is overfitted or not! With a value between 0% and 100% where 100% is the closest to the points (perfect fit).
+**In short:** R-Squared describes how well a model fits for a linear regresison model. The higher R, the better the fit.
 
-To calculate this, we take the 
+**Formula:** $R_2 = 1 - \frac{Explained Variation}{Total Variation} = 1 - \frac{SS_{res}}{SS_{tot}}$
+* $\hat{y} = \frac{1}{n} \sum^n_{i = 1} y_i$ (the mean of the observed data)
+* $SS_{tot}$: $\sum_i(y_i - \hat{y})^2$ (total sum of squares)
+* $SS_{res}$: $\sum_i(y_i - f_i)^2$ (sum of squares of residuals)
 
+The below picture illustrates:
+
+* $SS_{tot}$: red
+* $SS_{res}$: blue
+
+![/assets/images/posts/coefficient-of-determination.png](/assets/images/posts/coefficient-of-determination.png)
+
+R-Squared (or also called the "Coefficient of Determination") will show how close the data is to the fitted regression line. Or in other words, It indicates the percentage of the variance in the dependent variable that the independent variables explain collectively. 
+
+This is an interesting metric, because **it allows us to understand better if our model is being overfitted or not.** 
 
 ![/assets/images/posts/r-squared.webp](/assets/images/posts/r-squared.webp)
-
-> **Note:** R-squared is not used 
