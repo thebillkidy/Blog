@@ -34,7 +34,7 @@ If we take the requirements above, the following components might be sufficient:
 
 Which will result in the following architecture:
 
-![/assets/images/architectures/architecture-real-time-apps.svg](/assets/images/architectures/architecture-real-time-apps.svg) @TODO
+![/assets/images/architectures/architecture-real-time-apps.svg](/assets/images/architectures/architecture-real-time-apps.svg)
 
 ## Data Flow / Data Model
 
