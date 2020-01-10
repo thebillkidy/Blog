@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Act in realtime on IoT Data without writing any code through Azure IoT Hub, Event Grid, Cosmos DB and Logic Apps</title>
+        
+          <description>&lt;p&gt;Creating a realtime application is quite trivial, you most of the time take in all the events and put a dedicated processor on there that will process the incoming events for you. But what if you would like to make things a bit more interesting and develop this entire path completely serverless without writing any code, but still ensuring a response of seconds rather than minutes?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 09 Jan 2020 09:00:00 +0000</pubDate>
+        <link>
+        /iot-hub-realtime-action-flow</link>
+        <guid isPermaLink="true">/iot-hub-realtime-action-flow</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title>
         
           <description>&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;

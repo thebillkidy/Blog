@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1373" height="2619" viewBox="0 0 1373 2619">
+  <defs>
+    <clipPath id="clip-Overview_Cards_-_AI_Classification_Models_-_Performance">
+      <rect width="1373" height="2619"/>
+    </clipPath>
+  </defs>
+  <g id="Overview_Cards_-_AI_Classification_Models_-_Performance" data-name="Overview Cards - AI Classification Models - Performance" clip-path="url(#clip-Overview_Cards_-_AI_Classification_Models_-_Performance)">
+    <rect width="1373" height="2619" fill="#f5f7f9"/>
+    <g id="Rectangle_377" data-name="Rectangle 377" transform="translate(20 74)" fill="#fff" stroke="#eaecee" stroke-width="1">
+      <rect width="1333" height="2525" stroke="none"/>
+      <rect x="0.5" y="0.5" width="1332" height="2524" fill="none"/>
+    </g>
+    <rect id="Rectangle_378" data-name="Rectangle 378" width="1329" height="373" transform="translate(22 906)" fill="#fafafb"/>
+    <rect id="Rectangle_429" data-name="Rectangle 429" width="84" height="226" transform="translate(79 524)" fill="#f7f7f7"/>
+    <rect id="Rectangle_428" data-name="Rectangle 428" width="691" height="76" transform="translate(79 448)" fill="#f7f7f7"/>
+    <g id="Group_48" data-name="Group 48" transform="translate(605.909 12)">
+      <g id="logo-bg" transform="translate(0.091)">
+        <g id="Rectangle_332" data-name="Rectangle 332" fill="#fff" stroke="#edeff1" stroke-width="1">
+          <rect width="124" height="124" rx="62" stroke="none"/>
+          <rect x="0.5" y="0.5" width="123" height="123" rx="61.5" fill="none"/>
+        </g>
+      </g>
+    </g>
+    <g id="Group_144" data-name="Group 144" transform="translate(270.454 125.842)">
+      <text id="AI_Classification_Models_Performance_Measurement_xaviergeerinck.com_" data-name="AI Classification Models
+Performance Measurement
+(xaviergeerinck.com)" transform="translate(388.546 66.158)" fill="#707980" font-size="61" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-341.904" y="0">AI Classification Models</tspan><tspan x="-389.396" y="81">Performance Measurement</tspan><tspan font-size="22" font-family="SegoeUI-Italic, Segoe UI" font-weight="400" font-style="italic"><tspan x="-97.281" y="120">(xaviergeerinck.com)</tspan></tspan></text>
+    </g>
+    <text id="Confusion_Matrix" data-name="Confusion Matrix" transform="translate(79 399)" fill="#707980" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">CONFUSION MATRIX</tspan></text>
+    <text id="Metrics" transform="translate(79 867)" fill="#707980" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">METRICS</tspan></text>
+    <text id="Accuracy" transform="translate(79 964)" fill="#707980" font-size="27" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">ACCURACY</tspan></text>
+    <g id="_897066" data-name="897066" transform="translate(632.562 39.308)">
+      <path id="Path_1894" data-name="Path 1894" d="M164.346,168.746h-24.19a4.4,4.4,0,0,1-4.4-4.4v-24.19a4.4,4.4,0,0,1,4.4-4.4h24.19a4.4,4.4,0,0,1,4.4,4.4v24.19A4.4,4.4,0,0,1,164.346,168.746Z" transform="translate(-117.136 -117.137)" fill="#ea5b48"/>
+      <path id="Path_1895" data-name="Path 1895" d="M185.1,186.2h-24.19a1.1,1.1,0,0,1-1.1-1.1v-24.19a1.1,1.1,0,0,1,1.1-1.1H185.1a1.1,1.1,0,0,1,1.1,1.1V185.1A1.1,1.1,0,0,1,185.1,186.2Z" transform="translate(-137.887 -137.888)" fill="#ef8476"/>
+      <g id="Group_222" data-name="Group 222" transform="translate(3.228 24.12)">
+        <circle id="Ellipse_63" data-name="Ellipse 63" cx="2.199" cy="2.199" r="2.199" fill="#ef8476"/>
+        <circle id="Ellipse_64" data-name="Ellipse 64" cx="2.199" cy="2.199" r="2.199" transform="translate(59.376 17.593)" fill="#ef8476"/>
+      </g>
+      <g id="Group_223" data-name="Group 223" transform="translate(1.029 14.224)">
+        <circle id="Ellipse_65" data-name="Ellipse 65" cx="2.199" cy="2.199" r="2.199" transform="translate(0 37.384)" fill="#ea5b48"/>
+        <circle id="Ellipse_66" data-name="Ellipse 66" cx="2.199" cy="2.199" r="2.199" transform="translate(63.774)" fill="#ea5b48"/>
+      </g>
+      <g id="Group_224" data-name="Group 224" transform="translate(24.12 3.228)">
+        <circle id="Ellipse_67" data-name="Ellipse 67" cx="2.199" cy="2.199" r="2.199" transform="translate(17.593)" fill="#ef8476"/>
+        <circle id="Ellipse_68" data-name="Ellipse 68" cx="2.199" cy="2.199" r="2.199" transform="translate(0 59.376)" fill="#ef8476"/>
+      </g>
+      <g id="Group_225" data-name="Group 225" transform="translate(14.224 1.029)">
+        <circle id="Ellipse_69" data-name="Ellipse 69" cx="2.199" cy="2.199" r="2.199" fill="#ea5b48"/>
+        <circle id="Ellipse_70" data-name="Ellipse 70" cx="2.199" cy="2.199" r="2.199" transform="translate(37.384 63.774)" fill="#ea5b48"/>
+      </g>
+      <path id="Path_1896" data-name="Path 1896" d="M193.752,196.2a1.1,1.1,0,0,1,.82.367,3.864,3.864,0,0,0,2.891,1.267,3.561,3.561,0,0,0,3.679-3.066,1.1,1.1,0,0,1,.542-.861,3.808,3.808,0,0,0,1.964-3.22,3.592,3.592,0,0,0-1.083-2.525,1.1,1.1,0,0,1,0-1.547,3.591,3.591,0,0,0,1.083-2.525,3.911,3.911,0,0,0-3.016-3.642,1.1,1.1,0,0,1-.768-1.3,2.449,2.449,0,0,0,.073-.551,2.939,2.939,0,0,0-3.092-2.749,3.272,3.272,0,0,0-2.313.929,1.133,1.133,0,0,1-1.559,0,3.271,3.271,0,0,0-2.313-.929,2.939,2.939,0,0,0-3.092,2.749,2.557,2.557,0,0,0,.059.542,1.1,1.1,0,0,1-.77,1.293,3.916,3.916,0,0,0-3,3.663,3.492,3.492,0,0,0,.832,2.234,1.1,1.1,0,0,1,.027,1.363,4.054,4.054,0,0,0-.859,2.451,4.28,4.28,0,0,0,1.989,3.518,1.1,1.1,0,0,1,.49.906,3.534,3.534,0,0,0,3.707,3.273,3.864,3.864,0,0,0,2.891-1.267A1.1,1.1,0,0,1,193.752,196.2Z" transform="translate(-158.637 -151.721)" fill="#ebdedc"/>
+      <path id="Path_1897" data-name="Path 1897" d="M152.21,34.087H135.646V31.746h4.469a1.029,1.029,0,0,0,0-2.058h-4.469V27.348h3.1a4.3,4.3,0,0,0,3.06-1.267l6.766-6.766a3.226,3.226,0,1,0-1.455-1.455l-6.766,6.766a2.255,2.255,0,0,1-1.605.665h-3.1v-2.27a5.433,5.433,0,0,0-5.427-5.427h-2.27V8.487a3.228,3.228,0,1,0-2.058,0v9.107h-2.341V13.125a1.029,1.029,0,1,0-2.058,0v4.469h-2.341V1.03a1.029,1.029,0,0,0-2.058,0V17.594h-2.341V13.125a1.029,1.029,0,0,0-2.058,0v4.469h-2.341v-3.1a4.3,4.3,0,0,0-1.268-3.06l-6.768-6.768a3.23,3.23,0,1,0-1.455,1.455l6.768,6.768a2.255,2.255,0,0,1,.665,1.6v3.1h-2.27a5.45,5.45,0,0,0-1.356.171,1.029,1.029,0,1,0,.513,1.993,3.388,3.388,0,0,1,.843-.106h24.19a3.373,3.373,0,0,1,3.369,3.369v24.19a3.389,3.389,0,0,1-.106.843,1.029,1.029,0,1,0,1.993.512,5.444,5.444,0,0,0,.171-1.355v-2.27h9.107a3.228,3.228,0,1,0,0-2.058h-9.107V40.543h4.469a1.029,1.029,0,1,0,0-2.058h-4.469v-2.34H152.21a1.029,1.029,0,0,0,0-2.058ZM149.184,15.6a1.17,1.17,0,1,1,0,1.655h0a1.17,1.17,0,0,1,0-1.655ZM126.921,4.258a1.17,1.17,0,1,1-1.17,1.17A1.172,1.172,0,0,1,126.921,4.258ZM98.6,4.056a1.17,1.17,0,1,1,1.655,0h0A1.172,1.172,0,0,1,98.6,4.056Zm49.208,38.685a1.17,1.17,0,1,1-1.17,1.17A1.172,1.172,0,0,1,147.812,42.742Z" transform="translate(-83.009 -0.001)"/>
+      <path id="Path_1898" data-name="Path 1898" d="M52.373,195.528,45.6,188.759a2.255,2.255,0,0,1-.665-1.6v-3.1h2.27a5.444,5.444,0,0,0,1.356-.171,1.029,1.029,0,0,0-.513-1.993,3.386,3.386,0,0,1-.843.106H23.02a3.373,3.373,0,0,1-3.369-3.369v-24.19a3.384,3.384,0,0,1,.106-.843,1.029,1.029,0,1,0-1.992-.513,5.439,5.439,0,0,0-.171,1.356v2.27H8.486a3.228,3.228,0,1,0,0,2.058h9.107V161.1H13.124a1.029,1.029,0,1,0,0,2.058h4.469V165.5H1.029a1.029,1.029,0,1,0,0,2.058H17.593V169.9H13.124a1.029,1.029,0,1,0,0,2.058h4.469V174.3h-3.1a4.3,4.3,0,0,0-3.06,1.267l-6.766,6.766a3.225,3.225,0,1,0,1.455,1.455l6.766-6.766a2.255,2.255,0,0,1,1.605-.665h3.1v2.27a5.433,5.433,0,0,0,5.427,5.427h2.27v9.107a3.228,3.228,0,1,0,2.058,0v-9.107h2.341v4.469a1.029,1.029,0,0,0,2.058,0v-4.469h2.34v16.564a1.029,1.029,0,0,0,2.058,0V184.052h2.341v4.469a1.029,1.029,0,1,0,2.058,0v-4.469h2.341v3.1a4.3,4.3,0,0,0,1.268,3.06l6.768,6.768a3.228,3.228,0,1,0,1.455-1.455ZM5.427,158.9a1.17,1.17,0,1,1,1.17-1.17A1.172,1.172,0,0,1,5.427,158.9ZM4.055,186.05a1.17,1.17,0,1,1,0-1.655h0a1.17,1.17,0,0,1,0,1.655Zm22.263,11.338a1.17,1.17,0,1,1,1.17-1.17A1.172,1.172,0,0,1,26.318,197.388Zm28.316,1.856a1.17,1.17,0,1,1,0-1.655A1.172,1.172,0,0,1,54.635,199.244Z" transform="translate(0 -131.415)"/>
+      <path id="Path_1899" data-name="Path 1899" d="M178.831,188.059v0a4.553,4.553,0,0,0,4.74,4.328,4.908,4.908,0,0,0,3.711-1.64,4.908,4.908,0,0,0,3.711,1.64,4.584,4.584,0,0,0,4.73-4.06,4.809,4.809,0,0,0,2.484-4.115,4.637,4.637,0,0,0-1.431-3.3,4.638,4.638,0,0,0,1.431-3.3,4.969,4.969,0,0,0-3.812-4.669,3.513,3.513,0,0,0,.1-.828,3.965,3.965,0,0,0-4.121-3.778,4.279,4.279,0,0,0-3.092,1.285,4.28,4.28,0,0,0-3.092-1.285,3.965,3.965,0,0,0-4.121,3.778,3.513,3.513,0,0,0,.1.828,4.969,4.969,0,0,0-3.812,4.669,4.518,4.518,0,0,0,1.083,2.928,5.087,5.087,0,0,0-1.083,3.12A5.3,5.3,0,0,0,178.831,188.059Zm2.859-13.263.027,0a1.028,1.028,0,0,0,.873-1.57c-.008-.013-.015-.026-.023-.038l-.014-.018c-.016-.022-.032-.044-.05-.065l0,0a1.527,1.527,0,0,1-.376-.987,2.1,2.1,0,0,1,4.127,0,1.029,1.029,0,1,0,2.057,0,2.1,2.1,0,0,1,4.127,0,1.448,1.448,0,0,1-.154.647,5.712,5.712,0,0,0-1.688.423,1.029,1.029,0,0,0,.8,1.9,3.713,3.713,0,0,1,1.422-.288h.03l.027,0a3.088,3.088,0,0,1,3.275,2.819A2.745,2.745,0,0,1,194.565,180a1.029,1.029,0,0,0,0,1.82,2.745,2.745,0,0,1,1.583,2.389,2.632,2.632,0,0,1-.906,1.934,4.619,4.619,0,0,0-2.7-2.178,1.029,1.029,0,1,0-.617,1.963,2.334,2.334,0,0,1,1.753,2.13,2.72,2.72,0,0,1-5.364,0v-6.6a2.5,2.5,0,0,1,2.682-2.27,1.029,1.029,0,0,0,0-2.058,5.03,5.03,0,0,0-2.682.762v-1.314a1.029,1.029,0,1,0-2.057,0V182.3a4.9,4.9,0,0,0-1.137-.526,1.029,1.029,0,0,0-.617,1.963,2.334,2.334,0,0,1,1.753,2.129v2.2a2.72,2.72,0,0,1-5.365,0,2.074,2.074,0,0,1,.64-1.468,1.029,1.029,0,0,0-1.45-1.459,4.376,4.376,0,0,0-.635.8,3.138,3.138,0,0,1-1.029-2.268,3.5,3.5,0,0,1,2.909-3.256,1.029,1.029,0,1,0-.46-2.005,6.266,6.266,0,0,0-1.887.769,2.483,2.483,0,0,1-.562-1.555A3.088,3.088,0,0,1,181.689,174.8Z" transform="translate(-152.166 -145.249)"/>
+    </g>
+    <text id="TP_True_Positive_" data-name="TP (True Positive)" transform="translate(406 640)" fill="#707980" font-size="17" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-64.46" y="0">TP</tspan><tspan y="0" xml:space="preserve" font-family="SegoeUI, Segoe UI" font-weight="400"> (True Positive)</tspan></text>
+    <text id="FN_False_Negative_" data-name="FN (False Negative)" transform="translate(403 715)" fill="#707980" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-68.523" y="0">FN</tspan><tspan y="0" xml:space="preserve" font-family="SegoeUI, Segoe UI" font-weight="400"> (False Negative)</tspan></text>
+    <text id="FP_False_Positive_" data-name="FP (False Positive)" transform="translate(635 639)" fill="#707980" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-62.371" y="0">FP</tspan><tspan y="0" xml:space="preserve" font-family="SegoeUI, Segoe UI" font-weight="400"> (False Positive)</tspan></text>
+    <text id="TN_True_Negative_" data-name="TN (True Negative)" transform="translate(633 715)" fill="#707980" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-66.82" y="0">TN</tspan><tspan y="0" xml:space="preserve" font-family="SegoeUI, Segoe UI" font-weight="400"> (True Negative)</tspan></text>
+    <text id="POSITIVE" transform="translate(371 565)" fill="#707980" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">POSITIVE</tspan></text>
+    <text id="NEGATIVE" transform="translate(603 565)" fill="#707980" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">NEGATIVE</tspan></text>
+    <text id="POSITIVE-2" data-name="POSITIVE" transform="translate(193 639)" fill="#707980" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">POSITIVE</tspan></text>
+    <text id="NEGATIVE-2" data-name="NEGATIVE" transform="translate(185 715)" fill="#707980" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">NEGATIVE</tspan></text>
+    <line id="Line_107" data-name="Line 107" x2="608.359" transform="translate(161.435 598.474)" fill="none" stroke="#eee" stroke-width="1"/>
+    <line id="Line_108" data-name="Line 108" x2="608.359" transform="translate(161.435 673.792)" fill="none" stroke="#eee" stroke-width="1"/>
+    <line id="Line_109" data-name="Line 109" x2="690.294" transform="translate(79.5 749.111)" fill="none" stroke="#eee" stroke-width="1"/>
+    <line id="Line_110" data-name="Line 110" x2="608.359" transform="translate(161.435 523.155)" fill="none" stroke="#eee" stroke-width="1"/>
+    <text id="ACTUAL_VALUE" data-name="ACTUAL VALUE" transform="translate(457 489)" fill="#707980" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">ACTUAL VALUE</tspan></text>
+    <text id="PREDICTED_VALUE" data-name="PREDICTED VALUE" transform="translate(120 578) rotate(-90)" fill="#707980" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="-133.875" y="0">PREDICTED VALUE</tspan></text>
+    <line id="Line_111" data-name="Line 111" y2="226" transform="translate(161 524)" fill="none" stroke="#eee" stroke-width="1"/>
+    <line id="Line_112" data-name="Line 112" y2="226" transform="translate(301 524)" fill="none" stroke="#eee" stroke-width="1"/>
+    <line id="Line_113" data-name="Line 113" y2="301" transform="translate(770 449)" fill="none" stroke="#eee" stroke-width="1"/>
+    <text id="Recall" transform="translate(720 962)" fill="#707980" font-size="25" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">RECALL</tspan></text>
+    <text id="Formula:" transform="translate(79 1015)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Formula:</tspan></text>
+    <text id="Summary:" transform="translate(79 1115)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Summary:</tspan></text>
+    <text id="How_well_does_the_model_perform_" data-name="How well does the model perform?" transform="translate(196 1115)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">How well does the model perform?</tspan></text>
+    <text id="_TP_TN_TP_TN_FP_FN_" data-name="(TP + TN) 
+(TP + TN + FP + FN)" transform="translate(277 1012)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-42.421" y="0">(TP + TN) </tspan><tspan x="-84.929" y="38">(TP + TN + FP + FN)</tspan></text>
+    <line id="Line_114" data-name="Line 114" x2="175.575" transform="translate(192.649 1023.507)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="_CORRECT_PREDICTIONS_TOTAL" data-name="#CORRECT_PREDICTIONS
+#TOTAL" transform="translate(534 1010)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="-101.439" y="0">#CORRECT_PREDICTIONS</tspan><tspan x="-30.138" y="36">#TOTAL</tspan></text>
+    <line id="Line_115" data-name="Line 115" x2="218.493" transform="translate(434.552 1023.507)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="OR" transform="translate(400 1030)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-12.844" y="0">OR</tspan></text>
+    <text id="Formula:-2" data-name="Formula:" transform="translate(720 1015)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Formula:</tspan></text>
+    <text id="_TP_TP_FN_" data-name="(TP) 
+(TP + FN)" transform="translate(877 1012)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-18.634" y="0">(TP) </tspan><tspan x="-39.48" y="38">(TP + FN)</tspan></text>
+    <line id="Line_116" data-name="Line 116" x2="81.935" transform="translate(838.375 1023.507)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="_CORRECT_POSITIVE_PREDICTIONS_TRUE_TRUTH_VALUES" data-name="#CORRECT_POSITIVE_PREDICTIONS
+#TRUE_TRUTH_VALUES" transform="translate(1126 1010)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="-141.429" y="0">#CORRECT_POSITIVE_PREDICTIONS</tspan><tspan x="-91.455" y="36">#TRUE_TRUTH_VALUES</tspan></text>
+    <line id="Line_117" data-name="Line 117" x2="306.281" transform="translate(986.638 1023.507)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="OR-2" data-name="OR" transform="translate(951 1030)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-12.844" y="0">OR</tspan></text>
+    <text id="Summary:-2" data-name="Summary:" transform="translate(720 1115)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Summary:</tspan></text>
+    <text id="How_often_did_we_wrongly_classify_something_as_not_true_false_" data-name="How often did we wrongly classify something as not true (= false?)" transform="translate(838 1091)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">How often did we wrongly classify something </tspan><tspan x="0" y="54">as not true (= false?)</tspan></text>
+    <line id="Line_118" data-name="Line 118" x2="29.263" transform="translate(545.75 1727.758)" fill="none" stroke="#d1d1d1" stroke-width="1" stroke-dasharray="4"/>
+    <text id="precision" transform="translate(79 1339)" fill="#707980" font-size="27" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">PRECISION</tspan></text>
+    <text id="F1_Score" data-name="F1 Score" transform="translate(720 1339)" fill="#707980" font-size="27" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">F1 SCORE</tspan></text>
+    <text id="Formula:-3" data-name="Formula:" transform="translate(79 1390)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Formula:</tspan></text>
+    <text id="Summary:-3" data-name="Summary:" transform="translate(79 1489)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Summary:</tspan></text>
+    <text id="How_often_are_we_correct_in_our_positive_prediction_or_how_much_are_we_being_wrong_" data-name="How often are we correct in our positive prediction? (or how much are we being wrong?)" transform="translate(196 1465)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">How often are we correct in our positive </tspan><tspan x="0" y="54">prediction? (or how much are we being </tspan><tspan x="0" y="84">wrong?)</tspan></text>
+    <text id="_TP_TP_FP_" data-name="(TP)
+(TP + FP)" transform="translate(238 1385)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="-15.188" y="0">(TP)</tspan><tspan x="-35.71" y="36">(TP + FP)</tspan></text>
+    <text id="_CORRECT_POSITIVE_PREDICTIONS_POSITIVE_SAMPLES" data-name="#CORRECT_POSITIVE_PREDICTIONS
+#POSITIVE_SAMPLES" transform="translate(487 1385)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="-141.429" y="0">#CORRECT_POSITIVE_PREDICTIONS</tspan><tspan x="-82.586" y="36">#POSITIVE_SAMPLES</tspan></text>
+    <line id="Line_120" data-name="Line 120" x2="308.232" transform="translate(346.765 1398.067)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="OR-3" data-name="OR" transform="translate(312 1405)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-12.844" y="0">OR</tspan></text>
+    <text id="Formula:-4" data-name="Formula:" transform="translate(720 1390)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Formula:</tspan></text>
+    <text id="_2_" data-name="2 * " transform="translate(848 1388)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-14.287" y="0">2 * </tspan></text>
+    <text id="Summary:-4" data-name="Summary:" transform="translate(720 1489)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Summary:</tspan></text>
+    <text id="Utilize_the_precision_and_recall_to_create_a_test_s_accuracy_through_the_harmonic_mean_." data-name="Utilize the precision and recall to create a test&apos;s accuracy through the &quot;harmonic mean&quot;." transform="translate(838 1465)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">Utilize the precision and recall to create a test&apos;s </tspan><tspan x="0" y="54">accuracy through the &quot;harmonic mean&quot;.</tspan></text>
+    <rect id="Rectangle_430" data-name="Rectangle 430" width="1329" height="710" transform="translate(22 1709)" fill="#fafafb"/>
+    <text id="ROC_CURVE" data-name="ROC CURVE" transform="translate(79 1767)" fill="#707980" font-size="27" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">ROC CURVE</tspan></text>
+    <text id="Formula:-5" data-name="Formula:" transform="translate(79 1820)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Formula:</tspan></text>
+    <text id="Summary:-5" data-name="Summary:" transform="translate(79 1918)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Summary:</tspan></text>
+    <text id="The_ROC_curve_allows_us_to_select_the_optimal_model_and_discard_suboptimal_ones." data-name="The ROC curve allows us to select the optimal model and discard suboptimal ones." transform="translate(196 1894)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">The ROC curve allows us to select the optimal model and discard suboptimal ones.</tspan></text>
+    <text id="_TP_TP_FN_2" data-name="(TP)
+(TP + FN)" transform="translate(613 1817)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-16.031" y="0">(TP)</tspan><tspan x="-39.48" y="38">(TP + FN)</tspan></text>
+    <line id="Line_123" data-name="Line 123" x2="78.033" transform="translate(576.963 1827.251)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="_FP_FP_TN_" data-name="(FP)
+(FP + TN)" transform="translate(804 1817)" fill="#707980" font-size="19" font-family="SegoeUI, Segoe UI"><tspan x="-15.693" y="0">(FP)</tspan><tspan x="-39.48" y="38">(FP + TN)</tspan></text>
+    <line id="Line_124" data-name="Line 124" x2="78.033" transform="translate(768.145 1827.251)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="False_Positive_Rate_FPR_X-Axis_True_Positive_Rate_TPR_Y-Axis" data-name="False Positive Rate (FPR) = X-Axis
+True Positive Rate (TPR)  = Y-Axis" transform="translate(182 1818)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">False Positive Rate (FPR) = X-Axis</tspan><tspan x="0" y="36" xml:space="preserve">True Positive Rate (TPR)  = Y-Axis</tspan></text>
+    <text id="TPR_" data-name="TPR =" transform="translate(513 1830)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">TPR =</tspan></text>
+    <text id="FPR_" data-name="FPR =" transform="translate(705 1830)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">FPR =</tspan></text>
+    <text id="Method:" transform="translate(79 1976)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Method:</tspan></text>
+    <text id="_1._Discretize_the_threshold_for_the_confidence_score_e.g._confidence_score_of_0_1_becomes_0.0_..._0.9_1.0_2._Calculate_the_confusion_matrix_for_the_given_threshold_3._Determine_the_TPR_and_FPR_and_plot_them" data-name="1. Discretize the threshold for the confidence score (e.g. confidence score of [0, 1] becomes [0.0, ..., 0.9, 1.0]
+2. Calculate the confusion matrix for the given threshold
+3. Determine the TPR and FPR and plot them" transform="translate(193 1952)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">1. Discretize the threshold for the confidence score (e.g. confidence score of [0, 1] becomes [0.0, ..., 0.9, 1.0]</tspan><tspan x="0" y="54">2. Calculate the confusion matrix for the given threshold</tspan><tspan x="0" y="84">3. Determine the TPR and FPR and plot them</tspan></text>
+    <g id="Graphs" transform="translate(74.644 2112.773)">
+      <g id="AUC_0.85" data-name="AUC 0.85" transform="translate(962.349 1.518)">
+        <g id="Rectangle_434" data-name="Rectangle 434" transform="translate(23.007 8.709)" fill="none" stroke="#707070" stroke-width="1">
+          <rect width="234" height="234" stroke="none"/>
+          <rect x="0.5" y="0.5" width="233" height="233" fill="none"/>
+        </g>
+        <text id="_0" data-name="0" transform="translate(3.007 262.709)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">0</tspan></text>
+        <text id="_1" data-name="1" transform="translate(3.007 11.709)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <path id="Path_1902" data-name="Path 1902" d="M-3358.635,1759.519c-250.3-17.31-232.535,231.572-232.535,231.572h232.395Z" transform="translate(3615.219 -1749.455)" fill="#707070" stroke="#707070" stroke-width="1"/>
+        <text id="_1-2" data-name="1" transform="translate(249.007 262.709)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <text id="False_Positive_Rate_FPR_" data-name="False Positive Rate (FPR)" transform="translate(52.007 261.709)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0">False Positive Rate (FPR)</tspan></text>
+        <text id="True_Positive_Rate_TPR_" data-name="True  Positive Rate (TPR)" transform="translate(11.007 218.709) rotate(-90)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0" xml:space="preserve">True  Positive Rate (TPR)</tspan></text>
+        <line id="Line_128" data-name="Line 128" y1="232.426" x2="232.73" transform="translate(23.777 9.209)" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="1"/>
+        <text id="AUC_0.85-2" data-name="AUC = 0.85" transform="translate(173.007 228.709)" fill="#fff" font-size="13" font-family="Consolas"><tspan x="0" y="0">AUC = 0.85</tspan></text>
+      </g>
+      <g id="AUC_0.6" data-name="AUC 0.6" transform="translate(640.554 0)">
+        <g id="Rectangle_433" data-name="Rectangle 433" transform="translate(22.802 10.227)" fill="none" stroke="#707070" stroke-width="1">
+          <rect width="234" height="234" stroke="none"/>
+          <rect x="0.5" y="0.5" width="233" height="233" fill="none"/>
+        </g>
+        <text id="_0-2" data-name="0" transform="translate(4.802 264.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">0</tspan></text>
+        <text id="_1-3" data-name="1" transform="translate(248.802 264.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <text id="_1-4" data-name="1" transform="translate(4.802 12.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <text id="False_Positive_Rate_FPR_2" data-name="False Positive Rate (FPR)" transform="translate(52.802 263.227)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0">False Positive Rate (FPR)</tspan></text>
+        <path id="Path_1901" data-name="Path 1901" d="M-3559.748,1758.463c-169.808,63.8-231.713,231.41-231.713,231.41h231.713Z" transform="translate(3815.58 -1746.634)" fill="#707070" stroke="#707070" stroke-width="1"/>
+        <text id="True_Positive_Rate_TPR_2" data-name="True  Positive Rate (TPR)" transform="translate(10.802 220.227) rotate(-90)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0" xml:space="preserve">True  Positive Rate (TPR)</tspan></text>
+        <text id="AUC_0.6-2" data-name="AUC = 0.6" transform="translate(178.802 230.227)" fill="#fff" font-size="13" font-family="Consolas"><tspan x="0" y="0">AUC = 0.6</tspan></text>
+        <line id="Line_127" data-name="Line 127" y1="233" x2="233" transform="translate(23.302 10.727)" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="1"/>
+      </g>
+      <g id="AUC_0.5" data-name="AUC 0.5" transform="translate(320.277 0)">
+        <g id="Rectangle_432" data-name="Rectangle 432" transform="translate(23.079 10.227)" fill="none" stroke="#707070" stroke-width="1">
+          <rect width="233" height="234" stroke="none"/>
+          <rect x="0.5" y="0.5" width="232" height="233" fill="none"/>
+        </g>
+        <text id="_0-3" data-name="0" transform="translate(6.079 264.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">0</tspan></text>
+        <text id="_1-5" data-name="1" transform="translate(249.079 264.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <text id="_1-6" data-name="1" transform="translate(6.079 12.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <text id="False_Positive_Rate_FPR_3" data-name="False Positive Rate (FPR)" transform="translate(52.079 263.227)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0">False Positive Rate (FPR)</tspan></text>
+        <text id="True_Positive_Rate_TPR_3" data-name="True  Positive Rate (TPR)" transform="translate(11.079 220.227) rotate(-90)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0" xml:space="preserve">True  Positive Rate (TPR)</tspan></text>
+        <path id="Path_1904" data-name="Path 1904" d="M-3831.5,2063.584h230.361v-231.62Z" transform="translate(3856.341 -1820.342)" fill="#707070" stroke="#707070" stroke-width="1"/>
+        <line id="Line_126" data-name="Line 126" y1="233" x2="232" transform="translate(23.579 10.727)" fill="none" stroke="#707070" stroke-width="1"/>
+        <text id="AUC_0.5-2" data-name="AUC = 0.5" transform="translate(179.079 230.227)" fill="#fff" font-size="13" font-family="Consolas"><tspan x="0" y="0">AUC = 0.5</tspan></text>
+      </g>
+      <g id="AUC_0.4" data-name="AUC 0.4" transform="translate(0 0)">
+        <g id="Rectangle_431" data-name="Rectangle 431" transform="translate(22.356 10.227)" fill="#fff" stroke="#707070" stroke-width="1">
+          <rect width="236" height="234" stroke="none"/>
+          <rect x="0.5" y="0.5" width="235" height="233" fill="none"/>
+        </g>
+        <line id="Line_125" data-name="Line 125" y1="233" x2="235" transform="translate(22.856 10.727)" fill="none" stroke="#707070" stroke-width="1" stroke-dasharray="1"/>
+        <text id="_0-4" data-name="0" transform="translate(6.356 264.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">0</tspan></text>
+        <text id="_1-7" data-name="1" transform="translate(252.356 264.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <text id="_1-8" data-name="1" transform="translate(6.356 12.227)" fill="#707980" font-size="13" font-family="Consolas"><tspan x="0" y="0">1</tspan></text>
+        <path id="Path_1900" data-name="Path 1900" d="M-3531.243,1729.429c-77.638,173.236-234.357,232.564-234.357,232.564h234.357Z" transform="translate(3788.742 -1718.453)" fill="#707070" stroke="#707070" stroke-width="1"/>
+        <text id="AUC_0.4-2" data-name="AUC = 0.4" transform="translate(179.356 230.227)" fill="#fff" font-size="13" font-family="Consolas"><tspan x="0" y="0">AUC = 0.4</tspan></text>
+        <text id="False_Positive_Rate_FPR_4" data-name="False Positive Rate (FPR)" transform="translate(52.356 263.227)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0">False Positive Rate (FPR)</tspan></text>
+        <text id="True_Positive_Rate_TPR_4" data-name="True  Positive Rate (TPR)" transform="translate(11.356 220.227) rotate(-90)" fill="#707980" font-size="12" font-family="Consolas"><tspan x="0" y="0" xml:space="preserve">True  Positive Rate (TPR)</tspan></text>
+      </g>
+    </g>
+    <text id="Examples:" transform="translate(79 2084)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Examples:</tspan></text>
+    <text id="Read_More" data-name="Read More" transform="translate(79 2480)" fill="#707980" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">READ MORE</tspan></text>
+    <text id="Performance_Markers_https:_xaviergeerinck.com_ai-performance-markers_" data-name="Performance Markers (https://xaviergeerinck.com/ai-performance-markers)" transform="translate(81 2533)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Performance Markers (</tspan><tspan y="0" text-decoration="underline">https://xaviergeerinck.com/ai-performance-markers</tspan><tspan y="0">)</tspan></text>
+    <g id="Rectangle_435" data-name="Rectangle 435" transform="translate(334 613)" fill="none" stroke="#ea5b48" stroke-width="1">
+      <rect width="390" height="47" stroke="none"/>
+      <rect x="0.5" y="0.5" width="389" height="46" fill="none"/>
+    </g>
+    <text id="Precision-2" data-name="Precision" transform="translate(491 793)" fill="#ea5b48" font-size="22" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Precision</tspan></text>
+    <g id="Rectangle_436" data-name="Rectangle 436" transform="translate(322 607)" fill="none" stroke="#4d5e80" stroke-width="1">
+      <rect width="178" height="128" stroke="none"/>
+      <rect x="0.5" y="0.5" width="177" height="127" fill="none"/>
+    </g>
+    <text id="Recall-2" data-name="Recall" transform="translate(381 793)" fill="#4d5e80" font-size="22" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Recall</tspan></text>
+    <line id="Line_129" data-name="Line 129" y2="37.066" transform="translate(413.093 732.833)" fill="none" stroke="#4d5e80" stroke-width="1"/>
+    <line id="Line_130" data-name="Line 130" y2="111.198" transform="translate(539.897 658.701)" fill="none" stroke="#ea5b48" stroke-width="1"/>
+    <line id="Line_131" data-name="Line 131" x2="690.294" transform="translate(79.5 448.259)" fill="none" stroke="#eee" stroke-width="1"/>
+    <line id="Line_132" data-name="Line 132" y2="302" transform="translate(79 448)" fill="none" stroke="#eee" stroke-width="1"/>
+    <text id="TP_True_Positive_TN_True_Negative_:_The_prediction_matches_the_Truth_correctly_E.g._we_correctly_predicted_an_object_as_a_car_FP_False_Positive_FN_False_Negative_:_The_prediction_does_not_match_the_Truth_E.g._we_incorrectly_predicted_an_object_" data-name="TP (True Positive) &amp; TN (True Negative):
+The prediction matches the Truth correctly 
+E.g. we correctly predicted an object as a car
+
+FP (False Positive) &amp; FN (False Negative):
+The prediction does not match the Truth
+E.g. we incorrectly predicted an object " transform="translate(826 464)" fill="#707980" font-size="22" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="24">TP (True Positive) &amp; TN (True Negative):</tspan><tspan font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="0" y="57">The prediction matches the Truth correctly </tspan></tspan><tspan font-family="SegoeUI-Italic, Segoe UI" font-weight="400" font-style="italic"><tspan x="0" y="90">E.g. we correctly predicted an object as a car</tspan></tspan><tspan font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="0" y="123"></tspan></tspan><tspan x="0" y="156">FP (False Positive) &amp; FN (False Negative):</tspan><tspan font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="0" y="189">The prediction does </tspan><tspan y="189" text-decoration="underline">not</tspan><tspan y="189" xml:space="preserve"> match the Truth</tspan></tspan><tspan font-family="SegoeUI-Italic, Segoe UI" font-weight="400" font-style="italic"><tspan x="0" y="222">E.g. we incorrectly predicted an object as a car, </tspan><tspan x="0" y="255">while it was something else</tspan></tspan></text>
+    <text id="Example:" transform="translate(79 1205)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Example:</tspan></text>
+    <text id="Our_model_is_95_accurate" data-name="Our model is 95% accurate" transform="translate(196 1205)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Our model is 95% accurate</tspan></text>
+    <text id="Example:-2" data-name="Example:" transform="translate(720 1205)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Example:</tspan></text>
+    <text id="_5_of_the_time_we_said_it_was_not_a_car_while_it_was_a_car._we_could_ve_hit_the_car_" data-name="5% of the time we said it was not a car, while it was a car. (we could&apos;ve hit the car)" transform="translate(838 1181)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">5% of the time we said it was not a car, while it </tspan><tspan x="0" y="54">was a car. (we could&apos;ve hit the car)</tspan></text>
+    <text id="Example:-3" data-name="Example:" transform="translate(79 1609)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Example:</tspan></text>
+    <text id="_5_of_the_time_we_said_an_object_was_a_car_while_it_actually_was_not._wrong_action_will_be_taken_-_e.g._increasing_speed_" data-name="5% of the time we said an object was a car, while it actually was not. (wrong action will be taken - e.g. increasing speed)" transform="translate(196 1585)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">5% of the time we said an object was a car, </tspan><tspan x="0" y="54">while it actually was not. (wrong action will be </tspan><tspan x="0" y="84">taken - e.g. increasing speed)</tspan></text>
+    <text id="Example:-4" data-name="Example:" transform="translate(720 1609)" fill="#707980" font-size="22" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Example:</tspan></text>
+    <text id="Our_model_is_88_accurate_based_on_high-business_impact_markers_wrong_detections_and_false_positives_" data-name="Our model is 88% accurate based on high-business impact markers (#wrong detections and #false positives)" transform="translate(838 1585)" fill="#707980" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="24">Our model is 88% accurate based on high-</tspan><tspan x="0" y="54">business impact markers (#wrong detections </tspan><tspan x="0" y="84">and #false positives)</tspan></text>
+    <line id="Line_133" data-name="Line 133" x2="81.935" transform="translate(200.452 1398.067)" fill="none" stroke="#707980" stroke-width="1"/>
+    <text id="_Precision_Recall_Precision_Recall_" data-name="(Precision * Recall)
+(Precision + Recall)" transform="translate(954 1367)" fill="#707980" font-size="18" font-family="SegoeUI, Segoe UI"><tspan x="-87.539" y="0">(PRECISION * RECALL)</tspan><tspan x="-89.943" y="36">(PRECISION + RECALL)</tspan></text>
+    <line id="Line_134" data-name="Line 134" x2="195.083" transform="translate(865.686 1380.51)" fill="none" stroke="#707980" stroke-width="1"/>
+  </g>
+</svg>

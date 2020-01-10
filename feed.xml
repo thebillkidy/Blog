@@ -1,4 +1,149 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-03T19:00:48+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title><link href="/ai-performance-markers" rel="alternate" type="text/html" title="Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared" /><published>2020-01-03T09:00:00+00:00</published><updated>2020-01-03T09:00:00+00:00</updated><id>/ai-performance-markers</id><content type="html" xml:base="/ai-performance-markers">&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-10T07:54:30+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Act in realtime on IoT Data without writing any code through Azure IoT Hub, Event Grid, Cosmos DB and Logic Apps</title><link href="/iot-hub-realtime-action-flow" rel="alternate" type="text/html" title="Act in realtime on IoT Data without writing any code through Azure IoT Hub, Event Grid, Cosmos DB and Logic Apps" /><published>2020-01-09T09:00:00+00:00</published><updated>2020-01-09T09:00:00+00:00</updated><id>/iot-hub-realtime-action-flow</id><content type="html" xml:base="/iot-hub-realtime-action-flow">&lt;p&gt;Creating a realtime application is quite trivial, you most of the time take in all the events and put a dedicated processor on there that will process the incoming events for you. But what if you would like to make things a bit more interesting and develop this entire path completely serverless without writing any code, but still ensuring a response of seconds rather than minutes?&lt;/p&gt;
+
+&lt;p&gt;Let’s take the following use-case: “We have devices sending telemetry (temperature) and would like to send an email to ourselves once the temperature exceeds a certain threshold”. How can we do this?&lt;/p&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;p&gt;Decomposing this into an architecture definition, we would need to take the following requirements into account:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No coding (thus no Azure Functions)&lt;/li&gt;
+  &lt;li&gt;Serverless&lt;/li&gt;
+  &lt;li&gt;Response time &amp;lt; 3 seconds&lt;/li&gt;
+  &lt;li&gt;Completely managed (no IaaS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If we take the requirements above, the following components might be sufficient:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Azure IoT Hub (as our device management and event ingestion engine)&lt;/li&gt;
+  &lt;li&gt;Azure Event Grid (as the Telemetry router)&lt;/li&gt;
+  &lt;li&gt;Azure Cosmos DB (as our Device Metastore that will include the location)&lt;/li&gt;
+  &lt;li&gt;Azure Logic Apps (as our no-code platform that will include our logic)&lt;/li&gt;
+  &lt;li&gt;Twilio Sendgrid (for our email sending needs)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Which will result in the following architecture:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/architectures/architecture-real-time-apps.svg&quot; alt=&quot;/assets/images/architectures/architecture-real-time-apps.svg&quot; /&gt; @TODO&lt;/p&gt;
+
+&lt;h2 id=&quot;data-flow--data-model&quot;&gt;Data Flow / Data Model&lt;/h2&gt;
+
+&lt;p&gt;Once we have our architecture defined, another thing we also should do upfront is to create the data flow and model that will be representing our device metadata store as well as the events coming in.&lt;/p&gt;
+
+&lt;h3 id=&quot;device-metadata-store&quot;&gt;Device Metadata Store&lt;/h3&gt;
+
+&lt;p&gt;Our devices are going to be registered in IoT Hub, but we also need a Metadata store containing some extra information such as the location. This way we can send which device is actually overheating at which location for example.&lt;/p&gt;
+
+&lt;p&gt;Since we are utilizing a NoSQL store, this could look something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;simulator-device&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Xavier Geerinck&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;xavier.geerinck@gmail.com&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;BE&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Street 1, 2345 City&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;device-events-telemetry&quot;&gt;Device Events Telemetry&lt;/h3&gt;
+
+&lt;p&gt;For the device events, this is going to look quite simple and small, so that we are able to create a low ingestion engine that could also be compatible with technologies such as LoRa or NB-IoT.&lt;/p&gt;
+
+&lt;p&gt;Our payload could look something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;deviceId&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;my-first-device&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;20.5&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
+
+&lt;h3 id=&quot;setting-up-our-components&quot;&gt;Setting up our components&lt;/h3&gt;
+
+&lt;p&gt;Getting started, we always start off creating the components as described in our architecture overview diagram. We thus create the following components:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Azure IoT Hub&lt;/li&gt;
+  &lt;li&gt;Azure Event Grid&lt;/li&gt;
+  &lt;li&gt;Azure Cosmos DB&lt;/li&gt;
+  &lt;li&gt;Azure Logic Apps&lt;/li&gt;
+  &lt;li&gt;Twilio Sendgrid&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;configuring-logic-apps&quot;&gt;Configuring Logic Apps&lt;/h3&gt;
+
+&lt;h4 id=&quot;quick-introduction&quot;&gt;Quick Introduction&lt;/h4&gt;
+
+&lt;p&gt;Logic apps is a no-code platform that allows you to get started by just combining &lt;strong&gt;triggers&lt;/strong&gt; and &lt;strong&gt;actions&lt;/strong&gt;. As shown in the overview below.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Triggers:&lt;/strong&gt; These will trigger the logic app to start (e.g. receiving an event, a timer, a webhook, …)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Actions:&lt;/strong&gt; This is what will occur in the connector (e.g. fetching a document, deleting a document, …)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/logic-apps-trigger.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/logic-apps-trigger.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After we run one of these actions we will need to be able to receive the response of them. This we can do through the use of “Magic Variables” that we can call in expressions. The ones we will use are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TriggerBody()&lt;/code&gt;: Returning the output of the trigger&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Body('ActionName')&lt;/code&gt;: Returning the output of an action further in the flow&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To know what the keys are that we can utilize, we should go towards the &lt;strong&gt;Run History&lt;/strong&gt; view that will allow us to deep dive in each connector to see what was being shown in the “input” and “output”:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/logic-app-app-run.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/logic-app-app-run.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;configuring-it-for-our-use-case&quot;&gt;Configuring it for our Use Case&lt;/h4&gt;
+
+&lt;p&gt;Now let’s configure this for our use-case. We select “Event Grid” as our &lt;strong&gt;trigger&lt;/strong&gt; and “When a resource event occurs” as the &lt;strong&gt;action&lt;/strong&gt; we will take. Configuring it as shown below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/step-1-event-grid.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/step-1-event-grid.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will automatically set-up the connection from IoT Hub towards Event Grid for us, so that we are able to focus on more important things. From the introduction, we have now learned that we can access the output of our Event Grid Trigger through the function &lt;code class=&quot;highlighter-rouge&quot;&gt;TriggerBody()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Looking at what we got in the &lt;strong&gt;run history&lt;/strong&gt; output, we can see the JSON structure below. Which shows that IoTHub is including a body key that includes the data as a &lt;code class=&quot;highlighter-rouge&quot;&gt;base64&lt;/code&gt; string.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/telemetry-json.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/telemetry-json.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To decode this, we can thus utilize the following expression: &lt;code class=&quot;highlighter-rouge&quot;&gt;json(decodeBase64(triggerBody()['data']['body']))&lt;/code&gt; which deserializes the base64 string and parses it as a JSON document.&lt;/p&gt;
+
+&lt;p&gt;Continuing, we set-up our CosmosDB action. Selecting the &lt;strong&gt;Get A Document&lt;/strong&gt; (or shorted noted as &lt;code class=&quot;highlighter-rouge&quot;&gt;Get_a_Document&lt;/code&gt; since we need this for accessing the result). To help you a bit, I have listed the parameters below.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Database ID:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;YOUR_DATABASE_ID&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Collection ID:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;YOUR_COLLECTION_ID&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Document ID:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;json(decodeBase64(triggerBody()['data']['body']))['deviceId']&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Partition Key Value:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;BE&quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Resulting in:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/step-2-cosmosdb.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/step-2-cosmosdb.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The same goes for our Condition Statement, which will focus on a value we put in (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;temperature_pct&lt;/code&gt;) which we can compare to another value (e.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;79&lt;/code&gt; as shown below).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/step-3-condition.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/step-3-condition.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the last step being that when the condition above is true, that we send an email to the email we fetched from CosmosDB.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Remember: you can access the CosmosDB data through &lt;code class=&quot;highlighter-rouge&quot;&gt;Body('Get_a_Document')&lt;/code&gt;, e.g.: &lt;code class=&quot;highlighter-rouge&quot;&gt;Body('Get_a_Document')['customer']['email']&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/step-4-sendgrid.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/step-4-sendgrid.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally resulting in our finished flow:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-realtime-app/logic-app-full.png&quot; alt=&quot;/assets/images/posts/iot-realtime-app/logic-app-full.png&quot; /&gt;&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="iot" /><summary type="html">Creating a realtime application is quite trivial, you most of the time take in all the events and put a dedicated processor on there that will process the incoming events for you. But what if you would like to make things a bit more interesting and develop this entire path completely serverless without writing any code, but still ensuring a response of seconds rather than minutes?</summary></entry><entry><title type="html">Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared</title><link href="/ai-performance-markers" rel="alternate" type="text/html" title="Artificial Intelligence - How to measure performance - Accuracy, Precision, Recall, F1, ROC, RMSE, F-Test and R-Squared" /><published>2020-01-03T09:00:00+00:00</published><updated>2020-01-03T09:00:00+00:00</updated><id>/ai-performance-markers</id><content type="html" xml:base="/ai-performance-markers">&lt;p&gt;We currently see a lot of AI algorithms being created, but how can we actually measure the performance of these models? What are the terms we should look at to detect this?&lt;/p&gt;
 
 &lt;p&gt;These are the questions I would like to tackle in this article. Starting from “Classification models” where we will look at metrics such as Accuracy, Precision, Recall, F1 Score and the ROC curve towards “regression models” where we will tackle the Root Mean Squared Error, F-Test and R-Squared methods.&lt;/p&gt;
 
@@ -2557,165 +2702,4 @@ dotnet add MLCarFilter package Microsoft.ML
 
 &lt;p&gt;Another noticeable thing is the performance. When deploying with Travis, my builds often took between 2 - 3 minutes, while with Azure DevOps Pipelines this takes around 1m 40s&lt;/p&gt;
 
-&lt;p&gt;If you’re interested in the full source code, feel free to check this at: &lt;a href=&quot;https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml&quot;&gt;https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml&lt;/a&gt; which is this code being used for my own personal blog ;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="infrastructure" /><category term="devops" /><summary type="html">So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!</summary></entry><entry><title type="html">Part 3 - Creating a Car Camera simulator in IoT Edge</title><link href="/iot-edge-part3-simulator-camera" rel="alternate" type="text/html" title="Part 3 - Creating a Car Camera simulator in IoT Edge" /><published>2019-08-10T09:00:04+00:00</published><updated>2019-08-10T09:00:04+00:00</updated><id>/iot-edge-part3-simulator-camera</id><content type="html" xml:base="/iot-edge-part3-simulator-camera">&lt;blockquote&gt;
-  &lt;p&gt;This is Part 3 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt; or go the &lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;part 2&lt;/a&gt; to view the previous article.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; alt=&quot;/assets/images/posts/iot-edge/architecture2.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;recap-and-next-steps&quot;&gt;Recap and next steps&lt;/h2&gt;
-
-&lt;p&gt;In &lt;a href=&quot;/iot-edge-part2-simulator-car&quot;&gt;part 2&lt;/a&gt; we created our car data simulator that will send data points every second from a CSV file. Next up is a second simulator that will create a video as a camera would do and save it on disk, so that a processor can use it.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Unique here is that we will be utilizing this to create a video stream that is utilizing a shared folder through &lt;strong&gt;Azure IoT Edge createOptions&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;initial-setup&quot;&gt;Initial Setup&lt;/h2&gt;
-
-&lt;p&gt;Our Video simulator will utilize some of the code from the previous simulator. However since we are using video frames here, we should not send them straight to cloud, nor should we use MQTT to send them to our device hub. A more efficient way is that we create a video from these frames (as a camera would do, but rather than creating a video it would then stream to a &lt;code class=&quot;highlighter-rouge&quot;&gt;/dev/&lt;/code&gt; interface) and save this video to a shared path that another module can read.&lt;/p&gt;
-
-&lt;p&gt;Remember: our edge device has it’s own hub, and runs modules (containers). We can thus use the underlying OS running our modules as a “share” and mount a shared path (e.g. /tmp) to these modules. If our module A would then write to this mount, module B would be able access it as well.&lt;/p&gt;
-
-&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
-
-&lt;p&gt;For our creation of this module, we will use the following settings:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Path:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/xavier/iot-edge&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Solution:&lt;/strong&gt; EdgeSolutionCameraFilter&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Module Template:&lt;/strong&gt; C# Module&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Module Name:&lt;/strong&gt; ModuleSimulatorCamera&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Docker Repository:&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;xavierregistry.azurecr.io/module-simulator-camera&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;data-gathering&quot;&gt;Data Gathering&lt;/h3&gt;
-
-&lt;p&gt;For the data that will be used for the video we will - as mentioned before - again utilize the data from &lt;a href=&quot;https://github.com/cloudpose/smartphone_driving_dataset&quot;&gt;https://github.com/cloudpose/smartphone_driving_dataset&lt;/a&gt;. This provides us a dataset of 3,419 images. Now for simplicity reasons we will only get a couple of frames (~10Mb) in our data folder (as in the previous simulator). I chose the following frames:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;output_141.png&lt;/li&gt;
-  &lt;li&gt;output_197.png&lt;/li&gt;
-  &lt;li&gt;output_340.png&lt;/li&gt;
-  &lt;li&gt;output_384.png&lt;/li&gt;
-  &lt;li&gt;output_2535.png -&amp;gt; output_2560.png&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;FYI:&lt;/strong&gt; I use a remote development PC, so to copy these files specifically I had to copy them to a SSH terminal. To do this I used: &lt;code class=&quot;highlighter-rouge&quot;&gt;scp *.png xavier@&amp;lt;SERVER_IP&amp;gt;:/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera/data&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;coding-our-simulator&quot;&gt;Coding our Simulator&lt;/h2&gt;
-
-&lt;h3 id=&quot;configuring-the-deployment-template--dockerfile-for-our-stream-path&quot;&gt;Configuring the deployment template + Dockerfile for our stream path&lt;/h3&gt;
-
-&lt;p&gt;Our code is mostly a copy paste of the previous code. The only thing that will change here is that we will have to send the images to the next module.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Important:&lt;/strong&gt; As mentiond in our Initial Setup, we should &lt;strong&gt;NOT&lt;/strong&gt; use MQTT to send all these messages to cloud. Rather than that we should utilize a mount to provide a path that we can write our video to.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;To access our shared path from the OS (&lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp&lt;/code&gt;) in our module under &lt;code class=&quot;highlighter-rouge&quot;&gt;/app/stream&lt;/code&gt; we will have to specify this in our module’s deployment file &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt;. Luckily a key called &lt;code class=&quot;highlighter-rouge&quot;&gt;createOptions&lt;/code&gt; exists that allows us to do this (see &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/iot-edge/module-edgeagent-edgehub#edgeagent-desired-properties&quot;&gt;https://docs.microsoft.com/en-us/azure/iot-edge/module-edgeagent-edgehub&lt;/a&gt; for more information).&lt;/p&gt;
-
-&lt;p&gt;This will look like this to mount the &lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp&lt;/code&gt; folder to our &lt;code class=&quot;highlighter-rouge&quot;&gt;/app/stream&lt;/code&gt; path:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;modules&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ModuleSimulatorCamera&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;docker&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;restartPolicy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;always&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;settings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;${MODULES.ModuleSimulatorCamera}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;createOptions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;HostConfig&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Mounts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Target&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/app/stream/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Source&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/tmp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next we will adapt our Dockerfile.amd64 (and Dockerfile.arm32v7) to add the following above the &lt;code class=&quot;highlighter-rouge&quot;&gt;ENTRYPOINT&lt;/code&gt; statement, as well as add the dependency on ffmpeg:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Add streaming directory&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /app/stream
-
-&lt;span class=&quot;c&quot;&gt;# Install ffmpeg&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ffmpeg
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;programcs&quot;&gt;Program.cs&lt;/h3&gt;
-
-&lt;p&gt;Our &lt;code class=&quot;highlighter-rouge&quot;&gt;Program.cs&lt;/code&gt; is quite trivial, since we will let &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; handle the difficult part of merging our frames from the &lt;code class=&quot;highlighter-rouge&quot;&gt;data/&lt;/code&gt; folder into a video file. Putting this into the same kind of framework as we did in our first simulator, makes us ending up with:&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;videoDestinationPath&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/app/stream/out.mp4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;MqttTransportSettings&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MqttTransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TransportType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mqtt_Tcp_Only&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ITransportSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mqttSetting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Open a connection to the Edge runtime&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CreateFromEnvironmentAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IoT Hub module client initialized.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Start our simulator&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Note: this is not async, we can run on the main thread&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;data/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ModuleClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Get the images that we want to convert to a video stream&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fileEntries&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Directory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;GetFiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;StartInfo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ProcessStartInfo&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;FileName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ffmpeg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;Arguments&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$&quot;-y -framerate 1 -pattern_type glob -i &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/*.png -c:v libx264 -r 30 -pix_fmt yuv420p -vf \&quot;pad=ceil(iw/2)*2:ceil(ih/2)*2\&quot; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoDestinationPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;UseShellExecute&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;CreateNoWindow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Compile the video&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Console.WriteLine($&quot;ffmpeg -y -framerate 1 -pattern_type glob -i {Directory.GetCurrentDirectory()}/{filePath}*.png -c:v libx264 -r 30 -pix_fmt yuv420p -vf \&quot;pad=ceil(iw/2)*2:ceil(ih/2)*2\&quot; {videoDestinationPath}&quot;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] Creating video file from images in &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*.png&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   
-    &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WaitForExit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] Wrote video file to &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoDestinationPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// Wait a minute before we repeat&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[Simulator][&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;g&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;] Waiting 60 seconds before repeating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Threading&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;StartSimulator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ioTHubModuleClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can see that we will just create our process in C# and wait till it finishes. Once it finishes we will wait 60 seconds before redoing this complete process.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; We wait one minute for this simulator, since we could for example make the &lt;code class=&quot;highlighter-rouge&quot;&gt;data/&lt;/code&gt; folder receive frames from a mount as well, potentially allowing for a dynamic recompilation process.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;deploying-our-simulator&quot;&gt;Deploying our Simulator&lt;/h3&gt;
-
-&lt;p&gt;Just as before, we can now deploy our simulator:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Login to our container repository: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo docker login -u &amp;lt;USERNAME&amp;gt; -p &amp;lt;PASSWORD&amp;gt; &amp;lt;LOGIN_SERVER&amp;gt;&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Right click on &lt;code class=&quot;highlighter-rouge&quot;&gt;deployment.template.json&lt;/code&gt; and: &lt;code class=&quot;highlighter-rouge&quot;&gt;Build and Push IoT Edge Solution&lt;/code&gt; which will initiate a &lt;code class=&quot;highlighter-rouge&quot;&gt;docker build  --rm -f &quot;/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera/Dockerfile.amd64&quot; -t xavierregistry.azurecr.io/module-simulator-camera:0.0.1-amd64 &quot;/home/xavier/iot-edge/EdgeSolutionCameraFilter/modules/ModuleSimulatorCamera&quot; &amp;amp;&amp;amp; docker push xavierregistry.azurecr.io/module-simulator-camera:0.0.1-amd64&lt;/code&gt; command.&lt;/li&gt;
-  &lt;li&gt;Right click on our device in the Azure IoT Hub Extension and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Create Deployment for Single Device&lt;/code&gt; and navigate to the path of our solution config deployment. E.g. &lt;code class=&quot;highlighter-rouge&quot;&gt;/EdgeSolutionCameraFilter/config/deployment.amd64.json&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Congratulations, our Camera Simulator is now finished!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-javascript" /><category term="iot" /><summary type="html">This is Part 3 in the Iot Edge series, view the main article or go the part 2 to view the previous article.</summary></entry></feed>
+&lt;p&gt;If you’re interested in the full source code, feel free to check this at: &lt;a href=&quot;https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml&quot;&gt;https://github.com/thebillkidy/thebillkidy.github.io/blob/development/azure-pipelines.yml&lt;/a&gt; which is this code being used for my own personal blog ;)&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="infrastructure" /><category term="devops" /><summary type="html">So far I have been using Travis-CI as my Continuous Integration (CI) system for my build and release process for my Blog. However recently, VSTS got rebranded to Azure Pipelines, and I felt everything got mature enough to finally migrate to Azure Pipelines. To my surprise this turned out to be super easy! Let’s see how it can be done!</summary></entry></feed>
