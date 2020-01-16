@@ -201,7 +201,9 @@
       <item>
         <title>Part 1 - Manage, Connect and Deploy our simulators to our Edge Devices with IoT Hub</title>
         
-          <description>&lt;!-- &gt; This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. --&gt;
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;This is Part 1 in the Iot Edge series, view the &lt;a href=&quot;/iot-edge&quot;&gt;main article&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 </description>
         
