@@ -4,13 +4,13 @@ current: post
 cover:  assets/images/covers/dapr.png
 navigation: True
 title: Getting started with Dapr, Python and gRPC
-date: 2019-02-17 09:00:00
+date: 2020-02-17 09:00:00
 tags: infrastructure dapr
 class: post-template
 subclass: 'post'
 author: xavier
 ---
- 
+
 The cloud war is heating up and one of the main challenges is the fear of lock-in created by these providers. Helping the raise of Kubernetes as a provider, since this allows customers to quickly move between one and the other (a deployment is a deployment, no matter the cloud you run it on.).
 
 Looking at the above, a new Runtime was created that allows customers to create applications that still allow the goodness of these cloud platforms (PaaS components), while developing their Microservices. Which is why **[Dapr](https://dapr.io)** was born.
