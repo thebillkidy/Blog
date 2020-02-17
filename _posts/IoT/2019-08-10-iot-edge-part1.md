@@ -11,9 +11,7 @@ subclass: 'post'
 author: xavier
 ---
 
-<!-- > This is Part 1 in the Iot Edge series, view the [main article](/iot-edge) or go the [part 2](/iot-edge-part2) to continue. -->
-
-> This is Part 1 in the Iot Edge series, view the [main article](/iot-edge). Part 2 is currently under construction and will follow soon.
+> This is Part 1 in the Iot Edge series, view the [main article](/iot-edge).
 
 ![/assets/images/posts/iot-edge/architecture2.png](/assets/images/posts/iot-edge/architecture2.png)
 
