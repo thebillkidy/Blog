@@ -944,6 +944,21 @@
     
       
       <item>
+        <title>Getting started with Dapr, Python and gRPC</title>
+        
+          <description>&lt;p&gt;The cloud war is heating up and one of the main challenges is the fear of lock-in created by these providers. Helping the raise of Kubernetes as a provider, since this allows customers to quickly move between one and the other (a deployment is a deployment, no matter the cloud you run it on.).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 17 Feb 2019 09:00:00 +0000</pubDate>
+        <link>
+        /dapr-getting-started</link>
+        <guid isPermaLink="true">/dapr-getting-started</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Quantum Computing - An Introduction</title>
         
           <description>&lt;p&gt;Quantum Computing is a hype growing more and more these days, but what is it? Why should we use it and how can we get started with it? This is what I would like to tackle in this post.&lt;/p&gt;
