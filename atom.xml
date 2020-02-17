@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Getting started with Dapr, Python and gRPC</title>
+        
+          <description>&lt;p&gt;The cloud war is heating up and one of the main challenges is the fear of lock-in created by these providers. Helping the raise of Kubernetes as a provider, since this allows customers to quickly move between one and the other (a deployment is a deployment, no matter the cloud you run it on.).&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 17 Feb 2020 09:00:00 +0000</pubDate>
+        <link>
+        /dapr-getting-started</link>
+        <guid isPermaLink="true">/dapr-getting-started</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Act in realtime on IoT Data without writing any code through Azure IoT Hub, Event Grid, Cosmos DB and Logic Apps</title>
         
           <description>&lt;p&gt;Creating a realtime application is quite trivial, you most of the time take in all the events and put a dedicated processor on there that will process the incoming events for you. But what if you would like to make things a bit more interesting and develop this entire path completely serverless without writing any code, but still ensuring a response of seconds rather than minutes?&lt;/p&gt;
@@ -939,21 +954,6 @@
         <link>
         /azure-data-lake-gen-2-browser</link>
         <guid isPermaLink="true">/azure-data-lake-gen-2-browser</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Getting started with Dapr, Python and gRPC</title>
-        
-          <description>&lt;p&gt;The cloud war is heating up and one of the main challenges is the fear of lock-in created by these providers. Helping the raise of Kubernetes as a provider, since this allows customers to quickly move between one and the other (a deployment is a deployment, no matter the cloud you run it on.).&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 17 Feb 2019 09:00:00 +0000</pubDate>
-        <link>
-        /dapr-getting-started</link>
-        <guid isPermaLink="true">/dapr-getting-started</guid>
       </item>
       
     
