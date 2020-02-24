@@ -170,6 +170,13 @@ into the {body} of the default.hbs template -->
 
 <p>While brushing up my knowledge, I also thought on how I could share this back to the community as well as have a quick overview of everything I learned with pointers and tips of where I should look at to go more in depth on a topic. Making me end up in creating the following battle cards that I hope are useful for everyone to print and use as a kind of “Cheat Sheets”.</p>
 
+<p>As you might notice, there is no sklearn being utilized in steps 2. This is because I wanted to make a clear distinction between a <strong>Data Engineer</strong> and a <strong>Data Scientist</strong>, with the following reasoning:</p>
+
+<ul>
+  <li><strong>Data Engineer:</strong> They often utilize Spark, so we want to utilize the strength and scale-out capabilities of spark, without completely relying on the head node. Therefor I utilize Pandas examples as much as possible, which can be scaled through the <a href="https://github.com/databricks/koalas">Koalas</a> platform.</li>
+  <li><strong>Data Scientist:</strong> They often use different libraries, with sklearn being one of them.</li>
+</ul>
+
 <blockquote>
   <p><strong>Note:</strong> I realize that these are far from perfect, but I want them to be. If you encounter any remarks, please post them below and I will look at incorporating them :)</p>
 </blockquote>
