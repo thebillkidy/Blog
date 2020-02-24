@@ -1,0 +1,649 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2480" height="3508" viewBox="0 0 2480 3508">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 512 512">
+      <image width="512" height="512" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAMAAADDpiTIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMAUExURQBt1gBxxgRx0ghx1gxxzgh1yhB1xhB12hB5yhR5whh52hx9vhh9yiCBtiB92iiFsiCFziyFriiF3jSJqjiNoTCJ3jCN0jyRnUCRnTiNykCRpTiN3kSVmTiR0kiVkTyR3kCR1kCR4lCZjUCV1lWdiUiV4kiZ0kiZ1lmdpV2hhWGhfVCZ4lCd2mWleWGhum2qdVmh2lmh5nGubWGl3mGl5nmyaX2yZWmq5oW2YXmymWmu3om6WYG2hXmyvnGu6nGy3pG+VXmy6pXCUHm24n226pnGSH264oW60qHGRIW66qXKQIW+5o2+0om+4q7OPI2+7o3C5pXC0rLSNJXC7pXG5rrWMLrWOL7WPJ3K6p3K7r7aRMLaTMLaUKXO6qXO8sbeWcreXbLS4q7S7q7S8sreZbbW7s7ibbbW8s7icdLiecrikdLmfb7a9r7e8tbmhdrmjcbe9trqkdrqmd7qnc7i9s7m9uLupeLuqubustbq9tbq+ubyuuryvt7u+uryxu72zuby+u720vL22u72+u72//b63vb65vr67vb6//r/8v//+v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANZnVsUAAACMdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AcRYuAwAAAAlwSFlzAABcRgAAXEYBFJRDQQAAHPhJREFUeF7tnf1/G8V2h52IYGISc68h0NbArQjuLRjaOJiYktZccwXFocU0wQlOwFBs4qQRYIx5M/jaBJGI7D9dSfuVLVm7q53ZMzNnds7zA/18blezmzmPd+f1zEgkBI0IEDgigHU+f+PsMfc8ee6DztOIAJZp/hURcM8zP7aeRwSwzDOofQ6caBkgAtjlfdQ9D86KAJZpnkLVM+FjEcAuH6LiuXBOBLALnxZgzJMigF3OoeK5cEIEsMuTqHg2iAB2eQT1zgYRwC6odj6IAHZBtfNBBLALqp0PIoBdUO18EAHsgmrngwhgF1Q7H0QAu6Da+SAC2AXVzgcRwC6odj6IAHZBtfNBBLALqp0PIoBdUO18EAHsgmrngwhgF1Q7H0QAu6Da+SAC2AXVzgcRwC6odj6IAHZBtfOhhALs1rvs4H9hBKqdD6USoLFam54c6eXMVG1lF/9fFqDa+VAaAZobC2cQ9aOMz602cJVzUO18KIkA9dlRRDuF6dUmLnULqp0PZRBgf2EcYc6iMruN612CaueD/wLszlcQ4qFM1fEbd6Da+eC7APuzCG4+qq4VQLXzwXMBFod8+geZ3cdP3YBq54PXAtQnEFUVRq/g105AtfPBZwEWEFJVphx2ClHtfPBXgOY04qnOhLuxIVQ7H7wVYDdt2CcPo87agqh2PvgqwPYYYqmJq4YAqp0Pngqwmrvvn8YcSrIMqp0PfgpQQxSLUHXSFES188FLAeYRw2KccTE7gGrng48CXEEEizKN8myCaueDhwLUC3//uyygRIug2vngnwC7yqO/6ayiTHug2vngnQANneHfNCqbKNUaqHY+eCeA/vhfEmO2xwRR7XzwTQDd8f80bHcFUO188EyANcSNjhmUbAlUOx/8EqBRcAA4iQ2UbQdUOx/8EmAOQaNk3OpHANXOB68E2EbMaKmhdCug2vnglQBFZoDTqdhcJIZq54NPAtC3AGPmUb4NTqDe2eCTAGZeAHZfAXJegD51xIsei68AbieG+CQA7RhgLxZfAe+i3tngjwC7iJYJ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"/>
+    </pattern>
+    <radialGradient id="radial-gradient" cx="0.115" cy="-0.089" r="0.976" gradientTransform="translate(-0.058 0) scale(1.505 1)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0e90cf"/>
+      <stop offset="1" stop-color="#006daa"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="0.197" cy="-29.858" r="1.845" gradientTransform="translate(0.169 0) scale(0.266 1)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1a447a"/>
+      <stop offset="0.27" stop-color="#163e68"/>
+      <stop offset="0.72" stop-color="#103651"/>
+      <stop offset="1" stop-color="#0e3348"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-3" cx="0.041" cy="1.055" r="0.742" gradientTransform="translate(-0.002 0) scale(1.051 1)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#49bdea"/>
+      <stop offset="0.36" stop-color="#2ea4de"/>
+      <stop offset="0.75" stop-color="#178ed3"/>
+      <stop offset="1" stop-color="#0e86cf"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-4" cx="5.089" cy="61.438" r="0.517" gradientTransform="translate(-1.313 0) scale(1.288 1)" xlink:href="#radial-gradient"/>
+    <clipPath id="clip-AI_-_Data_Gathering">
+      <rect width="2480" height="3508"/>
+    </clipPath>
+  </defs>
+  <g id="AI_-_Data_Gathering" data-name="AI - Data Gathering" clip-path="url(#clip-AI_-_Data_Gathering)">
+    <rect width="2480" height="3508" fill="#f5f7f9"/>
+    <g id="Group_262" data-name="Group 262">
+      <g id="Rectangle_377" data-name="Rectangle 377" transform="translate(96 148)" fill="#fff" stroke="#eaecee" stroke-width="3">
+        <rect width="2288" height="3264" stroke="none"/>
+        <rect x="1.5" y="1.5" width="2285" height="3261" fill="none"/>
+      </g>
+      <g id="Rectangle_546" data-name="Rectangle 546" transform="translate(1140 48)" fill="#fff" stroke="#edeff1" stroke-width="3">
+        <rect width="200" height="200" rx="100" stroke="none"/>
+        <rect x="1.5" y="1.5" width="197" height="197" rx="98.5" fill="none"/>
+      </g>
+      <g id="_897066" data-name="897066" transform="translate(1181.258 89.503)">
+        <path id="Path_1894" data-name="Path 1894" d="M183.393,190.723H143.087a7.329,7.329,0,0,1-7.329-7.329V143.088a7.329,7.329,0,0,1,7.329-7.329h40.307a7.329,7.329,0,0,1,7.329,7.329v40.307A7.329,7.329,0,0,1,183.393,190.723Z" transform="translate(-104.73 -104.731)" fill="#ea5b48"/>
+        <path id="Path_1895" data-name="Path 1895" d="M201.946,203.779H161.639a1.832,1.832,0,0,1-1.832-1.832V161.64a1.832,1.832,0,0,1,1.832-1.832h40.307a1.832,1.832,0,0,1,1.832,1.832v40.307A1.832,1.832,0,0,1,201.946,203.779Z" transform="translate(-123.282 -123.283)" fill="#ef8476"/>
+        <g id="Group_222" data-name="Group 222" transform="translate(5.379 40.189)">
+          <circle id="Ellipse_63" data-name="Ellipse 63" cx="3.664" cy="3.664" r="3.664" fill="#ef8476"/>
+          <circle id="Ellipse_64" data-name="Ellipse 64" cx="3.664" cy="3.664" r="3.664" transform="translate(98.936 29.315)" fill="#ef8476"/>
+        </g>
+        <g id="Group_223" data-name="Group 223" transform="translate(1.715 23.701)">
+          <circle id="Ellipse_65" data-name="Ellipse 65" cx="3.664" cy="3.664" r="3.664" transform="translate(0 62.291)" fill="#ea5b48"/>
+          <circle id="Ellipse_66" data-name="Ellipse 66" cx="3.664" cy="3.664" r="3.664" transform="translate(106.264)" fill="#ea5b48"/>
+        </g>
+        <g id="Group_224" data-name="Group 224" transform="translate(40.189 5.379)">
+          <circle id="Ellipse_67" data-name="Ellipse 67" cx="3.664" cy="3.664" r="3.664" transform="translate(29.315)" fill="#ef8476"/>
+          <circle id="Ellipse_68" data-name="Ellipse 68" cx="3.664" cy="3.664" r="3.664" transform="translate(0 98.936)" fill="#ef8476"/>
+        </g>
+        <g id="Group_225" data-name="Group 225" transform="translate(23.701 1.715)">
+          <circle id="Ellipse_69" data-name="Ellipse 69" cx="3.664" cy="3.664" r="3.664" fill="#ea5b48"/>
+          <circle id="Ellipse_70" data-name="Ellipse 70" cx="3.664" cy="3.664" r="3.664" transform="translate(62.291 106.264)" fill="#ea5b48"/>
+        </g>
+        <path id="Path_1896" data-name="Path 1896" d="M200.345,209.759a1.832,1.832,0,0,1,1.367.612,6.439,6.439,0,0,0,4.817,2.111,5.933,5.933,0,0,0,6.13-5.109,1.835,1.835,0,0,1,.9-1.435,6.344,6.344,0,0,0,3.273-5.365,5.985,5.985,0,0,0-1.805-4.207,1.833,1.833,0,0,1,0-2.578,5.984,5.984,0,0,0,1.805-4.207,6.517,6.517,0,0,0-5.026-6.069,1.833,1.833,0,0,1-1.279-2.173,4.081,4.081,0,0,0,.122-.919,4.9,4.9,0,0,0-5.153-4.58,5.452,5.452,0,0,0-3.854,1.548,1.888,1.888,0,0,1-2.6,0,5.451,5.451,0,0,0-3.854-1.548,4.9,4.9,0,0,0-5.153,4.58,4.261,4.261,0,0,0,.1.9,1.831,1.831,0,0,1-1.283,2.155,6.525,6.525,0,0,0-5,6.1,5.819,5.819,0,0,0,1.387,3.722,1.833,1.833,0,0,1,.045,2.271,6.754,6.754,0,0,0-1.431,4.084,7.131,7.131,0,0,0,3.314,5.861,1.834,1.834,0,0,1,.816,1.509c.025,3.008,2.8,5.454,6.176,5.454a6.439,6.439,0,0,0,4.817-2.111A1.83,1.83,0,0,1,200.345,209.759Z" transform="translate(-141.835 -135.651)" fill="#ebdedc"/>
+        <path id="Path_1897" data-name="Path 1897" d="M189.524,56.8h-27.6V52.9h7.447a1.714,1.714,0,0,0,0-3.428h-7.447v-3.9h5.17a7.163,7.163,0,0,0,5.1-2.112l11.274-11.274a5.375,5.375,0,1,0-2.424-2.424L169.768,41.032a3.758,3.758,0,0,1-2.674,1.108h-5.17V38.358a9.053,9.053,0,0,0-9.043-9.043H149.1V14.14a5.378,5.378,0,1,0-3.428,0V29.315h-3.9V21.869a1.714,1.714,0,1,0-3.428,0v7.447h-3.9V1.715a1.714,1.714,0,0,0-3.428,0v27.6h-3.9V21.869a1.714,1.714,0,0,0-3.428,0v7.447h-3.9v-5.17a7.163,7.163,0,0,0-2.112-5.1L106.4,7.769a5.381,5.381,0,1,0-2.424,2.424l11.278,11.278a3.757,3.757,0,0,1,1.108,2.674v5.17h-3.782a9.081,9.081,0,0,0-2.26.285,1.714,1.714,0,1,0,.855,3.32,5.645,5.645,0,0,1,1.405-.177h40.307a5.621,5.621,0,0,1,5.614,5.614V78.665a5.647,5.647,0,0,1-.176,1.4,1.714,1.714,0,1,0,3.32.853,9.072,9.072,0,0,0,.285-2.258V74.882H177.1a5.378,5.378,0,1,0,0-3.428H161.924v-3.9h7.447a1.714,1.714,0,1,0,0-3.428h-7.447v-3.9h27.6a1.714,1.714,0,0,0,0-3.428Zm-5.043-30.811a1.95,1.95,0,1,1,0,2.758h0a1.95,1.95,0,0,1,0-2.758Zm-37.1-18.893a1.95,1.95,0,1,1-1.95,1.95A1.952,1.952,0,0,1,147.385,7.094ZM100.2,6.758a1.95,1.95,0,1,1,2.758,0h0A1.953,1.953,0,0,1,100.2,6.758ZM182.2,71.218a1.95,1.95,0,1,1-1.95,1.95A1.952,1.952,0,0,1,182.2,71.218Z" transform="translate(-74.217 -0.001)"/>
+        <path id="Path_1898" data-name="Path 1898" d="M87.267,224.324,75.989,213.047a3.757,3.757,0,0,1-1.108-2.674V205.2h3.782a9.071,9.071,0,0,0,2.259-.285,1.714,1.714,0,0,0-.855-3.32,5.641,5.641,0,0,1-1.4.177H38.357a5.621,5.621,0,0,1-5.614-5.614V155.853a5.639,5.639,0,0,1,.177-1.4,1.714,1.714,0,1,0-3.32-.855,9.062,9.062,0,0,0-.285,2.259v3.782H14.139a5.378,5.378,0,1,0,0,3.428H29.314v3.9H21.868a1.714,1.714,0,1,0,0,3.428h7.447v3.9H1.714a1.714,1.714,0,1,0,0,3.428h27.6v3.9H21.868a1.714,1.714,0,0,0,0,3.428h7.447v3.9h-5.17a7.162,7.162,0,0,0-5.1,2.112L7.772,202.335a5.374,5.374,0,1,0,2.425,2.424L21.47,193.485a3.758,3.758,0,0,1,2.675-1.108h5.17v3.782a9.053,9.053,0,0,0,9.043,9.043H42.14v15.175a5.378,5.378,0,1,0,3.428,0V205.2h3.9v7.447a1.714,1.714,0,1,0,3.428,0V205.2h3.9v27.6a1.714,1.714,0,0,0,3.428,0V205.2h3.9v7.447a1.714,1.714,0,1,0,3.428,0V205.2h3.9v5.17a7.163,7.163,0,0,0,2.112,5.1l11.278,11.278a5.379,5.379,0,1,0,2.424-2.424ZM9.043,163.3a1.95,1.95,0,1,1,1.95-1.95A1.952,1.952,0,0,1,9.043,163.3ZM6.757,208.531a1.95,1.95,0,1,1,0-2.758h0a1.95,1.95,0,0,1,0,2.758Zm37.1,18.893a1.95,1.95,0,1,1,1.95-1.95A1.952,1.952,0,0,1,43.853,227.424Zm47.182,3.093a1.949,1.949,0,1,1,0-2.758A1.953,1.953,0,0,1,91.036,230.517Z" transform="translate(0 -117.496)"/>
+        <path id="Path_1899" data-name="Path 1899" d="M180.479,201.2v0c0,3.976,3.543,7.211,7.9,7.211a8.179,8.179,0,0,0,6.183-2.733,8.179,8.179,0,0,0,6.183,2.733c4.191,0,7.628-3,7.881-6.766a8.012,8.012,0,0,0,4.139-6.857,7.727,7.727,0,0,0-2.384-5.5,7.728,7.728,0,0,0,2.384-5.5,8.28,8.28,0,0,0-6.352-7.78,5.854,5.854,0,0,0,.169-1.38c0-3.471-3.081-6.295-6.867-6.295a7.131,7.131,0,0,0-5.153,2.14,7.131,7.131,0,0,0-5.153-2.14c-3.786,0-6.867,2.824-6.867,6.295a5.854,5.854,0,0,0,.169,1.38,8.279,8.279,0,0,0-6.352,7.78,7.529,7.529,0,0,0,1.805,4.878,8.477,8.477,0,0,0-1.805,5.2A8.828,8.828,0,0,0,180.479,201.2Zm4.763-22.1.046,0a1.713,1.713,0,0,0,1.454-2.616c-.013-.021-.025-.043-.039-.063l-.023-.03c-.027-.037-.054-.074-.083-.109l0,0a2.544,2.544,0,0,1-.627-1.644,3.5,3.5,0,0,1,6.877,0,1.714,1.714,0,1,0,3.428,0,3.5,3.5,0,0,1,6.877,0,2.412,2.412,0,0,1-.257,1.079,9.517,9.517,0,0,0-2.813.705,1.714,1.714,0,0,0,1.332,3.159,6.187,6.187,0,0,1,2.37-.48l.049,0,.046,0c3.013.02,5.457,2.119,5.457,4.7a4.573,4.573,0,0,1-2.638,3.98,1.714,1.714,0,0,0,0,3.032,4.573,4.573,0,0,1,2.638,3.98,4.385,4.385,0,0,1-1.51,3.223,7.7,7.7,0,0,0-4.506-3.629,1.714,1.714,0,1,0-1.028,3.271,3.889,3.889,0,0,1,2.922,3.548c0,2.086-2,3.782-4.469,3.782s-4.469-1.7-4.469-3.782V190.208c0-2.086,2-3.782,4.469-3.782a1.714,1.714,0,0,0,0-3.428,8.381,8.381,0,0,0-4.469,1.27v-2.189a1.714,1.714,0,1,0-3.428,0v9.516a8.165,8.165,0,0,0-1.894-.877,1.714,1.714,0,0,0-1.028,3.271,3.888,3.888,0,0,1,2.922,3.548V201.2c0,2.086-2,3.782-4.469,3.782s-4.469-1.7-4.469-3.782a3.456,3.456,0,0,1,1.067-2.447,1.714,1.714,0,0,0-2.417-2.432,7.293,7.293,0,0,0-1.058,1.329,5.229,5.229,0,0,1-1.714-3.779,5.838,5.838,0,0,1,4.847-5.426,1.714,1.714,0,1,0-.767-3.341,10.441,10.441,0,0,0-3.145,1.281,4.137,4.137,0,0,1-.936-2.591C179.785,181.217,182.229,179.118,185.242,179.1Z" transform="translate(-136.049 -129.865)"/>
+      </g>
+    </g>
+    <g id="Group_144" data-name="Group 144" transform="translate(863.544 267)">
+      <text id="AI_Workflow_Data_Gathering" data-name="AI Workflow
+Data Gathering" transform="translate(376.456 81)" fill="#4a5568" font-size="72" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-213.24" y="0">AI Workflow</tspan><tspan font-size="48" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="-165.809" y="70">Data Gathering</tspan></tspan></text>
+    </g>
+    <g id="Group_226" data-name="Group 226" transform="translate(269.727 473)">
+      <g id="Rectangle_437" data-name="Rectangle 437" transform="translate(0.273)" fill="#4a5568" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Gather" transform="translate(100.273 50)" fill="#fff" font-size="29" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-46.098" y="0">Gather</tspan></text>
+      <g id="Rectangle_442" data-name="Rectangle 442" transform="translate(290.273)" fill="none" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Explore" transform="translate(390.273 50)" fill="#4a5568" font-size="29" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-51.26" y="0">Explore</tspan></text>
+      <g id="Rectangle_443" data-name="Rectangle 443" transform="translate(580.273)" fill="none" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Clean" transform="translate(680.273 50)" fill="#4a5568" font-size="29" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-37.588" y="0">Clean</tspan></text>
+      <g id="Rectangle_444" data-name="Rectangle 444" transform="translate(870.273)" fill="none" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Modify" transform="translate(970.273 51)" fill="#4a5568" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-51.196" y="0">Modify</tspan></text>
+      <g id="Rectangle_445" data-name="Rectangle 445" transform="translate(1160.273)" fill="#fff" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Prepare" transform="translate(1260.273 51)" fill="#4a5568" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-54.492" y="0">Prepare</tspan></text>
+      <g id="Rectangle_446" data-name="Rectangle 446" transform="translate(1450.273)" fill="#fff" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Train" transform="translate(1550.273 51)" fill="#4a5568" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-35.039" y="0">Train</tspan></text>
+      <g id="Rectangle_447" data-name="Rectangle 447" transform="translate(1740.273)" fill="none" stroke="#4a5568" stroke-width="2">
+        <rect width="200" height="78" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="198" height="76" rx="2" fill="none"/>
+      </g>
+      <text id="Evaluate" transform="translate(1840.273 50)" fill="#4a5568" font-size="29" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-57.285" y="0">Evaluate</tspan></text>
+      <line id="Line_135" data-name="Line 135" x2="89" transform="translate(199.273 39)" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <path id="Path_1906" data-name="Path 1906" d="M0,0H81.9" transform="translate(488.273 39)" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <line id="Line_137" data-name="Line 137" x2="80" transform="translate(780.273 39)" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <line id="Line_138" data-name="Line 138" x2="84" transform="translate(1070.273 39)" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <line id="Line_139" data-name="Line 139" x2="85" transform="translate(1359.273 39)" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <line id="Line_140" data-name="Line 140" x2="77" transform="translate(1648.273 39)" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <g id="Polygon_4" data-name="Polygon 4" transform="translate(290.273 30) rotate(90)" fill="#4a5568">
+        <path d="M 16.23381042480469 14 L 1.766190052032471 14 L 9 1.943650007247925 L 16.23381042480469 14 Z" stroke="none"/>
+        <path d="M 9 3.887306213378906 L 3.532383918762207 13 L 14.46761608123779 13 L 9 3.887306213378906 M 9 0 L 18 15 L 0 15 L 9 0 Z" stroke="none" fill="#4a5568"/>
+      </g>
+      <g id="Polygon_5" data-name="Polygon 5" transform="translate(580.273 30) rotate(90)" fill="#4a5568">
+        <path d="M 16.23381042480469 14 L 1.766190052032471 14 L 9 1.943650007247925 L 16.23381042480469 14 Z" stroke="none"/>
+        <path d="M 9 3.887306213378906 L 3.532383918762207 13 L 14.46761608123779 13 L 9 3.887306213378906 M 9 0 L 18 15 L 0 15 L 9 0 Z" stroke="none" fill="#4a5568"/>
+      </g>
+      <g id="Polygon_6" data-name="Polygon 6" transform="translate(871.273 30) rotate(90)" fill="#4a5568">
+        <path d="M 16.23381042480469 14 L 1.766190052032471 14 L 9 1.943650007247925 L 16.23381042480469 14 Z" stroke="none"/>
+        <path d="M 9 3.887306213378906 L 3.532383918762207 13 L 14.46761608123779 13 L 9 3.887306213378906 M 9 0 L 18 15 L 0 15 L 9 0 Z" stroke="none" fill="#4a5568"/>
+      </g>
+      <g id="Polygon_7" data-name="Polygon 7" transform="translate(1160.273 30) rotate(90)" fill="#4a5568">
+        <path d="M 16.23381042480469 14 L 1.766190052032471 14 L 9 1.943650007247925 L 16.23381042480469 14 Z" stroke="none"/>
+        <path d="M 9 3.887306213378906 L 3.532383918762207 13 L 14.46761608123779 13 L 9 3.887306213378906 M 9 0 L 18 15 L 0 15 L 9 0 Z" stroke="none" fill="#4a5568"/>
+      </g>
+      <g id="Polygon_8" data-name="Polygon 8" transform="translate(1450.273 30) rotate(90)" fill="#4a5568">
+        <path d="M 16.23381042480469 14 L 1.766190052032471 14 L 9 1.943650007247925 L 16.23381042480469 14 Z" stroke="none"/>
+        <path d="M 9 3.887306213378906 L 3.532383918762207 13 L 14.46761608123779 13 L 9 3.887306213378906 M 9 0 L 18 15 L 0 15 L 9 0 Z" stroke="none" fill="#4a5568"/>
+      </g>
+      <g id="Polygon_9" data-name="Polygon 9" transform="translate(1740.273 30) rotate(90)" fill="#4a5568">
+        <path d="M 16.23381042480469 14 L 1.766190052032471 14 L 9 1.943650007247925 L 16.23381042480469 14 Z" stroke="none"/>
+        <path d="M 9 3.887306213378906 L 3.532383918762207 13 L 14.46761608123779 13 L 9 3.887306213378906 M 9 0 L 18 15 L 0 15 L 9 0 Z" stroke="none" fill="#4a5568"/>
+      </g>
+      <g id="Rectangle_448" data-name="Rectangle 448" transform="translate(0.273 119)" fill="#4a5568" stroke="#4a5568" stroke-width="1">
+        <rect width="199" height="38" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="198" height="37" rx="2.5" fill="none"/>
+      </g>
+      <g id="Rectangle_449" data-name="Rectangle 449" transform="translate(290.273 119)" fill="none" stroke="#4a5568" stroke-width="1">
+        <rect width="780" height="38" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="779" height="37" rx="2.5" fill="none"/>
+      </g>
+      <g id="Rectangle_450" data-name="Rectangle 450" transform="translate(1160.273 119)" fill="#fff" stroke="#4a5568" stroke-width="1">
+        <rect width="490" height="38" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="489" height="37" rx="2.5" fill="none"/>
+      </g>
+      <g id="Rectangle_451" data-name="Rectangle 451" transform="translate(1740.273 119)" fill="none" stroke="#4a5568" stroke-width="1">
+        <rect width="200" height="38" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="199" height="37" rx="2.5" fill="none"/>
+      </g>
+      <text id="Get_Data" data-name="Get Data" transform="translate(100.273 147)" fill="#fff" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="-42.673" y="0">Get Data</tspan></text>
+      <text id="Clean_Prepare_Modify_Data" data-name="Clean, Prepare &amp; Modify Data" transform="translate(680.273 147)" fill="#4a5568" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="-144.531" y="0">Clean, Prepare &amp; Modify Data</tspan></text>
+      <text id="Train_Model" data-name="Train Model" transform="translate(1402.273 147)" fill="#4a5568" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="-57.347" y="0">Train Model</tspan></text>
+      <text id="Measure" transform="translate(1840.273 147)" fill="#4a5568" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="-41.696" y="0">Measure</tspan></text>
+    </g>
+    <text id="Web_Scraping_Public_DataSets_Kaggle_Azure_AWS_Google_..._Company_Data_Platform_Data_lake_" data-name="Web Scraping
+Public DataSets (Kaggle, Azure, AWS, Google, ...)
+Company Data Platform (Data lake)" transform="translate(306 322)" font-size="22" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Web Scraping</tspan><tspan x="0" y="30">Public DataSets (Kaggle, Azure, AWS, Google, ...)</tspan><tspan x="0" y="60">Company Data Platform (Data lake)</tspan></text>
+    <text id="Web_Scraping" data-name="Web Scraping" transform="translate(225 696)" fill="#4a5568" font-size="36" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">WEB SCRAPING</tspan></text>
+    <text id="Web_Crawling" data-name="Web Crawling" transform="translate(225 767)" fill="#1a202c" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">WEB CRAWLING</tspan></text>
+    <text id="A_Crawler_discovers_the_different_websites_and_downloads_them_as_HTML._It_will_then_follow_other_pages_a_href_and_download_these._Note_that_a_robots.txt_file_located_at_the_root_explains_to_the_Crawler_which_pages_it_can_download." data-name="A &quot;Crawler&quot; discovers the different websites and downloads them as HTML. It will then follow other pages (&lt;a href=&quot;#&quot;&gt;) and download these. Note that a robots.txt file located at the root explains to the Crawler which pages it can download." transform="translate(225 805)" fill="#718096" font-size="24" font-family="SegoeUI, Segoe UI"><tspan x="0" y="26">A &quot;Crawler&quot; discovers the different websites and downloads them as HTML. It will then follow </tspan><tspan x="0" y="58">other pages (</tspan><tspan y="58" font-family="Consolas">&lt;a href=&quot;#&quot;&gt;</tspan><tspan y="58">) and download these. Note that a robots.txt file located at the </tspan><tspan x="0" y="90">root explains to the Crawler which pages it can download.</tspan></text>
+    <rect id="Rectangle_378" data-name="Rectangle 378" width="2088" height="502" transform="translate(196 1229)" fill="#fafafb"/>
+    <text id="Public_Datasets" data-name="Public Datasets" transform="translate(226 1318)" fill="#4a5568" font-size="36" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">PUBLIC DATASETS</tspan></text>
+    <g id="Group_268" data-name="Group 268" transform="translate(30 1023)">
+      <text id="company_data_Platform" data-name="company data Platform" transform="translate(195 827)" fill="#4a5568" font-size="36" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">COMPANY DATA PLATFORM</tspan></text>
+      <text id="description" transform="translate(195 898)" fill="#1a202c" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">DESCRIPTION</tspan></text>
+      <text id="A_data_platform_is_a_centralized_platform_within_an_organization_capturing_a_variety_of_different_data_sources_and_making_them_available_to_the_different_business_units._This_data_platform_takes_care_of_tasks_such_ingestion_preparation_and_serving_of_the_" data-name="A data platform is a centralized platform within an organization capturing a variety of different data sources and making them available to the different business units. This data platform takes care of tasks such ingestion, preparation and serving of the " transform="translate(196 906)" fill="#718096" font-size="24" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="26">A data platform is a centralized platform within an organization capturing a variety of different data sources and making them available to the different business units. This data platform </tspan><tspan x="0" y="58">takes care of tasks such ingestion, preparation and serving of the data to these different business units. With an ultimate goal of allowing business units to focus on their needs, without </tspan><tspan x="0" y="90">having to worry about cleaning and preparing their data in the correct format.</tspan></text>
+      <text id="architecture_example" data-name="architecture example" transform="translate(195 1088)" fill="#1a202c" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">ARCHITECTURE EXAMPLE</tspan></text>
+      <g id="Group_269" data-name="Group 269" transform="translate(1085.847 1372.367)">
+        <g id="logo-bg" transform="translate(0.153 -0.28)">
+          <g id="Rectangle_332" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="databricks_logoTM_rgb_TM" transform="translate(24.225 22.3)">
+          <path id="Path_1452" data-name="Path 1452" d="M0,41.895v8.5L25.5,63.732,51,50.394v-8.5h0L42,37.3l9-4.715V24.152h0V24.09l-.062.062L25.5,11,.062,24.09H0v8.5L9,37.3,0,41.895" transform="translate(0 -11)" fill="#59b4d9"/>
+          <path id="Path_1453" data-name="Path 1453" d="M42,53.4,25.5,62.087,9,53.4,0,58.025,25.5,71.462,51,58.025Z" transform="translate(0 -27.196)" fill="#0078d7"/>
+          <path id="Path_1454" data-name="Path 1454" d="M25.5,11,51,24.249,25.5,37.686,0,24.249Z" transform="translate(0 -11)" fill="#0078d7"/>
+        </g>
+      </g>
+      <g id="Group_270" data-name="Group 270" transform="translate(505.115 1372.367)">
+        <g id="logo-bg-2" data-name="logo-bg" transform="translate(-0.115 -0.28)">
+          <g id="Rectangle_332-2" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <rect id="Azure_IoTHub_COLOR" data-name="Azure IoTHub_COLOR" width="50" height="49" transform="translate(24.885 25.72)" fill="url(#pattern)"/>
+      </g>
+      <g id="Group_271" data-name="Group 271" transform="translate(505.115 1759.521)">
+        <g id="logo-bg-3" data-name="logo-bg" transform="translate(-0.115 -0.434)">
+          <g id="Rectangle_332-3" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="Azure_Data_Factory_COLOR" data-name="Azure Data Factory_COLOR" transform="translate(24.345 21.723)">
+          <path id="Path_1" data-name="Path 1" d="M50.893,30.138h0V17.775L36.921,29.934h-.306V17.775L22.642,29.934h0V4.491C22.642,2.346,17.848.2,11.525.2S0,2.244,0,4.491V51.085H51ZM11.525,6.535c-4.59,0-8.261-1.124-8.261-2.35s3.672-2.35,8.261-2.35,8.261,1.022,8.261,2.35C19.684,5.411,16.013,6.535,11.525,6.535Zm24.07,36.273H29.985v-5.62h5.609Zm-9.893,0H20.092v-5.62H25.7Zm14.279,0v-5.62H45.59v5.62Z" transform="translate(0 -0.089)" fill="#0078d4"/>
+          <rect id="Rectangle_3" data-name="Rectangle 3" width="12.291" height="46.566" transform="translate(0 4.429)" fill="#0078d4"/>
+          <path id="Path_2" data-name="Path 2" d="M22.06,4.529c0,2.436-4.991,4.429-11.08,4.429S0,6.965,0,4.529,4.991.1,11.08.1,22.06,1.982,22.06,4.529" transform="translate(0 -0.1)" fill="#0078d4"/>
+          <path id="Path_3" data-name="Path 3" d="M20.253,4.079c0,1.661-3.978,2.879-8.977,2.879S2.3,5.74,2.3,4.079,6.278,1.2,11.277,1.2s8.977,1.329,8.977,2.879" transform="translate(0.247 0.018)" fill="#fff"/>
+          <path id="Path_4" data-name="Path 4" d="M18.317,5.85c1.224-.443,1.836-1.107,1.836-1.772,0-1.661-3.978-2.879-8.977-2.879S2.2,2.529,2.2,4.079c.1.664.816,1.329,1.938,1.772a20.092,20.092,0,0,1,7.14-1.107A19.882,19.882,0,0,1,18.317,5.85" transform="translate(0.236 0.018)" fill="#e8e8e8"/>
+        </g>
+      </g>
+      <g id="Group_272" data-name="Group 272" transform="translate(1943.262 1191.965)">
+        <g id="logo-bg-4" data-name="logo-bg" transform="translate(-0.262 0.122)">
+          <g id="Rectangle_332-4" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="CosmosDB-color" transform="translate(24.199 24.218)">
+          <path id="Path_17" data-name="Path 17" d="M12.812,35.893A96.206,96.206,0,0,0,25.261,25.261,95.974,95.974,0,0,0,35.9,12.824a17,17,0,1,0-23.09,23.069Z" transform="translate(4.499 4.499)" fill="#0078d7"/>
+          <path id="Path_18" data-name="Path 18" d="M20.984,20.984a109.644,109.644,0,0,1-9.175,8.208c.136,0,.27.021.406.021a17,17,0,0,0,17-17c0-.138-.017-.27-.021-.406A110.661,110.661,0,0,1,20.984,20.984Z" transform="translate(13.283 13.283)" fill="#0078d7"/>
+          <path id="Path_19" data-name="Path 19" d="M49.664,1.15A4.225,4.225,0,0,0,46.56.079c-3.619,0-9.239,2.6-15.537,7.071a18.874,18.874,0,0,1,2.407.92C39.129,4.2,43.851,2.2,46.562,2.2a2.4,2.4,0,0,1,1.6.448c2.012,2.012-2.053,13.58-16.992,28.519C19.721,42.622,8.964,48.612,4.255,48.612a2.392,2.392,0,0,1-1.6-.448c-1.33-1.33.023-6.859,5.4-14.765a19,19,0,0,1-.9-2.376c-6.1,8.6-8.712,15.93-6,18.643a4.225,4.225,0,0,0,3.1,1.071c5.99,0,17.445-7.09,28.419-18.063C46.069,19.277,53.676,5.164,49.664,1.15Z" transform="translate(0.092 0.089)" fill="#0078d7"/>
+          <path id="Path_20" data-name="Path 20" d="M8.5,0A8.5,8.5,0,0,1,0,8.5,8.5,8.5,0,0,1,8.5,17,8.5,8.5,0,0,1,17,8.5,8.5,8.5,0,0,1,8.5,0Z" fill="#0078d7"/>
+          <path id="Path_21" data-name="Path 21" d="M24.374,18A6.374,6.374,0,0,1,18,24.374a6.374,6.374,0,0,1,6.374,6.374,6.374,6.374,0,0,1,6.374-6.374A6.374,6.374,0,0,1,24.374,18Z" transform="translate(20.246 20.246)" fill="#0078d7"/>
+          <path id="Path_22" data-name="Path 22" d="M13.857,16.224h-.695a4.352,4.352,0,0,0,.13-1.084A4.645,4.645,0,0,0,8.651,10.5H4.31A16.876,16.876,0,0,0,8.8,25.507h5.059a4.642,4.642,0,0,0,0-9.283Z" transform="translate(4.499 11.81)" fill="#59b4d9"/>
+          <path id="Path_23" data-name="Path 23" d="M14,15l.011-.011c.629-.629,1.215-1.241,1.8-1.851A3.964,3.964,0,0,0,14,15Z" transform="translate(15.748 14.774)" fill="#59b4d9"/>
+          <path id="Path_24" data-name="Path 24" d="M19.311,19.724c-1.989,1.989-4.005,3.857-6.015,5.592a3.929,3.929,0,0,0,2.771,1.147H17.48a17,17,0,0,0,9.936-13.535H25.565C23.6,15.241,21.5,17.529,19.311,19.724Z" transform="translate(14.955 14.543)" fill="#59b4d9"/>
+          <path id="Path_25" data-name="Path 25" d="M15.233,18.468h8.342c2.036-2.352,3.738-4.534,5.146-6.53a17.066,17.066,0,0,0-7.5-7.135h-.954a3.11,3.11,0,0,0-3.123,3.123,2.724,2.724,0,0,0,.13.824h-2a4.858,4.858,0,1,0-.042,9.717Z" transform="translate(11.669 5.402)" fill="#59b4d9"/>
+        </g>
+      </g>
+      <g id="Group_273" data-name="Group 273" transform="translate(783.826 1759.521)">
+        <g id="logo-bg-5" data-name="logo-bg" transform="translate(0.174 -0.434)">
+          <g id="Rectangle_332-5" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="Azure_Data_Lake_Store" data-name="Azure Data Lake Store" transform="translate(25.653 28.011)">
+          <g id="shape1434-1" transform="translate(0 0)">
+            <path id="Path_14" data-name="Path 14" d="M30.137,5.632l-1.476-2.55A3.216,3.216,0,0,0,25.906,1.5H3.161A3.179,3.179,0,0,0,0,4.661V6.3H30.7A1.833,1.833,0,0,1,30.137,5.632Zm1.835,17.59-9.026,12.9a.5.5,0,0,1-.355.205.308.308,0,0,1-.205-.051.372.372,0,0,1-.2-.509l2.344-7.7H19.276a.517.517,0,0,1-.407-.257.491.491,0,0,1,.051-.458l8.77-12.748a.519.519,0,0,1,.359-.205.384.384,0,0,1,.2.051.371.371,0,0,1,.205.509L26.21,22.508h5.407a.457.457,0,0,1,.458.462C32.075,23.073,32.024,23.124,31.972,23.223Zm17.034-15.3H0V38.37a3.179,3.179,0,0,0,3.161,3.161H47.834A3.179,3.179,0,0,0,51,38.37V10.834A3.219,3.219,0,0,0,49.006,7.925Z" transform="translate(0 -1.5)" fill="#0078d7" fill-rule="evenodd"/>
+          </g>
+        </g>
+      </g>
+      <g id="Group_274" data-name="Group 274" transform="translate(1455.772 1372.367)">
+        <g id="logo-bg-6" data-name="logo-bg" transform="translate(0.228 -0.28)">
+          <g id="Rectangle_332-6" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="databricks_logoTM_rgb_TM-2" data-name="databricks_logoTM_rgb_TM" transform="translate(24.016 22.3)">
+          <path id="Path_1452-2" data-name="Path 1452" d="M0,41.895v8.5L25.5,63.732,51,50.394v-8.5h0L42,37.3l9-4.715V24.152h0V24.09l-.062.062L25.5,11,.062,24.09H0v8.5L9,37.3,0,41.895" transform="translate(0 -11)" fill="#59b4d9"/>
+          <path id="Path_1453-2" data-name="Path 1453" d="M42,53.4,25.5,62.087,9,53.4,0,58.025,25.5,71.462,51,58.025Z" transform="translate(0 -27.196)" fill="#0078d7"/>
+          <path id="Path_1454-2" data-name="Path 1454" d="M25.5,11,51,24.249,25.5,37.686,0,24.249Z" transform="translate(0 -11)" fill="#0078d7"/>
+        </g>
+      </g>
+      <g id="Group_275" data-name="Group 275" transform="translate(1714.213 1372.367)">
+        <g id="logo-bg-7" data-name="logo-bg" transform="translate(-0.213 -0.28)">
+          <g id="Rectangle_332-7" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="databricks_logoTM_rgb_TM-3" data-name="databricks_logoTM_rgb_TM" transform="translate(23.738 22.3)">
+          <path id="Path_1452-3" data-name="Path 1452" d="M0,41.895v8.5L25.5,63.732,51,50.394v-8.5h0L42,37.3l9-4.715V24.152h0V24.09l-.062.062L25.5,11,.062,24.09H0v8.5L9,37.3,0,41.895" transform="translate(0 -11)" fill="#59b4d9"/>
+          <path id="Path_1453-3" data-name="Path 1453" d="M42,53.4,25.5,62.087,9,53.4,0,58.025,25.5,71.462,51,58.025Z" transform="translate(0 -27.196)" fill="#0078d7"/>
+          <path id="Path_1454-3" data-name="Path 1454" d="M25.5,11,51,24.249,25.5,37.686,0,24.249Z" transform="translate(0 -11)" fill="#0078d7"/>
+        </g>
+      </g>
+      <line id="Line_141" data-name="Line 141" y2="937.183" transform="translate(411.277 1126)" fill="none" stroke="#d7dde4" stroke-width="1" stroke-dasharray="8"/>
+      <g id="Group_276" data-name="Group 276" transform="translate(1085.847 1739.251)">
+        <g id="Group_119" data-name="Group 119" transform="translate(0 18.243)">
+          <g id="logo-bg-8" data-name="logo-bg" transform="translate(0.153 -0.407)">
+            <g id="Rectangle_332-8" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+              <rect width="99" height="99" rx="31" stroke="none"/>
+              <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+            </g>
+          </g>
+          <g id="Azure_Data_Lake_Store-2" data-name="Azure Data Lake Store" transform="translate(24.823 27.392)">
+            <g id="shape1434-1-2" data-name="shape1434-1" transform="translate(0 0)">
+              <path id="Path_14-2" data-name="Path 14" d="M30.137,5.632l-1.476-2.55A3.216,3.216,0,0,0,25.906,1.5H3.161A3.179,3.179,0,0,0,0,4.661V6.3H30.7A1.833,1.833,0,0,1,30.137,5.632Zm1.835,17.59-9.026,12.9a.5.5,0,0,1-.355.205.308.308,0,0,1-.205-.051.372.372,0,0,1-.2-.509l2.344-7.7H19.276a.517.517,0,0,1-.407-.257.491.491,0,0,1,.051-.458l8.77-12.748a.519.519,0,0,1,.359-.205.384.384,0,0,1,.2.051.371.371,0,0,1,.205.509L26.21,22.508h5.407a.457.457,0,0,1,.458.462C32.075,23.073,32.024,23.124,31.972,23.223Zm17.034-15.3H0V38.37a3.179,3.179,0,0,0,3.161,3.161H47.834A3.179,3.179,0,0,0,51,38.37V10.834A3.219,3.219,0,0,0,49.006,7.925Z" transform="translate(0 -1.5)" fill="#0078d7" fill-rule="evenodd"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_48" data-name="Group 48" transform="translate(61.823 0)">
+          <g id="logo-bg-9" data-name="logo-bg" transform="translate(0.33 -0.164)">
+            <g id="Rectangle_332-9" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+              <rect width="52" height="52" rx="26" stroke="none"/>
+              <rect x="0.5" y="0.5" width="51" height="51" rx="25.5" fill="none"/>
+            </g>
+          </g>
+          <path id="Path_1850" data-name="Path 1850" d="M1481.943,503.28c-.323-.554-.648-1.107-.973-1.66l-6.106-10.421q-2.531-4.319-5.059-8.639a.746.746,0,0,0-1.383-.022c-.38.63-.746,1.269-1.117,1.9l-5.891,10.071q-1.628,2.782-3.265,5.559c-.112.19-.2.395-.04.595a.417.417,0,0,0,.525.077,20.264,20.264,0,0,1,3.727-1.054,11.627,11.627,0,0,1,7.571.917c.218.107.438.165.61-.063s.051-.419-.129-.591a11.421,11.421,0,0,0-5.343-2.922c-.416-.1-.433-.128-.213-.5q1.918-3.275,3.836-6.549c.313-.533.527-.53.842.009q1.429,2.445,2.861,4.889l4.733,8.087c.293.5.189.746-.366.924a7.364,7.364,0,0,1-4.687-.191,28.764,28.764,0,0,1-3.354-1.641,9.648,9.648,0,0,0-12.03,2.594,13,13,0,0,0-1.065,1.428c-.075.116-.139.24-.028.354s.224.034.334-.011c.055-.022.106-.054.158-.081a18.592,18.592,0,0,1,5.788-1.926,9.125,9.125,0,0,1,4.831.536c1.523.613,2.968,1.39,4.468,2.048a9.456,9.456,0,0,0,4.024.945,10.149,10.149,0,0,0,2.642-.355,10.046,10.046,0,0,0,3.589-1.675A1.929,1.929,0,0,0,1481.943,503.28Z" transform="translate(-1442.832 -470.987)" fill="#00acd3"/>
+        </g>
+      </g>
+      <g id="Group_277" data-name="Group 277" transform="translate(1455.772 1739.251)">
+        <g id="Group_119-2" data-name="Group 119" transform="translate(0 18.243)">
+          <g id="logo-bg-10" data-name="logo-bg" transform="translate(0.228 -0.407)">
+            <g id="Rectangle_332-10" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+              <rect width="99" height="99" rx="31" stroke="none"/>
+              <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+            </g>
+          </g>
+          <g id="Azure_Data_Lake_Store-3" data-name="Azure Data Lake Store" transform="translate(24.613 27.392)">
+            <g id="shape1434-1-3" data-name="shape1434-1" transform="translate(0 0)">
+              <path id="Path_14-3" data-name="Path 14" d="M30.137,5.632l-1.476-2.55A3.216,3.216,0,0,0,25.906,1.5H3.161A3.179,3.179,0,0,0,0,4.661V6.3H30.7A1.833,1.833,0,0,1,30.137,5.632Zm1.835,17.59-9.026,12.9a.5.5,0,0,1-.355.205.308.308,0,0,1-.205-.051.372.372,0,0,1-.2-.509l2.344-7.7H19.276a.517.517,0,0,1-.407-.257.491.491,0,0,1,.051-.458l8.77-12.748a.519.519,0,0,1,.359-.205.384.384,0,0,1,.2.051.371.371,0,0,1,.205.509L26.21,22.508h5.407a.457.457,0,0,1,.458.462C32.075,23.073,32.024,23.124,31.972,23.223Zm17.034-15.3H0V38.37a3.179,3.179,0,0,0,3.161,3.161H47.834A3.179,3.179,0,0,0,51,38.37V10.834A3.219,3.219,0,0,0,49.006,7.925Z" transform="translate(0 -1.5)" fill="#0078d7" fill-rule="evenodd"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_48-2" data-name="Group 48" transform="translate(61.823 0)">
+          <g id="logo-bg-11" data-name="logo-bg" transform="translate(0.405 -0.164)">
+            <g id="Rectangle_332-11" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+              <rect width="52" height="52" rx="26" stroke="none"/>
+              <rect x="0.5" y="0.5" width="51" height="51" rx="25.5" fill="none"/>
+            </g>
+          </g>
+          <path id="Path_1850-2" data-name="Path 1850" d="M1481.943,503.28c-.323-.554-.648-1.107-.973-1.66l-6.106-10.421q-2.531-4.319-5.059-8.639a.746.746,0,0,0-1.383-.022c-.38.63-.746,1.269-1.117,1.9l-5.891,10.071q-1.628,2.782-3.265,5.559c-.112.19-.2.395-.04.595a.417.417,0,0,0,.525.077,20.264,20.264,0,0,1,3.727-1.054,11.627,11.627,0,0,1,7.571.917c.218.107.438.165.61-.063s.051-.419-.129-.591a11.421,11.421,0,0,0-5.343-2.922c-.416-.1-.433-.128-.213-.5q1.918-3.275,3.836-6.549c.313-.533.527-.53.842.009q1.429,2.445,2.861,4.889l4.733,8.087c.293.5.189.746-.366.924a7.364,7.364,0,0,1-4.687-.191,28.764,28.764,0,0,1-3.354-1.641,9.648,9.648,0,0,0-12.03,2.594,13,13,0,0,0-1.065,1.428c-.075.116-.139.24-.028.354s.224.034.334-.011c.055-.022.106-.054.158-.081a18.592,18.592,0,0,1,5.788-1.926,9.125,9.125,0,0,1,4.831.536c1.523.613,2.968,1.39,4.468,2.048a9.456,9.456,0,0,0,4.024.945,10.149,10.149,0,0,0,2.642-.355,10.046,10.046,0,0,0,3.589-1.675A1.929,1.929,0,0,0,1481.943,503.28Z" transform="translate(-1443.041 -470.987)" fill="#00acd3"/>
+        </g>
+      </g>
+      <g id="Group_278" data-name="Group 278" transform="translate(1714.213 1739.251)">
+        <g id="Group_119-3" data-name="Group 119" transform="translate(0 18.243)">
+          <g id="logo-bg-12" data-name="logo-bg" transform="translate(-0.213 -0.407)">
+            <g id="Rectangle_332-12" data-name="Rectangle 332" transform="translate(0)" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+              <rect width="99" height="99" rx="31" stroke="none"/>
+              <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+            </g>
+          </g>
+          <g id="Azure_Data_Lake_Store-4" data-name="Azure Data Lake Store" transform="translate(24.336 27.392)">
+            <g id="shape1434-1-4" data-name="shape1434-1" transform="translate(0 0)">
+              <path id="Path_14-4" data-name="Path 14" d="M30.137,5.632l-1.476-2.55A3.216,3.216,0,0,0,25.906,1.5H3.161A3.179,3.179,0,0,0,0,4.661V6.3H30.7A1.833,1.833,0,0,1,30.137,5.632Zm1.835,17.59-9.026,12.9a.5.5,0,0,1-.355.205.308.308,0,0,1-.205-.051.372.372,0,0,1-.2-.509l2.344-7.7H19.276a.517.517,0,0,1-.407-.257.491.491,0,0,1,.051-.458l8.77-12.748a.519.519,0,0,1,.359-.205.384.384,0,0,1,.2.051.371.371,0,0,1,.205.509L26.21,22.508h5.407a.457.457,0,0,1,.458.462C32.075,23.073,32.024,23.124,31.972,23.223Zm17.034-15.3H0V38.37a3.179,3.179,0,0,0,3.161,3.161H47.834A3.179,3.179,0,0,0,51,38.37V10.834A3.219,3.219,0,0,0,49.006,7.925Z" transform="translate(0 -1.5)" fill="#0078d7" fill-rule="evenodd"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_48-3" data-name="Group 48" transform="translate(61.823 0)">
+          <g id="logo-bg-13" data-name="logo-bg" transform="translate(-0.036 -0.164)">
+            <g id="Rectangle_332-13" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+              <rect width="52" height="52" rx="26" stroke="none"/>
+              <rect x="0.5" y="0.5" width="51" height="51" rx="25.5" fill="none"/>
+            </g>
+          </g>
+          <path id="Path_1850-3" data-name="Path 1850" d="M1481.943,503.28c-.323-.554-.648-1.107-.973-1.66l-6.106-10.421q-2.531-4.319-5.059-8.639a.746.746,0,0,0-1.383-.022c-.38.63-.746,1.269-1.117,1.9l-5.891,10.071q-1.628,2.782-3.265,5.559c-.112.19-.2.395-.04.595a.417.417,0,0,0,.525.077,20.264,20.264,0,0,1,3.727-1.054,11.627,11.627,0,0,1,7.571.917c.218.107.438.165.61-.063s.051-.419-.129-.591a11.421,11.421,0,0,0-5.343-2.922c-.416-.1-.433-.128-.213-.5q1.918-3.275,3.836-6.549c.313-.533.527-.53.842.009q1.429,2.445,2.861,4.889l4.733,8.087c.293.5.189.746-.366.924a7.364,7.364,0,0,1-4.687-.191,28.764,28.764,0,0,1-3.354-1.641,9.648,9.648,0,0,0-12.03,2.594,13,13,0,0,0-1.065,1.428c-.075.116-.139.24-.028.354s.224.034.334-.011c.055-.022.106-.054.158-.081a18.592,18.592,0,0,1,5.788-1.926,9.125,9.125,0,0,1,4.831.536c1.523.613,2.968,1.39,4.468,2.048a9.456,9.456,0,0,0,4.024.945,10.149,10.149,0,0,0,2.642-.355,10.046,10.046,0,0,0,3.589-1.675A1.929,1.929,0,0,0,1481.943,503.28Z" transform="translate(-1443.318 -470.987)" fill="#00acd3"/>
+        </g>
+      </g>
+      <text id="Staging_Table_contains_base_data_" data-name="Staging Table
+(contains base data)" transform="translate(829 1906.087)" fill="#707070" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-66.681" y="0">Staging Table</tspan><tspan font-size="18" font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="-79.51" y="24">(contains base data)</tspan></tspan></text>
+      <text id="_Table_Raw_Data_" data-name="             Table
+(Raw Data)" transform="translate(1132 1906.087)" fill="#707070" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-63.743" y="0" xml:space="preserve">             Table</tspan><tspan font-size="18" font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="-42.882" y="24">(Raw Data)</tspan></tspan></text>
+      <text id="_Table_Sanitized_Cleaned_Enriched_Data_" data-name="          Table
+(Sanitized / Cleaned Enriched Data)" transform="translate(1496 1906.087)" fill="#707070" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-55.053" y="0" xml:space="preserve">          Table</tspan><tspan font-size="18" font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="-139.605" y="24">(Sanitized / Cleaned Enriched Data)</tspan></tspan></text>
+      <text id="_Table_Business_Data_" data-name="         Table
+(Business Data)" transform="translate(1759 1906.087)" fill="#707070" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-52.156" y="0" xml:space="preserve">         Table</tspan><tspan font-size="18" font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="-60.104" y="24">(Business Data)</tspan></tspan></text>
+      <text id="Bronze" transform="translate(1102 1906.087)" fill="#a07934" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-34.351" y="0">Bronze</tspan></text>
+      <text id="Silver" transform="translate(1472 1905.087)" fill="silver" font-size="20" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-26.001" y="0">Silver</tspan></text>
+      <text id="Gold" transform="translate(1730 1906.087)" fill="#d3af37" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-23.369" y="0">Gold</tspan></text>
+      <g id="Group_279" data-name="Group 279" transform="translate(620.836 1399.447)">
+        <line id="Line_14" data-name="Line 14" x1="452.74" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10" data-name="Subtraction 10" d="M14.342,14.55H0L7.171,0l7.171,14.549Z" transform="translate(454.549) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_280" data-name="Group 280" transform="translate(829.181 1437.694) rotate(90)">
+        <line id="Line_14-2" data-name="Line 14" x1="299.581" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-2" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(301.191) rotate(90)" fill="#0078d7"/>
+      </g>
+      <line id="Line_142" data-name="Line 142" x1="200.794" transform="translate(621.633 1438.491)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <line id="Line_143" data-name="Line 143" y1="301.191" transform="translate(841.55 1438.491)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <g id="Group_281" data-name="Group 281" transform="translate(1498.906 1483.592)">
+        <g id="Group_126" data-name="Group 126" transform="translate(14.343 51.163) rotate(90)">
+          <line id="Line_14-3" data-name="Line 14" x1="202.52" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-3" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(204.13) rotate(90)" fill="#0078d7"/>
+        </g>
+        <g id="Group_127" data-name="Group 127" transform="translate(0 133.382) rotate(-90)">
+          <line id="Line_14-4" data-name="Line 14" x1="131.773" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-4" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(133.382) rotate(90)" fill="#0078d7"/>
+        </g>
+      </g>
+      <g id="Group_282" data-name="Group 282" transform="translate(1209.493 1415.384)">
+        <g id="Group_124" data-name="Group 124" transform="translate(109.307)">
+          <line id="Line_14-5" data-name="Line 14" x1="110.724" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-5" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(112.334) rotate(90)" fill="#0078d7"/>
+        </g>
+        <line id="Line_74" data-name="Line 74" y1="386.448" transform="translate(110.137 7.171)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <line id="Line_75" data-name="Line 75" x1="111" transform="translate(-0.493 392.703)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      </g>
+      <g id="Group_283" data-name="Group 283" transform="translate(1568.27 1415.384)">
+        <g id="Group_124-2" data-name="Group 124" transform="translate(40.566)">
+          <line id="Line_14-6" data-name="Line 14" x1="88.68" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-6" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(90.29) rotate(90)" fill="#0078d7"/>
+        </g>
+        <line id="Line_74-2" data-name="Line 74" y1="386.448" transform="translate(41.396 7.171)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <line id="Line_75-2" data-name="Line 75" x1="43" transform="translate(-0.27 392.703)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      </g>
+      <g id="Group_284" data-name="Group 284" transform="translate(1755.476 1483.592)">
+        <g id="Group_126-2" data-name="Group 126" transform="translate(14.343 51.163) rotate(90)">
+          <line id="Line_14-7" data-name="Line 14" x1="202.52" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-7" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(204.13) rotate(90)" fill="#0078d7"/>
+        </g>
+        <g id="Group_127-2" data-name="Group 127" transform="translate(0 133.382) rotate(-90)">
+          <line id="Line_14-8" data-name="Line 14" x1="131.773" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-8" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(133.382) rotate(90)" fill="#0078d7"/>
+        </g>
+      </g>
+      <g id="Group_285" data-name="Group 285" transform="translate(1129.19 1483.592)">
+        <g id="Group_126-3" data-name="Group 126" transform="translate(14.343 51.163) rotate(90)">
+          <line id="Line_14-9" data-name="Line 14" x1="202.52" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-9" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(204.13) rotate(90)" fill="#0078d7"/>
+        </g>
+        <g id="Group_127-3" data-name="Group 127" transform="translate(0 133.382) rotate(-90)">
+          <line id="Line_14-10" data-name="Line 14" x1="131.773" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+          <path id="Subtraction_10-10" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(133.382) rotate(90)" fill="#0078d7"/>
+        </g>
+      </g>
+      <g id="Group_286" data-name="Group 286" transform="translate(840.732 1431.319)">
+        <line id="Line_14-11" data-name="Line 14" x1="232.606" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-11" data-name="Subtraction 10" d="M14.342,16.458H0L7.171,0l7.171,16.458Z" transform="translate(234.653) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_287" data-name="Group 287" transform="translate(620.815 1802.629)">
+        <line id="Line_14-12" data-name="Line 14" x1="146.454" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-12" data-name="Subtraction 10" d="M14.342,12.948H0L7.171,0l7.171,12.947Z" transform="translate(148.064) rotate(90)" fill="#0078d7"/>
+      </g>
+      <line id="Line_144" data-name="Line 144" y2="937.183" transform="translate(949.915 1126)" fill="none" stroke="#d7dde4" stroke-width="1" stroke-dasharray="8"/>
+      <line id="Line_145" data-name="Line 145" y2="937.183" transform="translate(1332.379 1126)" fill="none" stroke="#d7dde4" stroke-width="1" stroke-dasharray="8"/>
+      <line id="Line_146" data-name="Line 146" y2="937.183" transform="translate(1858.268 1126)" fill="none" stroke="#d7dde4" stroke-width="1" stroke-dasharray="8"/>
+      <text id="Step_1_-_Ingest_Ingest_raw_data_into_a_temporary_storage_layer_E.g._scheduled_data_import_event_retention_..." data-name="Step 1 - Ingest
+Ingest raw data into a temporary storage layer
+E.g. scheduled data import, event retention, ..." transform="translate(452 1175.087)" fill="#0078d4" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Step 1 - Ingest</tspan><tspan font-size="19" font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="0" y="26">Ingest raw data into a temporary storage layer</tspan><tspan x="0" y="52">E.g. scheduled data import, event retention, ...</tspan></tspan></text>
+      <text id="Step_2_-_Delta_1._Combine_streaming_and_batch_2._Save_data_as_delta_format" data-name="Step 2 - Delta
+1. Combine streaming and batch
+2. Save data as delta format" transform="translate(993 1175.087)" fill="#0078d4" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Step 2 - Delta</tspan><tspan font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="0" y="28">1. Combine streaming and batch</tspan><tspan x="0" y="56">2. Save data as delta format</tspan></tspan></text>
+      <text id="Step_3_-_Prep_Train_1._Join_enrich_clean_transform_data_2._Develop_train_and_score_ML_models" data-name="Step 3 - Prep + Train
+1. Join, enrich, clean, transform data
+2. Develop, train and score ML models" transform="translate(1408 1175.087)" fill="#0078d4" font-size="21" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Step 3 - Prep + Train</tspan><tspan font-family="SegoeUI, Segoe UI" font-weight="400"><tspan x="0" y="28">1. Join, enrich, clean, transform data</tspan><tspan x="0" y="56">2. Develop, train and score ML models</tspan></tspan></text>
+      <g id="Group_288" data-name="Group 288" transform="translate(2124.678 1546.688)">
+        <g id="logo-bg-14" data-name="logo-bg" transform="translate(0.322 0.399)">
+          <g id="Rectangle_332-14" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="PowerBI_Logo" data-name="PowerBI Logo" transform="translate(24.685 22.336)">
+          <g id="microsoft-powerbi">
+            <path id="Path_28" data-name="Path 28" d="M17.239,286.681A3.341,3.341,0,0,1,13.917,290a3.243,3.243,0,0,1-3.321-3.321V272.446a3.341,3.341,0,0,1,3.321-3.322,3.243,3.243,0,0,1,3.321,3.322Zm9.49,3.8a3.341,3.341,0,0,1-3.321,3.321,3.116,3.116,0,0,1-3.163-3.321V268.808a3.341,3.341,0,0,1,3.321-3.321,3.243,3.243,0,0,1,3.321,3.321v21.669ZM7.591,283.518a3.341,3.341,0,0,1-3.321,3.321,3.243,3.243,0,0,1-3.321-3.321v-7.75a3.321,3.321,0,0,1,6.643,0Zm28.628,10.439a3.243,3.243,0,1,1-6.485,0V265.17a3.321,3.321,0,1,1,6.643,0v28.786Z" transform="translate(-0.948 -243.821)" fill="#0078d4"/>
+            <path id="Path_29" data-name="Path 29" d="M69.952,48.921a6.715,6.715,0,0,1-1.737-.316l-3.947-1.263a1.248,1.248,0,1,1,.789-2.368l4.1,1.263a2.534,2.534,0,0,0,2.526-.474,2.56,2.56,0,0,0,1.105-2.21V17.193A2.752,2.752,0,0,0,70.9,14.509L32.221,2.828a2.9,2.9,0,0,0-2.526.316A3.357,3.357,0,0,0,28.59,5.512V23.665a1.263,1.263,0,0,1-2.526,0V5.512a5.033,5.033,0,0,1,2.21-4.262A5.15,5.15,0,0,1,33.01.461L71.53,12.142a5.45,5.45,0,0,1,3.789,5.209V43.712a5.531,5.531,0,0,1-2.21,4.42,10.307,10.307,0,0,1-3.157.789" transform="translate(-24.324 -0.209)" fill="#0078d4"/>
+          </g>
+        </g>
+      </g>
+      <g id="Group_289" data-name="Group 289" transform="translate(1522.663 1356.151)">
+        <g id="logo-bg-15" data-name="logo-bg" transform="translate(0.337 -0.064)">
+          <g id="Rectangle_332-15" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="52" height="52" rx="26" stroke="none"/>
+            <rect x="0.5" y="0.5" width="51" height="51" rx="25.5" fill="none"/>
+          </g>
+        </g>
+        <g id="i_machine-learning" transform="translate(12.49 10.962)">
+          <rect id="Rectangle_264" data-name="Rectangle 264" width="7.001" height="10.537" transform="translate(9.633)" fill="url(#radial-gradient)"/>
+          <path id="Path_1830" data-name="Path 1830" d="M26.583,55.036H3.737L2,48.03H28.32Z" transform="translate(-2 -26.961)" fill="url(#radial-gradient-2)"/>
+          <path id="Path_1831" data-name="Path 1831" d="M3.737,41.558,2,34.552,11.633,24.02h7.054Z" transform="translate(-2 -13.483)" fill="url(#radial-gradient-3)"/>
+          <path id="Path_1832" data-name="Path 1832" d="M44.568,43.781,34.04,33.244l4.369-5.264,7.9,8.8Z" transform="translate(-19.985 -15.706)" fill="url(#radial-gradient-4)"/>
+        </g>
+      </g>
+      <g id="Group_290" data-name="Group 290" transform="translate(848.69 1744.319)">
+        <g id="logo-bg-16" data-name="logo-bg" transform="translate(0.31 -0.232)">
+          <g id="Rectangle_332-16" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="52" height="52" rx="26" stroke="none"/>
+            <rect x="0.5" y="0.5" width="51" height="51" rx="25.5" fill="none"/>
+          </g>
+        </g>
+        <g id="Azure_Storage_Blob" data-name="Azure Storage Blob" transform="translate(9.193 9.385)">
+          <path id="Path_1549" data-name="Path 1549" d="M28.158,7H13.625a1.677,1.677,0,0,0-1.453.839L4.9,20.426a1.679,1.679,0,0,0,0,1.678L12.171,34.69a1.678,1.678,0,0,0,1.453.839H28.158a1.677,1.677,0,0,0,1.453-.839L36.878,22.1a1.679,1.679,0,0,0,0-1.678L29.611,7.839A1.677,1.677,0,0,0,28.158,7Z" transform="translate(-4.68 -7)" fill="#0078d7"/>
+          <path id="Path_1550" data-name="Path 1550" d="M29.265,31.46H15.839A.839.839,0,0,1,15,30.621V13.839A.839.839,0,0,1,15.839,13H26.747L30.1,16.356V30.621A.839.839,0,0,1,29.265,31.46Z" transform="translate(-6.341 -7.965)" fill="#fff"/>
+          <path id="Path_1551" data-name="Path 1551" d="M29,13v2.517a.839.839,0,0,0,.839.839h2.517Z" transform="translate(-8.593 -7.965)" fill="#b1cfff"/>
+          <g id="Group_14" data-name="Group 14" transform="translate(12.267 9.23)">
+            <path id="Path_1552" data-name="Path 1552" d="M21.839,22.905h-1.12V19.338l-1.1.321v-.848l2.118-.733h.1v4.826Z" transform="translate(-19.351 -18.013)" fill="#59b4d9"/>
+            <path id="Path_1553" data-name="Path 1553" d="M28.057,20.92a3,3,0,0,1-.123.907,1.749,1.749,0,0,1-.345.634,1.37,1.37,0,0,1-.53.374,1.831,1.831,0,0,1-.68.123,1.851,1.851,0,0,1-.685-.123,1.366,1.366,0,0,1-.531-.374,1.776,1.776,0,0,1-.347-.634,2.949,2.949,0,0,1-.123-.907v-.882a3,3,0,0,1,.123-.9,1.743,1.743,0,0,1,.345-.636,1.37,1.37,0,0,1,.53-.374A1.808,1.808,0,0,1,26.373,18a1.839,1.839,0,0,1,.681.123,1.378,1.378,0,0,1,.533.374,1.782,1.782,0,0,1,.346.636,2.941,2.941,0,0,1,.125.9ZM26.939,19.9a2.562,2.562,0,0,0-.039-.486,1.05,1.05,0,0,0-.112-.32.445.445,0,0,0-.178-.175.514.514,0,0,0-.237-.053.52.52,0,0,0-.237.053.43.43,0,0,0-.175.175,1.015,1.015,0,0,0-.109.32,2.649,2.649,0,0,0-.038.486v1.16a2.642,2.642,0,0,0,.038.494.964.964,0,0,0,.112.32.439.439,0,0,0,.179.175.526.526,0,0,0,.238.053.508.508,0,0,0,.233-.053.442.442,0,0,0,.178-.175.984.984,0,0,0,.111-.32,2.7,2.7,0,0,0,.039-.494V19.9Z" transform="translate(-20.168 -18)" fill="#59b4d9"/>
+            <path id="Path_1554" data-name="Path 1554" d="M22.663,29.011a3,3,0,0,1-.123.907,1.749,1.749,0,0,1-.345.634,1.37,1.37,0,0,1-.53.374,1.831,1.831,0,0,1-.68.123,1.851,1.851,0,0,1-.685-.123,1.367,1.367,0,0,1-.531-.374,1.777,1.777,0,0,1-.347-.634,2.949,2.949,0,0,1-.123-.907v-.882a3,3,0,0,1,.123-.9,1.742,1.742,0,0,1,.345-.636,1.37,1.37,0,0,1,.53-.374,1.958,1.958,0,0,1,1.364,0,1.378,1.378,0,0,1,.533.374,1.782,1.782,0,0,1,.346.636,2.941,2.941,0,0,1,.125.9v.882Zm-1.117-1.025a2.561,2.561,0,0,0-.039-.486,1.05,1.05,0,0,0-.112-.32.445.445,0,0,0-.178-.175.558.558,0,0,0-.474,0,.429.429,0,0,0-.175.175,1.016,1.016,0,0,0-.109.32,2.649,2.649,0,0,0-.038.486v1.16a2.643,2.643,0,0,0,.038.494.964.964,0,0,0,.112.32.439.439,0,0,0,.179.175.526.526,0,0,0,.238.053.507.507,0,0,0,.233-.053.442.442,0,0,0,.178-.175.984.984,0,0,0,.111-.32,2.7,2.7,0,0,0,.039-.494v-1.16Z" transform="translate(-19.3 -19.302)" fill="#59b4d9"/>
+            <path id="Path_1555" data-name="Path 1555" d="M27.233,31h-1.12V27.428l-1.1.321V26.9l2.118-.733h.1V31Z" transform="translate(-20.219 -19.314)" fill="#59b4d9"/>
+          </g>
+        </g>
+      </g>
+      <line id="Line_147" data-name="Line 147" x1="158.563" transform="translate(1834.364 1438.491)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <line id="Line_148" data-name="Line 148" x1="158.563" transform="translate(1834.364 1406.619)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <g id="Group_291" data-name="Group 291" transform="translate(1999.477 1437.707) rotate(90)">
+        <line id="Line_14-13" data-name="Line 14" x1="101.721" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-13" data-name="Subtraction 10" d="M14.342,16.458H0L7.171,0l7.171,16.458Z" transform="translate(103.768) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_292" data-name="Group 292" transform="translate(1985.136 1407.403) rotate(-90)">
+        <line id="Line_14-14" data-name="Line 14" x1="101.373" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-14" data-name="Subtraction 10" d="M14.342,16.458H0L7.171,0l7.171,16.458Z" transform="translate(103.42) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_293" data-name="Group 293" transform="translate(2058.523 1585.97)">
+        <line id="Line_14-15" data-name="Line 14" x1="51.269" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-15" data-name="Subtraction 10" d="M14.342,16.458H0L7.171,0l7.171,16.458Z" transform="translate(53.315) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_294" data-name="Group 294" transform="translate(2058.524 1233.784)">
+        <line id="Line_14-16" data-name="Line 14" x1="51.269" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-16" data-name="Subtraction 10" d="M14.342,16.458H0L7.171,0l7.171,16.458Z" transform="translate(53.315) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_295" data-name="Group 295" transform="translate(230.403 1676.714)">
+        <path id="Subtraction_1" data-name="Subtraction 1" d="M55.775,70.119H0V0H31.872V23.905h23.9V70.119Z" transform="translate(0 0.02)" fill="#0078d4"/>
+        <path id="Path_1851" data-name="Path 1851" d="M2102.925,407.958h-23.961V383.987Z" transform="translate(-2047.15 -383.987)" fill="#50e6ff"/>
+      </g>
+      <g id="Group_296" data-name="Group 296" transform="translate(227.418 1835.533)">
+        <path id="Union_2" data-name="Union 2" d="M6.42,60V55.136H27.288V43.784H0V0H61V43.784H33.709V55.136H54.578V60Z" transform="translate(-0.418 -0.446)" fill="#0078d4"/>
+        <rect id="Rectangle_338" data-name="Rectangle 338" width="23" height="5" transform="translate(33.582 24.554)" fill="#50e6ff"/>
+        <rect id="Rectangle_339" data-name="Rectangle 339" width="23" height="5" transform="translate(33.582 18.554)" fill="#50e6ff"/>
+        <rect id="Rectangle_340" data-name="Rectangle 340" width="23" height="5" transform="translate(33.582 11.554)" fill="#50e6ff"/>
+        <ellipse id="Ellipse_41" data-name="Ellipse 41" cx="11" cy="10.5" rx="11" ry="10.5" transform="translate(5.582 10.554)" fill="#50e6ff"/>
+        <path id="Path_1852" data-name="Path 1852" d="M2044.5,392v10.568h10.393" transform="translate(-2027.971 -381.877)" fill="none" stroke="#0078d4" stroke-width="0.5"/>
+        <path id="Path_1853" data-name="Path 1853" d="M2044.5,401.3l7.771-7.154" transform="translate(-2027.971 -380.605)" fill="none" stroke="#0078d4" stroke-width="0.5"/>
+      </g>
+      <g id="Group_297" data-name="Group 297" transform="translate(237.553 1546.688)">
+        <circle id="Ellipse_42" data-name="Ellipse 42" cx="21" cy="21" r="21" transform="translate(0.447 0.399)" fill="#0078d4"/>
+        <path id="Path_1854" data-name="Path 1854" d="M2069.755,413.507l-15.1,9.35V402.75Z" transform="translate(-2038.454 -392.622)" fill="#50e6ff"/>
+      </g>
+      <g id="Group_298" data-name="Group 298" transform="translate(222.351 1411.893)">
+        <rect id="Rectangle_341" data-name="Rectangle 341" width="72" height="46" transform="translate(-0.351 0.194)" fill="#0078d4"/>
+        <rect id="Rectangle_342" data-name="Rectangle 342" width="60" height="4" transform="translate(6.649 37.194)" fill="#50e6ff"/>
+        <rect id="Rectangle_343" data-name="Rectangle 343" width="60" height="5" transform="translate(6.649 27.194)" fill="#50e6ff"/>
+        <rect id="Rectangle_344" data-name="Rectangle 344" width="60" height="4" transform="translate(6.649 18.194)" fill="#50e6ff"/>
+        <circle id="Ellipse_43" data-name="Ellipse 43" cx="3.5" cy="3.5" r="3.5" transform="translate(58.649 6.194)" fill="#50e6ff"/>
+        <ellipse id="Ellipse_44" data-name="Ellipse 44" cx="3" cy="3.5" rx="3" ry="3.5" transform="translate(49.649 6.194)" fill="#50e6ff"/>
+        <circle id="Ellipse_45" data-name="Ellipse 45" cx="3.5" cy="3.5" r="3.5" transform="translate(39.649 6.194)" fill="#50e6ff"/>
+      </g>
+      <g id="Group_299" data-name="Group 299" transform="translate(230.459 1271.018)">
+        <ellipse id="Ellipse_46" data-name="Ellipse 46" cx="17" cy="17.5" rx="17" ry="17.5" transform="translate(10.541 10.069)" fill="#0078d4"/>
+        <ellipse id="Ellipse_47" data-name="Ellipse 47" cx="4.5" cy="5" rx="4.5" ry="5" transform="translate(44.541 13.069)" fill="#0078d4"/>
+        <ellipse id="Ellipse_48" data-name="Ellipse 48" cx="5" cy="4.5" rx="5" ry="4.5" transform="translate(45.541 28.069)" fill="#0078d4"/>
+        <ellipse id="Ellipse_49" data-name="Ellipse 49" cx="4.5" cy="5" rx="4.5" ry="5" transform="translate(33.541 45.069)" fill="#50e6ff"/>
+        <circle id="Ellipse_50" data-name="Ellipse 50" cx="5" cy="5" r="5" transform="translate(5.541 40.069)" fill="#50e6ff"/>
+        <ellipse id="Ellipse_51" data-name="Ellipse 51" cx="5.5" cy="5" rx="5.5" ry="5" transform="translate(-0.459 13.069)" fill="#0078d4"/>
+        <ellipse id="Ellipse_52" data-name="Ellipse 52" cx="4.5" cy="5" rx="4.5" ry="5" transform="translate(10.541 2.069)" fill="#0078d4"/>
+        <circle id="Ellipse_53" data-name="Ellipse 53" cx="4.5" cy="4.5" r="4.5" transform="translate(25.541 0.069)" fill="#50e6ff"/>
+      </g>
+      <text id="Sensors_and_IoT_unstructured_" data-name="Sensors and IoT
+(unstructured)" transform="translate(254 1352.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-55.723" y="0">Sensors and IoT</tspan><tspan x="-51.086" y="20">(unstructured)</tspan></text>
+      <text id="Logs_unstructured_" data-name="Logs
+(unstructured)" transform="translate(254 1486.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-16.362" y="0">Logs</tspan><tspan x="-51.086" y="20">(unstructured)</tspan></text>
+      <text id="Video_unstructured_" data-name="Video
+(unstructured)" transform="translate(254 1615.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-20.42" y="0">Video</tspan><tspan x="-51.086" y="20">(unstructured)</tspan></text>
+      <text id="Files_unstructured_" data-name="Files
+(unstructured)" transform="translate(254 1774.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-15.52" y="0">Files</tspan><tspan x="-51.086" y="20">(unstructured)</tspan></text>
+      <text id="Business_Custom_Apps_structured_" data-name="Business / Custom 
+Apps
+(structured)" transform="translate(258 1922.087)" fill="#707980" font-size="14" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-61.94" y="0">Business / Custom </tspan><tspan x="-16.683" y="19">Apps</tspan><tspan x="-39.211" y="38">(structured)</tspan></text>
+      <g id="Group_300" data-name="Group 300" transform="translate(385.779 1415.384)">
+        <line id="Line_14-17" data-name="Line 14" x1="108.373" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-17" data-name="Subtraction 10" d="M14.342,14.55H0L7.171,0l7.171,14.549Z" transform="translate(110.182) rotate(90)" fill="#0078d7"/>
+      </g>
+      <g id="Group_301" data-name="Group 301" transform="translate(385.779 1802.629)">
+        <line id="Line_14-18" data-name="Line 14" x1="108.373" transform="translate(0 7.214)" fill="none" stroke="#0078d7" stroke-width="1"/>
+        <path id="Subtraction_10-18" data-name="Subtraction 10" d="M14.342,14.55H0L7.171,0l7.171,14.549Z" transform="translate(110.182) rotate(90)" fill="#0078d7"/>
+      </g>
+      <line id="Line_149" data-name="Line 149" y1="631.066" transform="translate(385.779 1288.692)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <line id="Line_150" data-name="Line 150" x2="15.936" transform="translate(369.843 1288.692)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <line id="Line_151" data-name="Line 151" x2="15.936" transform="translate(369.843 1919.759)" fill="none" stroke="#0078d7" stroke-width="1"/>
+      <g id="Group_302" data-name="Group 302" transform="translate(2135.826 1201.086)">
+        <path id="Union_2-2" data-name="Union 2" d="M8.209,75V68.92H34.893V54.73H0V0H78V54.73H43.1V68.92H69.788V75Z" transform="translate(0.174 0)" fill="#0078d4"/>
+        <rect id="Rectangle_338-2" data-name="Rectangle 338" width="31" height="6" transform="translate(43.174 34)" fill="#50e6ff"/>
+        <rect id="Rectangle_339-2" data-name="Rectangle 339" width="31" height="7" transform="translate(43.174 24)" fill="#50e6ff"/>
+        <rect id="Rectangle_340-2" data-name="Rectangle 340" width="31" height="7" transform="translate(43.174 16)" fill="#50e6ff"/>
+        <ellipse id="Ellipse_41-2" data-name="Ellipse 41" cx="13" cy="14" rx="13" ry="14" transform="translate(8.174 15)" fill="#50e6ff"/>
+        <path id="Path_1852-2" data-name="Path 1852" d="M2044.5,392v13.567h13.343" transform="translate(-2022.494 -376.925)" fill="none" stroke="#0078d4" stroke-width="0.5"/>
+        <path id="Path_1853-2" data-name="Path 1853" d="M2044.5,403.326l9.977-9.184" transform="translate(-2022.494 -374.684)" fill="none" stroke="#0078d4" stroke-width="0.5"/>
+      </g>
+      <text id="Applications" transform="translate(2165 1163.087)" fill="#707980" font-size="14" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-41.016" y="0">Applications</tspan></text>
+      <text id="Databricks" transform="translate(1132 1339.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-37.408" y="0">Databricks</tspan></text>
+      <text id="Databricks-2" data-name="Databricks" transform="translate(1503 1339.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-37.408" y="0">Databricks</tspan></text>
+      <text id="Databricks-3" data-name="Databricks" transform="translate(1760 1339.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-37.408" y="0">Databricks</tspan></text>
+      <text id="Azure_Synapse_Analytics" data-name="Azure
+Synapse Analytics" transform="translate(1989 1680.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-20.416" y="0">Azure</tspan><tspan x="-62.681" y="20">Synapse Analytics</tspan></text>
+      <text id="PowerBI" transform="translate(2171 1679.087)" fill="#707980" font-size="14" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-27.197" y="0">PowerBI</tspan></text>
+      <text id="Azure_IoT_Hub" data-name="Azure IoT Hub" transform="translate(551 1339.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-50.845" y="0">Azure IoT Hub</tspan></text>
+      <text id="Azure_Data_Factory" data-name="Azure Data
+Factory" transform="translate(550 1898.087)" fill="#707980" font-size="14" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-36.405" y="0">Azure Data</tspan><tspan x="-24.367" y="19">Factory</tspan></text>
+      <text id="CosmosDB" transform="translate(1995 1164.087)" fill="#707980" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-37.657" y="0">CosmosDB</tspan></text>
+      <g id="Group_303" data-name="Group 303" transform="translate(1943.262 1544.661)">
+        <g id="logo-bg-17" data-name="logo-bg" transform="translate(-0.262 0.426)">
+          <g id="Rectangle_332-17" data-name="Rectangle 332" fill="#f7f7f7" stroke="rgba(0,120,215,0.12)" stroke-width="1">
+            <rect width="99" height="99" rx="31" stroke="none"/>
+            <rect x="0.5" y="0.5" width="98" height="98" rx="30.5" fill="none"/>
+          </g>
+        </g>
+        <g id="azure-synapse" transform="translate(24.168 19.797)">
+          <path id="Path_1860" data-name="Path 1860" d="M26.695,0,1.15,14.611V43.9L26.695,58.574,52.24,43.963V14.676ZM47.521,40.9,26.695,52.944,5.868,41.034V17.507L26.695,5.467,47.521,17.54Z" transform="translate(-1.15)" fill="#0078d4"/>
+          <path id="Path_1861" data-name="Path 1861" d="M26.695,0,1.15,14.611l4.718,2.9L26.695,5.467l20.826,12.04,4.718-2.9Z" transform="translate(-1.15)" fill="rgba(0,0,0,0)"/>
+          <path id="Path_1862" data-name="Path 1862" d="M23.83,22.427A14.058,14.058,0,0,0,6.909,12.046L5.77,7.3A18.939,18.939,0,0,1,28.549,21.32Z" transform="translate(9.264 15.288)" fill="#50e6ff"/>
+          <path id="Path_1863" data-name="Path 1863" d="M33.32,29.021a2.408,2.408,0,0,0-3.254-.879L3.61,43.372,8.491,46.2l23.95-13.83a2.473,2.473,0,0,0,.879-3.352ZM33.873,2.24,9.858,16.1a2.473,2.473,0,0,0-.879,3.254,2.441,2.441,0,0,0,2.115,1.2,2.245,2.245,0,0,0,1.2-.325L38.787,4.941Z" transform="translate(4.395 5.049)" fill="#50e6ff"/>
+          <path id="Path_1864" data-name="Path 1864" d="M30.191,17.408a6.02,6.02,0,1,0,6.02,6.02,6.02,6.02,0,0,0-6.02-6.02ZM10.08,5.27a6.02,6.02,0,1,0,6.02,6.02,6.02,6.02,0,0,0-6.02-6.02Z" transform="translate(5.409 11.879)" fill="#50e6ff"/>
+        </g>
+      </g>
+    </g>
+    <text id="data_parsing_Extraction" data-name="data parsing &amp; Extraction" transform="translate(1264 767)" fill="#1a202c" font-size="30" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">DATA PARSING &amp; EXTRACTION</tspan></text>
+    <text id="Once_data_is_downloaded_it_can_be_parsed_and_extracted._For_this_it_s_common_to_utilize_a_technique_called_Regular_Expressions_or_XPaths." data-name="Once data is downloaded, it can be parsed and extracted. For this it&apos;s common to utilize a technique called &quot;Regular Expressions&quot; or XPaths." transform="translate(1264 805)" fill="#718096" font-size="24" font-family="SegoeUI, Segoe UI"><tspan x="0" y="26">Once data is downloaded, it can be parsed and extracted. For this it&apos;s common to utilize a technique </tspan><tspan x="0" y="58">called &quot;Regular Expressions&quot; or XPaths.</tspan></text>
+    <g id="CodeExample" transform="translate(-691 -1104)">
+      <g id="Rectangle_537" data-name="Rectangle 537" transform="translate(917 2027)" fill="#fafafb" stroke="#eaeaef" stroke-width="1">
+        <rect width="988" height="276" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="987" height="275" rx="2.5" fill="none"/>
+      </g>
+      <g id="Rectangle_547" data-name="Rectangle 547" transform="translate(932 2084)" fill="#fff" stroke="#eaeaef" stroke-width="1">
+        <rect width="958" height="204" stroke="none"/>
+        <rect x="0.5" y="0.5" width="957" height="203" fill="none"/>
+      </g>
+      <text id="import_puppeteer_from_puppeteer_const_browser_await_puppeteer.launch_const_page_await_browser.newPage_await_page.goto_https:_xaviergeerinck.com_const_html_await_page.evaluate_document.documentElement.outerHTML_console.log_html_" data-name="import puppeteer from &apos;puppeteer&apos;;
+const browser = await puppeteer.launch();
+const page = await browser.newPage();
+await page.goto(&apos;https://xaviergeerinck.com&apos;);
+const html = await page.evaluate(() =&gt; document.documentElement.outerHTML);
+console.log(html);" transform="translate(947 2099)" fill="#4a5568" font-size="16" font-family="Consolas"><tspan x="0" y="15">import puppeteer from &apos;puppeteer&apos;;</tspan><tspan x="0" y="34">const browser = await puppeteer.launch();</tspan><tspan x="0" y="53">const page = await browser.newPage();</tspan><tspan x="0" y="72">await page.goto(&apos;https://xaviergeerinck.com&apos;);</tspan><tspan x="0" y="91">const html = await page.evaluate(() =&gt; document.documentElement.outerHTML);</tspan><tspan x="0" y="110">console.log(html);</tspan></text>
+      <text id="Example_javascript_" data-name="Example (javascript)" transform="translate(932 2068)" fill="#4a5568" font-size="24" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Example </tspan><tspan y="0" font-size="18" font-family="SegoeUI-SemiboldItalic, Segoe UI" font-style="italic">(javascript)</tspan></text>
+    </g>
+    <g id="CodeExample-2" data-name="CodeExample" transform="translate(347 -1104)">
+      <g id="Rectangle_537-2" data-name="Rectangle 537" transform="translate(917 2027)" fill="#fafafb" stroke="#eaeaef" stroke-width="1">
+        <rect width="988" height="276" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="987" height="275" rx="2.5" fill="none"/>
+      </g>
+      <g id="Rectangle_547-2" data-name="Rectangle 547" transform="translate(932 2084)" fill="#fff" stroke="#eaeaef" stroke-width="1">
+        <rect width="958" height="204" stroke="none"/>
+        <rect x="0.5" y="0.5" width="957" height="203" fill="none"/>
+      </g>
+      <text id="_XPath_const_xPath_html_1_body_1_div_1_document.evaluate_xPath_document_null_XPathResult.FIRST_ORDERED_NODE_TYPE_null_.singleNodeValue_Regular_Expression_RegEx_const_str_Hello_World_const_re_new_RegExp_A-Za-z_g_const" data-name="// XPath
+const xPath = &apos;//html[1]/body[1]/div[1]&apos;;
+document.evaluate(xPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
+// Regular Expression (RegEx)
+const str = &quot;Hello World!&quot;
+const re = new RegExp(/[A-Za-z]*/, &apos;g&apos;);
+const" transform="translate(947 2099)" fill="#4a5568" font-size="16" font-family="Consolas"><tspan x="0" y="15">// XPath</tspan><tspan x="0" y="34">const xPath = &apos;//html[1]/body[1]/div[1]&apos;;</tspan><tspan x="0" y="53">document.evaluate(xPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;</tspan><tspan x="0" y="72"></tspan><tspan x="0" y="91">// Regular Expression (RegEx)</tspan><tspan x="0" y="110">const str = &quot;Hello World!&quot;</tspan><tspan x="0" y="129">const re = new RegExp(/[A-Za-z]*/, &apos;g&apos;);</tspan><tspan x="0" y="148">const matches = str.match(re);</tspan><tspan x="0" y="167">--&gt; [&quot;Hello&quot;, &quot;&quot;, &quot;World&quot;, &quot;&quot;, &quot;&quot;]</tspan></text>
+      <text id="Example_javascript_2" data-name="Example (javascript)" transform="translate(932 2068)" fill="#4a5568" font-size="24" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Example </tspan><tspan y="0" font-size="18" font-family="SegoeUI-SemiboldItalic, Segoe UI" font-style="italic">(javascript)</tspan></text>
+    </g>
+    <g id="Table" transform="translate(-393 1111)">
+      <g id="Rectangle_389" data-name="Rectangle 389" transform="translate(619 246)" fill="#fff" stroke="#e3e7f0" stroke-width="1">
+        <rect width="2028" height="324" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="2027" height="323" rx="2.5" fill="none"/>
+      </g>
+      <rect id="Rectangle_520" data-name="Rectangle 520" width="2028" height="40" transform="translate(619 246)" fill="#f2f5f7"/>
+      <text id="PROVIDER" transform="translate(639 273)" fill="#718096" font-size="18" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">PROVIDER</tspan></text>
+      <line id="Line_115" data-name="Line 115" x2="2028" transform="translate(619 357)" fill="none" stroke="#edf2f7" stroke-width="1"/>
+      <line id="Line_116" data-name="Line 116" x2="2028" transform="translate(619 499)" fill="none" stroke="#edf2f7" stroke-width="1"/>
+      <line id="Line_117" data-name="Line 117" x2="2028" transform="translate(619 428)" fill="none" stroke="#edf2f7" stroke-width="1"/>
+      <line id="Line_118" data-name="Line 118" x2="2028" transform="translate(619 286)" fill="none" stroke="#cbd5e0" stroke-width="1"/>
+      <g id="Row_1" data-name="Row 1" transform="translate(645 315)">
+        <text id="Kaggle" transform="translate(0 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Kaggle</tspan></text>
+        <text id="https:_www.kaggle.com_datasets" data-name="https://www.kaggle.com/datasets" transform="translate(181 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">https://www.kaggle.com/datasets</tspan></text>
+      </g>
+      <g id="Row_2" data-name="Row 2" transform="translate(645 386)">
+        <text id="https:_azure.microsoft.com_en-us_services_open-datasets_catalog_" data-name="https://azure.microsoft.com/en-us/services/open-datasets/catalog/" transform="translate(181 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">https://azure.microsoft.com/en-us/services/open-datasets/catalog/</tspan></text>
+        <text id="Microsoft" transform="translate(0 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Microsoft</tspan></text>
+      </g>
+      <g id="Row_3" data-name="Row 3" transform="translate(645 457)">
+        <text id="Google" transform="translate(0 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Google</tspan></text>
+        <text id="https:_console.cloud.google.com_marketplace_browse_filter_solution-type:dataset" data-name="https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset" transform="translate(181 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">https://console.cloud.google.com/marketplace/browse?filter=solution-type:dataset</tspan></text>
+      </g>
+      <g id="Row_4" data-name="Row 4" transform="translate(645 528)">
+        <text id="Amazon" transform="translate(0 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">Amazon</tspan></text>
+        <text id="https:_registry.opendata.aws_" data-name="https://registry.opendata.aws/" transform="translate(181 13)" fill="#4a5568" font-size="16" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">https://registry.opendata.aws/</tspan></text>
+      </g>
+      <text id="url" transform="translate(825 273)" fill="#718096" font-size="18" font-family="SegoeUI-Semibold, Segoe UI" font-weight="600"><tspan x="0" y="0">URL</tspan></text>
+    </g>
+  </g>
+</svg>
