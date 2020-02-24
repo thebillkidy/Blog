@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>AI Battlecards - End to End Process for building and evaluating AI models</title>
+        
+          <description>&lt;p&gt;A couple of months ago it struck me that my personal knowledge in AI could be improved quite a bit. That’s why I took the time to brush up on the different concepts ranging from data gathering until the evaluation of a deployed model.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 24 Feb 2020 09:00:00 +0000</pubDate>
+        <link>
+        /ai-battlecards</link>
+        <guid isPermaLink="true">/ai-battlecards</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Getting started with Dapr, Python and gRPC</title>
         
           <description>&lt;p&gt;The cloud war is heating up and one of the main challenges is the fear of lock-in created by these providers. Helping the raise of Kubernetes as a provider, since this allows customers to quickly move between one and the other (a deployment is a deployment, no matter the cloud you run it on.).&lt;/p&gt;
