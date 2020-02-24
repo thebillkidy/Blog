@@ -15,6 +15,11 @@ A couple of months ago it struck me that my personal knowledge in AI could be im
 
 While brushing up my knowledge, I also thought on how I could share this back to the community as well as have a quick overview of everything I learned with pointers and tips of where I should look at to go more in depth on a topic. Making me end up in creating the following battle cards that I hope are useful for everyone to print and use as a kind of "Cheat Sheets".
 
+As you might notice, there is no sklearn being utilized in steps 2. This is because I wanted to make a clear distinction between a **Data Engineer** and a **Data Scientist**, with the following reasoning:
+
+* **Data Engineer:** They often utilize Spark, so we want to utilize the strength and scale-out capabilities of spark, without completely relying on the head node. Therefor I utilize Pandas examples as much as possible, which can be scaled through the [Koalas](https://github.com/databricks/koalas) platform.
+* **Data Scientist:** They often use different libraries, with sklearn being one of them.
+
 > **Note:** I realize that these are far from perfect, but I want them to be. If you encounter any remarks, please post them below and I will look at incorporating them :)
 
 Printable Version:
