@@ -1,7 +1,7 @@
 ---
 layout: post
 current: post
-cover: 'assets/images/covers/ai6.jpg'
+cover: 'assets/images/covers/ai7.jpg'
 navigation: True
 title: AI Battlecards - End to End Process for building and evaluating AI models
 date: 2020-02-24 09:00:00
