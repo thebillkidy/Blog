@@ -8,7 +8,7 @@ picture_gallery_1: 'assets/images/projects/scraper.ai/page-profile.png'
 picture_gallery_2: 'assets/images/projects/scraper.ai/page-recipe-creator.png' 
 picture_gallery_3: 'assets/images/projects/scraper.ai/page-recipe-details.png' 
 tags: project nodejs # , delimited
-background: f15843 # Can be a color or a picture url
+background: 263041 # Can be a color or a picture url
 logo: 'assets/images/projects/scraper.ai/logo-full.png' # Can be a picture url or a name
 class: project-template
 ---
