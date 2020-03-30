@@ -10,7 +10,7 @@
 
 
 
-    <title>How to benchmark Reading 10MB in C++</title>
+    <title>Azure Optimization Tips and Tricks</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -24,30 +24,30 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="My thoughts, tutorials and learnings" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/benchmarking-reading-10mb-cpp" />
+    <link rel="canonical" href="/azure-optimization-tips-and-tricks" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="Xavier Geerinck - Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="How to benchmark Reading 10MB in C++" />
-    <meta property="og:description" content="This article is based on a vagrant Ubuntu system with an SSD so you might encounter different results. When reading and writing files in C++ it is important to use the correct buffer size or the block size. This will drastically improve the time it takes to read in files" />
-    <meta property="og:url" content="/benchmarking-reading-10mb-cpp" />
-    <meta property="og:image" content="/assets/images/covers/coding2.jpg" />
+    <meta property="og:title" content="Azure Optimization Tips and Tricks" />
+    <meta property="og:description" content="For most businesses out there it are hard times due to the recent crisis, causing a lot of pressure on optimizing OPEX costs as much as possible. That’s why I would love to help all of you out there with some quick tips and tricks on how you can keep" />
+    <meta property="og:url" content="/azure-optimization-tips-and-tricks" />
+    <meta property="og:image" content="/assets/images/covers/microsoft3.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/" />
     <meta property="article:author" content="https://www.facebook.com/" />
-    <meta property="article:published_time" content="2015-06-05T11:00:01+00:00" />
-    <meta property="article:modified_time" content="2015-06-05T11:00:01+00:00" />
-    <meta property="article:tag" content="Coding" />
+    <meta property="article:published_time" content="2020-03-30T09:00:00+00:00" />
+    <meta property="article:modified_time" content="2020-03-30T09:00:00+00:00" />
+    <meta property="article:tag" content="Azure" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="How to benchmark Reading 10MB in C++" />
-    <meta name="twitter:description" content="This article is based on a vagrant Ubuntu system with an SSD so you might encounter different results. When reading and writing files in C++ it is important to use the correct buffer size or the block size. This will drastically improve the time it takes to read in files" />
+    <meta name="twitter:title" content="Azure Optimization Tips and Tricks" />
+    <meta name="twitter:description" content="For most businesses out there it are hard times due to the recent crisis, causing a lot of pressure on optimizing OPEX costs as much as possible. That’s why I would love to help all of you out there with some quick tips and tricks on how you can keep" />
     <meta name="twitter:url" content="/" />
-    <meta name="twitter:image" content="/assets/images/covers/coding2.jpg" />
+    <meta name="twitter:image" content="/assets/images/covers/microsoft3.jpg" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Xavier Geerinck - Blog" />
     <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="Coding" />
+    <meta name="twitter:data2" content="Azure" />
     <meta name="twitter:site" content="@XavierGeerinck" />
     <meta name="twitter:creator" content="@XavierGeerinck" />
     <meta property="og:image:width" content="1400" />
@@ -62,23 +62,23 @@
         "name": "Xavier Geerinck - Blog",
         "logo": "/false"
     },
-    "url": "/benchmarking-reading-10mb-cpp",
+    "url": "/azure-optimization-tips-and-tricks",
     "image": {
         "@type": "ImageObject",
-        "url": "/assets/images/covers/coding2.jpg",
+        "url": "/assets/images/covers/microsoft3.jpg",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/benchmarking-reading-10mb-cpp"
+        "@id": "/azure-optimization-tips-and-tricks"
     },
-    "description": "This article is based on a vagrant Ubuntu system with an SSD so you might encounter different results. When reading and writing files in C++ it is important to use the correct buffer size or the block size. This will drastically improve the time it takes to read in files"
+    "description": "For most businesses out there it are hard times due to the recent crisis, causing a lot of pressure on optimizing OPEX costs as much as possible. That’s why I would love to help all of you out there with some quick tips and tricks on how you can keep"
 }
     </script>
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="How to benchmark Reading 10MB in C++" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Azure Optimization Tips and Tricks" href="/feed.xml" />
 
 
 
@@ -138,20 +138,16 @@ into the {body} of the default.hbs template -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <article class="post-full post tag-algorithms ">
+        <article class="post-full post ">
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime=" 5 June 2015"> 5 June 2015</time>
+                    <time class="post-full-meta-date" datetime="30 March 2020">30 March 2020</time>
                     
                         <span class="date-divider">/</span>
                         
                             
-                               <a href='/tag/coding/'>CODING</a>,
-                            
-                        
-                            
-                               <a href='/tag/coding-cpp/'>CODING-CPP</a>
+                               <a href='/tag/azure/'>AZURE</a>
                             
                         
                     
@@ -159,168 +155,91 @@ into the {body} of the default.hbs template -->
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/covers/coding2.jpg)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/covers/microsoft3.jpg)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                        <h1 class="post-full-title">How to benchmark Reading 10MB in C++</h1>
-                    <blockquote>
-  <p>This article is based on a vagrant Ubuntu system with an SSD so you might encounter different results.</p>
+                        <h1 class="post-full-title">Azure Optimization Tips and Tricks</h1>
+                    <p>For most businesses out there it are hard times due to the recent crisis, causing a lot of pressure on optimizing OPEX costs as much as possible. That’s why I would love to help all of you out there with some quick tips and tricks on how you can keep your spendings to a minimum on the Azure platform, or how you are able to gain quick benefits.</p>
+
+<p>This list is for sure far of complete, but I will keep adding more along the way. Always feel free to comment below so I can add your tips and tricks to the list as well.</p>
+
+<h1 id="tips-and-tricks---general">Tips and Tricks - General</h1>
+
+<p>Let’s start of with some general guidance when optimizing workloads:</p>
+
+<h2 id="shutdownresume-vs-scale-downscale-up">Shutdown/Resume vs Scale-Down/Scale-Up</h2>
+
+<p>One of the - by far easiest - ways of optimising your workload is to start looking into Shutting Down and Resuming or Scaling Down and Scaling Up your workload. However, when doing this we have to keep some points into account that might influence our decision here. Here you can find a list of advantages and disadvantages that each choice entails.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Shutdown/Resume</th>
+      <th>Scale-Down/Scale-Up</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Advantages</strong></td>
+      <td>• <strong>Savings are more substantial</strong> than scaling-down since compute will be turned off completely</td>
+      <td>• Very <strong>easy to realize gain</strong> (almost no engineering effort needed), especially on Development, Staging and Testing environments</td>
+    </tr>
+    <tr>
+      <td><strong>Disadvantages</strong></td>
+      <td>• <strong>Engineering Effort is larger</strong> compared to scale-down/scale-up<br />• <strong>Requires automation code</strong> to ensure successful start-up of the components</td>
+      <td>• <strong>Requires upfront knowledge of current utilization rate</strong> (might be more difficult to calculate)<br />• <strong>Cost savings are not maximized</strong> (though compensation happens due to low engineering cost)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As a <strong>summary</strong> I would suggest to do the following when performing this excercise:</p>
+<ul>
+  <li>What is the dependency graph of your architecture components?</li>
+  <li>Is the trade-off engineering effort &lt;&gt; cost gains worth it?</li>
+</ul>
+
+<p>To <strong>realize the decision</strong> made above, create a script that is able to automate the decision above, utilizing either the <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI</a> or <a href="https://docs.microsoft.com/en-us/powershell/azure/install-az-ps">PowerShell Module</a> together with <a href="https://docs.microsoft.com/en-us/azure/logic-apps/">Azure Logic Apps</a> or <a href="https://docs.microsoft.com/en-us/azure/automation/">Azure Automation</a></p>
+
+<blockquote>
+  <p>Note: an example of Starting/Stopping VMs during off-hours can be found here: <a href="https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management">https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management</a></p>
 </blockquote>
 
-<p>When reading and writing files in C++ it is important to use the correct buffer size or the block size. This will drastically improve the time it takes to read in files or write to files.</p>
+<h1 id="tips-and-tricks---service-dependent">Tips and Tricks - Service Dependent</h1>
 
-<p>Let’s create a 10Mb file in C++ with the following code (we are not using a buffer here since we are benchmarking the reading so this doesn’t matter):</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include
-#include
-#include // rand, srand
-#include // time
-#include // perror
-</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
-
-  <span class="c1">// Open file in write only, create if not exist and always truncate mode.</span>
-  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
-
-  <span class="k">if</span> <span class="p">((</span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"test.txt"</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="n">S_IRUSR</span> <span class="o">|</span> <span class="n">S_IRGRP</span> <span class="o">|</span> <span class="n">S_IROTH</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">};</span>
-
-  <span class="c1">// Write 10Mb chars</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">cr</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">26</span> <span class="o">+</span> <span class="sc">'a'</span><span class="p">;</span>
-
-    <span class="c1">// Write 1 byte char to fd</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cr</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-      <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">};</span>
-  <span class="p">}</span>
-
-  <span class="c1">// Close the FD</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-  <span class="p">};</span>
-
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>This simply create a text file with random characters from the alphabet in it for 10Mb.</p>
-
-<p>Now when we want to read this file we can do this in different block sizes. This next piece of code will time how long it takes to read in the file with different block sizes.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include
-#include // read
-#include // rand, srand
-#include // time
-#include // perror
-#include // malloc
-</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-
-  <span class="c1">// Read 10Mb in decrementing BUF_SIZES into the buffer</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8192</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Create buffer to load it in</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">);</span>
-
-    <span class="c1">// Start timing</span>
-    <span class="kt">double</span> <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
-
-    <span class="c1">// Open file in write only, create if not exist and always truncate mode.</span>
-    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
-
-    <span class="c1">// Open file</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"test.txt"</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-      <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-      <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">};</span>
-
-    <span class="c1">// Keep reading the count while count == i, this means we have still remaining bytes</span>
-    <span class="kt">int</span> <span class="n">count</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">((</span><span class="n">count</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-      <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-      <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">while</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">((</span><span class="n">count</span> <span class="o">==</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-        <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="kt">double</span> <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">CLOCKS_PER_SEC</span><span class="p">;</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">"BUF_SIZE=%6d Time=%4fn"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
-
-    <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">free</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-      <span class="n">perror</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-      <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">};</span>
-
-  <span class="p">}</span>
-
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>After running this file we get the following result:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make main &amp;&amp; ./main
-g++ main.cpp -o main
-BUF_SIZ= 1 Time=0.39
-BUF_SIZ= 2 Time=0.27
-BUF_SIZ= 4 Time=0.19
-BUF_SIZ= 8 Time=0.08
-BUF_SIZ= 16 Time=0.03
-BUF_SIZ= 32 Time=0.02
-BUF_SIZ= 64 Time=0.02
-BUF_SIZ= 128 Time=0.01
-BUF_SIZ= 256 Time=0.00
-BUF_SIZ= 512 Time=0.00
-BUF_SIZ=1024 Time=0.00
-BUF_SIZ=2048 Time=0.00
-BUF_SIZ=4096 Time=0.00
-BUF_SIZ=8192 Time=0.00
-</code></pre></div></div>
-
-<p>We can clearly see that when using a buffer size of 1 that the performance is slower then when using a buffer size of 256 or 8. Now let’s create a 100Mb file and execute it on that new file.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BUF_SIZ= 1 Time=3.66
-BUF_SIZ= 2 Time=1.91
-BUF_SIZ= 4 Time=0.95
-BUF_SIZ= 8 Time=0.40
-BUF_SIZ= 16 Time=0.20
-BUF_SIZ= 32 Time=0.11
-BUF_SIZ= 64 Time=0.07
-BUF_SIZ= 128 Time=0.04
-BUF_SIZ= 256 Time=0.01
-BUF_SIZ= 512 Time=0.02
-BUF_SIZ=1024 Time=0.01
-BUF_SIZ=2048 Time=0.01
-BUF_SIZ=4096 Time=0.01
-BUF_SIZ=8192 Time=0.01
-</code></pre></div></div>
-
-<p>We can now clearly see that the bigger the buffer size the faster the reading, however when the buffer size gets big enough the performance gain is almost the same.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Tips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Azure CosmosDB</strong></td>
+      <td>• Utilize <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/provision-throughput-autopilot">AutoPilot</a> if possible<br />• If multiple containers are used, try to enable <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput">shared throughput</a><br />• <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-query-metrics#best-practices-for-query-performance">Optimize your query performance</a></td>
+    </tr>
+    <tr>
+      <td><strong>Azure Databricks</strong></td>
+      <td>• When running automated jobs, utilize the <strong>“Data Engineering”</strong> tier! (Don’t utilize the clusters page in Databricks, use an On-Demand cluster through the Jobs page or <a href="https://docs.microsoft.com/en-us/azure/data-factory/solution-template-databricks-notebook">Azure Data Factory</a>)</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Kubernetes Service (AKS)</strong></td>
+      <td>• Turn down the development, staging or production nodes towards 1 where possible.</td>
+    </tr>
+    <tr>
+      <td><strong>Virtual Machines (VM)</strong></td>
+      <td>• If you know your workload, you can easily apply <a href="https://azure.microsoft.com/en-us/pricing/reserved-vm-instances/">reserved instances</a> where possible for a 1Y or 3Y commitment</td>
+    </tr>
+    <tr>
+      <td><strong>SQL DB</strong></td>
+      <td>• If you have multiple databases that have a varying load, it could be interesting to utilize <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-pool">Elastic Pools</a></td>
+    </tr>
+  </tbody>
+</table>
 
                 </div>
             </section>
@@ -361,7 +280,7 @@ BUF_SIZ=8192 Time=0.01
                     <script>
                         var disqus_config = function () {
                             this.page.url = window.location.href;
-                            this.page.identifier = '/benchmarking-reading-10mb-cpp';
+                            this.page.identifier = '/azure-optimization-tips-and-tricks';
                         };
                         (function() {
                             var d = document, s = d.createElement('script');
@@ -395,7 +314,7 @@ BUF_SIZ=8192 Time=0.01
                         <header class="read-next-card-header">
                             <small class="read-next-card-header-sitetitle">&mdash; Xavier Geerinck - Blog &mdash;</small>
                             
-                                <h3 class="read-next-card-header-title"><a href="/tag/coding/">Coding</a></h3>
+                                <h3 class="read-next-card-header-title"><a href="/tag/azure/">Azure</a></h3>
                             
                         </header>
                         <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
@@ -405,11 +324,20 @@ BUF_SIZ=8192 Time=0.01
                                 
                                 
                                   
-                                
+                                    
                                   
                                 
                                   
                                 
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/iot-hub-realtime-action-flow">Act in realtime on IoT Data without writing any code through Azure IoT Hub, Event Grid, Cosmos DB and Logic Apps</a></li>
+                                        
+                                    
                                   
                                 
                                   
@@ -426,80 +354,12 @@ BUF_SIZ=8192 Time=0.01
                                   
                                 
                                   
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
                                     
                                         
                                         
-                                            <li><a href="/stream-sampling">Sampling a real-time stream</a></li>
+                                            <li><a href="/1-pub-to-100k-sub">Creating a Pub/Sub system with 100.000 subscribers and 1 publisher</a></li>
                                         
                                     
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                            <li><a href="/minecraft-rfc-scanner">Building a Minecraft Puppet Scanner with Event Hub, a NFC 522 Reader and a Raspberry PI</a></li>
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
                                   
                                 
                                   
@@ -520,198 +380,6 @@ BUF_SIZ=8192 Time=0.01
                                     
                                         
                                         
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
                                     
                                   
                                 
@@ -764,14 +432,195 @@ BUF_SIZ=8192 Time=0.01
                                         
                                         
                                     
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
+                                  
+                                
                                   
                                 
                             </ul>
                         </div>
                         <footer class="read-next-card-footer">
-                            <a href="/tag/coding/">
+                            <a href="/tag/azure/">
                                 
-                                    See all 30 posts  →
+                                    See all 16 posts  →
                                 
                             </a>
                         </footer>
@@ -784,29 +633,29 @@ BUF_SIZ=8192 Time=0.01
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/basic-oop">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding4.jpg)"></div>
+            <a class="post-card-image-link" href="/ai-battlecards">
+                <div class="post-card-image" style="background-image: url(/assets/images/covers/ai7.jpg)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/basic-oop">
+            <a class="post-card-content-link" href="/ai-battlecards">
                 <header class="post-card-header">
                     
                         
                             
-                               <span class="post-card-tags">Coding</span>
+                               <span class="post-card-tags">Ai</span>
                             
                         
                             
-                                <span class="post-card-tags">Coding-cpp</span>
+                                <span class="post-card-tags">Ai-ml</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">Basic OOP with C++</h2>
+                    <h2 class="post-card-title">AI Battlecards - End to End Process for building and evaluating AI models</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>This article is going to explain 1 example of an Object Oriented Program for C++. We will create a small program that allows us to create figures, these being: A circle A rectangle</p>
+                    <p>A couple of months ago it struck me that my personal knowledge in AI could be improved quite a bit. That’s why I took the time to brush up on the different concepts</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -828,50 +677,6 @@ BUF_SIZ=8192 Time=0.01
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/creating-a-linkedlist">
-                <div class="post-card-image" style="background-image: url(/assets/images/covers/coding4.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/creating-a-linkedlist">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Coding</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Coding-cpp</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Creating a LinkedList with C++</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>Linked Lists are one of the fundamental data structures. The main usage of a Linked List is when constant insertion and deletion time is required, or when a dynamic list that can grow</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/avatar.jpg" alt="Xavier Geerinck" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/xavier/">Xavier Geerinck</a>
-                        </span>
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
         </div>
     </div>
 </aside>
@@ -887,23 +692,23 @@ BUF_SIZ=8192 Time=0.01
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">How to benchmark Reading 10MB in C++</div>
+    <div class="floating-header-title">Azure Optimization Tips and Tricks</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=How+to+benchmark+Reading+10MB+in+C%2B%2B&amp;url=https://thebillkidy.github.io/benchmarking-reading-10mb-cpp"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Azure+Optimization+Tips+and+Tricks&amp;url=https://thebillkidy.github.io/azure-optimization-tips-and-tricks"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/benchmarking-reading-10mb-cpp"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thebillkidy.github.io/azure-optimization-tips-and-tricks"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
         </a>
-        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/benchmarking-reading-10mb-cpp&title=How+to+benchmark+Reading+10MB+in+C%2B%2B&source=https://thebillkidy.github.io/"
+        <a class="floating-header-share-li" href="https://www.linkedin.com/shareArticle?mini=true&url=https://thebillkidy.github.io/azure-optimization-tips-and-tricks&title=Azure+Optimization+Tips+and+Tricks&source=https://thebillkidy.github.io/"
             onclick="window.open(this.href, 'share-linkedin','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>

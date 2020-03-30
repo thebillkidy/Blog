@@ -1,4 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-03-27T15:58:48+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">AI Battlecards - End to End Process for building and evaluating AI models</title><link href="/ai-battlecards" rel="alternate" type="text/html" title="AI Battlecards - End to End Process for building and evaluating AI models" /><published>2020-02-24T09:00:00+00:00</published><updated>2020-02-24T09:00:00+00:00</updated><id>/ai-battlecards</id><content type="html" xml:base="/ai-battlecards">&lt;p&gt;A couple of months ago it struck me that my personal knowledge in AI could be improved quite a bit. That’s why I took the time to brush up on the different concepts ranging from data gathering until the evaluation of a deployed model.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-03-30T12:41:50+00:00</updated><id>/feed.xml</id><title type="html">Xavier Geerinck - Blog</title><subtitle>My thoughts, tutorials and learnings</subtitle><entry><title type="html">Azure Optimization Tips and Tricks</title><link href="/azure-optimization-tips-and-tricks" rel="alternate" type="text/html" title="Azure Optimization Tips and Tricks" /><published>2020-03-30T09:00:00+00:00</published><updated>2020-03-30T09:00:00+00:00</updated><id>/azure-optimization-tips-and-tricks</id><content type="html" xml:base="/azure-optimization-tips-and-tricks">&lt;p&gt;For most businesses out there it are hard times due to the recent crisis, causing a lot of pressure on optimizing OPEX costs as much as possible. That’s why I would love to help all of you out there with some quick tips and tricks on how you can keep your spendings to a minimum on the Azure platform, or how you are able to gain quick benefits.&lt;/p&gt;
+
+&lt;p&gt;This list is for sure far of complete, but I will keep adding more along the way. Always feel free to comment below so I can add your tips and tricks to the list as well.&lt;/p&gt;
+
+&lt;h1 id=&quot;tips-and-tricks---general&quot;&gt;Tips and Tricks - General&lt;/h1&gt;
+
+&lt;p&gt;Let’s start of with some general guidance when optimizing workloads:&lt;/p&gt;
+
+&lt;h2 id=&quot;shutdownresume-vs-scale-downscale-up&quot;&gt;Shutdown/Resume vs Scale-Down/Scale-Up&lt;/h2&gt;
+
+&lt;p&gt;One of the - by far easiest - ways of optimising your workload is to start looking into Shutting Down and Resuming or Scaling Down and Scaling Up your workload. However, when doing this we have to keep some points into account that might influence our decision here. Here you can find a list of advantages and disadvantages that each choice entails.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Shutdown/Resume&lt;/th&gt;
+      &lt;th&gt;Scale-Down/Scale-Up&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Advantages&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• &lt;strong&gt;Savings are more substantial&lt;/strong&gt; than scaling-down since compute will be turned off completely&lt;/td&gt;
+      &lt;td&gt;• Very &lt;strong&gt;easy to realize gain&lt;/strong&gt; (almost no engineering effort needed), especially on Development, Staging and Testing environments&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Disadvantages&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• &lt;strong&gt;Engineering Effort is larger&lt;/strong&gt; compared to scale-down/scale-up&lt;br /&gt;• &lt;strong&gt;Requires automation code&lt;/strong&gt; to ensure successful start-up of the components&lt;/td&gt;
+      &lt;td&gt;• &lt;strong&gt;Requires upfront knowledge of current utilization rate&lt;/strong&gt; (might be more difficult to calculate)&lt;br /&gt;• &lt;strong&gt;Cost savings are not maximized&lt;/strong&gt; (though compensation happens due to low engineering cost)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;As a &lt;strong&gt;summary&lt;/strong&gt; I would suggest to do the following when performing this excercise:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;What is the dependency graph of your architecture components?&lt;/li&gt;
+  &lt;li&gt;Is the trade-off engineering effort &amp;lt;&amp;gt; cost gains worth it?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To &lt;strong&gt;realize the decision&lt;/strong&gt; made above, create a script that is able to automate the decision above, utilizing either the &lt;a href=&quot;https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest&quot;&gt;Azure CLI&lt;/a&gt; or &lt;a href=&quot;https://docs.microsoft.com/en-us/powershell/azure/install-az-ps&quot;&gt;PowerShell Module&lt;/a&gt; together with &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/logic-apps/&quot;&gt;Azure Logic Apps&lt;/a&gt; or &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/automation/&quot;&gt;Azure Automation&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: an example of Starting/Stopping VMs during off-hours can be found here: &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management&quot;&gt;https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;tips-and-tricks---service-dependent&quot;&gt;Tips and Tricks - Service Dependent&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Service&lt;/th&gt;
+      &lt;th&gt;Tips&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Azure CosmosDB&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• Utilize &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/cosmos-db/provision-throughput-autopilot&quot;&gt;AutoPilot&lt;/a&gt; if possible&lt;br /&gt;• If multiple containers are used, try to enable &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput&quot;&gt;shared throughput&lt;/a&gt;&lt;br /&gt;• &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-query-metrics#best-practices-for-query-performance&quot;&gt;Optimize your query performance&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Azure Databricks&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• When running automated jobs, utilize the &lt;strong&gt;“Data Engineering”&lt;/strong&gt; tier! (Don’t utilize the clusters page in Databricks, use an On-Demand cluster through the Jobs page or &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/data-factory/solution-template-databricks-notebook&quot;&gt;Azure Data Factory&lt;/a&gt;)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Azure Kubernetes Service (AKS)&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• Turn down the development, staging or production nodes towards 1 where possible.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Virtual Machines (VM)&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• If you know your workload, you can easily apply &lt;a href=&quot;https://azure.microsoft.com/en-us/pricing/reserved-vm-instances/&quot;&gt;reserved instances&lt;/a&gt; where possible for a 1Y or 3Y commitment&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;SQL DB&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;• If you have multiple databases that have a varying load, it could be interesting to utilize &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-pool&quot;&gt;Elastic Pools&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><summary type="html">For most businesses out there it are hard times due to the recent crisis, causing a lot of pressure on optimizing OPEX costs as much as possible. That’s why I would love to help all of you out there with some quick tips and tricks on how you can keep your spendings to a minimum on the Azure platform, or how you are able to gain quick benefits.</summary></entry><entry><title type="html">AI Battlecards - End to End Process for building and evaluating AI models</title><link href="/ai-battlecards" rel="alternate" type="text/html" title="AI Battlecards - End to End Process for building and evaluating AI models" /><published>2020-02-24T09:00:00+00:00</published><updated>2020-02-24T09:00:00+00:00</updated><id>/ai-battlecards</id><content type="html" xml:base="/ai-battlecards">&lt;p&gt;A couple of months ago it struck me that my personal knowledge in AI could be improved quite a bit. That’s why I took the time to brush up on the different concepts ranging from data gathering until the evaluation of a deployed model.&lt;/p&gt;
 
 &lt;p&gt;While brushing up my knowledge, I also thought on how I could share this back to the community as well as have a quick overview of everything I learned with pointers and tips of where I should look at to go more in depth on a topic. Making me end up in creating the following battle cards that I hope are useful for everyone to print and use as a kind of “Cheat Sheets”.&lt;/p&gt;
 
@@ -2189,160 +2266,4 @@ Your browser does not support the video tag.
 Your browser does not support the video tag.
 &lt;/video&gt;
 
-&lt;p&gt;To see the full code that was used to create this example, feel free to check this repository: &lt;a href=&quot;https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project&quot;&gt;https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project&lt;/a&gt;.&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-c" /><summary type="html">Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner</summary></entry><entry><title type="html">Utilizing OpenCV in C# .NET Core to grab frames from a video</title><link href="/opencv-in-dotnet-core" rel="alternate" type="text/html" title="Utilizing OpenCV in C# .NET Core to grab frames from a video" /><published>2019-08-27T09:00:00+00:00</published><updated>2019-08-27T09:00:00+00:00</updated><id>/opencv-in-dotnet-core</id><content type="html" xml:base="/opencv-in-dotnet-core">&lt;p&gt;While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. &lt;a href=&quot;https://opencv.org/&quot;&gt;OpenCV&lt;/a&gt; is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do we utilize this in .NET Core?&lt;/p&gt;
-
-&lt;p&gt;For the example in this Blog Post, we will work on the use case of &lt;strong&gt;extracting frames from a video file&lt;/strong&gt; and saving these individually.&lt;/p&gt;
-
-&lt;h2 id=&quot;installing-opencv&quot;&gt;Installing OpenCV&lt;/h2&gt;
-
-&lt;p&gt;To install OpenCV, we will utilize a docker container (since most of our applications run there nowadays anyways). The following will take care of :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Downloading and installing OpenCV&lt;/li&gt;
-  &lt;li&gt;Downloading and installing OpenCV-Contrib&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM microsoft/dotnet:2.1-sdk AS build-env
-MAINTAINER Xavier Geerinck &amp;lt;xageerin@microsoft.com&amp;gt;
-
-ENV &lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4.1.1&quot;&lt;/span&gt;
-ENV &lt;span class=&quot;nv&quot;&gt;OPENCV_INSTALLATION_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/opt/opencv/&quot;&lt;/span&gt;
-ENV &lt;span class=&quot;nv&quot;&gt;OPENCV_SHARP_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4.1.0.20190417&quot;&lt;/span&gt;
-
-WORKDIR /app
-
-&lt;span class=&quot;c&quot;&gt;# =================================&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Install OpenCV 4 &amp;amp; OpenCV_contrib&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# =================================&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Update Packages&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;build-essential checkinstall cmake pkg-config yasm
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;git gfortran
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libjpeg8-dev libjpeg-dev libpng-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libjasper1
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libtiff-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libxine2-dev libv4l-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libgtk2.0-dev libtbb-dev qt5-default
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libatlas-base-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libfaac-dev libmp3lame-dev libtheora-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libvorbis-dev libxvidcore-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libopencore-amrnb-dev libopencore-amrwb-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libavresample-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;x264 v4l-utils
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libprotobuf-dev protobuf-compiler
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libgoogle-glog-dev libgflags-dev
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libtbb2 libjasper-dev libdc1394-22-dev
-
-&lt;span class=&quot;c&quot;&gt;# Download version&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_INSTALLATION_DIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-RUN wget https://github.com/opencv/opencv/archive/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.zip &lt;span class=&quot;nt&quot;&gt;-Oopencv-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.zip
-RUN unzip opencv-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.zip
-RUN wget https://github.com/opencv/opencv_contrib/archive/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.zip &lt;span class=&quot;nt&quot;&gt;-Oopencv_contrib-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.zip
-RUN unzip opencv_contrib-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;.zip
-
-&lt;span class=&quot;c&quot;&gt;# Install OpenCV&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;opencv-&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;build &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;build
-RUN cmake .. &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;-DCMAKE_BUILD_TYPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Release &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;-DOPENCV_EXTRA_MODULES_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;../../opencv_contrib-4.1.0/modules &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;# you might want to specify other CMake flags through -Dflag=value&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; ^processor /proc/cpuinfo&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-j8&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ldconfig
-
-&lt;span class=&quot;c&quot;&gt;# Copy libs&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#RUN cd $OPENCV_INSTALLATION_DIR/lib&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#RUN cp -r * /usr/lib&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;installing-opencv-sharp&quot;&gt;Installing OpenCV Sharp&lt;/h2&gt;
-
-&lt;p&gt;To utilize OpenCV in .NET we luckily have access to a wrapper library called &lt;a href=&quot;https://github.com/shimat/opencvsharp&quot;&gt;OpenCVSharp&lt;/a&gt;. So we will add this to our Dockerfile to be installed:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# =================================&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Install OpenCV Sharp&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# =================================&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_INSTALLATION_DIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-RUN git clone https://github.com/shimat/opencvsharp.git opencvsharp
-RUN &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;opencvsharp
-RUN git fetch &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--prune&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git checkout &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_SHARP_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;src
-RUN &lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;build
-RUN &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;build
-RUN cmake &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CMAKE_INSTALL_PREFIX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPENCV_INSTALLATION_DIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; ..
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; ^processor /proc/cpuinfo&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install
-&lt;/span&gt;RUN &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ldconfig
-RUN &lt;span class=&quot;nb&quot;&gt;sudo cp &lt;/span&gt;OpenCvSharpExtern/libOpenCvSharpExtern.so /usr/lib
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;creating-our-project&quot;&gt;Creating our project&lt;/h2&gt;
-
-&lt;p&gt;For our project we will now create a dotnet project, here we will simply take an existing &lt;code class=&quot;highlighter-rouge&quot;&gt;mp4&lt;/code&gt; file and process it in our code.&lt;/p&gt;
-
-&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nf&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./out.mp4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;videoPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[VideoProcessor] Processing videoPath &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[VideoProcessor] &quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Video exists&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Video does not exist&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-
-	&lt;span class=&quot;n&quot;&gt;VideoCapture&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;capture&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;VideoCapture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;videoPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-	&lt;span class=&quot;c1&quot;&gt;// using (Window window = new Window(&quot;capture&quot;))&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Frame image buffer&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;frameIndex&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-		&lt;span class=&quot;c1&quot;&gt;// Loop while we can read an image (aka: image.Empty is not true)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;c1&quot;&gt;// Read the next&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;capture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-			&lt;span class=&quot;c1&quot;&gt;// We only want to save every FPS hit since we have 1 image per second -&amp;gt; mod&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frameIndex&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;capture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fps&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;saveResult&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SaveImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;image_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frameIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.png&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[VideoProcessor] Saved image #&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frameIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-			&lt;span class=&quot;n&quot;&gt;frameIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;++;&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;$&quot;[VideoProcessor] Done Processing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;deploying-our-project-with-docker&quot;&gt;Deploying our Project with Docker&lt;/h2&gt;
-
-&lt;p&gt;To deploy our project, we now need of course to adapt our Dockerfile as well. To do this we will add the following code:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# =================================&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Install our .NET project&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# =================================&lt;/span&gt;
-COPY &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.csproj ./
-RUN dotnet restore
-
-COPY &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; ./
-RUN dotnet publish &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; Release &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; out
-
-FROM microsoft/dotnet:2.1-runtime-stretch-slim
-WORKDIR /app
-COPY &lt;span class=&quot;nt&quot;&gt;--from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;build-env /app/out ./
-
-RUN useradd &lt;span class=&quot;nt&quot;&gt;-ms&lt;/span&gt; /bin/bash moduleuser
-USER moduleuser
-
-ENTRYPOINT &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dotnet&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;ModuleFilterCamera.dll&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We are now done and are able to utilize OpenCV in dotnet core!&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-csharp" /><summary type="html">While working on a blog post where I was utilizing .NET Core I wanted to be able to utilize OpenCV. OpenCV is a library of functions that allow us to quickly perform computer vision tasks (e.g. making a picture black and white, canny edge, face recognition, …). But how do we utilize this in .NET Core?</summary></entry></feed>
+&lt;p&gt;To see the full code that was used to create this example, feel free to check this repository: &lt;a href=&quot;https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project&quot;&gt;https://github.com/thebillkidy/PublicProjects/tree/master/C/AzureSphere-Avnet-E2E-Project&lt;/a&gt;.&lt;/p&gt;</content><author><name>Xavier Geerinck</name></author><category term="azure" /><category term="coding-c" /><summary type="html">Smart Retail with the AVNet MT3620 Starter Kit and an NFC scanner</summary></entry></feed>
